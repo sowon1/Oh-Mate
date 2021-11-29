@@ -94,67 +94,68 @@
     </nav>
 </div>
 <!-- 로그인 하고 마이페이지 누를경우 오른쪽에서 나타나는 슬라이딩 메뉴 -->
-<c:if test="">
-	<c:choose>
-		<%-- 1.회원등급 :  --%>
-		<c:when test="">
-			<nav id="sidenav">
-			    <span id="close_sidenav">&times;</span>
-			    <header>
-			        <img src="/resources/img/icon/profile.png">
-			        <p class="name">관리자</p>
-			        <p class="id">oh-mate</p>
-			    </header>
-			    <ul>
-			      <li><a href="#">메뉴1</a></li>
-			      <li><a href="#">메뉴2</a></li>
-			      <li><a href="#">메뉴3</a></li>
+<c:choose>
+	<%-- 1.회원등급 :  --%>
+	<c:when test="">
+		<nav id="sidenav">
+		    <span id="close_sidenav">&times;</span>
+		    <header>
+		        <img src="/resources/img/icon/profile.png">
+		        <p class="name">관리자</p>
+		        <p class="id">oh-mate</p>
+		    </header>
+		    <ul>
+		      <li><a href="#">메뉴1</a></li>
+		      <li><a href="#">메뉴2</a></li>
+		      <li><a href="#">메뉴3</a></li>
+		      <li><a href="#">메뉴4</a></li>
+		      <li><a href="#">메뉴5</a></li>
+		      <li><a href="#">로그아웃</a></li>
+		    </ul>
+		</nav>
+	</c:when>
+	<%-- 2.회원등급 :  --%>
+	<c:when test="">
+		<nav id="sidenav">
+		    <span id="close_sidenav">&times;</span>
+		    <header>
+		        <img src="/resources/img/icon/profile.png">
+		        <p class="name">메이트</p>
+		        <p class="id">oh-mate</p>
+		    </header>
+		    <ul>
+		      <li><a href="#">메뉴1</a></li>
+		      <li><a href="#">메뉴2</a></li>
+		      <li><a href="#">메뉴3</a></li>
+		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
+		      <c:when test="">	      
 			      <li><a href="#">메뉴4</a></li>
 			      <li><a href="#">메뉴5</a></li>
-			      <li><a href="#">로그아웃</a></li>
-			    </ul>
-			</nav>
-		</c:when>
-		<%-- 2.회원등급 :  --%>
-		<c:when test="">
-			<nav id="sidenav">
-			    <span id="close_sidenav">&times;</span>
-			    <header>
-			        <img src="/resources/img/icon/profile.png">
-			        <p class="name">메이트</p>
-			        <p class="id">oh-mate</p>
-			    </header>
-			    <ul>
-			      <li><a href="#">메뉴1</a></li>
-			      <li><a href="#">메뉴2</a></li>
-			      <li><a href="#">메뉴3</a></li>
-			      <li><a href="#">메뉴4</a></li>
-			      <li><a href="#">메뉴5</a></li>
-			      <li><a href="#">로그아웃</a></li>
-			    </ul>
-			</nav>
-		</c:when>
-		<%-- 2.회원등급 :  --%>
-		<c:when test="">
-			<nav id="sidenav">
-			    <span id="close_sidenav">&times;</span>
-			    <header>
-			        <img src="/resources/img/icon/profile.png">
-			        <p class="name">헬퍼</p>
-			        <p class="id">oh-mate</p>
-			    </header>
-			    <ul>
-			      <li><a href="#">메뉴1</a></li>
-			      <li><a href="#">메뉴2</a></li>
-			      <li><a href="#">메뉴3</a></li>
-			      <li><a href="#">메뉴4</a></li>
-			      <li><a href="#">메뉴5</a></li>
-			      <li><a href="#">로그아웃</a></li>
-			    </ul>
-			</nav>
-		</c:when>
-	</c:choose>
-</c:if>
+		      </c:when>   	
+		      <li><a href="#">로그아웃</a></li>
+		    </ul>
+		</nav>
+	</c:when>
+	<%-- 2.회원등급 :  --%>
+	<c:when test="">
+		<nav id="sidenav">
+		    <span id="close_sidenav">&times;</span>
+		    <header>
+		        <img src="/resources/img/icon/profile.png">
+		        <p class="name">하우스오너</p>
+		        <p class="id">oh-mate</p>
+		    </header>
+		    <ul>
+		      <li><a href="#">메뉴1</a></li>
+		      <li><a href="#">메뉴2</a></li>
+		      <li><a href="#">메뉴3</a></li>
+		      <li><a href="#">메뉴4</a></li>
+		      <li><a href="#">메뉴5</a></li>
+		      <li><a href="#">로그아웃</a></li>
+		    </ul>
+		</nav>
+	</c:when>
+</c:choose>
 <div class="main_btn">
     <a href="#" class="chat_icon2"><img src="/resources/img/icon/chat_close.png"></a>
     <a href="#" class="chat_icon"><img src="/resources/img/icon/chat_on.png"></a>
