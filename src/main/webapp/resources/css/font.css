@@ -1,0 +1,28 @@
+@font-face {
+  font-family: "ns_100";
+  src: local("font"), url(/resources/font/NotoSansKR-Thin.otf);
+}
+@font-face {
+  font-family: "ns_300";
+  src: local("font"), url(/resources/font/NotoSansKR-Light.otf);
+}
+@font-face {
+  font-family: "ns_400";
+  src: local("font"), url(/resources/font/NotoSansKR-Regular.otf);
+}
+@font-face {
+  font-family: "ns_500";
+  src: local("font"), url(/resources/font/NotoSansKR-Medium.otf);
+}
+@font-face {
+  font-family: "ns_700";
+  src: local("font"), url(/resources/font/NotoSansKR-Bold.otf);
+}
+@font-face {
+  font-family: "ns_900";
+  src: local("font"), url(/resources/font/NotoSansKR-Black.otf);
+}
+@font-face {
+  font-family: "logo";
+  src: local("font"), url(/resources/font/JalnanOTF.otf);
+}

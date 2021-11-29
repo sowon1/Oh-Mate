@@ -121,7 +121,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,windows
-# /src/ 경로하고 제외할 폴더 (보통 업로드폴더)
 .classpath
 .project
 /target/
+# 제외폴더 (업로드 이미지들은 무거워지니까 예외처리)
+/src/main/webapp/resources/upload/
