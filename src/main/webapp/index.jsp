@@ -10,7 +10,7 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="container">
-	
+	<h1>test</h1>
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
