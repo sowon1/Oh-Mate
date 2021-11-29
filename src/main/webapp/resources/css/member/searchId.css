@@ -1,0 +1,100 @@
+@charset "UTF-8";
+	.search_wrap{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: #f8f8fa;
+		overflow-y: scroll;
+	}
+	.search_wrap .search_container{
+		width: 600px;
+		margin: 150px auto 210px;
+	}
+	.search_wrap .search_cont{
+		background: #fff;
+		padding: 50px 45px 60px;
+	}
+	.btn_wrap{
+		padding: 30px 0 0;
+	}
+	.btn_wrap a{
+		display: block;
+		line-height: 60px;
+		border-radius: 5px;
+		background: #D35460;
+		text-align: center;
+		font-size: 15px;
+		color: #fff;
+		font-weight:bold;
+		letter-spacing:-0.5px;
+		text-decoration: none;
+	}
+	.search_wrap .search_cont>p{
+		font-size: 15px;
+		color: #828282;
+		letter-spacing: -0.5px;
+		line-height: 1.5;
+	}
+	.searchId-wrap{
+		width:500px;
+		border: 2px solid rgba(155, 89, 182, 0.81);
+		margin:0 auto;
+	}	
+	.searchId-table{
+		margin:0 auto;
+		width:400px;
+		height:500px;
+		margin-top:40px;
+	}	
+	.searchIdMiddle{
+		color:rgba(155, 89, 182, 0.81);
+		font-size:30px;
+		text-align:center;
+		padding-bottom:15px;
+		font-weight:bolder;
+	}		
+	.searchId-button{
+		text-align:center;	
+		padding-bottom: 30px;
+	}
+	.searchId-button>input{
+		color:white;
+		width:250px;
+		height:50px;
+		border: 0;
+		border-radius: 10px;
+		background-color: rgba(155, 89, 182, 0.81);
+		font-size: 20px;
+		
+	}
+	.searchId-input{
+		height:55px;
+		width:100%;
+		font-size:18px;
+	}	
+	.searchId-tab{
+		height:50px;
+		width:50%;
+		text-align:center;
+		float:left;
+		border-bottom: 1px solid rgba(155, 89, 182, 0.81);
+	}	
+	.searchId-tab > a{
+		text-decoration: none;
+		font-size: 23px;
+		line-height: 50px;
+	}	
+	.searchId-tab:nth-child(1){
+		background-color:rgba(155, 89, 182, 0.81);
+	}		
+	.searchId-tab:nth-child(1)>a{
+		color:#fff;
+	}	
+	.searchId-tab:nth-child(2)>a{
+		color:rgba(155, 89, 182, 0.81);
+	}
+	#searchName, #searchEmail{
+		height:130px;
+	}

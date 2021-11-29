@@ -1,15 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<head>
+<!-- jQuery라이브러리 -->
+<script type="text/javascript" src="/resources/js/jquery-3.3.1.js"></script>
+<!--  JSTL 확장 c 태그 선언문 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 폰트어썸(아이콘) -->
+<link rel="stylesheet" href="/resources/fontawesome/css/all.css">
+<script type="text/javascript" src="/resources/fontawesome/js/all.js"></script>
+<!-- 부트스트랩 CSS -->
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
+<!-- 부트스트랩용 jQuery -->
+<script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
 <!-- 기본 CSS -->
 <link rel="stylesheet" href="/resources/css/default.css">
 <!-- 폰트 CSS -->
 <link rel="stylesheet" href="/resources/css/font.css">
-<!-- jQuery라이브러리 -->
-<script type="text/javascript" src="/resources/js/jquery-3.3.1.js"></script>
-<!--  JSTL 확장 c 태그 선언문 -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><head>
-
+</head>
 <div class="back_dark"></div>
 <div class="nav_wrap">
     <nav class="nav">
@@ -38,10 +45,10 @@
            		<%-- 로그아웃 상태 --%>
            		<c:when test="${empty sessionScope.member}">
            			<li>
-           				<a href="/login">로그인</a>
+           				<a data-toggle="modal" href="#modal1">로그인</a>
            			</li>
            			<li>
-           				<a href="/join">회원가입</a>
+           				<a href="/joinFrm.do">회원가입</a>
            			</li>
            		</c:when>
            		<%-- 로그인 시 --%>
@@ -93,6 +100,43 @@
         </ul>
     </nav>
 </div>
+	<!-- 로그인 modal -->
+	<div class="modal" id="modal1">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+			        <div class="brand_logo">
+			            <a href="/">Oh-Mate!</a>
+			        </div>
+					<h5 class="modal-title" style="padding-right:160px;">로그인</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="/login.do" method="post" class="loginForm">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="memberId">아이디</label>
+							<input type="text" name="memberId" id="memberId" 
+							class="form-control" placeholder="아이디입력">
+						</div><br>
+						<div class="form-group">
+							<label for="memberPw">비밀번호</label>
+							<input type="password" name="memberPw" id="memberPw" 
+							class="form-control" placeholder="비밀번호입력">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary" style="width:100%; line-height: normal;">로그인</button>
+							<a href="/searchId.do" class="searchMember">아이디 찾기</a>|
+							<a href="/searchPw.do" class="searchMember">비밀번호 찾기</a>|
+							<a href="/joinFrm.do" class="searchJoin">가입하기</a>
+					</div>
+				</form>		
+			</div>
+		</div>
+	</div>
+	
 <!-- 로그인 하고 마이페이지 누를경우 오른쪽에서 나타나는 슬라이딩 메뉴 -->
 <c:choose>
 	<%-- 1.회원등급 :  --%>
@@ -161,6 +205,7 @@
     <a href="#" class="chat_icon"><img src="/resources/img/icon/chat_on.png"></a>
     <a href="#" class="top"><img src="/resources/img/icon/top.png"></a>
 </div>
+	
 <script>
 	//쪽지아이콘 클릭 시 toggle
 	$(function(){
@@ -203,4 +248,9 @@
        return false;
        });
    });
+  
+  //로그인
+  function initInput(){
+		$("[name=loginFrm] input").val("");
+  }
  </script>
