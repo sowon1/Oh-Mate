@@ -9,7 +9,7 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
-	<div class="container">
+	<div class="container_mate">
 	<h1>test</h1>
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
