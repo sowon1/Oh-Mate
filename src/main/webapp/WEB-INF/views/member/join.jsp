@@ -59,10 +59,10 @@
 						
 						<input type="checkbox" id="chkAllBox">약관 전체 동의<br> 			
 						<input type="checkbox" class="priBox">개인정보 수집 이용 동의(필수) &ensp;
-						<a data-toggle="modal" href="#modal1">약관 보기</a>
+						<a data-toggle="modal" href="#modalL1">약관 보기</a>
 						<br>
 						<input type="checkbox" class="priBox">오늘부터 메이트 이용약관(필수) &ensp;
-						<a data-toggle="modal" href="#modal2">약관 보기</a>
+						<a data-toggle="modal" href="#modalL2">약관 보기</a>
 						<br>
 						<input type="checkbox" class="priBox">마케팅 활용 및 광고성 정보 수신 동의(선택) 
 						<br><br><br>  
@@ -74,7 +74,7 @@
 			</div>
 			
 			<!-- 이상함 -->
-			<div class="modal" id="modal1">
+			<div class="modal" id="modalL1">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
