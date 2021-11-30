@@ -102,7 +102,7 @@
 </div>
 	<!-- 로그인 modal -->
 	<div class="modal" id="modal1">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog" role="document" style="margin-top:100px;">
 			<div class="modal-content">
 				<div class="modal-header">
 			        <div class="brand_logo">
