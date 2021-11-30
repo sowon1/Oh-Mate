@@ -27,14 +27,18 @@
 					</p>
 					<form action="/join.do" method="post" enctype="multipart/form-data">
 						<h6>프로필 사진</h6>
-							<input type="file" name="filepath" id="filepath" accept=".gif, .jpg, .jpeg, .png"><br><br>
-						<h6 class="gender">성별 선택</h6>&emsp;
-							<input type="radio" name="gender" value="male" checked> 남자 &nbsp;
-							<input type="radio" name="gender" value="female"> 여자<br><br>
-						<h6 class="age">나이대 선택</h6>&emsp;
-							<input type="radio" name="selectAge" value="two" checked> 20대 &nbsp;
-							<input type="radio" name="selectAge" value="three"> 30대&nbsp;
-							<input type="radio" name="selectAge" value="four"> 40대이상<br><br>
+	                     <input type="file" name="filepath" id="filepath" accept=".gif, .jpg, .jpeg, .png"><br><br>
+	                  	<h6 class="gender">성별 선택</h6>&emsp;
+	                  	<div class="select">
+			                <input type="radio" id="select" name="select" value="m"><label for="select" style="width:130px;">남자</label>
+			                <input type="radio" id="select2" name="select" value="w"><label for="select2" style="width:130px;">여자</label>
+			           	</div><br>
+	                  	<h6 class="age">나이대 선택</h6>&emsp;
+	                  	<div class="select">
+			                <input type="radio" id="select3" name="selectAge" value="two"><label for="select3" style="width:130px;">20대</label>
+			                <input type="radio" id="select4" name="selectAge" value="three"><label for="select4" style="width:130px;">30대</label>
+			                <input type="radio" id="select5" name="selectAge" value="four"><label for="select5" style="width:130px;">40대이상</label>
+			           	</div><br>
 						<h6>아이디</h6>
 						<div class="in-line">
 							<input type="text" name="memberId" id="memberId" class="form-control" placeholder="아이디 입력(5~11글자)" maxlength="11">
@@ -59,10 +63,10 @@
 						
 						<input type="checkbox" id="chkAllBox">약관 전체 동의<br> 			
 						<input type="checkbox" class="priBox">개인정보 수집 이용 동의(필수) &ensp;
-						<a data-toggle="modal" href="#modalL1">약관 보기</a>
+						<!-- <a data-toggle="modal" href="#modalL1">약관 보기</a> -->
 						<br>
 						<input type="checkbox" class="priBox">오늘부터 메이트 이용약관(필수) &ensp;
-						<a data-toggle="modal" href="#modalL2">약관 보기</a>
+						<!-- <a data-toggle="modal" href="#modalL2">약관 보기</a> -->
 						<br>
 						<input type="checkbox" class="priBox">마케팅 활용 및 광고성 정보 수신 동의(선택) 
 						<br><br><br>  
@@ -73,9 +77,9 @@
 				</div>
 			</div>
 			
-			<!-- 이상함 -->
+			<!--  
 			<div class="modal" id="modalL1">
-			  <div class="modal-dialog" role="document">
+			  <div class="modal-dialog" role="document" style="margin-top:100px;">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <h5 class="modal-title">(주)오나의메이트 개인정보 수집 및 이용동의</h5>
@@ -122,7 +126,7 @@
 			    </div>
 			  </div>
 			</div>
-			
+			-->	
 			
 		</div>
 	</div>

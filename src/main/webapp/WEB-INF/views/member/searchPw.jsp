@@ -8,17 +8,6 @@
 <link rel="stylesheet" href="/resources/css/member/searchPw.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
-<style>
-	.mate_logo a{
-		font-size:40px;
-		font-family: "logo";
-		color: #956bfc;
-	}
-	.mate_logo{
-		text-align: center;
-		padding-bottom: 10px;
-	}
-</Style>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="search_wrap">

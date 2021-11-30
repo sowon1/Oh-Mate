@@ -99,4 +99,12 @@
 	#searchName, #searchEmail{
 		height:130px;
 	}
-
+	.mate_logo a{
+		font-size:40px;
+		font-family: "logo";
+		color: #956bfc;
+	}
+	.mate_logo{
+		text-align: center;
+		padding-bottom: 10px;
+	}

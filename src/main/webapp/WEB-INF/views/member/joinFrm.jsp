@@ -12,7 +12,7 @@
 	<div class="join_wrap">
 		<div class="join_container">
 			<div class="logo">
-		        <div class="Mate_logo" >
+		        <div class="Mate_logo">
 		            <a href="/">Oh-Mate!</a>
 		        </div>
 				<div class="join_cont">
