@@ -31,7 +31,7 @@
                 <a href="#">도와줘요</a>
             </li>
             <li>
-                <a href="#">커뮤니티</a>
+                <a href="/communityFrm.do">커뮤니티</a>
             </li>
             <li>
                 <a href="#">공지사항</a>

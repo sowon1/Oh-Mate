@@ -1,0 +1,70 @@
+@charset "UTF-8";
+	.Matitle{
+		font-size: 30px; 
+		color:#956bfc; 
+		font-weight: bolder;
+	}
+	.btn-secondary {
+		float: right;
+	}	
+	.loginY{
+		margin-right: 5px;
+	}
+	.form-check {
+		display: block;
+		float: left;
+		padding-top: 5px;
+		padding-right: 15px;
+	}
+	.MateSearch {
+		display: flex;
+		float: right;
+		float: left;
+		margin-bottom: 10px;
+	}
+	.lg_box{
+		border : 1px solid #d4d4d4;
+		padding: 15px;
+		background : #f9f9f9;
+	}
+	.searchfs{
+		font-size:12px;
+	}
+	.searchsty{
+		width: 30px; 
+		height: 30px; 
+		cursor: pointer; 
+		margin-left: 8px;
+		display:block;
+	}
+	.lg_box>.m_box {
+    	border: 1px solid #d4d4d4;
+	}
+	.m_box {
+	    background: #f1f5fb;
+	    padding: 10px 15px;
+	    margin-right: 10px;
+	    border: 1px solid #eee;
+	}
+	ul.m_box > li {
+	    position: relative;
+	    padding-left: 12px;
+	    font-size: 16px;
+	    font-weight: 400;
+	    color: #252525;
+	    letter-spacing: -0.03em;
+	    line-height: 26px;
+	}
+	
+	ul.m_box > li:before {
+	    width: 4px;
+	    height: 4px;
+	    background: #252525;
+	    position: Absolute;
+	    left: 0;
+	    top: 10px;
+	    display: block;
+	}
+	.mbold{
+	 	list-style:none;
+	}
