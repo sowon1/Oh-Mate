@@ -109,8 +109,8 @@
 			            <a href="/">Oh-Mate!</a>
 			        </div>
 					<h5 class="modal-title" style="padding-right:160px;">로그인</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"></span>
 					</button>
 				</div>
 				<form action="/login.do" method="post" class="loginForm">
