@@ -1,7 +1,5 @@
 package kr.or.member.model.service;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +11,7 @@ public class MemberService {
 	@Autowired
 	private MemberDao dao;
 
+	//로그인
 	public Member selectOneMember(Member member) {
 		return dao.selectOneMember(member);
 	}

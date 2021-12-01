@@ -1,7 +1,5 @@
 package kr.or.member.controller;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,10 +52,16 @@ public class MemberController {
 		return "member/joinFrm";
 	}
 	
-	//회원가입 이동
-	@RequestMapping(value="/join")
+	//메이트 회원가입 이동
+	@RequestMapping(value="/joinMate")
+	public String joinMate() {
+		return "member/joinMate";
+	}
+	
+	//하우스오더 회원가입 이동
+	@RequestMapping(value="/joinOwner")
 	public String joinOwner() {
-		return "member/join";
+		return "member/joinOwner";
 	}
 	
 	//아이디찾기 이동
