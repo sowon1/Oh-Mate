@@ -1,4 +1,4 @@
-package kr.or.post.vo;
+package kr.or.post.model.vo;
 
 import lombok.Data;
 

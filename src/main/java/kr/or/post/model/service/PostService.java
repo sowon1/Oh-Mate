@@ -1,4 +1,4 @@
-package kr.or.post.service;
+package kr.or.post.model.service;
 
 public class PostService {
 

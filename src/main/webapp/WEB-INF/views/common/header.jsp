@@ -43,7 +43,7 @@
         <ul class="nav_right">
            	<c:choose>
            		<%-- 로그아웃 상태 --%>
-           		<c:when test="${empty sessionScope.member}">
+           		<c:when test="${empty sessionScope.m}">
            			<li>
            				<a data-toggle="modal" href="#modal1">로그인</a>
            			</li>
@@ -140,7 +140,7 @@
 <!-- 로그인 하고 마이페이지 누를경우 오른쪽에서 나타나는 슬라이딩 메뉴 -->
 <c:choose>
 	<%-- 1.회원등급 :  --%>
-	<c:when test="">
+	<c:when test="${sessionScope.m.memberLevel eq 0}">
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
 		    <header>
@@ -159,7 +159,7 @@
 		</nav>
 	</c:when>
 	<%-- 2.회원등급 :  --%>
-	<c:when test="">
+	<c:when test="${sessionScope.memberLevel eq 1}">
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
 		    <header>
@@ -181,7 +181,7 @@
 		</nav>
 	</c:when>
 	<%-- 2.회원등급 :  --%>
-	<c:when test="">
+	<c:when test="${sessionScope.memberLevel eq 2}">
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
 		    <header>

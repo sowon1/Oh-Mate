@@ -1,4 +1,4 @@
-package kr.or.board.dao;
+package kr.or.board.model.dao;
 
 public class BoardDao {
 

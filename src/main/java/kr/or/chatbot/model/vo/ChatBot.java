@@ -1,4 +1,4 @@
-package kr.or.chatbot.vo;
+package kr.or.chatbot.model.vo;
 
 import lombok.Data;
 

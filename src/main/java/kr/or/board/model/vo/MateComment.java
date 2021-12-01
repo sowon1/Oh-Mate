@@ -1,4 +1,4 @@
-package kr.or.board.vo;
+package kr.or.board.model.vo;
 
 import lombok.Data;
 

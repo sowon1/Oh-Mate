@@ -1,4 +1,4 @@
-package kr.or.profile.service;
+package kr.or.profile.model.service;
 
 public class ProfileService {
 

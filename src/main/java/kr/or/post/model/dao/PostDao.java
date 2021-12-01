@@ -1,4 +1,4 @@
-package kr.or.post.dao;
+package kr.or.post.model.dao;
 
 public class PostDao {
 

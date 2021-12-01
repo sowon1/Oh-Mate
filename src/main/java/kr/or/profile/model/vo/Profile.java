@@ -1,4 +1,4 @@
-package kr.or.profile.vo;
+package kr.or.profile.model.vo;
 
 import lombok.Data;
 

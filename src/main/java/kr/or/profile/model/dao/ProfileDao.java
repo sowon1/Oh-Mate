@@ -1,4 +1,4 @@
-package kr.or.profile.dao;
+package kr.or.profile.model.dao;
 
 public class ProfileDao {
 

@@ -1,4 +1,4 @@
-package kr.or.board.service;
+package kr.or.board.model.service;
 
 public class BoardService {
 
