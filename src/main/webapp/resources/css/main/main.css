@@ -1,0 +1,318 @@
+@charset "UTF-8";
+
+.main_section01{
+    width: 100%;
+    height: 600px;
+    background-image: url(/img/main/main_bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    min-height: 600px;
+}
+.main_section01_h1{
+    font-size: 48px;
+    color: #fff;
+    margin:50px 0;
+}
+.main_selectbox{
+    background: #fff;
+    border-radius: 50px;
+    padding: 10px;
+    width: 960px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main_selectbox input{
+    border: none;
+    outline: none;
+    margin-right: 10px;
+    padding: 5px 8px 5px 15px;
+    font-size: 16px;
+    height: 40px;
+    width: 300px;
+}
+.search_main_btn{
+    background: -webkit-linear-gradient(to right bottom, #af6bfc, #956bfc);
+	background: linear-gradient(to right bottom, #af6bfc, #956bfc);
+    border-radius: 50px;
+    color: #fff;
+    padding: 12px 20px;
+    margin-left:15px;
+}
+.search_main_btn img{
+    width: 20px;
+    vertical-align: sub;
+    margin-left: 5px;
+}
+
+/* 셀렉트 박스 */
+/* .custom-select-wrapper {
+    flex: 1;
+} */
+.custom-select {
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   width: 160px;
+}
+.custom-select__trigger {
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   box-sizing: border-box;
+   color: #1b1b1b;
+   padding: 0 15px;
+   height: 40px;
+   background: #ffffff;
+   border-right: 2px solid #eee;
+   cursor: pointer;
+}
+.custom-select-wrapper:first-of-type .custom-select__trigger{border-left:2px solid #eee;}
+.custom-select-wrapper:nth-child(4) .custom-select__trigger{border-right: 0!important;}
+.custom-options {
+   position: absolute;
+   display: block;
+   top: 100%;
+   left: 0;
+   right: 0;
+   border-top: 0;
+   background: rgba(255,255,255,0.7);
+   transition: all 0.5s;
+   opacity: 0;
+   visibility: hidden;
+   pointer-events: none;
+   z-index: 2;
+}
+.custom-select.open .custom-options {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    border-radius: 0 0 1rem 1rem;
+}
+.custom-option {
+   position: relative;
+   display: block;
+   padding: 0 15px;
+   font-weight: 400;
+   color: #1b1b1b;
+   line-height: 40px;
+   cursor: pointer;
+   transition: all 0.1s;
+}
+.custom-option:hover {
+    cursor: pointer;
+    color:#fff!important;
+    background-color:rgba(149,107,252,.8);
+}
+.custom-option:nth-last-child(1):hover {
+   cursor: pointer;
+   color:#fff;
+   border-radius: 0 0 1rem 1rem;
+   box-sizing:border-box;
+   background-color:rgba(149,107,252,.8);
+}
+.custom-option.selected {
+    color: #956bfc;
+}
+.arrow {
+   position: relative;
+   height: 12px;
+   width: 10px;
+}
+.arrow::before, .arrow::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    width: 0.1rem;
+    border-radius:5rem;
+    height: 100%;
+    transition: all 0.5s;
+}
+.arrow::before {
+    left: 0;
+    transform: rotate(45deg);
+    background-color: #956bfc;
+}
+.arrow::after {
+    left: 8px;
+    transform: rotate(-45deg);
+    background-color: #956bfc;
+}
+.open .arrow::before {
+    left: 0;
+    transform: rotate(-45deg);
+}
+.open .arrow::after {
+    left: 8px;
+    transform: rotate(45deg);
+}
+
+/* main_section02 */
+.sub_text{
+    margin-top: 10px;
+    margin-bottom:50px;
+}
+.point_title:before{
+    content:'';
+    display:inline-block;
+    width:4px;
+    height:30px;
+    margin:-5px 10px 0 0;
+    vertical-align:middle;
+    background:#956bfc;
+}
+.main_house_list{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+.main_house_list li{
+    width: 390px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    float: left;
+    border-radius: 20px;
+    margin-right:10px;
+    box-sizing: border-box;
+}
+.house_list_photo{
+    width: 100%;
+    height: 210px;
+    overflow: hidden;
+    position: relative;
+}
+.house_list_photo img{
+    width:100%;
+}
+/* 좋아요 버튼 부분 */
+.like_house{
+    position: absolute;
+    right: 15px;
+    top: 15px;   
+}
+.like_house img{
+    width: 30px;
+}
+.house_list_text{
+    padding: 20px;
+}
+.list_line_01{
+    display: flex;
+    align-items: center;
+}
+.list_tag{
+    border: 2px solid #956bfc;
+    border-radius: 50px;
+    padding: 3px 8px;
+    float: left;
+    margin-right: 10px;
+    width: 81px;
+    font-family: 'ns_500';
+    color: #956bfc;
+}
+.list_title{
+    font-size: 18px;
+    font-family: "ns_700";
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 260px;
+    display: block;
+}
+.list_line_02{
+    margin: 15px 0px 8px 0px;
+}
+.house_form{
+    color:#ff0071;
+    margin-right: 10px;
+}
+.house_sum{
+    position: relative;
+    padding-left: 10px;
+    color: #666;
+}
+.house_sum:before {
+    content: "";
+    left: -1px;
+    height: 0.8em;
+    top: 50%;
+    margin-top: -0.4em;
+    position: absolute;
+    border-left: 1px solid #aaa;
+}
+.house_more_btn{
+    background: #956bfc;
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    color: #fff;
+    display: block;
+    font-size: 20px;
+    line-height: 50px;
+}
+/* main_section03 */
+.main_section03{
+    background: #f9f9f9;
+    width: 100%;
+    padding: 50px 0px;
+}
+.main_section03>.container{
+    background: #fff;
+    box-shadow: 0 0 1.25rem rgb(0 0 0 / 10%);
+    border-radius: 20px;
+    display: flex;
+    height: 160px;
+    padding: 0px 50px;
+    align-items: center;
+}
+.main_section03 h2{
+    font-size: 36px;
+}
+.main_section03 h3{
+    font-size: 28px;
+}
+.section03_point{
+    font-family: "logo";
+    color: #956bfc;
+    font-size: 42px;
+}
+.sect03_left{
+    flex-grow: 1;
+}
+.sect03_left, .sect03_right{
+    float: left;
+}
+.search_main_btn2{
+    background: -webkit-linear-gradient(to right bottom, #af6bfc, #956bfc);
+	background: linear-gradient(to right bottom, #af6bfc, #956bfc);
+    border-radius: 50px;
+    color: #fff;
+    padding: 20px 30px;
+    margin-left:15px;
+    font-size: 22px;
+}
+.search_main_btn2 img{
+    width: 30px;
+    vertical-align: sub;
+    margin-left: 5px;
+}
+.search_main_btn2:hover, .search_main_btn:hover{
+    background: -webkit-linear-gradient(to right bottom, #a55ff5, #895ff1);
+	background: linear-gradient(to right bottom, #a55ff5, #895ff1);
+}
+
+/* */
+.main_section05{
+    width: 100%;
+    height: 400px;
+    background-image: url(/img/main/main_footer_bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    min-height: 400px;
+    text-align: center;
+}
