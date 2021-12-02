@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.or.helper.model.vo.Helper;
 import kr.or.house.model.vo.House;
 import kr.or.main.model.service.MainService;
+import kr.or.main.model.vo.Main;
 
 @Controller
 public class MainController {
@@ -19,10 +20,10 @@ public class MainController {
 	//main.jsp로 정보주면서 페이지 이동
 	@RequestMapping(value="/main.do")
 	public String main(Model model) {
-		ArrayList<House> hlist = service.selectHouseList();
-		ArrayList<Helper> hplist = service.selectHelperList();
-		model.addAttribute("hlist",hlist);
-		model.addAttribute("hplist",hplist);
+		Main main = service.selectMainList();
+		model.addAttribute("hplist",main.getHplist());
+		model.addAttribute("hlist",main.getHlist());
+		model.addAttribute("memcount",main.getMemcount());
 		model.addAttribute("loc","/");
 		return "common/main";
 	}
