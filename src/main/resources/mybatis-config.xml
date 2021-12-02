@@ -3,5 +3,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="kr.or.member.model.vo.Member" alias="m"/>
+		<typeAlias type="kr.or.common.Photo" alias="f"/>
 	</typeAliases>
 </configuration>
