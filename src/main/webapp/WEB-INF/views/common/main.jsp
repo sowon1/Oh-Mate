@@ -69,7 +69,7 @@
 	                        <div class="like_house">
 	                            <img src="/resources/img/icon/heart_off.png">
 	                        </div>
-	                        <img src="/img/main_list01.jpg">
+	                        <img src="/resources/upload/house/${h.photoList}">
 	                    </div>
 	                    <div class="house_list_text">
 	                        <div class="list_line_01">
