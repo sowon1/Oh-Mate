@@ -10,7 +10,7 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="container_mate">
-		<h1>회원관리</h1>
+		<h1>회원관리.</h1>
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
