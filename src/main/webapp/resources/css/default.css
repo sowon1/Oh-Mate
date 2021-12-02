@@ -336,7 +336,7 @@ ul{
 .container_mate{
 	width: 1200px;
 	margin: 0 auto;
-	padding: 30px 0px;
+	padding: 80px 0px;
 	clear: both;
 	flex-grow:1;
 }
@@ -1327,7 +1327,10 @@ input[name="funderCategory"]:checked+label:after{
 	float: left;
 	border: 3px solid transparent;
 }
+.page-item>a{
+	display: block;
+}
 .pagination > .active{
-	border: 3px solid #00B9CE;
+	border: 3px solid #956bfc;
     border-radius: 100%;
 }

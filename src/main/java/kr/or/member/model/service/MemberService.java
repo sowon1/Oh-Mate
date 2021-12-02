@@ -16,6 +16,16 @@ public class MemberService {
 		return dao.selectOneMember(member);
 	}
 
+	//아이디찾기
+	public Member searchId(Member member) {
+		return dao.searchId(member);
+	}
+
+	//비밀번호찾기
+	public Member searchPw(Member member) {
+		return dao.searchPw(member);
+	}
+
 	/* 로그인2
 	public int selectOneMember1(HashMap<String, Object> map) {
 		return dao.selectOneMember1(map);

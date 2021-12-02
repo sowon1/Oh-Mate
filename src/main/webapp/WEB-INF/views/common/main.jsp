@@ -62,78 +62,44 @@
         <h1 class="point_title">Oh-My, HOUSE!</h1>
         <h3 class="sub_text">혼자 시작하는 첫 걸음, 나를 위한 집!</h3>
         <ul class="main_house_list">
-            <li>
-                <a href="/">
-                    <div class="house_list_photo">
-                        <div class="like_house">
-                            <img src="/resources/img/icon/heart_off.png">
-                        </div>
-                        <img src="/img/main_list01.jpg">
-                    </div>
-                    <div class="house_list_text">
-                        <div class="list_line_01">
-                            <span class="list_house_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스입니다 글넘침</span>
-                        </div>
-                        <div class="list_line_02">
-                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의 태그도 넘치나볼까</span>
-                        </div>
-                        <div class="list_line_03">
-                            <span class="list_tag">여성전용</span>
-                            <span class="house_form">아파트</span>
-                            <span class="house_sum">월 30만원 ~</span>
-                        </div>
-                    </div>
-                    <a href="/" class="house_more_btn">5명 입주가능</a>
-                </a>
-            </li>           
-            <li>
-                <a href="/">
-                    <div class="house_list_photo">
-                        <div class="like_house">
-                            <img src="/resources/img/icon/heart_off.png">
-                        </div>
-                        <img src="/img/main_list01.jpg">
-                    </div>
-                    <div class="house_list_text">
-                        <div class="list_line_01">
-                            <span class="list_house_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스입니다 글넘침</span>
-                        </div>
-                        <div class="list_line_02">
-                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의 태그도 넘치나볼까</span>
-                        </div>
-                        <div class="list_line_03">
-                            <span class="list_tag">여성전용</span>
-                            <span class="house_form">아파트</span>
-                            <span class="house_sum">월 30만원 ~</span>
-                        </div>
-                    </div>
-                    <a href="/" class="house_more_btn">5명 입주가능</a>
-                </a>
-            </li>           
-            <li>
-                <a href="/">
-                    <div class="house_list_photo">
-                        <div class="like_house">
-                            <img src="/resources/img/icon/heart_off.png">
-                        </div>
-                        <img src="/img/main_list01.jpg">
-                    </div>
-                    <div class="house_list_text">
-                        <div class="list_line_01">
-                            <span class="list_house_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스입니다 글넘침</span>
-                        </div>
-                        <div class="list_line_02">
-                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의 태그도 넘치나볼까</span>
-                        </div>
-                        <div class="list_line_03">
-                            <span class="list_tag">여성전용</span>
-                            <span class="house_form">아파트</span>
-                            <span class="house_sum">월 30만원 ~</span>
-                        </div>
-                    </div>
-                    <a href="/" class="house_more_btn">5명 입주가능</a>
-                </a>
-            </li>           
+	        <c:forEach items="${hlist}" var="h">
+	        	<a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>">
+		            <li>
+	                    <div class="house_list_photo">
+	                        <div class="like_house">
+	                            <img src="/resources/img/icon/heart_off.png">
+	                        </div>
+	                        <img src="/img/main_list01.jpg">
+	                    </div>
+	                    <div class="house_list_text">
+	                        <div class="list_line_01">
+	                            <span class="list_house_title">${h.houseTitle}</span>
+	                        </div>
+	                        <div class="list_line_02">
+	                            <span class="house_tag">${h.houseConvenience}</span>
+	                        </div>
+	                        <div class="list_line_03">
+	                            <span class="list_tag">
+	                            	<c:choose>
+	                            		<c:when test="${h.houseGender == '1'}">
+	                            			남성전용
+	                            		</c:when>
+	                            		<c:when test="${h.houseGender == '2'}">
+	                            			여성전용
+	                            		</c:when>
+	                            		<c:otherwise>
+	                            			남여공용
+	                            		</c:otherwise>
+	                            	</c:choose>
+	                            </span>
+	                            <span class="house_form">${h.houseForm}</span>
+	                            <span class="house_sum">월 30만원 ~</span>
+	                        </div>
+	                    </div>
+	                    <a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>" class="house_more_btn">${h.houseRoom}명 입주가능</a>
+		            </li>           
+	        	</a>
+	        </c:forEach>            
         </ul>
     </div>
     <div class="main_section03">
@@ -151,30 +117,18 @@
         <h1 class="point_title">Oh, Help me!</h1>
         <h3 class="sub_text">살다가 혼자서 처리하지 못하는 일이 생긴다면!? 오메, 도와줘요!</h3>
         <ul class="main_house_list">
-                        <li>
-                <a href="/">
-                    <div class="house_list_photo">
-                        <div class="like_house">
-                            <img src="/resources/img/icon/heart_off.png">
-                        </div>
-                        <img src="/img/main_list01.jpg">
-                    </div>
-                    <div class="house_list_text">
-                        <div class="list_line_01">
-                            <span class="list_house_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스입니다 글넘침</span>
-                        </div>
-                        <div class="list_line_02">
-                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의 태그도 넘치나볼까</span>
-                        </div>
-                        <div class="list_line_03">
-                            <span class="list_tag">여성전용</span>
-                            <span class="house_form">아파트</span>
-                            <span class="house_sum">월 30만원 ~</span>
-                        </div>
-                    </div>
-                    <a href="/" class="house_more_btn">5명 입주가능</a>
-                </a>
-            </li>           
+           <c:forEach items="${hplist}" var="hp">
+	        	<a href="<c:url value='/helper/helperView?helperNo=${hp.helperNo}'/>">
+		            <li>
+	                    <div class="helper_list_photo">
+	                        <div class="like_house">
+	                            <img src="/resources/img/icon/heart_off.png">
+	                        </div>
+	                        <img src="/upload/helper/${hp.helperFilepath}">
+	                    </div>
+		            </li>           
+	        	</a>
+	        </c:forEach> 
         </ul>
     </div>
     <div class="main_section05">
@@ -195,7 +149,7 @@
 	            });
 	        });
 	        //카운트
-	        var memberCountConTxt= 333;
+	        var memberCountConTxt= "${memcount}";
 	        //시작 숫자 0 끝나는 숫자 변수에 담아놓은것
 	        $({ val : 0 }).animate({ val : memberCountConTxt }, {
 	        duration: 5000,

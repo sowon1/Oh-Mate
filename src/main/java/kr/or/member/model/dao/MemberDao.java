@@ -14,7 +14,17 @@ public class MemberDao {
 
 	//로그인1
 	public Member selectOneMember(Member member) {
-		return sqlSession.selectOne("member.selectOneMember", member);
+		return sqlSession.selectOne("member.selectOneMember",member);
+	}
+
+	//아이디찾기
+	public Member searchId(Member member) {
+		return sqlSession.selectOne("member.searchId",member);
+	}
+
+	//비밀번호찾기
+	public Member searchPw(Member member) {
+		return sqlSession.selectOne("member.searchPw",member);
 	}
 
 	/* 로그인2
