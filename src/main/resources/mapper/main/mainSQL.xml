@@ -7,6 +7,7 @@
 			(select * from helper where HELPER_STATUS=2 order by 1 desc)h) 
 		where rnum between 1 and 3
 	</select>
+	
 	<select id="houseList" resultType="kr.or.house.model.vo.House">
 		select
 			*

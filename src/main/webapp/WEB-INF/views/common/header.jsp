@@ -25,10 +25,10 @@
         </div>
         <ul class="nav_left">
             <li>
-                <a href="#">방 찾기</a>
+                <a href="/houseList.do">방 찾기</a>
             </li>
             <li>
-                <a href="#">도와줘요</a>
+                <a href="/helperList.do">도와줘요</a>
             </li>
             <li>
                 <a href="/communityFrm.do">커뮤니티</a>
@@ -144,9 +144,16 @@
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
 		    <header>
-		        <img src="/resources/img/icon/profile.png">
-		        <p class="name">관리자</p>
-		        <p class="id">oh-mate</p>
+		    	<c:choose>
+		    		<c:when test="${not empty sessionScope.m.filepath}">
+		    			<img src="/resources/upload/member/${m.filepath}">
+		    		</c:when>
+		    		<c:otherwise>		    		
+				        <img src="/resources/img/icon/profile.png">
+		    		</c:otherwise>
+		    	</c:choose>
+		        <p class="name">${sessionScope.m.memberName}</p>
+		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
 		      <li><a href="/memberMgr.do?reqPage=1">회원관리</a></li>
@@ -163,9 +170,16 @@
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
 		    <header>
-		        <img src="/resources/img/icon/profile.png">
-		        <p class="name">메이트</p>
-		        <p class="id">oh-mate</p>
+		        <c:choose>
+		    		<c:when test="${not empty sessionScope.m.filepath}">
+		    			<img src="/resources/upload/member/${m.filepath}">
+		    		</c:when>
+		    		<c:otherwise>		    		
+				        <img src="/resources/img/icon/profile.png">
+		    		</c:otherwise>
+		    	</c:choose>
+		        <p class="name">${sessionScope.m.memberName}</p>
+		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
 		      <li><a href="#">메뉴1</a></li>
@@ -185,9 +199,16 @@
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
 		    <header>
-		        <img src="/resources/img/icon/profile.png">
-		        <p class="name">하우스오너</p>
-		        <p class="id">oh-mate</p>
+		        <c:choose>
+		    		<c:when test="${not empty sessionScope.m.filepath}">
+		    			<img src="/resources/upload/member/${m.filepath}">
+		    		</c:when>
+		    		<c:otherwise>		    		
+				        <img src="/resources/img/icon/profile.png">
+		    		</c:otherwise>
+		    	</c:choose>
+		       <p class="name">${sessionScope.m.memberName}</p>
+		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
 		      <li><a href="#">메뉴1</a></li>

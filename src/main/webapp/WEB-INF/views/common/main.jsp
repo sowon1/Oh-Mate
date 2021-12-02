@@ -109,7 +109,7 @@
                 <h2><em class="section03_point">오늘부터 메이트</em>에서는 <em class="section03_point" id="allmembercount"></em>명이 살고 있습니다.</h2>
             </div>
             <div class="sect03_right">
-                <a href="/" class="search_main_btn2">내 메이트 찾기 <img src="/resources/img/icon/search_wh.png"></a>
+                <a href="/communityFrm.do" class="search_main_btn2">내 메이트 찾기 <img src="/resources/img/icon/search_wh.png"></a>
             </div>
         </div>
     </div>
