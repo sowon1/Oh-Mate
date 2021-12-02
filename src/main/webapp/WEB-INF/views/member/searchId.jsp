@@ -40,7 +40,7 @@
 						        <tr>
 									<td id="searchEmail">
 										<h5>이메일 주소</h5>
-						            	<input type="text" id="email" name="email" placeholder="이메일을 입력해주세요" class="searchId-input">
+						            	<input type="text" name="email" id="email" placeholder="이메일을 입력해주세요" class="searchId-input">
 						            </td>
 						        </tr>
 						        <tr>

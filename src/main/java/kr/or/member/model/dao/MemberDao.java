@@ -22,6 +22,11 @@ public class MemberDao {
 		return sqlSession.selectOne("member.searchId",member);
 	}
 
+	//비밀번호찾기
+	public Member searchPw(Member member) {
+		return sqlSession.selectOne("member.searchPw",member);
+	}
+
 	/* 로그인2
 	public int selectOneMember1(HashMap<String, Object> map) {
 		return sqlSession.selectOne("member.selectOneMember1", map);
