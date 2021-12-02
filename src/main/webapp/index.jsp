@@ -67,50 +67,26 @@
                 <a href="/">
                     <div class="house_list_photo">
                         <div class="like_house">
-                            <img src="/img/icon/heart_off.png">
+                            <img src="/resources/img/icon/heart_off.png">
                         </div>
                         <img src="/img/main_list01.jpg">
                     </div>
                     <div class="house_list_text">
                         <div class="list_line_01">
-                            <span class="list_tag">여성전용</span>
-                            <span class="list_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스</span>
+                            <span class="list_house_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스입니다 글넘침</span>
                         </div>
                         <div class="list_line_02">
-                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의</span>
+                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의 태그도 넘치나볼까</span>
                         </div>
                         <div class="list_line_03">
+                            <span class="list_tag">여성전용</span>
                             <span class="house_form">아파트</span>
                             <span class="house_sum">월 30만원 ~</span>
                         </div>
                     </div>
                     <a href="/" class="house_more_btn">5명 입주가능</a>
                 </a>
-            </li>
-            <li>
-                <a href="/">
-                    <div class="house_list_photo">
-                        <div class="like_house">
-                            <img src="/resources/img/icon/heart_off.png">
-                        </div>
-                        <img src="/resources/img/main_list01.jpg">
-                    </div>
-                    <div class="house_list_text">
-                        <div class="list_line_01">
-                            <span class="list_tag">여성전용</span>
-                            <span class="list_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스</span>
-                        </div>
-                        <div class="list_line_02">
-                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의</span>
-                        </div>
-                        <div class="list_line_03">
-                            <span class="house_form">아파트</span>
-                            <span class="house_sum">월 30만원 ~</span>
-                        </div>
-                    </div>
-                    <a href="/" class="house_more_btn">5명 입주가능</a>
-                </a>
-            </li>
+            </li>           
             <li>
                 <a href="/">
                     <div class="house_list_photo">
@@ -121,20 +97,44 @@
                     </div>
                     <div class="house_list_text">
                         <div class="list_line_01">
-                            <span class="list_tag">여성전용</span>
-                            <span class="list_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스</span>
+                            <span class="list_house_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스입니다 글넘침</span>
                         </div>
                         <div class="list_line_02">
-                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의</span>
+                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의 태그도 넘치나볼까</span>
                         </div>
                         <div class="list_line_03">
+                            <span class="list_tag">여성전용</span>
                             <span class="house_form">아파트</span>
                             <span class="house_sum">월 30만원 ~</span>
                         </div>
                     </div>
                     <a href="/" class="house_more_btn">5명 입주가능</a>
                 </a>
-            </li>
+            </li>           
+            <li>
+                <a href="/">
+                    <div class="house_list_photo">
+                        <div class="like_house">
+                            <img src="/resources/img/icon/heart_off.png">
+                        </div>
+                        <img src="/img/main_list01.jpg">
+                    </div>
+                    <div class="house_list_text">
+                        <div class="list_line_01">
+                            <span class="list_house_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스입니다 글넘침</span>
+                        </div>
+                        <div class="list_line_02">
+                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의 태그도 넘치나볼까</span>
+                        </div>
+                        <div class="list_line_03">
+                            <span class="list_tag">여성전용</span>
+                            <span class="house_form">아파트</span>
+                            <span class="house_sum">월 30만원 ~</span>
+                        </div>
+                    </div>
+                    <a href="/" class="house_more_btn">5명 입주가능</a>
+                </a>
+            </li>           
         </ul>
     </div>
     <div class="main_section03">
@@ -152,36 +152,36 @@
         <h1 class="point_title">Oh, Help me!</h1>
         <h3 class="sub_text">살다가 혼자서 처리하지 못하는 일이 생긴다면!? 오메, 도와줘요!</h3>
         <ul class="main_house_list">
-            <li>
+                        <li>
                 <a href="/">
                     <div class="house_list_photo">
                         <div class="like_house">
                             <img src="/resources/img/icon/heart_off.png">
                         </div>
-                        <img src="/resources/img/main_list01.jpg">
+                        <img src="/img/main_list01.jpg">
                     </div>
                     <div class="house_list_text">
                         <div class="list_line_01">
-                            <span class="list_tag">여성전용</span>
-                            <span class="list_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스</span>
+                            <span class="list_house_title">사랑이 넘치는 여기는 모두가 좋은 해피하우스입니다 글넘침</span>
                         </div>
                         <div class="list_line_02">
-                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의</span>
+                            <span class="house_tag">#신축아파트 #여성혼자살고있음 #청결주의 태그도 넘치나볼까</span>
                         </div>
                         <div class="list_line_03">
+                            <span class="list_tag">여성전용</span>
                             <span class="house_form">아파트</span>
                             <span class="house_sum">월 30만원 ~</span>
                         </div>
                     </div>
                     <a href="/" class="house_more_btn">5명 입주가능</a>
                 </a>
-            </li>
+            </li>           
         </ul>
     </div>
     <div class="main_section05">
         <h3>당신의 집 가치는 얼마입니까?</h3>
-        <h1>내 집도 오늘부터 메이트!</h1>
-        <a href="/" class="">하우스 등록하기</a>
+        <h1>내 집도 이제 오늘부터 메이트!</h1>
+        <a href="/" class="sect05_btn">하우스 등록하기</a>
     </div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>

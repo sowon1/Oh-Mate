@@ -154,6 +154,10 @@
 .sub_text{
     margin-top: 10px;
     margin-bottom:50px;
+    font-size:18px;
+}
+.point_title{
+	font-size:32px;
 }
 .point_title:before{
     content:'';
@@ -200,8 +204,7 @@
     padding: 20px;
 }
 .list_line_01{
-    display: flex;
-    align-items: center;
+    overflow: hidden;
 }
 .list_tag{
     border: 2px solid #956bfc;
@@ -213,17 +216,25 @@
     font-family: 'ns_500';
     color: #956bfc;
 }
-.list_title{
+.list_house_title{
     font-size: 18px;
     font-family: "ns_700";
+}
+.list_house_title, .house_tag{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    width: 260px;
-    display: block;
+    display: block;	
 }
 .list_line_02{
-    margin: 15px 0px 8px 0px;
+    margin: 8px 0px 12px 0px;
+}
+.list_line_03{
+	display:flex;
+	align-items: center;
+}
+.house_tag{
+	color:#666;
 }
 .house_form{
     color:#ff0071;
@@ -315,4 +326,32 @@
     overflow: hidden;
     min-height: 400px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+.main_section05 h3{
+	font-family: "ns_300";
+}
+.main_section05 h1{
+	font-family: "ns_300";
+	margin-top:5px;
+	font-size:48px;
+}
+.main_section05 a{
+	background:#ffffffa1;
+	border:2px solid #956bfc;
+	color:#956bfc;
+	width:200px;
+	height: 60px;
+	line-height: 55px;
+	font-size:22px;
+	margin-top:25px;
+	transform: 0.5s;
+}
+.sect05_btn:hover{
+	background: #956bfc;
+	color:#fff;
 }
