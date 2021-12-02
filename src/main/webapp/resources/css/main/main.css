@@ -349,7 +349,7 @@
 	line-height: 55px;
 	font-size:22px;
 	margin-top:25px;
-	transform: 0.5s;
+	transition-duration: 0.5s;
 }
 .sect05_btn:hover{
 	background: #956bfc;
