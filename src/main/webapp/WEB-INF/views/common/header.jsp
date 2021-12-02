@@ -176,7 +176,7 @@
 			      <li><a href="#">메뉴4</a></li>
 			      <li><a href="#">메뉴5</a></li>
 		      </c:if>   	
-		      <li><a href="#">로그아웃</a></li>
+		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>
 	</c:when>

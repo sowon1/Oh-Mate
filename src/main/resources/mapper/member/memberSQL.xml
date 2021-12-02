@@ -28,6 +28,19 @@
 	
 	<!-- 아이디찾기 -->
 	<select id="searchId" parameterType="m" resultType="m">
-		select * from member where member_name=#{memberName} and email=#{email}
+		select 
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			phone,
+			email,
+			enroll_date as enrollDate,
+			member_filepath as filepath,
+			member_level as memberLevel,
+			gender,
+			age,
+			profile_status as profileStatus	
+		from member where member_name=#{memberName} and email=#{email}
 	</select>
 </mapper>

@@ -47,6 +47,8 @@ public class MemberController {
 		return "common/msg";
 	}
 	 */
+
+	
 	
 	//로그아웃
 	@RequestMapping(value="/logout.do")
