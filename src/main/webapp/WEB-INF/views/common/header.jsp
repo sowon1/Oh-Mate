@@ -159,7 +159,7 @@
 		</nav>
 	</c:when>
 	<%-- 2.회원등급 :  --%>
-	<c:when test="${sessionScope.memberLevel eq 1 or sessionScope.memberLevel eq 4}">
+	<c:when test="${sessionScope.m.memberLevel eq 1 or sessionScope.m.memberLevel eq 4}">
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
 		    <header>
@@ -172,7 +172,7 @@
 		      <li><a href="#">메뉴2</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
-		      <c:when test="${sessionScope.memberLevel eq 4 }">
+		      <c:when test="${sessionScope.m.memberLevel eq 4 }">
 			      <li><a href="#">메뉴4</a></li>
 			      <li><a href="#">메뉴5</a></li>
 		      </c:when>   	
@@ -181,7 +181,7 @@
 		</nav>
 	</c:when>
 	<%-- 2.회원등급 :  --%>
-	<c:when test="${sessionScope.memberLevel eq 2}">
+	<c:when test="${sessionScope.m.memberLevel eq 2}">
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
 		    <header>
