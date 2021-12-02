@@ -88,6 +88,8 @@
 	<context:component-scan base-package="kr.or.admin"/>
 	<context:component-scan base-package="kr.or.help"/>
 	<context:component-scan base-package="kr.or.helper"/>
+	<context:component-scan base-package="kr.or.main"/>
+	<context:component-scan base-package="kr.or.house"/>
 	
 	
 </beans:beans>
