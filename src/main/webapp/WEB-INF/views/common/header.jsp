@@ -128,8 +128,8 @@
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary" style="width:100%; line-height: normal;">로그인</button>
-							<a href="/searchId.do" class="searchMember">아이디 찾기</a>|
-							<a href="/searchPw.do" class="searchMember">비밀번호 찾기</a>|
+							<a href="/searchIdFrm.do" class="searchMember">아이디 찾기</a>|
+							<a href="/searchPwFrm.do" class="searchMember">비밀번호 찾기</a>|
 							<a href="/joinFrm.do" class="searchJoin">가입하기</a>
 					</div>
 				</form>		
@@ -154,7 +154,7 @@
 		      <li><a href="#">메뉴3</a></li>
 		      <li><a href="#">메뉴4</a></li>
 		      <li><a href="#">메뉴5</a></li>
-		      <li><a href="#">로그아웃</a></li>
+		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>
 	</c:when>
@@ -172,11 +172,11 @@
 		      <li><a href="#">메뉴2</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
-		      <c:when test="${sessionScope.m.memberLevel eq 4 }">
+		      <c:if test="${sessionScope.m.memberLevel eq 4 }">
 			      <li><a href="#">메뉴4</a></li>
 			      <li><a href="#">메뉴5</a></li>
-		      </c:when>   	
-		      <li><a href="#">로그아웃</a></li>
+		      </c:if>   	
+		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>
 	</c:when>

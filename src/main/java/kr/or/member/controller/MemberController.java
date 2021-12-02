@@ -1,5 +1,7 @@
 package kr.or.member.controller;
 
+import java.lang.ProcessBuilder.Redirect;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,15 @@ public class MemberController {
 		return "common/msg";
 	}
 	 */
+
+	
+	
+	//로그아웃
+	@RequestMapping(value="/logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
 	
 	//회원가입 이동 (일반회원or기업)
 	@RequestMapping(value="/joinFrm.do")
@@ -65,14 +76,14 @@ public class MemberController {
 	}
 	
 	//아이디찾기 이동
-	@RequestMapping(value="/searchId.do")
-	public String searchId() {
+	@RequestMapping(value="/searchIdFrm.do")
+	public String searchIdFrm() {
 		return "member/searchId";
 	}
-	
+ 	
 	//비밀번호찾기 이동
-	@RequestMapping(value="/searchPw.do")
-	public String searchPw() {
+	@RequestMapping(value="/searchPwFrm.do")
+	public String searchPwFrm() {
 		return "member/searchPw";
 	}
 	

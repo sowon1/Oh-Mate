@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="main">
+	<select id="helperList" resultType="kr.or.helper.model.vo.Helper">
+		select * from 
+			(select rownum as rnum, h.* from
+			(select * from helper where HELPER_STATUS=2 order by 1 desc)h) 
+		where rnum between 1 and 3
+	</select>
+	<select id="houseList" resultType="kr.or.house.model.vo.House">
+		select
+			*
+		from house
+	</select>
+	<select id="membertotal" resultType="_int">
+		select
+			count(*)
+		from member
+	</select>
+</mapper>

@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
-	<!-- 로그인1 -->
+	<!-- 로그인1  -->
 	<select id="selectOneMember" parameterType="m" resultType="m">
-		select * from member where member_id=#{memberId} and member_pw=#{memberPw}
+		select 
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			phone,
+			email,
+			enroll_date as enrollDate,
+			member_filepath as filepath,
+			member_level as memberLevel,
+			gender,
+			age,
+			profile_status as profileStatus	
+ 		from member where member_id=#{memberId} and member_pw=#{memberPw}
 	</select>
-	
+
 	<!-- 로그인2
 	<select id="selectOneMember1" parameterType="map" resultType="int">
 		SELECT count(*) from member
 		WHERE member_id = #{memberId} and member_pw = #{memberPw}
 	</select>
 	-->
+	
+	<!-- 아이디찾기 -->
+	<select id="searchId" parameterType="m" resultType="m">
+		select 
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			phone,
+			email,
+			enroll_date as enrollDate,
+			member_filepath as filepath,
+			member_level as memberLevel,
+			gender,
+			age,
+			profile_status as profileStatus	
+		from member where member_name=#{memberName} and email=#{email}
+	</select>
 </mapper>
