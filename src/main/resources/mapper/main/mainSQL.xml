@@ -1,18 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="main">
+	<!-- 헬퍼 리스트 조회 3개만 -->
 	<select id="helperList" resultType="kr.or.helper.model.vo.Helper">
-		select * from 
+		select 
+			 helper_no as helperNo,
+			 member_no as memberNo,
+			 helper_name as helperName,
+			 helper_category as helperCategory,
+			 helper_start_time as helperStartTime,
+			 helper_end_time as helperEndTime,
+			 helper_ride as helperRide,
+			 helper_status as helperStatus,
+			 helper_filepath as helperFilepath,
+			 helper_intro as helperIntro,
+			 helper_credit as helperCredit,
+			 helper_refuse as helperRefuse
+		from 
 			(select rownum as rnum, h.* from
 			(select * from helper where HELPER_STATUS=2 order by 1 desc)h) 
 		where rnum between 1 and 3
 	</select>
-	
-	<select id="houseList" resultType="kr.or.house.model.vo.House">
-		select
-			*
-		from house
+	<!-- 하우스 리스트 조회 3개만 -->
+	<select id="houseList" resultMap="house">
+		select * from 
+			(select rownum as rnum, h.* from
+			(select * from house where HOUSE_ALLOW=2 order by 1 desc)h) 
+		where rnum between 1 and 3
 	</select>
+	<!-- 하우스 사진 조회 테이블 -->
+	<select id="selectFileList" resultType="f">
+		select
+			photo_no as photoNo,
+			photo_category as photoCategory, 
+			photo_path as photoPath, 
+			photo_num as photoNum 
+		from 
+			(select rownum as rnum, h.* from
+			(select * from photo where photo_category=2 and photo_num = ${houseNo} order by 1 )h) 
+		where rnum = 1
+	</select>
+	<!-- 하우스 사진 연결 -->
+	<resultMap type="kr.or.house.model.vo.House" id="house">
+		<result column="house_no" property="houseNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="house_title" property="houseTitle"/>
+		<result column="houseowner_deline" property="houseownerDeline"/>
+		<result column="house_selling" property="houseSelling"/>
+		<result column="refuse_reason" property="refuseReason"/>
+		<result column="house_content" property="houseContent"/>
+		<result column="house_room" property="houseRoom"/>
+		<result column="house_charge" property="houseCharge"/>
+		<result column="house_rule" property="houseRule"/>
+		<result column="house_form" property="houseForm"/>
+		<result column="house_gender" property="houseGender"/>
+		<result column="house_convenience" property="houseConvenience"/>
+		<result column="house_allow" property="houseAllow"/>
+		<collection property="photoList"
+					column="house_no"
+					javaType="java.util.ArrayList"
+					ofType="f"
+					select="selectFileList"	
+		/>
+	</resultMap>
+	<!-- 총 회원수 카운트 -->
 	<select id="membertotal" resultType="_int">
 		select
 			count(*)
