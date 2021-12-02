@@ -1,5 +1,8 @@
 package kr.or.house.model.vo;
 
+import java.util.ArrayList;
+
+import kr.or.common.Photo;
 import lombok.Data;
 
 @Data
@@ -18,4 +21,5 @@ public class House {
 	private int houseGender;			//1,남 2. 여 3. 남녀공용
 	private String houseConvenience;	//제공시설
 	private int houseAllow;				//1. 승인대기 2, 승인 3, 승인거부
+	private ArrayList<Photo> photoList; //사진테이블
 }
