@@ -20,7 +20,7 @@ body>*{
 }
 /* 상단 네비 고정을 위해 padding 값 추가 */
 body>div:nth-of-type(5){
-	margin-top:100px;
+	margin-top:60px;
 }
 h1, h2, h3, h4, h5 {
 	font-weight: normal;

@@ -3,6 +3,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="/resources/css/main/main.css">
 <head>
 <meta charset="UTF-8">
 <title>Oh-Mate!</title>
@@ -10,7 +11,7 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="main_section01">
-        <div class="container">
+        <div class="container_mate">
             <h1 class="main_section01_h1">어느 지역에<br>살고싶으신가요?</h1>
             <div class="main_selectbox">
                 <input type="text" name="keyword" placeholder="지역, 지하철역, 대학 주변 검색">
@@ -54,11 +55,11 @@
                         </div>
                     </div>
                 </div>             
-                <a href="/" class="search_main_btn">적용하기 <img src="/img/icon/search_wh.png"></a>
+                <a href="/" class="search_main_btn">적용하기 <img src="/resources/img/icon/search_wh.png"></a>
             </div>
         </div>
     </div>
-    <div class="container main_section02">
+    <div class="container_mate main_section02">
         <h1 class="point_title">Oh-My, HOUSE!</h1>
         <h3 class="sub_text">혼자 시작하는 첫 걸음, 나를 위한 집!</h3>
         <ul class="main_house_list">
@@ -90,9 +91,9 @@
                 <a href="/">
                     <div class="house_list_photo">
                         <div class="like_house">
-                            <img src="/img/icon/heart_off.png">
+                            <img src="/resources/img/icon/heart_off.png">
                         </div>
-                        <img src="/img/main_list01.jpg">
+                        <img src="/resources/img/main_list01.jpg">
                     </div>
                     <div class="house_list_text">
                         <div class="list_line_01">
@@ -114,7 +115,7 @@
                 <a href="/">
                     <div class="house_list_photo">
                         <div class="like_house">
-                            <img src="/img/icon/heart_off.png">
+                            <img src="/resources/img/icon/heart_off.png">
                         </div>
                         <img src="/img/main_list01.jpg">
                     </div>
@@ -136,18 +137,18 @@
             </li>
         </ul>
     </div>
-    <div class="container main_section03">
-        <div class="container">
+    <div class="main_section03">
+        <div class="container_mate">
             <div class="sect03_left">
-                <h3>오늘부터 우리 1일이다?</h3>
+                <h3>오늘부터 우리 1일, Oh-Mate!</h3>
                 <h2><em class="section03_point">오늘부터 메이트</em>에서는 <em class="section03_point" id="allmembercount"></em>명이 살고 있습니다.</h2>
             </div>
             <div class="sect03_right">
-                <a href="/" class="search_main_btn2">내 메이트 찾기 <img src="/img/icon/search_wh.png"></a>
+                <a href="/" class="search_main_btn2">내 메이트 찾기 <img src="/resources/img/icon/search_wh.png"></a>
             </div>
         </div>
     </div>
-    <div class="container main_section04">
+    <div class="container_mate main_section04">
         <h1 class="point_title">Oh, Help me!</h1>
         <h3 class="sub_text">살다가 혼자서 처리하지 못하는 일이 생긴다면!? 오메, 도와줘요!</h3>
         <ul class="main_house_list">
@@ -155,9 +156,9 @@
                 <a href="/">
                     <div class="house_list_photo">
                         <div class="like_house">
-                            <img src="/img/icon/heart_off.png">
+                            <img src="/resources/img/icon/heart_off.png">
                         </div>
-                        <img src="/img/main_list01.jpg">
+                        <img src="/resources/img/main_list01.jpg">
                     </div>
                     <div class="house_list_text">
                         <div class="list_line_01">
