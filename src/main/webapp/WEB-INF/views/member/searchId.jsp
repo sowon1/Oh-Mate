@@ -20,12 +20,12 @@
 					<h4 class="searchIdMiddle">아이디 찾기</h4>
 					<div class="searchId-wrap">
 						<div class="searchId-tab">
-							<a href="/searchId.do">아이디 찾기</a>
+							<a href="/searchIdFrm.do">아이디 찾기</a>
 						</div>
 						<div class="searchId-tab">
-							<a href="/searchPw.do">비밀번호 찾기</a>
+							<a href="/searchPwFrm.do">비밀번호 찾기</a>
 						</div>
-						<form action="/findId" method="post">
+						<form action="/searchId.do" method="post">
 						    <table class="searchId-table">
 						    	<tr style="border-bottom: 35px solid #fff;">
 						        	<td colspan="2">
@@ -45,7 +45,7 @@
 						        </tr>
 						        <tr>
 						            <th colspan="2" class="searchId-button">
-										<input type="submit" value="아이디 찾기" id="searchId" > 
+										<input type="submit" value="아이디 찾기" id="searchId" >
 									</th>
 						        </tr>
 						    </table>
