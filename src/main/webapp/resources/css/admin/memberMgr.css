@@ -40,10 +40,9 @@ input[type="checkbox"]{
 table *{
     text-align: center;
 }
-.table-secondary{
-    --bs-table-hover-bg:#eee9f6;
-    color: #333;
+table a{
+	color: #333;
 }
-.table-hover > tbody > tr:hover > *{
-    color: #333;
+table a:hover{
+	text-decoration: underline;	
 }

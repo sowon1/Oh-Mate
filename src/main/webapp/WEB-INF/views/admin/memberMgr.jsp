@@ -29,6 +29,10 @@
                         <input class="form-check-input" type="checkbox" value="" id="helperChk">
                         <label class="form-check-label" for="helperChk">헬퍼</label>
                     </div>
+                    <div>
+                        <input class="form-check-input" type="checkbox" value="" id="blockChk">
+                        <label class="form-check-label" for="blockChk">계정정지</label>
+                    </div>
                 </div>
                 <div class="keywordBox">
                     <select class="form-select">
@@ -42,7 +46,7 @@
             </div>
         </form>
         <div>
-            <table class="table table-hover">
+            <table class="table">
                 <tr class="table-secondary">
                     <th>No</th>
                     <th>등급</th>
@@ -51,8 +55,36 @@
                     <th>전화번호</th>
                     <th>가입일</th>
                 </tr>
+                <c:forEach items="${list }" var="m" varStatus="i">
+                	<tr>
+	                    <td>${start+i.index }</td>
+	                    <td>
+	                    	<c:choose>
+	                    		<c:when test="${m.memberLevel eq 1}">
+	                    			메이트
+	                    		</c:when>
+	                    		<c:when test="${m.memberLevel eq 2}">
+	                    			하우스오너
+	                    		</c:when>
+	                    		<c:when test="${m.memberLevel eq 4}">
+	                    			헬퍼
+	                    		</c:when>
+	                    		<c:when test="${m.memberLevel eq 3}">
+	                    			계정정지
+	                    		</c:when>
+	                    	</c:choose>
+	                    </td>
+	                    <td>
+	                    	<a href="/adminMemberView.do?memberNo=${m.memberNo }">${m.memberId }</a>
+	                    </td>
+	                    <td>${m.memberName }</td>
+	                    <td>${m.phone }</td>
+	                    <td>${m.enrollDate }</td>
+                	</tr>
+                </c:forEach>
             </table>
         </div>
+        <div id="pageNavi">${pageNavi }</div>
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
