@@ -149,7 +149,7 @@
 		        <p class="id">oh-mate</p>
 		    </header>
 		    <ul>
-		      <li><a href="/memberMgr.do">회원관리</a></li>
+		      <li><a href="/memberMgr.do?reqPage=1">회원관리</a></li>
 		      <li><a href="#">메뉴2</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <li><a href="#">메뉴4</a></li>
@@ -159,7 +159,7 @@
 		</nav>
 	</c:when>
 	<%-- 2.회원등급 :  --%>
-	<c:when test="${sessionScope.m.memberLevel eq 1 or sessionScope.m.memberLevel eq 4}">
+	<c:when test="${sessionScope.m.memberLevel eq 1 or sessionScope.m.memberLevel eq 4 or sessionScope.m.memberLevel eq 5}">
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
 		    <header>
