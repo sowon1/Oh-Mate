@@ -11,7 +11,50 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="container_mate">
 		<h1>회원관리</h1>
+		<form action="">
+            <div class="searchBox">
+                <div>
+                    <div>
+                        <p><b>분류</b></p>
+                    </div>
+                    <div>
+                        <input class="form-check-input" type="checkbox" value="" id="mateChk">
+                        <label class="form-check-label" for="mateChk">메이트</label>
+                    </div>
+                    <div>
+                        <input class="form-check-input" type="checkbox" value="" id="houseownerChk">
+                        <label class="form-check-label" for="houseownerChk">하우스오너</label>
+                    </div>
+                    <div>
+                        <input class="form-check-input" type="checkbox" value="" id="helperChk">
+                        <label class="form-check-label" for="helperChk">헬퍼</label>
+                    </div>
+                </div>
+                <div class="keywordBox">
+                    <select class="form-select">
+                        <option value="">아이디</option>
+                        <option value="">이름</option>
+                        <option value="">전화번호</option>
+                    </select>
+                    <input type="text" class="input_03" name="keyword">
+                    <input type="submit" class="btn btn-primary" value="검색">
+                </div>
+            </div>
+        </form>
+        <div>
+            <table class="table table-hover">
+                <tr class="table-secondary">
+                    <th>No</th>
+                    <th>등급</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                    <th>가입일</th>
+                </tr>
+            </table>
+        </div>
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
+<link rel="stylesheet" href="/resources/css/admin/memberMgr.css">
 </html>
