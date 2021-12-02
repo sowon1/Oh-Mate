@@ -34,7 +34,7 @@
                 <a href="/communityFrm.do">커뮤니티</a>
             </li>
             <li>
-                <a href="#">공지사항</a>
+                <a href="/noticeList.do">공지사항</a>
             </li>
             <li>
                 <a href="#" class="nav_point"><span>포인트메뉴</span></a>

@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="/noticeWriteFrm" class="btn btn_sm">작성</a>
+	<c:if test="${sessionScope.m.memberLevel eq 0 }">
+		<a href="/noticeWriteFrm.do" class="btn btn_sm">작성</a>
+	</c:if>
+	<a href="/noticeWriteFrm.do" class="btn btn_sm">공지사항 작성</a>
 </body>
 </html>
