@@ -7,9 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<form action="/noticeWrite.do">
 		<input type="text" class="input_01" name="noticeTitle">
 		<input type="text" class="input_01" name="noticeContent">
 	</form>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

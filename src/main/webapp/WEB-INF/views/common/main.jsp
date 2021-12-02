@@ -69,7 +69,7 @@
 	                        <div class="like_house">
 	                            <img src="/resources/img/icon/heart_off.png">
 	                        </div>
-	                        <img src="/img/main_list01.jpg">
+	                        <img src="/resources/upload/house/${h.photoList}">
 	                    </div>
 	                    <div class="house_list_text">
 	                        <div class="list_line_01">
@@ -105,7 +105,7 @@
     <div class="main_section03">
         <div class="container_mate">
             <div class="sect03_left">
-                <h3>오늘부터 우리 1일, Oh-Mate!</h3>
+                <h3>오늘부터 우리 1일, Oh-Mate&#128150;</h3>
                 <h2><em class="section03_point">오늘부터 메이트</em>에서는 <em class="section03_point" id="allmembercount"></em>명이 살고 있습니다.</h2>
             </div>
             <div class="sect03_right">
