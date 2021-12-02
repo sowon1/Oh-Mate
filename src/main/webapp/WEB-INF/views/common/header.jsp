@@ -172,10 +172,10 @@
 		      <li><a href="#">메뉴2</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
-		      <c:when test="${sessionScope.m.memberLevel eq 4 }">
+		      <c:if test="${sessionScope.m.memberLevel eq 4 }">
 			      <li><a href="#">메뉴4</a></li>
 			      <li><a href="#">메뉴5</a></li>
-		      </c:when>   	
+		      </c:if>   	
 		      <li><a href="#">로그아웃</a></li>
 		    </ul>
 		</nav>
