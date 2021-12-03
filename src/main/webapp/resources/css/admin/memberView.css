@@ -1,0 +1,23 @@
+.container_mate>div{
+    margin: 50px auto;
+    width: 645px;
+}
+.table > :not(caption) > * > *{
+    box-shadow: none;
+    border-bottom: none;
+}
+.btn{
+    padding: 0;
+}
+.table-active_mate{
+    align-items: center;
+}
+.form-switch .form-check-input{
+    width: 60px;
+}
+.form-check-input{
+    height: 30px;
+}
+.table>tbody>tr:last-child>th:nth-child(3){
+    margin-left: 50px;
+}
