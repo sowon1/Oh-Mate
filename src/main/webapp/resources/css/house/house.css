@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+.house_list{
+    width: 50%;
+    float: left;
+    padding: 50px;
+}
+.list_filter{
+    display: flex;
+    align-items: center;
+}
+.filter_icon{
+    width: 80px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.filter_icon img{
+    width: 40px;
+    float: left;
+}
+.filter_name{
+    float: left;
+    clear: both;
+    color: #956bfc;
+    font-family: "ns_500";
+}
+.search_line{
+    position: relative;
+    width: 100%;
+}
+.search_input{
+    width:100%;
+    outline: none;
+    border: none;
+    background: #f9f9f9;
+    border-radius: 100px;
+    padding: 10px 20px;
+    height: 50px;
+}
+.search_icon img{
+    position: absolute;
+    right: 20px;
+    top: 9px;
+    width: 30px;
+}
