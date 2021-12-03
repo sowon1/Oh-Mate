@@ -48,12 +48,12 @@
         <div>
             <table class="table">
                 <tr class="table-secondary">
-                    <th>No</th>
-                    <th>등급</th>
-                    <th>아이디</th>
-                    <th>이름</th>
-                    <th>전화번호</th>
-                    <th>가입일</th>
+                    <th style="width:10%;">No</th>
+                    <th style="width:15%;">등급</th>
+                    <th style="width:20%;">아이디</th>
+                    <th style="width:20%;">이름</th>
+                    <th style="width:20%;">전화번호</th>
+                    <th style="width:15%;">가입일</th>
                 </tr>
                 <c:forEach items="${list }" var="m" varStatus="i">
                 	<tr>

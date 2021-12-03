@@ -32,4 +32,9 @@ public class AdminController {
 		model.addAttribute("sm", sm);
 		return "admin/memberSearch";
 	}
+	@RequestMapping(value="adminMemberView.do")
+	public String memberView(int memberNo) {
+		
+		return "admin/memberView";
+	}
 }

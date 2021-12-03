@@ -102,40 +102,49 @@
         <div>
             <table class="table">
                 <tr class="table-secondary">
-                    <th>No</th>
-                    <th>등급</th>
-                    <th>아이디</th>
-                    <th>이름</th>
-                    <th>전화번호</th>
-                    <th>가입일</th>
+                    <th style="width:10%;">No</th>
+                    <th style="width:15%;">등급</th>
+                    <th style="width:20%;">아이디</th>
+                    <th style="width:20%;">이름</th>
+                    <th style="width:20%;">전화번호</th>
+                    <th style="width:15%;">가입일</th>
                 </tr>
-                <c:forEach items="${list }" var="m" varStatus="i">
-                	<tr>
-	                    <td>${start+i.index }</td>
-	                    <td>
-	                    	<c:choose>
-	                    		<c:when test="${m.memberLevel eq 1 or m.memberLevel eq 5}">
-	                    			메이트
-	                    		</c:when>
-	                    		<c:when test="${m.memberLevel eq 2}">
-	                    			하우스오너
-	                    		</c:when>
-	                    		<c:when test="${m.memberLevel eq 4}">
-	                    			헬퍼
-	                    		</c:when>
-	                    		<c:when test="${m.memberLevel eq 3}">
-	                    			계정정지
-	                    		</c:when>
-	                    	</c:choose>
-	                    </td>
-	                    <td>
-	                    	<a href="/adminMemberView.do?memberNo=${m.memberNo }">${m.memberId }</a>
-	                    </td>
-	                    <td>${m.memberName }</td>
-	                    <td>${m.phone }</td>
-	                    <td>${m.enrollDate }</td>
-                	</tr>
-                </c:forEach>
+                <c:choose>
+                	<c:when test="${not empty list }">
+		                <c:forEach items="${list }" var="m" varStatus="i">
+		                	<tr>
+			                    <td>${start+i.index }</td>
+			                    <td>
+			                    	<c:choose>
+			                    		<c:when test="${m.memberLevel eq 1 or m.memberLevel eq 5}">
+			                    			메이트
+			                    		</c:when>
+			                    		<c:when test="${m.memberLevel eq 2}">
+			                    			하우스오너
+			                    		</c:when>
+			                    		<c:when test="${m.memberLevel eq 4}">
+			                    			헬퍼
+			                    		</c:when>
+			                    		<c:when test="${m.memberLevel eq 3}">
+			                    			계정정지
+			                    		</c:when>
+			                    	</c:choose>
+			                    </td>
+			                    <td>
+			                    	<a href="/adminMemberView.do?memberNo=${m.memberNo }">${m.memberId }</a>
+			                    </td>
+			                    <td>${m.memberName }</td>
+			                    <td>${m.phone }</td>
+			                    <td>${m.enrollDate }</td>
+		                	</tr>
+		                </c:forEach>
+                	</c:when>
+                	<c:otherwise>
+                		<tr>
+                			<th colspan="6"><p>조회 결과가 없습니다.</p></th>
+                		</tr>
+                	</c:otherwise>
+                </c:choose>
             </table>
         </div>
         <div id="pageNavi">${pageNavi }</div>

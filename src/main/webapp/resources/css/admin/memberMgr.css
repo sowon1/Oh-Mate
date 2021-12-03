@@ -46,3 +46,6 @@ table a{
 table a:hover{
 	text-decoration: underline;	
 }
+table p{
+	margin: 50px 0;
+}
