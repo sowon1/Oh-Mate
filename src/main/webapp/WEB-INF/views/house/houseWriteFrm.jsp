@@ -73,6 +73,7 @@
 	<script src="/resources/summernote/summernote-lite.js"></script>
 	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
+	
 	<!-- 달력 -->
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -101,7 +102,7 @@
 						</select>
 						<p class="ac-title">계좌번호</p>
 						<input type="text" id="number" name="incomeAccount"
-							class="input_03" placeholder="숫자만 기재해주세요">
+							class="input_03" placeholder="하이달(-)과 같이 기제해주세요">
 						<p class="ac-title">예금주</p>
 						<input type="text" id="name" name="incomeName" class="input_03">
 					</div>
@@ -129,7 +130,7 @@
 							<input type="text" id="postCode" name="addressCode"
 								class="input_04" readonly placeholder="우편번호" style="width: 81%">
 							<button type="button" onclick="addrSearch();" class="btn btn_sm"
-								style="line-height: 30px">주소검색</button>
+								style="line-height: 30px" >주소검색</button>
 						</div>
 						<div class="postcode">
 							<input type="text" id="roadAddr" class="input_03"
@@ -408,7 +409,18 @@
 				alert("방개수 및 제공 편의시설을 확인해주세요");
 			}
 		}
+		//카카오 주소
+		function addrSearch(){
+			new daum.Postcode({
+		        oncomplete: function(data) {
+		        	
+		        	document.querySelector("#postCode").value = data.zonecode;
+		            document.querySelector("#roadAddr").value =  data.address;
+		        }
+		    }).open();
+		}
 	</script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
