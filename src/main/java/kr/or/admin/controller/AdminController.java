@@ -1,6 +1,5 @@
 package kr.or.admin.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.admin.model.service.AdminService;
-import kr.or.member.model.vo.Member;
+import kr.or.admin.model.vo.SearchMember;
 
 @Controller
 public class AdminController {
@@ -23,5 +22,14 @@ public class AdminController {
 		model.addAttribute("list", data.get("list"));
 		model.addAttribute("start", data.get("start"));
 		return "admin/memberMgr";
+	}
+	@RequestMapping(value="/adminMemberSearch.do")
+	public String memberSearch(int reqPage, SearchMember sm, Model model) {
+		HashMap<String, Object> data = service.memberSearch(reqPage, sm);
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		model.addAttribute("sm", sm);
+		return "admin/memberSearch";
 	}
 }
