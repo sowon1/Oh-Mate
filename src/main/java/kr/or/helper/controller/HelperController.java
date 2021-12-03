@@ -18,5 +18,10 @@ public class HelperController {
 	public String helperRequestFrm(Model model) {
 		return "helper/helperRequestFrm";
 	}
+	//헬퍼 리스트 출력
+	@RequestMapping(value="/helperList.do")
+	public String helperList() {
+		return "helper/helperList";
+	}
 
 }

@@ -151,23 +151,7 @@
 }
 
 /* main_section02 */
-.sub_text{
-    margin-top: 10px;
-    margin-bottom:50px;
-    font-size:18px;
-}
-.point_title{
-	font-size:32px;
-}
-.point_title:before{
-    content:'';
-    display:inline-block;
-    width:4px;
-    height:30px;
-    margin:-5px 10px 0 0;
-    vertical-align:middle;
-    background:#956bfc;
-}
+
 .main_house_list{
     width: 100%;
     height: auto;
