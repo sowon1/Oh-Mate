@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="/resources/css/default.css">
 <!-- 폰트 CSS -->
 <link rel="stylesheet" href="/resources/css/font.css">
+<!-- 채팅방 css -->
+<link rel="stylesheet" href="/resources/css/main/mate_talk.css">
 </head>
 <div class="back_dark"></div>
 <div class="nav_wrap">
@@ -221,13 +223,70 @@
 		</nav>
 	</c:when>
 </c:choose>
+<div class="mate_talk_open">
+	<div class="mate_talk">
+		<div class="mate_talk_list_top">
+			<a href="" class="msg_edit">
+				<img src="/resources/img/icon/edit.png">
+			</a>
+			<span class="mate_talk_name">박꼬맹님 메세지</span>
+			<a href="/" class="msg_close_btn">
+				<img src="/resources/img/icon/close_wh.png">
+			</a>
+		</div>
+		<ul class="mate_talk_list">
+			<a href="/">
+				<li>
+					<div class="talk_profile">
+						<c:choose>
+				    		<c:when test="${not empty m.filepath}">
+				    			<img src="/resources/upload/member/${m.filepath}">
+				    		</c:when>
+				    		<c:otherwise>		    		
+						        <img src="/resources/img/icon/profile.png">
+				    		</c:otherwise>
+				    	</c:choose>
+					</div>
+					<div class="talk_list_text">
+						<div class="talk_list_02">
+							<span class="mate_talk_msg_name">박꼬맹</span>
+							<span class="mate_talk_list_view">
+								미리보기 메세지이이이ㅣㅣㅣㅣㅣㅣㅣaaaaaaaaaaaaaaaa
+							</span>
+						</div>
+						<div class="talk_list_time">
+							<span class="mate_talk_time">14:59</span>
+							<span class="mate_talk_read_count">99</span>
+						</div>
+					</div>
+				</li>
+			</a>
+		</ul>
+		<div class="mate_talk_list_bottom">
+			<span>오늘부터 메이트, Oh-Mate!</span>
+		</div>
+	</div>
+</div>
 <div class="main_btn">
-    <a href="#" class="chat_icon2"><img src="/resources/img/icon/chat_on.png"></a>
+    <a href="#a" class="chat_icon2" id="mate_talk">
+    	<img src="/resources/img/icon/chat_on.png">
+    </a>
     <a href="#" class="chat_icon"><img src="/resources/img/icon/chatbot_on.png"></a>
     <a href="#" class="top"><img src="/resources/img/icon/top.png"></a>
 </div>
-	
 <script>
+	//채팅방
+	$("#mate_talk").click(function(){
+		$(".mate_talk_open").slideToggle();
+		var img = $(this).children("img");
+		img.attr("src",function(index,attr){
+			if(attr.match('chat_on')){
+				return attr.replace("chat_on","chat_close");
+			}else{
+				return attr.replace("chat_close","chat_on");
+			}
+		})
+	});
 	//쪽지아이콘 클릭 시 toggle
 	$(function(){
 	    $(".submenu").prev().click(function(){
