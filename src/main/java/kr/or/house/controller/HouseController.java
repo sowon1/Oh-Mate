@@ -15,4 +15,9 @@ public class HouseController {
 	public String houseWrite() {
 		return "house/houseWriteFrm";
 	}
+	//하우스 리스트 출력
+	@RequestMapping(value="/houseList.do")
+	public String houseList() {
+		return "house/houseList";
+	}
 }

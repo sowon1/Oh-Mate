@@ -11,34 +11,34 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="container_mate">
 		<h1>회원관리</h1>
-		<form action="">
+		<form action="/adminMemberSearch.do?reqPage=1" method="post">
             <div class="searchBox">
                 <div>
                     <div>
-                        <p><b>분류</b></p>
+                        <p><b>검색 분류</b></p>
                     </div>
                     <div>
-                        <input class="form-check-input" type="checkbox" value="" id="mateChk">
+                        <input class="form-check-input" type="checkbox" value="1" id="mateChk" name="level">
                         <label class="form-check-label" for="mateChk">메이트</label>
                     </div>
                     <div>
-                        <input class="form-check-input" type="checkbox" value="" id="houseownerChk">
+                        <input class="form-check-input" type="checkbox" value="2" id="houseownerChk" name="level">
                         <label class="form-check-label" for="houseownerChk">하우스오너</label>
                     </div>
                     <div>
-                        <input class="form-check-input" type="checkbox" value="" id="helperChk">
+                        <input class="form-check-input" type="checkbox" value="4" id="helperChk" name="level">
                         <label class="form-check-label" for="helperChk">헬퍼</label>
                     </div>
                     <div>
-                        <input class="form-check-input" type="checkbox" value="" id="blockChk">
+                        <input class="form-check-input" type="checkbox" value="3" id="blockChk" name="level">
                         <label class="form-check-label" for="blockChk">계정정지</label>
                     </div>
                 </div>
                 <div class="keywordBox">
-                    <select class="form-select">
-                        <option value="">아이디</option>
-                        <option value="">이름</option>
-                        <option value="">전화번호</option>
+                    <select class="form-select" name="type">
+                        <option value="memberId">아이디</option>
+                        <option value="memberName">이름</option>
+                        <option value="phone">전화번호</option>
                     </select>
                     <input type="text" class="input_03" name="keyword">
                     <input type="submit" class="btn btn-primary" value="검색">
@@ -48,19 +48,19 @@
         <div>
             <table class="table">
                 <tr class="table-secondary">
-                    <th>No</th>
-                    <th>등급</th>
-                    <th>아이디</th>
-                    <th>이름</th>
-                    <th>전화번호</th>
-                    <th>가입일</th>
+                    <th style="width:10%;">No</th>
+                    <th style="width:15%;">등급</th>
+                    <th style="width:20%;">아이디</th>
+                    <th style="width:20%;">이름</th>
+                    <th style="width:20%;">전화번호</th>
+                    <th style="width:15%;">가입일</th>
                 </tr>
                 <c:forEach items="${list }" var="m" varStatus="i">
                 	<tr>
 	                    <td>${start+i.index }</td>
 	                    <td>
 	                    	<c:choose>
-	                    		<c:when test="${m.memberLevel eq 1}">
+	                    		<c:when test="${m.memberLevel eq 1 or m.memberLevel eq 5}">
 	                    			메이트
 	                    		</c:when>
 	                    		<c:when test="${m.memberLevel eq 2}">

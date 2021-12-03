@@ -46,3 +46,9 @@ table a{
 table a:hover{
 	text-decoration: underline;	
 }
+table p{
+	margin: 50px 0;
+}
+.container_mate>h1{
+	padding-left: 35px;
+}

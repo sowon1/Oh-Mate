@@ -15,4 +15,67 @@
 	<select id="memberTotal" resultType="_int">
 		select count(*) from member
 	</select>
+	<select id="searchMember" parameterType="map" resultType="m">
+		select
+			member_no as memberNo,
+			member_level as memberLevel,
+			member_id as memberId,
+			member_name as memberName,
+			phone,
+			enroll_date as enrollDate
+		from (select rownum as rnum, m.* from (select * from member
+		<choose>
+			<when test="type != null and type.equals('memberId')">
+				where member_id like '%'||#{keyword}||'%'
+			</when>
+			<when test="type != null and type.equals('memberName')">
+				where member_name like '%'||#{keyword}||'%'
+			</when>
+			<when test="type != null and type.equals('phone')">
+				where phone like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+		<if test="level != null">
+			and member_level in
+			<foreach collection="level" item="l" open="(" close=")" separator=",">
+				<choose>
+					<when test='l == 1'>
+						1,5
+					</when>
+					<when test='l != 1'>
+						#{l}
+					</when>
+				</choose>
+			</foreach>
+		</if>
+		order by 1 desc)m)mm
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="totalSearch" resultType="_int">
+		select count(*) from member
+		<choose>
+			<when test="type != null and type.equals('memberId')">
+				where member_id like '%'||#{keyword}||'%'
+			</when>
+			<when test="type != null and type.equals('memberName')">
+				where member_name like '%'||#{keyword}||'%'
+			</when>
+			<when test="type != null and type.equals('phone')">
+				where phone like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+		<if test="level != null">
+			and member_level in
+			<foreach collection="level" item="l" open="(" close=")" separator=",">
+				<choose>
+					<when test='l == 1'>
+						1,5
+					</when>
+					<when test='l != 1'>
+						#{l}
+					</when>
+				</choose>
+			</foreach>
+		</if>
+	</select>
 </mapper>

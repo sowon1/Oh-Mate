@@ -23,4 +23,13 @@ public class AdminDao {
 	public int totalCount() {
 		return session.selectOne("admin.memberTotal");
 	}
+
+	public ArrayList<Member> memberSearch(HashMap<String, Object> map) {
+		List<Member> list = session.selectList("admin.searchMember", map);
+		return (ArrayList<Member>)list;
+	}
+
+	public int totalSearchCnt(HashMap<String, Object> map) {
+		return session.selectOne("admin.totalSearch", map);
+	}
 }
