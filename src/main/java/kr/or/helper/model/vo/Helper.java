@@ -16,4 +16,5 @@ public class Helper {
 	private String helperIntro;			//자기소개
 	private String helperCredit;		//헬퍼 자격증 사진
 	private String helperRefuse;		//헬퍼 미승인 사유
+	private String helperAddress;		//선호 구
 }
