@@ -222,8 +222,8 @@
 	</c:when>
 </c:choose>
 <div class="main_btn">
-    <a href="#" class="chat_icon2"><img src="/resources/img/icon/chat_close.png"></a>
-    <a href="#" class="chat_icon"><img src="/resources/img/icon/chat_on.png"></a>
+    <a href="#" class="chat_icon2"><img src="/resources/img/icon/chat_on.png"></a>
+    <a href="#" class="chat_icon"><img src="/resources/img/icon/chatbot_on.png"></a>
     <a href="#" class="top"><img src="/resources/img/icon/top.png"></a>
 </div>
 	

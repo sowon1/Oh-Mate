@@ -1,5 +1,8 @@
 package kr.or.common;
 
+import lombok.Data;
+
+@Data
 public class Photo {
 	private int photoNo;		//시퀀스
 	private int photoCategory;	//1.하우스 / 2.헬프완료내역 / 3.후기 / 4. 공지사항
