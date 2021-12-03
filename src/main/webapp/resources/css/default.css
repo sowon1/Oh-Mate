@@ -323,7 +323,7 @@ ul{
 .chat_icon2{
 	position: fixed;
     right: 40px;
-    bottom: 180px;
+    bottom: 170px;
     transition-duration: 0.5s;
     box-sizing: content-box;
 }
