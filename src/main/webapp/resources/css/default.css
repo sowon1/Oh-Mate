@@ -19,7 +19,7 @@ body>*{
 	width:100%;
 }
 /* 상단 네비 고정을 위해 padding 값 추가 */
-body>div:nth-of-type(5){
+body>div:nth-of-type(6){
 	margin-top:60px;
 }
 h1, h2, h3, h4, h5 {
@@ -1333,4 +1333,23 @@ input[name="funderCategory"]:checked+label:after{
 .pagination > .active{
 	border: 3px solid #956bfc;
     border-radius: 100%;
+}
+
+/* title */
+.sub_text{
+    margin-top: 10px;
+    margin-bottom:50px;
+    font-size:18px;
+}
+.point_title{
+	font-size:32px;
+}
+.point_title:before{
+    content:'';
+    display:inline-block;
+    width:4px;
+    height:30px;
+    margin:-5px 10px 0 0;
+    vertical-align:middle;
+    background:#956bfc;
 }
