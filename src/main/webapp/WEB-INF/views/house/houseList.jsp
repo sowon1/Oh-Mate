@@ -12,7 +12,7 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
-	<div class="container_mate">
+	<div class="container_mate_filter">
 		<div class="list_filter">
 			<div class="filter_icon">
 				<img src="/resources/img/icon/filter.png">
