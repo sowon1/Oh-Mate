@@ -4,14 +4,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 작성</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<form action="/noticeWrite.do">
-		<input type="text" class="input_01" name="noticeTitle">
-		<input type="text" class="input_01" name="noticeContent">
-	</form>
+<!-- include summernote css/js-->
+<script src="/resources/summernote/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
+<script src="/resources/summernote/summernote-lite.js"></script>
+<!-- include summernote-ko-KR -->
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+<!-- include noticeWriteFrm css -->
+<link rel="stylesheet" href="/resources/css/notice/noticeWriteFrm.css">
+	<div class="container_mate">
+		<h1>공지사항 작성</h1>
+		<br>
+		<hr>
+		<form action="/noticeWrite.do" method="post" enctype="multipart/form-data">
+			<table class="table">
+				<tr>
+					<th>제목</th>
+					<td colspan="3"><input type="text" name="noticeTitle" class="input_03" autocomplete="off"></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td colspan="3" style="text-align:left;">
+						<textarea id="noticeContent" name="noticeContent"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td style="text-align:left;">
+						<input type="file" name="upfile">
+					</td>
+					<td colspan="2" style="text-align:right;">
+						<button type="submit" class="btn btn_pk" style="height: 60px;">등록</button>
+						<a href="/noticeList.do?reqPage=1" class="btn" style="height: 60px;">목록</a>
+					</td>
+				</tr>		
+			</table>
+		</form>
+	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<script>
+	$("#noticeContent").summernote({
+		height: 450,
+		lang: "ko-KR"
+	});
+</script>
 </body>
 </html>
