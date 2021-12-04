@@ -10,7 +10,7 @@ import kr.or.house.model.service.HouseService;
 public class HouseController {
 	@Autowired
 	private HouseService service;
-	
+	//하우스 등록
 	@RequestMapping(value = "/houseWrite.do")
 	public String houseWrite() {
 		return "house/houseWriteFrm";

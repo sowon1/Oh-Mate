@@ -69,11 +69,12 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<!-- 썸머노트 등록 -->
 	<script src="/resources/summernote/jquery-3.3.1.js"></script>
-	<script src="/resources/summernote/summernote-lite.js"></script>
-	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
-	
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<!-- include summernote-ko-KR -->
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 	<!-- 달력 -->
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -130,7 +131,7 @@
 							<input type="text" id="postCode" name="addressCode"
 								class="input_04" readonly placeholder="우편번호" style="width: 81%">
 							<button type="button" onclick="addrSearch();" class="btn btn_sm"
-								style="line-height: 30px" >주소검색</button>
+								style="line-height: 30px">주소검색</button>
 						</div>
 						<div class="postcode">
 							<input type="text" id="roadAddr" class="input_03"
@@ -273,11 +274,13 @@
 						<p class="ac-title">지정성별</p>
 						<div class="check_ent displayflex" style="text-align: center;">
 							<input type="checkbox" class="chk" name="funderCategory"
-								id="gender1" value="1" onclick="checkOnlyOne(this)"><label for="gender1" >남성전용</label>
+								id="gender1" value="1" onclick="checkOnlyOne(this)"><label
+								for="gender1">남성전용</label> <input type="checkbox" class="chk"
+								name="funderCategory" id="gender2" value="2"
+								onclick="checkOnlyOne(this)"><label for="gender2">여성전용</label>
 							<input type="checkbox" class="chk" name="funderCategory"
-								id="gender2" value="2" onclick="checkOnlyOne(this)"><label for="gender2">여성전용</label>
-							<input type="checkbox" class="chk" name="funderCategory"
-								id="gender3" value="3" onclick="checkOnlyOne(this)"><label for="gender3">남녀공용</label>
+								id="gender3" value="3" onclick="checkOnlyOne(this)"><label
+								for="gender3">남녀공용</label>
 						</div>
 					</div>
 					<div class="button-place">
@@ -298,6 +301,7 @@
 		</div>
 	</div>
 	<script>
+	
 	//체크박스 1개만 선택하도록
 	function checkOnlyOne(target) {
 	    document.querySelectorAll('input[type=checkbox]')
@@ -419,8 +423,15 @@
 		        }
 		    }).open();
 		}
+		//썸머노트
+		// 썸머노트 작동을 안함 (jquery 하나만 설정해도 안되네..)
+		$("#summernote").summernote({
+			height: 450,
+			lang: "ko-KR"
+		});
 	</script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
