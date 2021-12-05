@@ -10,6 +10,15 @@
 	display:none;
 	transition-duration: 0.8s;
 }
+.mate_talk_view_open{
+	position: fixed;
+    right: -500px;
+    bottom: 240px;
+    transition-duration: 0.8s;
+	width: 450px;
+	display:block;
+	transition-duration: 0.8s;
+}
 .mate_talk{
     width: 450px;
     height: 500px;
@@ -166,7 +175,6 @@
     border-bottom-right-radius: 20px;
     position: relative;
     background: #fbf9ff;
-   display: none;
 }
 .mate_talk_view_top{
     background: #956bfc;

@@ -8,9 +8,14 @@
 	flex-grow:1;
 }
 .house_list{
+	width:100%;
+	height: 855px;
+	min-width:1200px;
+}
+.house_left, .house_right{
     width: 50%;
     float: left;
-    padding: 50px;
+    height: 100%;
 }
 .list_filter{
     display: flex;
@@ -54,3 +59,5 @@
     top: 9px;
     width: 30px;
 }
+
+/* 오른쪽 맵 */

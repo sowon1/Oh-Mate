@@ -134,10 +134,91 @@
     <div class="main_section05">
         <h3>당신의 집 가치는 얼마입니까?</h3>
         <h1>내 집도 이제 오늘부터 메이트!</h1>
-        <a href="/" class="sect05_btn">하우스 등록하기</a>
+        <c:choose>
+       		<c:when test="${not empty sessionScope.member}">
+       			<c:choose>
+       				<c:when test="${sessionScope.m.memberLevel eq 2}">
+		       			<a href="/houseWrite.do" class="sect05_btn">하우스 등록하기</a>      				
+       				</c:when>
+       				<c:otherwise>
+		       			<a id="house_modal" class="sect05_btn">하우스 등록하기</a>
+		       			<div class="msg_popup_modal">		       			
+		                    <div class="popup_modal">
+		                       <div class="main_modal_top">
+		                       		<span class="main_modal_text"><em class="logo_point">Oh-Mate</em></span>
+		                            <span id="btnclose" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+		                        </div>
+		                        <div class="main_modal_content">
+		                        	<h1>하우스 등록은 하우스 오너만 등록할 수 있습니다.</h1>
+		                        <!-- 	<div class="main_modal_btn">
+			                        	<a href="/" class="main_btn btn_out">오너 전환</a>
+			                        	<a id="main_close" class="main_btn btn_out">닫기</a>
+		                        	</div> -->
+		                        </div>
+		                	</div> 
+		                </div>
+       				</c:otherwise>
+       			</c:choose>
+       		</c:when>      	
+       		<c:otherwise>
+       			<a id="main_house_login" class="sect05_btn">하우스 등록하기</a>
+       			<div class="msg_popup_modal">		       			
+		                    <div class="popup_modal">
+		                       <div class="msg_modal_top">
+		                       		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
+		                            <span id="btnclose" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+		                        </div>
+		                        <div class="msg_modal_content">
+		                        	<h1>로그인이 필요한 기능입니다.</h1>
+		                        	<div class="main_modal_btn">
+			                        	<a data-toggle="modal" href="#modal1" class="main_btn btn_out main_modal_login">로그인</a>
+			                        	<a id="main_close" class="main_btn btn_out">닫기</a>
+		                        	</div>
+		                        </div>
+		                	</div> 
+		                </div>
+       		</c:otherwise>
+       	</c:choose>
     </div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
+		//모달
+	    $("#house_modal").click(function(){
+	    	msgpopupopne();
+	    });
+	    $("#btnclose").click(function(){
+	    	msgpopupclose();
+	    });
+	    $("#main_close").click(function(){
+	    	msgpopupclose();
+	    });
+	    $("#main_house_login").click(function(){
+	    	msgpopupopne();
+	    });
+	    $(".main_modal_login").click(function(){
+	    	msgpopupclose();
+	    });
+	    //팝업 열때의 함수
+	    function msgpopupopne(){
+	    	$(".msg_popup_modal").css("display","flex");
+	        $('body').css("overflow", "hidden"); //모달시 스크롤 방지
+	        $(".back_dark").show();
+	    }
+	    //닫을때의 함수
+	    function msgpopupclose(){
+	    	$(".msg_popup_modal").css("display","none");
+	        $('body').css("overflow", "auto");
+	        $(".back_dark").hide();
+		}
+	    $(document).mouseup(function (e){
+	    //마우스 영역 밖 클릭 시 모달 닫기
+	    var container = $('.msg_popup_modal');
+	        if( container.has(e.target).length === 0){
+	        container.css('display','none');
+	        $('body').css("overflow", "auto"); //본문 스크롤 살리기
+	        }
+	    });
+		//검색 쪽 셀렉트박스
 		$(document).ready(function(){
 	        var selected = $(".custom-options>span");
 	        $(".custom-select").click(function(){

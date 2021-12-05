@@ -223,6 +223,7 @@
 		</nav>
 	</c:when>
 </c:choose>
+<!-- 메이트톡 리스트 -->
 <div class="mate_talk_open">
 	<!-- 리스트일때는 채팅방 숨겨놨다가, 클릭했을때 폼 띄워주고 아작스로 조회해서 소켓으로 연결해주던디..
 	그리고 리스트는 숨기고..
@@ -271,141 +272,14 @@
 					</div>
 				</li>
 			</a>
-			<a href="/">
-				<li>
-					<div class="talk_profile">
-						<c:choose>
-				    		<c:when test="${not empty m.filepath}">
-				    			<img src="/resources/upload/member/${m.filepath}">
-				    		</c:when>
-				    		<c:otherwise>		    		
-						        <img src="/resources/img/icon/profile.png">
-				    		</c:otherwise>
-				    	</c:choose>
-					</div>
-					<div class="talk_list_text">
-						<div class="talk_list_02">
-							<span class="mate_talk_msg_name">박꼬맹</span>
-							<span class="mate_talk_list_view">
-								미리보기 메세지이이이ㅣㅣㅣㅣㅣㅣㅣaaaaaaaaaaaaaaaa
-							</span>
-						</div>
-						<div class="talk_list_time">
-							<span class="mate_talk_time">14:59</span>
-							<span class="mate_talk_read_count">99</span>
-						</div>
-					</div>
-				</li>
-			</a>
-			<a href="/">
-				<li>
-					<div class="talk_profile">
-						<c:choose>
-				    		<c:when test="${not empty m.filepath}">
-				    			<img src="/resources/upload/member/${m.filepath}">
-				    		</c:when>
-				    		<c:otherwise>		    		
-						        <img src="/resources/img/icon/profile.png">
-				    		</c:otherwise>
-				    	</c:choose>
-					</div>
-					<div class="talk_list_text">
-						<div class="talk_list_02">
-							<span class="mate_talk_msg_name">박꼬맹</span>
-							<span class="mate_talk_list_view">
-								미리보기 메세지이이이ㅣㅣㅣㅣㅣㅣㅣaaaaaaaaaaaaaaaa
-							</span>
-						</div>
-						<div class="talk_list_time">
-							<span class="mate_talk_time">14:59</span>
-							<span class="mate_talk_read_count">99</span>
-						</div>
-					</div>
-				</li>
-			</a>
-			<a href="/">
-				<li>
-					<div class="talk_profile">
-						<c:choose>
-				    		<c:when test="${not empty m.filepath}">
-				    			<img src="/resources/upload/member/${m.filepath}">
-				    		</c:when>
-				    		<c:otherwise>		    		
-						        <img src="/resources/img/icon/profile.png">
-				    		</c:otherwise>
-				    	</c:choose>
-					</div>
-					<div class="talk_list_text">
-						<div class="talk_list_02">
-							<span class="mate_talk_msg_name">박꼬맹</span>
-							<span class="mate_talk_list_view">
-								미리보기 메세지이이이ㅣㅣㅣㅣㅣㅣㅣaaaaaaaaaaaaaaaa
-							</span>
-						</div>
-						<div class="talk_list_time">
-							<span class="mate_talk_time">14:59</span>
-							<span class="mate_talk_read_count">99</span>
-						</div>
-					</div>
-				</li>
-			</a>
-			<a href="/">
-				<li>
-					<div class="talk_profile">
-						<c:choose>
-				    		<c:when test="${not empty m.filepath}">
-				    			<img src="/resources/upload/member/${m.filepath}">
-				    		</c:when>
-				    		<c:otherwise>		    		
-						        <img src="/resources/img/icon/profile.png">
-				    		</c:otherwise>
-				    	</c:choose>
-					</div>
-					<div class="talk_list_text">
-						<div class="talk_list_02">
-							<span class="mate_talk_msg_name">박꼬맹</span>
-							<span class="mate_talk_list_view">
-								미리보기 메세지이이이ㅣㅣㅣㅣㅣㅣㅣaaaaaaaaaaaaaaaa
-							</span>
-						</div>
-						<div class="talk_list_time">
-							<span class="mate_talk_time">14:59</span>
-							<span class="mate_talk_read_count">99</span>
-						</div>
-					</div>
-				</li>
-			</a>
-			<a href="/">
-				<li>
-					<div class="talk_profile">
-						<c:choose>
-				    		<c:when test="${not empty m.filepath}">
-				    			<img src="/resources/upload/member/${m.filepath}">
-				    		</c:when>
-				    		<c:otherwise>		    		
-						        <img src="/resources/img/icon/profile.png">
-				    		</c:otherwise>
-				    	</c:choose>
-					</div>
-					<div class="talk_list_text">
-						<div class="talk_list_02">
-							<span class="mate_talk_msg_name">박꼬맹</span>
-							<span class="mate_talk_list_view">
-								미리보기 메세지이이이ㅣㅣㅣㅣㅣㅣㅣaaaaaaaaaaaaaaaa
-							</span>
-						</div>
-						<div class="talk_list_time">
-							<span class="mate_talk_time">14:59</span>
-							<span class="mate_talk_read_count">99</span>
-						</div>
-					</div>
-				</li>
-			</a>
 		</ul>
 		<div class="mate_talk_list_bottom">
 			<span>오늘부터 메이트, Oh-Mate!</span>
 		</div>
 	</div>
+</div>
+<!-- 메이트톡 상세보기 -->
+<div class="mate_talk_view_open">
 	<div class="mate_talk_view">
 		<div class="mate_talk_view_top">
 			<a href="javascript:history.back();">
@@ -444,32 +318,6 @@
 					이건 나의 답장이란다 보이니?? 내 마음이 보이니~~~~~~~~~~~~~~~~~~~~~~~~~
 				</span>
 			</div>
-			<div class="mate_talk_left">
-				<img src="/resources/img/icon/profile.png">
-				<div class="mate_talk_left_line">
-					<span class="mate_talk_msg_name">박꼬맹</span>
-					<div class="mate_talk_view_left_one">
-						<span class="mate_talk_left_msg">
-							안녕? 이건 메세지란다 잘 보이니? 여러줄을 써볼게 잘 가나 보자꾸낭
-						</span>
-						<div class="mate_talk_msg_side">
-							<span class="mate_talk_left_date">
-								안읽음<br>
-								오전 8:59
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="mate_talk_right">
-				<span class="mate_talk_right_date">
-					안읽음<br>
-					오전 9:00
-				</span>
-				<span class="mate_talk_right_msg">
-					이건 나의 답장이란다 보이니?? 내 마음이 보이니~~~~~~~~~~~~~~~~~~~~~~~~~
-				</span>
-			</div>
 		</div>
 		<div class="mate_talk_sendBox">
 			<input type="text" id="sendMsg" class="mate_talk_sendMsg">
@@ -477,6 +325,7 @@
 		</div>
 	</div>
 </div>
+<!-- 메이트톡 닫기 -->
 <div class="main_btn">
     <a href="#a" class="chat_icon2" id="mate_talk">
     	<img src="/resources/img/icon/chat_on.png">

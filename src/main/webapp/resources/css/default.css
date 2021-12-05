@@ -19,7 +19,7 @@ body>*{
 	width:100%;
 }
 /* 상단 네비 고정을 위해 padding 값 추가 */
-body>div:nth-of-type(6){
+body>div:nth-of-type(7){
 	margin-top:60px;
 }
 h1, h2, h3, h4, h5 {
@@ -1352,4 +1352,66 @@ input[name="funderCategory"]:checked+label:after{
     margin:-5px 10px 0 0;
     vertical-align:middle;
     background:#956bfc;
+}
+
+/* 메세지 팝업 */
+.msg_popup_modal{
+    /* 현재 화면 중앙에 모달 뜰수있게 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+}
+.popup_modal{
+    width: 50vw;
+    min-width: 500px;
+    max-width: 400px;
+    height: 50vh;
+    min-height: 200px;
+    max-height: 200px;
+    text-align: left;
+    z-index: 10;
+    overflow-y: auto;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.msg_modal_top{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0px 20px;
+    justify-content: space-between;
+    align-items: center;
+    background: #956bfc;
+    height: 60px;
+}
+.msg_modal_text{
+	font-size: 22px;
+    color: #fff;
+}
+.logo_point{
+	font-family: "logo";
+	color: rgba(255, 255, 255, 0.397);
+}
+.msg_modal_top img{
+	width:25px;
+}
+.msg_modal_content h1{
+	font-size:20px;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.msg_modal_content{
+	background: #fff;
+    float: left;
+    width: 100%;
+    height: 140px;
+    padding: 20px 0px;
 }

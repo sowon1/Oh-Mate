@@ -27,18 +27,15 @@
 		</div>
 	</div>
 	<div class="house_list">
-	
-	</div>
-	<div class="house_right">
-		<div id="map" style="width:100%;height:400px;"></div>
+		<div class="house_left">
+			list
+		</div>
+		<div class="house_right">
+			<div id="map" style="width:100%;height:100%;"></div>
+		</div>
 	</div>
 	<script>
-		//login 함수
-		function login(){
-			if(confirm("로그인이 필요 합니다 로그인 하시겠습니까?")){
-				location.href="/login"
-			}
-		}
+
 		//map
 		 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
