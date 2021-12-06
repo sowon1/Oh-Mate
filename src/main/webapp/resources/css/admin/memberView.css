@@ -1,5 +1,5 @@
 .container_mate>div{
-    margin: 50px auto;
+    margin: 0 auto;
     width: 645px;
 }
 .table > :not(caption) > * > *{
@@ -18,6 +18,36 @@
 .form-check-input{
     height: 30px;
 }
+.table-active_mate{
+	margin-bottom: 10px;
+}
+.table>tbody>tr:last-child{
+	margin-bottom: 0;
+}
 .table>tbody>tr:last-child>th:nth-child(3){
-    margin-left: 50px;
+    margin-left: 105px;
+	position: relative;
+}
+.container_mate>h1{
+	padding-left: 35px;
+}
+.table>tbody>tr:last-child>th:nth-child(3)>span{
+	position: absolute;
+	left:-6px;
+	top:30px;
+	font-family: "ns_300";
+	font-size: 13px;
+	color:#8500ff;
+}
+.img-viewr+label{
+	margin-top: 115px;
+}
+.btnBox{
+    margin: 70px auto 0px;
+    display: flex;
+    width: 400px;
+    justify-content: space-around;
+}
+.select input[type=radio]+label{
+	line-height: 32px;
 }

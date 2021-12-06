@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.admin.model.service.AdminService;
 import kr.or.admin.model.vo.SearchMember;
+import kr.or.member.model.vo.Member;
 
 @Controller
 public class AdminController {
@@ -33,8 +34,9 @@ public class AdminController {
 		return "admin/memberSearch";
 	}
 	@RequestMapping(value="adminMemberView.do")
-	public String memberView(int memberNo) {
-		
+	public String memberView(int memberNo, Model model) {
+		Member m = service.selectMemberInfo(memberNo);
+		model.addAttribute("m", m);
 		return "admin/memberView";
 	}
 }

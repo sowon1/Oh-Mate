@@ -51,7 +51,7 @@
 		order by 1 desc)m)mm
 		where rnum between #{start} and #{end}
 	</select>
-	<select id="totalSearch" resultType="_int">
+	<select id="totalSearch" parameterType="map" resultType="_int">
 		select count(*) from member
 		<choose>
 			<when test="type != null and type.equals('memberId')">
@@ -77,5 +77,21 @@
 				</choose>
 			</foreach>
 		</if>
+	</select>
+	<select id="selectMemberInfo" parameterType="_int" resultType="m">
+		select
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			phone,
+			email,
+			enroll_date as enrollDate,
+			member_filepath as filepath,
+			member_level as memberLevel,
+			gender,
+			age,
+			profile_status as profileStatus
+		from member where member_no=#{memberNo}
 	</select>
 </mapper>
