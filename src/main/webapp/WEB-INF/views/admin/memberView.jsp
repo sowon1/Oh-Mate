@@ -12,7 +12,7 @@
 		<div class="container_mate">
 	        <h1>회원 정보</h1>
 	        <div>
-	            <form action="/adminMemberUpdate.do" method="post">
+	            <form action="/adminMemberUpdate.do" method="post" enctype="multipart/form-data">
 	            	<input type="hidden" name="memberNo" value="${m.memberNo }">
                     <input type="hidden" name="memberLevel" value="${m.memberLevel }">
 	                <table class="table">
@@ -20,10 +20,10 @@
 	                        <th>프로필 이미지</th>
 	                        <td class="displayflex" colspan="3">
 	                            <div class="img-viewr">
-	                                <img id="img-view" class="profile_view" src="/resources/img/icon/profile.png">
+	                                <img id="img-view" class="profile_view" src="/resources/upload/member/${m.filepath }">
 	                            </div>
 	                            <label class="btn btn_sm btn_out" for="profile">프로필 선택</label>
-	                            <input type="file" name="filepath" id="profile" onchange="loadImg(this);" accept=".jpg,.jpeg,.png,.gif" style="display: none;">
+	                            <input type="file" name="file" id="profile" accept=".jpg,.jpeg,.png,.gif" style="display: none;">
 	                        </td>
 	                    </tr>
 	                    <tr class="table-active_mate">
@@ -146,7 +146,7 @@
                     	</c:if>
 	                </table>
 	                <div class="btnBox">
-	                    <button type="button" class="btn btn_out" onclick="history.go(-1);">목록</button>
+	                    <button type="button" class="btn btn_out">목록</button>
 	                    <input type="submit" class="btn" value="수정">
 	                </div>
 	            </form>
@@ -155,4 +155,5 @@
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
 <link rel="stylesheet" href="/resources/css/admin/memberView.css">
+<script type="text/javascript" src="/resources/js/memberView.js"></script>
 </html>

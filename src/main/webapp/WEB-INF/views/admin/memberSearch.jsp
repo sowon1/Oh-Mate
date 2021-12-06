@@ -116,6 +116,9 @@
 			                    <td>${start+i.index }</td>
 			                    <td>
 			                    	<c:choose>
+			                    		<c:when test="${m.memberLevel eq 0}">
+			                    			관리자
+			                    		</c:when>
 			                    		<c:when test="${m.memberLevel eq 1 or m.memberLevel eq 5}">
 			                    			메이트
 			                    		</c:when>

@@ -218,7 +218,7 @@
 		      <li><a href="#">메뉴3</a></li>
 		      <li><a href="#">메뉴4</a></li>
 		      <li><a href="#">메뉴5</a></li>
-		      <li><a href="#">로그아웃</a></li>
+		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>
 	</c:when>
