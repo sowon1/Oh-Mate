@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Oh-Mate! 회원 관리</title>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
@@ -15,7 +15,7 @@
             <div class="searchBox">
                 <div>
                     <div>
-                        <p><b>검색 분류</b></p>
+                        <p>검색 분류</p>
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="1" id="mateChk" name="level">
@@ -69,7 +69,7 @@
 	                    		<c:when test="${m.memberLevel eq 4}">
 	                    			헬퍼
 	                    		</c:when>
-	                    		<c:when test="${m.memberLevel eq 3}">
+	                    		<c:when test="${m.memberLevel eq 3 or m.memberLevel eq 6 or m.memberLevel eq 7}">
 	                    			계정정지
 	                    		</c:when>
 	                    	</c:choose>

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.admin.model.vo.UpdateMember;
 import kr.or.member.model.vo.Member;
 
 @Repository
@@ -35,5 +36,9 @@ public class AdminDao {
 
 	public Member selectMemberInfo(int memberNo) {
 		return session.selectOne("admin.selectMemberInfo", memberNo);
+	}
+
+	public int memberUpdate(UpdateMember um) {
+		return session.update("admin.memberUpdate", um);
 	}
 }

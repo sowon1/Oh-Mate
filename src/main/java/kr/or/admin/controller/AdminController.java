@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.admin.model.service.AdminService;
 import kr.or.admin.model.vo.SearchMember;
+import kr.or.admin.model.vo.UpdateMember;
 import kr.or.member.model.vo.Member;
 
 @Controller
@@ -38,5 +39,17 @@ public class AdminController {
 		Member m = service.selectMemberInfo(memberNo);
 		model.addAttribute("m", m);
 		return "admin/memberView";
+	}
+	@RequestMapping(value="/adminMemberUpdate.do")
+	public String memberUpdate(UpdateMember um, Model model) {
+		System.out.println(um.getHelperStatus());
+		int result = service.memberUpdate(um);
+		if(result>0) {
+			model.addAttribute("msg", "정보 수정 완료");
+		}else {
+			model.addAttribute("msg", "정보 수정 실패");
+		}
+		model.addAttribute("loc", "/adminMemberView.do?memberNo="+um.getMemberNo());
+		return "common/msg";
 	}
 }

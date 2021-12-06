@@ -20,7 +20,7 @@ body>*{
 }
 /* 상단 네비 고정을 위해 padding 값 추가 */
 body>div:nth-of-type(7){
-	margin-top:60px;
+	margin-top:58px;
 }
 h1, h2, h3, h4, h5 {
 	font-weight: normal;
@@ -288,31 +288,16 @@ ul{
 	position: fixed;
     right: 40px;
     bottom: 30px;
-    padding: 10px;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    background-color: #333;
-    color: #fff;
-    text-decoration: none;
-    transition-duration: 0.5s;
-    box-sizing: content-box;
 	display: flex;
-    justify-content: center;
-    align-items: center;
 	filter: drop-shadow(rgba(0, 0, 0, 0.4) 0px 1px 4px);
 }
-.top:hover{
-	background-color:#956bfc;
-}
 .top img{
-	width: 25px;
+	width: 80px;
 }
 .chat_icon{
 	position: fixed;
     right: 40px;
-    bottom: 100px;
+    bottom: 80px;
     transition-duration: 0.5s;
     box-sizing: content-box;
 }
@@ -323,7 +308,7 @@ ul{
 .chat_icon2{
 	position: fixed;
     right: 40px;
-    bottom: 170px;
+    bottom: 155px;
     transition-duration: 0.5s;
     box-sizing: content-box;
 }
@@ -1414,4 +1399,9 @@ input[name="funderCategory"]:checked+label:after{
     width: 100%;
     height: 140px;
     padding: 20px 0px;
+}
+
+/* 하단 탑버튼과 챗버튼들 */
+.main_btn{
+	z-index:9993;
 }

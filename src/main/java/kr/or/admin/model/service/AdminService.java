@@ -5,9 +5,11 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.admin.model.dao.AdminDao;
 import kr.or.admin.model.vo.SearchMember;
+import kr.or.admin.model.vo.UpdateMember;
 import kr.or.member.model.vo.Member;
 
 @Service
@@ -140,5 +142,9 @@ public class AdminService {
 
 	public Member selectMemberInfo(int memberNo) {
 		return dao.selectMemberInfo(memberNo);
+	}
+	@Transactional
+	public int memberUpdate(UpdateMember um) {
+		return dao.memberUpdate(um);
 	}
 }

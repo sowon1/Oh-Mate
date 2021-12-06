@@ -12,8 +12,9 @@
 		<div class="container_mate">
 	        <h1>회원 정보</h1>
 	        <div>
-	            <form action="/adminMemberUpdate.do" method="post" enctype="multipart/form-data">
+	            <form action="/adminMemberUpdate.do" method="post">
 	            	<input type="hidden" name="memberNo" value="${m.memberNo }">
+                    <input type="hidden" name="memberLevel" value="${m.memberLevel }">
 	                <table class="table">
 	                    <tr class="table-active_mate center_list">
 	                        <th>프로필 이미지</th>
@@ -30,19 +31,19 @@
 	                        <td colspan="3">
 	                        	<c:choose>
 	                        		<c:when test="${m.memberLevel eq 0 }">
-			                        	<input type="text" name="memberLevel" class="input_03" value="관리자" readonly>	                        			
+			                        	<input type="text" class="input_03" value="관리자" readonly>	                        			
 	                        		</c:when>
 	                        		<c:when test="${m.memberLevel eq 1 or m.memberLevel eq 5 }">
-			                        	<input type="text" name="memberLevel" class="input_03" value="메이트" readonly>	                        			
+			                        	<input type="text" class="input_03" value="메이트" readonly>	                        			
 	                        		</c:when>
 	                        		<c:when test="${m.memberLevel eq 2 }">
-	                        			<input type="text" name="memberLevel" class="input_03" value="하우스오너" readonly>
+	                        			<input type="text" class="input_03" value="하우스오너" readonly>
 	                        		</c:when>
 	                        		<c:when test="${m.memberLevel eq 4 }">
-	                        			<input type="text" name="memberLevel" class="input_03" value="헬퍼" readonly>
+	                        			<input type="text" class="input_03" value="헬퍼" readonly>
 	                        		</c:when>
 	                        		<c:when test="${m.memberLevel eq 3 or m.memberLevel eq 6 or m.memberLevel eq 7 }">
-	                        			<input type="text" name="memberLevel" class="input_03" value="계정정지" readonly>
+	                        			<input type="text" class="input_03" value="계정정지" readonly>
 	                        		</c:when>
 	                        	</c:choose>
 	                        </td>
@@ -56,12 +57,20 @@
 	                        <td colspan="3"><input type="password" name="memberPw" class="input_03" value="${m.memberPw }"></td>
 	                    </tr>
 	                    <tr class="table-active_mate">
+	                        <th>이름</th>
+	                        <td colspan="3"><input type="text" name="memberName" class="input_03" value="${m.memberName }"></td>
+	                    </tr>
+	                    <tr class="table-active_mate">
+	                        <th>전화번호</th>
+	                        <td colspan="3"><input type="text" name="phone" class="input_03" value="${m.phone }"></td>
+	                    </tr>
+	                    <tr class="table-active_mate">
 	                        <th>이메일</th>
 	                        <td colspan="3"><input type="text" name="email" class="input_03" value="${m.email }" readonly></td>
 	                    </tr>
 	                    <tr class="table-active_mate">
-	                        <th>이름</th>
-	                        <td colspan="3"><input type="text" name="memberName" class="input_03" value="${m.memberName }"></td>
+	                        <th>가입일</th>
+	                        <td colspan="3"><input type="text" name="enrollDate" class="input_03" value="${m.enrollDate }" readonly></td>
 	                    </tr>
 	                    <tr class="table-active_mate">
 	                        <th>성별</th>
@@ -104,10 +113,6 @@
 	                            </div>
 	                        </td>
 	                    </tr>
-	                    <tr class="table-active_mate">
-	                        <th>가입일</th>
-	                        <td colspan="3"><input type="text" name="enrollDate" class="input_03" value="${m.enrollDate }" readonly></td>
-	                    </tr>
 	                    <!-- 메이트 또는 헬퍼, 헬퍼 박탈 회원 및 계정 정지인 경우 -->
                     	<c:if test="${m.memberLevel ne 2 }">
 		                    <tr class="table-active_mate">
@@ -132,7 +137,7 @@
 				                                		checked
 			                                		</c:when>
 			                                	</c:choose>
-			                                name="helpStatus">
+			                                name="helperStatus">
 			                                <label class="form-check-label" for="flexSwitchCheckDefault"></label>
 			                            </div>
 			                        </td>
@@ -141,8 +146,8 @@
                     	</c:if>
 	                </table>
 	                <div class="btnBox">
-	                    <button type="button" class="btn btn_out btn_rx" onclick="history.go(-1);">목록</button>
-	                    <input type="submit" class="btn btn_rx" value="수정">
+	                    <button type="button" class="btn btn_out" onclick="history.go(-1);">목록</button>
+	                    <input type="submit" class="btn" value="수정">
 	                </div>
 	            </form>
 	        </div>

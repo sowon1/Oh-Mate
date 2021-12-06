@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/resources/css/house/house.css">
+<!-- 범위선택 js -->
+<link rel="stylesheet" href="/resources/css/nouislider.css">
+<script type="text/javascript" src="/resources/js/nouislider.js"></script>
 <!-- 지도 -->
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2fe50c2d1b8d26d2ec5e7053eeb12b16&libraries=services"></script>
 <head>
@@ -13,29 +16,154 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="container_mate_filter">
-		<div class="list_filter">
-			<div class="filter_icon">
-				<img src="/resources/img/icon/filter.png">
-				<span class="filter_name">조건검색</span>
+		<div class="container_mate">
+			<div class="list_filter">
+				<div class="filter_icon">
+					<img src="/resources/img/icon/filter.png">
+					<span class="filter_name">조건검색</span>					
+				</div>
+				<div class="search_line">
+					<input class="search_input" placeholder="지역, 지하철역, 대학 주변 검색">
+					<a href="" class="search_icon">
+						<img src="/resources/img/icon/search_on.png">
+					</a>
+				</div>
 			</div>
-			<div class="search_line">
-				<input class="search_input" placeholder="지역, 지하철역, 대학 주변 검색">
-				<a href="" class="search_icon">
-					<img src="/resources/img/icon/search_on.png">
-				</a>
+		<form id="house_filter">
+			<div class="h_filter_open">
+				<fieldset>
+					<div id="select_container">
+						<!--월세조정-->
+						<div class="mFeeWrap">
+           	              <h2 class="filterTitle"><strong>월세 범위</strong>&nbsp;&nbsp;<span id="rent-lower">0</span>~<span id="rent-upper">100</span>만원</h2>
+       	    		      <input name="house-filter_monthly_rent" id="house-filter_rent_lower" type="hidden" value="0">
+       	    		      <input name="house-filter_monthly_rent" id="house-filter_rent_upper" type="hidden" value="100">
+           	              <div id="rent-slider" class="noUi-target noUi-ltr noUi-horizontal"></div>
+           	              <h3 class="leftCaption">0만원</h3><h3 class="rightCaption">100만원</h3>
+           	            </div>
+						<!--월세조정 끝-->
+						<div class="genderFilter">
+							<p class="filterTitle">
+								<strong>성별 타입</strong>&nbsp;&nbsp;중복 선택 가능
+							</p>
+							<div class="filter_cont">
+								<div>
+									<input type="checkbox" id="house-filter_gender_division_f" name="gender_division" value="f">
+									<label for="house-filter_gender_division_f"><span class="select_icon02"></span>여성전용</label>
+								</div>
+								<div>
+									<input type="checkbox" id="house-filter_gender_division_m" name="gender_division" value="m">
+									<label for="house-filter_gender_division_m"><span class="select_icon04"></span>남성전용</label>
+								</div>
+								<div>
+									<input type="checkbox" id="house-filter_gender_division_mf" name="gender_division" value="mf">
+									<label for="house-filter_gender_division_mf"><span class="select_icon03"></span>남녀공용</label>
+								</div>
+							</div>
+						</div>
+						<div class="houseTypeWrap">
+							<p class="filterTitle">
+								<strong>주거 유형</strong>&nbsp;&nbsp;중복 선택 가능
+							</p>
+							<div class="filter_cont">
+								<div>
+									<input type="checkbox" id="house-filter_house_type_0" name="house_type" value="0">
+									<label for="house-filter_house_type_0"><span class="select_icon02"></span>아파트</label>
+								</div>
+								<div>
+									<input type="checkbox" id="house-filter_house_type_1" name="house_type" value="1">
+									<label for="house-filter_house_type_1"><span class="select_icon04"></span>단독주택</label>
+								</div>
+								<div>
+									<input type="checkbox" id="house-filter_house_type_2" name="house_type" value="2">
+									<label for="house-filter_house_type_2"><span class="select_icon03"></span>빌라</label>
+								</div>
+								<div>
+									<input type="checkbox" id="house-filter_house_type_3" name="house_type" value="3">
+									<label for="house-filter_house_type_3"><span class="select_icon03"></span>기타</label>
+								</div>
+							</div>
+						</div>
+						<div class="houseTypeWrap">
+							<p class="filterTitle">
+								<strong>룸 형태</strong>&nbsp;&nbsp;중복 선택 가능
+							</p>
+							<div class="filter_cont">
+								<div>
+									<input type="checkbox" id="house-filter_max_resident_1" name="max_resident" value="1">
+									<label for="house-filter_max_resident_1"><span class="select_icon02"></span>1인실</label>
+								</div>
+								<div>
+									<input type="checkbox" id="house-filter_max_resident_2" name="max_resident" value="2">
+									<label for="house-filter_max_resident_2"><span class="select_icon04"></span>2인실</label>
+								</div>
+								<div>
+									<input type="checkbox" id="house-filter_max_resident_3" name="max_resident" value="3">
+									<label for="house-filter_max_resident_3"><span class="select_icon03"></span>3인실</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<!--적용하기-->
+				<div class="applyWrap">
+					<span class="btnBorder" id="reset-house">초기화</span>
+					<span class="btnBackground" id="filter-apply-btn">적용하기</span>
+					<span class="filterHeader">
+						<div class="closeBtn" id="filter-close-btn">
+							<img src="/resources/img/icon/close_p.png">
+						</div>
+					</span>
+				</div>
+			</div>
+		</form>
+		</div>
+		<div class="house_list">
+			<div class="house_left">
+				list
+			</div>
+			<div class="house_right">
+				<div id="map" style="width:100%;height:100%;"></div>
 			</div>
 		</div>
 	</div>
-	<div class="house_list">
-		<div class="house_left">
-			list
-		</div>
-		<div class="house_right">
-			<div id="map" style="width:100%;height:100%;"></div>
-		</div>
-	</div>
+	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
-
+		//필터 아이콘 누를경우 
+		$(".filter_icon").click(function(){
+			$(".h_filter_open").slideToggle();
+		});
+		$(".closeBtn").click(function(){
+			$(".h_filter_open").slideToggle();
+		});
+		//검색바 금액설정
+		var connectSlider = document.getElementById('rent-slider');
+        var maxAmount = 100
+        noUiSlider.create(connectSlider, {
+            start: [0,100],
+            tooltips: true,
+            decimals: 0,
+            step: 5,
+            connect: true,
+            range: {
+            'min': 0,
+            'max': maxAmount, 
+            },
+        format: wNumb ({decimals:0})
+        });
+        var marginMin = document.getElementById('rent-lower'),
+        marginMax = document.getElementById('rent-upper');
+        connectSlider.noUiSlider.on('update', function (values, handle) {
+	        if (handle) {
+	            marginMax.innerHTML = values[handle];
+	        } else {
+	            marginMin.innerHTML = values[handle];
+	        }
+	    });
+        //초기화 버튼 누를 경우
+        $(".btnBorder").click(function(){
+        	$("input[type='checkbox']").prop('checked', false);
+        });
 		//map
 		 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
@@ -73,6 +201,5 @@
 		    } 
 		});
 	</script>
-	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
 </html>
