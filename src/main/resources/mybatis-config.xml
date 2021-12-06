@@ -4,5 +4,7 @@
 	<typeAliases>
 		<typeAlias type="kr.or.member.model.vo.Member" alias="m"/>
 		<typeAlias type="kr.or.common.Photo" alias="f"/>
+		<typeAlias type="kr.or.notice.model.vo.Notice" alias="n"/>
+		<typeAlias type="kr.or.notice.model.vo.FileVO" alias="fi"/>
 	</typeAliases>
 </configuration>

@@ -20,7 +20,7 @@
 		<h1>공지사항 작성</h1>
 		<br>
 		<hr>
-		<form action="/noticeWrite.do" method="post" enctype="multipart/form-data">
+		<form action="/insertNotice.do" method="post" enctype="multipart/form-data">
 			<table class="table">
 				<tr>
 					<th>제목</th>
@@ -35,7 +35,7 @@
 				<tr>
 					<th>첨부파일</th>
 					<td style="text-align:left;">
-						<input type="file" name="upfile">
+						<input type="file" name="upfiles" multiple>
 					</td>
 					<td colspan="2" style="text-align:right;">
 						<button type="submit" class="btn btn_pk" style="height: 60px;">등록</button>
@@ -47,10 +47,32 @@
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 <script>
-	$("#noticeContent").summernote({
-		height: 450,
-		lang: "ko-KR"
+	$(function(){
+		$("#noticeContent").summernote({
+			height : 400,
+			lang: "ko-KR",
+			callbacks:{
+				onImageUpload : function(files){
+					uploadImage(files[0],this);
+				}
+			}
+		});
 	});
+	function uploadImage(file,editor){
+		var form = new FormData();
+		form.append("file",file);
+		$.ajax({
+			url : "/uploadNoticeImage.do",
+			type : "post",
+			data : form,
+			processData : false,
+			enctype : 'multipart/form-data',
+			contentType: false,
+			success : function(data){
+				$(editor).summernote("insertImage",data.url);
+			}
+		});
+	}
 </script>
 </body>
 </html>
