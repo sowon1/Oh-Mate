@@ -102,6 +102,9 @@
 	</select>
 	<update id="memberUpdate" parameterType="um">
 		update member set
+		<if test="filepath != null">
+			member_filepath = #{filepath},		
+		</if>
 			member_pw = #{memberPw},
 			member_name = #{memberName},
 			phone = #{phone},
