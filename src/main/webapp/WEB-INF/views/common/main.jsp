@@ -144,11 +144,11 @@
 		       			<a id="house_modal" class="sect05_btn">하우스 등록하기</a>
 		       			<div class="msg_popup_modal">		       			
 		                    <div class="popup_modal">
-		                       <div class="main_modal_top">
-		                       		<span class="main_modal_text"><em class="logo_point">Oh-Mate</em></span>
+		                       <div class="msg_modal_top">
+		                       		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
 		                            <span id="btnclose" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
 		                        </div>
-		                        <div class="main_modal_content">
+		                        <div class="msg_modal_content">
 		                        	<h1>하우스 등록은 하우스 오너만 등록할 수 있습니다.</h1>
 		                        <!-- 	<div class="main_modal_btn">
 			                        	<a href="/" class="main_btn btn_out">오너 전환</a>
@@ -198,26 +198,7 @@
 	    $(".main_modal_login").click(function(){
 	    	msgpopupclose();
 	    });
-	    //팝업 열때의 함수
-	    function msgpopupopne(){
-	    	$(".msg_popup_modal").css("display","flex");
-	        $('body').css("overflow", "hidden"); //모달시 스크롤 방지
-	        $(".back_dark").show();
-	    }
-	    //닫을때의 함수
-	    function msgpopupclose(){
-	    	$(".msg_popup_modal").css("display","none");
-	        $('body').css("overflow", "auto");
-	        $(".back_dark").hide();
-		}
-	    $(document).mouseup(function (e){
-	    //마우스 영역 밖 클릭 시 모달 닫기
-	    var container = $('.msg_popup_modal');
-	        if( container.has(e.target).length === 0){
-	        container.css('display','none');
-	        $('body').css("overflow", "auto"); //본문 스크롤 살리기
-	        }
-	    });
+
 		//검색 쪽 셀렉트박스
 		$(document).ready(function(){
 	        var selected = $(".custom-options>span");

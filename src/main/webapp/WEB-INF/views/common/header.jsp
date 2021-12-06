@@ -327,13 +327,61 @@
 </div>
 <!-- 메이트톡 닫기 -->
 <div class="main_btn">
-    <a href="#a" class="chat_icon2" id="mate_talk">
-    	<img src="/resources/img/icon/chat_on.png">
-    </a>
+	<c:choose>
+       <c:when test="${not empty sessionScope.m}">
+	    <a class="chat_icon2" id="mate_talk">
+	    	<img src="/resources/img/icon/chat_on.png">
+	    </a>
+       </c:when>
+       <c:otherwise>
+	        <a class="chat_icon2" id="mate_talk_login">
+		    	<img src="/resources/img/icon/chat_on.png">
+		    </a>
+	       	<div class="msg_popup_modal">		       			
+	             <div class="popup_modal">
+	                <div class="msg_modal_top">
+	                		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
+	                     <span class="btnclose" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+	                 </div>
+	                 <div class="msg_modal_content">
+	                 	<h1>로그인이 필요한 기능입니다.</h1>
+	                 	<div class="main_modal_btn">
+	                  	<a data-toggle="modal" href="#modal1" class="main_btn btn_out main_modal_login">로그인</a>
+	                  	<a class="main_btn btn_out main_close">닫기</a>
+	                 	</div>
+	                 </div>
+	         	</div> 
+	         </div>
+       </c:otherwise>
+    </c:choose>
     <a href="#" class="chat_icon"><img src="/resources/img/icon/chatbot_on.png"></a>
     <a href="#" class="top"><img src="/resources/img/icon/top.png"></a>
 </div>
 <script>
+	//비 로그인 시 메신저 버튼누를경우 
+	$("#mate_talk_login").click(function(){
+		msgpopupopne();
+	});
+	//팝업 열때의 함수
+	function msgpopupopne(){
+		$(".msg_popup_modal").css("display","flex");
+	    $('body').css("overflow", "hidden"); //모달시 스크롤 방지
+	    $(".back_dark").show();
+	}
+	//닫을때의 함수
+	function msgpopupclose(){
+		$(".msg_popup_modal").css("display","none");
+	    $('body').css("overflow", "auto");
+	    $(".back_dark").hide();
+	}
+	$(document).mouseup(function (e){
+	//마우스 영역 밖 클릭 시 모달 닫기
+	var container = $('.msg_popup_modal');
+	    if( container.has(e.target).length === 0){
+	    container.css('display','none');
+	    $('body').css("overflow", "auto"); //본문 스크롤 살리기
+	    }
+	});
 	//채팅 아이콘 이미지변경, 나타나는 함수
 	function matetalkbtn(obj){
 		$(".mate_talk_open").slideToggle('slow');
