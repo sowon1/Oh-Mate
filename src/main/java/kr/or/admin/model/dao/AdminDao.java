@@ -32,4 +32,8 @@ public class AdminDao {
 	public int totalSearchCnt(HashMap<String, Object> map) {
 		return session.selectOne("admin.totalSearch", map);
 	}
+
+	public Member selectMemberInfo(int memberNo) {
+		return session.selectOne("admin.selectMemberInfo", memberNo);
+	}
 }

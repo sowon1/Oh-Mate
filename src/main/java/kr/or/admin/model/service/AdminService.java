@@ -137,4 +137,8 @@ public class AdminService {
 		data.put("start", start);
 		return data;
 	}
+
+	public Member selectMemberInfo(int memberNo) {
+		return dao.selectMemberInfo(memberNo);
+	}
 }
