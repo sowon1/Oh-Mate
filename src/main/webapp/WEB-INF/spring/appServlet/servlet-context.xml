@@ -52,10 +52,11 @@
 	</beans:bean>
 	
 	
-	<!-- 파일첨부 객체 생성 10메가로 환산 -->
+	<!-- 파일첨부 객체 생성 20메가로 환산 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="10485760"/>
-	</beans:bean>
+		<beans:property name="maxUploadSize" value="209715200"/>
+	</beans:bean> 
+
 	
 	<!-- 트랜잭션 관리용 객체 생성 -->
 	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

@@ -119,13 +119,11 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="memberId">아이디</label>
-							<input type="text" name="memberId" id="memberId" 
-							class="form-control" placeholder="아이디입력">
+							<input type="text" id="memberId" class="form-control" placeholder="아이디입력">
 						</div><br>
 						<div class="form-group">
 							<label for="memberPw">비밀번호</label>
-							<input type="password" name="memberPw" id="memberPw" 
-							class="form-control" placeholder="비밀번호입력">
+							<input type="password" id="memberPw" class="form-control" placeholder="비밀번호입력">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -167,7 +165,7 @@
 		    </ul>
 		</nav>
 	</c:when>
-	<%-- 2.회원등급 :  --%>
+	<%-- 2.회원등급 : --%>
 	<c:when test="${sessionScope.m.memberLevel eq 1 or sessionScope.m.memberLevel eq 4 or sessionScope.m.memberLevel eq 5}">
 		<nav id="sidenav">
 		    <span id="close_sidenav">&times;</span>
@@ -184,9 +182,12 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="#">메뉴1</a></li>
-		      <li><a href="#">메뉴2</a></li>
-		      <li><a href="#">메뉴3</a></li>
+		      <li><a href="#">나의 정보</a></li>
+		      <li><a href="#">쪽지함</a></li>
+		      <li><a href="#">하우스 찜목록 확인</a></li>
+		      <li><a href="#">하우스 입주 내역 확인</a></li>
+		      <li><a href="#">투어 신청 내역 확인</a></li>
+		      <li><a href="#">커뮤니티 게시글 확인/댓글 확인</a></li>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
 		      <c:if test="${sessionScope.m.memberLevel eq 4 }">
 			      <li><a href="#">메뉴4</a></li>
@@ -442,10 +443,14 @@
        },400 );
        return false;
        });
+<<<<<<< HEAD
    }); */
   
   //로그인
   function initInput(){
 		$("[name=loginFrm] input").val("");
   }
+=======
+   });
+>>>>>>> refs/heads/br
  </script>
