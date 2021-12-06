@@ -1415,3 +1415,8 @@ input[name="funderCategory"]:checked+label:after{
     height: 140px;
     padding: 20px 0px;
 }
+
+/* 하단 탑버튼과 챗버튼들 */
+.main_btn{
+	z-index:9993;
+}

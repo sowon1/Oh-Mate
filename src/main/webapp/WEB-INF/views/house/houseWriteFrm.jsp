@@ -69,12 +69,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<!-- 썸머노트 등록 -->
-	<script src="/resources/summernote/jquery-3.3.1.js"></script>
-	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
-	<script src="/resources/summernote/summernote-lite.js"></script>
-	<!-- include summernote-ko-KR -->
-	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	
 	<!-- 달력 -->
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -82,8 +77,14 @@
 		src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-	<link rel="stylesheet" type="text/css"
+		<link rel="stylesheet" type="text/css"
 		href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+		<!-- 썸머노트 등록 -->
+
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<!-- include summernote-ko-KR -->
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 	<div class="container_mate">
 		<div class="content">
 			<form action="/houseWrite" enctype="multipart/form-data">
@@ -153,7 +154,7 @@
 				</div>
 				<div class="houseForm">
 					<h4 class="form-title">집정보 입력</h4>
-					<div class="content-place" style="height: 500px">
+					<div class="content-place" style="height: 800px">
 						<p class="ac-title">하우스 이름</p>
 						<input type="text" name="houseTitle" id="houseName"
 							class="input_03" placeholder="하우스이름">
@@ -180,82 +181,162 @@
 						<p class="ac-title">제공편의시설</p>
 						<table>
 							<tr>
-								<td>
-									<div class="check_ent displayflex">
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_00" value="텔레비젼"><label for="fun_00">텔레비젼</label>
+											id="fun_00" value="0"><label for="fun_00">텔레비젼</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_01" value="냉장고"><label for="fun_01">냉장고</label>
+											id="fun_01" value="0"><label for="fun_01">냉장고</label>
+									</div>
+								</td >
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_02" value="밥솥"><label for="fun_02">밥솥</label>
+											id="fun_02" value="0"><label for="fun_02">밥솥</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_03" value="식탁"><label for="fun_03">식탁</label>
+											id="fun_03" value="0"><label for="fun_03">식탁</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_04" value="토스트기"><label for="fun_04">토스트기</label>
+											id="fun_04" value="0"><label for="fun_04">토스트기</label>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<div class="check_ent displayflex">
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_06" value="쇼파"><label for="fun_06">쇼파</label>
+											id="fun_06" value="0"><label for="fun_06">쇼파</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_07" value="가스렌지"><label for="fun_07">가스렌지</label>
+											id="fun_07" value="0"><label for="fun_07">가스렌지</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_08" value="전자랜지"><label for="fun_08">전자렌지</label>
+											id="fun_08" value="0"><label for="fun_08">전자렌지</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_09" value="세탁기"><label for="fun_09">세탁기</label>
+											id="fun_09" value="0"><label for="fun_09">세탁기</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_10" value="정수기"><label for="fun_10">정수기</label>
+											id="fun_10" value="0"><label for="fun_10">정수기</label>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<div class="check_ent displayflex">
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_11" value="청소기"><label for="fun_11">청소기</label>
+											id="fun_11" value="0"><label for="fun_11">청소기</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_12" value="커피포드"><label for="fun_12">커피포드</label>
+											id="fun_12" value="0"><label for="fun_12">커피포드</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_13" value="에어컨"><label for="fun_13">에어컨</label>
+											id="fun_13" value="0"><label for="fun_13">에어컨</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_14" value="건조기"><label for="fun_14">건조기</label>
+											id="fun_14" value="0"><label for="fun_14">건조기</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_15" value="건조대"><label for="fun_15">건조대</label>
+											id="fun_15" value="0"><label for="fun_15">건조대</label>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<div class="check_ent displayflex">
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_16" value="침대"><label for="fun_16">침대</label>
+											id="fun_16" value="0"><label for="fun_16">침대</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_17" value="책상"><label for="fun_17">서랍</label>
+											id="fun_17" value="0"><label for="fun_17">서랍</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_18" value="옷장"><label for="fun_18">옷장</label>
+											id="fun_18" value="0"><label for="fun_18">옷장</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_19" value="비데"><label for="fun_19">비데</label>
+											id="fun_19" value="0"><label for="fun_19">비데</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_20" value="의자"><label for="fun_20">의자</label>
+											id="fun_20" value="0"><label for="fun_20">의자</label>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<div class="check_ent displayflex">
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_21" value="인터냇TV"><label for="fun_21">인터넷TV</label>
+											id="fun_21" value="0"><label for="fun_21">인터넷TV</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_22" value="엘레베이터"><label for="fun_22">엘레베이터</label>
+											id="fun_22" value="0"><label for="fun_22">엘레베이터</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_23" value="보안"><label for="fun_23">보안</label>
+											id="fun_23" value="0"><label for="fun_23">보안</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_24" value="청소"><label for="fun_24">청소</label>
+											id="fun_24" value="0"><label for="fun_24">청소</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_25" value="WIFI"><label for="fun_25">WIFI</label>
+											id="fun_25" value="0"><label for="fun_25">WIFI</label>
 									</div>
 								</td>
 							</tr>
@@ -272,7 +353,7 @@
 							<option value="6">6</option>
 						</select>
 						<p class="ac-title">지정성별</p>
-						<div class="check_ent displayflex" style="text-align: center;">
+						<div class="check_ent displayflex" id="chkGender" style="text-align: center;">
 							<input type="checkbox" class="chk" name="funderCategory"
 								id="gender1" value="1" onclick="checkOnlyOne(this)"><label
 								for="gender1">남성전용</label> <input type="checkbox" class="chk"
@@ -289,28 +370,29 @@
 							style="line-height: 30px" onclick="chkRoom()">다음</a>
 					</div>
 				</div>
-				<div class="houseForm">
-					<h4 class="form-title">방추가하기</h4>
-					<div class="content-place"></div>
-					<div class="button-place">
-						<a class="btn btn_out" style="line-height: 30px;">이전</a> <a
-							class="btn" style="line-height: 30px">다음</a>
-					</div>
-				</div>
 			</form>
 		</div>
 	</div>
 	<script>
-	
 	//체크박스 1개만 선택하도록
 	function checkOnlyOne(target) {
-	    document.querySelectorAll('input[type=checkbox]')
+	    document.querySelectorAll('#chkGender>input[type=checkbox]')
 	    .forEach(el => el.checked = false);			
 	    target.checked = true;
 	}
+	//오늘날짜 yyyy-mm-dd
+	function getToday(){
+	    var date = new Date();
+	    var year = date.getFullYear();
+	    var month = ("0" + (1 + date.getMonth())).slice(-2);
+	    var day = ("0" + date.getDate()).slice(-2);
+
+	    return year + "-" + month + "-" + day;
+	}
 		// 달력 한글화 
 		$('#datefilter').daterangepicker(
-				{
+				{	
+					 minDate: getToday(),
 					singleDatePicker : true,
 					locale : {
 						cancelLabel : 'Clear',
@@ -404,10 +486,14 @@
 		function backIntro() {
 			next(3);
 		}
+		function backCondition() {
+			next(4);
+		}
 		function chkRoom() {
 			var houseRoom = $("#houseRoom").val();
 			// 추가해야됨 제공편의시설 하나라도 체크하면 넘어가게(월요일 선생님에게 문의)
 			if (houseRoom != "") {
+				
 				next(5);
 			} else {
 				alert("방개수 및 제공 편의시설을 확인해주세요");
@@ -426,7 +512,8 @@
 		//썸머노트
 		// 썸머노트 작동을 안함 (jquery 하나만 설정해도 안되네..)
 		$("#summernote").summernote({
-			height: 450,
+			height: 500,
+			 maxHeight: 500,             // 최대 높이
 			lang: "ko-KR"
 		});
 	</script>
