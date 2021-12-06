@@ -4,5 +4,6 @@
 	<typeAliases>
 		<typeAlias type="kr.or.member.model.vo.Member" alias="m"/>
 		<typeAlias type="kr.or.common.Photo" alias="f"/>
+		<typeAlias type="kr.or.admin.model.vo.UpdateMember" alias="um"/>
 	</typeAliases>
 </configuration>

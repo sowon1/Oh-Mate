@@ -9,6 +9,9 @@
     width: 50%;
     display: flex;
 }
+.searchBox p{
+	font-family: "ns_700";
+}
 .searchBox>div:first-child{
     justify-content: space-around;
     align-items: center;
