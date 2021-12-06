@@ -374,7 +374,7 @@
       $('#sidenav').css("right", "-350px");
       $(".back_dark").hide();
   }); 
-  // 일정 스크롤 내릴 경우 나타나는 top 버튼 , 채팅버튼
+  /* // 일정 스크롤 내릴 경우 나타나는 top 버튼 , 채팅버튼
   $( document ).ready( function() {
        // 처음에는 안보이게 숨기기
        $(".main_btn").hide();
@@ -394,7 +394,7 @@
        },400 );
        return false;
        });
-   });
+   }); */
   
   //로그인
   function initInput(){

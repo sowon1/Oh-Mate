@@ -288,31 +288,16 @@ ul{
 	position: fixed;
     right: 40px;
     bottom: 30px;
-    padding: 10px;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    background-color: #333;
-    color: #fff;
-    text-decoration: none;
-    transition-duration: 0.5s;
-    box-sizing: content-box;
 	display: flex;
-    justify-content: center;
-    align-items: center;
 	filter: drop-shadow(rgba(0, 0, 0, 0.4) 0px 1px 4px);
 }
-.top:hover{
-	background-color:#956bfc;
-}
 .top img{
-	width: 25px;
+	width: 80px;
 }
 .chat_icon{
 	position: fixed;
     right: 40px;
-    bottom: 100px;
+    bottom: 80px;
     transition-duration: 0.5s;
     box-sizing: content-box;
 }
@@ -323,7 +308,7 @@ ul{
 .chat_icon2{
 	position: fixed;
     right: 40px;
-    bottom: 170px;
+    bottom: 155px;
     transition-duration: 0.5s;
     box-sizing: content-box;
 }
