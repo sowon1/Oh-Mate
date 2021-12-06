@@ -8,5 +8,7 @@
 		<typeAlias type="kr.or.house.model.vo.House" alias="h"/>
 		<typeAlias type="kr.or.common.Income" alias="i"/>
 		<typeAlias type="kr.or.admin.model.vo.UpdateMember" alias="um"/>
+		<typeAlias type="kr.or.notice.model.vo.Notice" alias="n"/>
+		<typeAlias type="kr.or.notice.model.vo.FileVO" alias="fi"/>
 	</typeAliases>
 </configuration>
