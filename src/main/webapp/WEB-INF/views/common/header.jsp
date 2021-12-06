@@ -119,11 +119,11 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="memberId">아이디</label>
-							<input type="text" id="memberId" class="form-control" placeholder="아이디입력">
+							<input type="text" id="memberId" class="form-control" placeholder="아이디입력" name="memberId">
 						</div><br>
 						<div class="form-group">
 							<label for="memberPw">비밀번호</label>
-							<input type="password" id="memberPw" class="form-control" placeholder="비밀번호입력">
+							<input type="password" id="memberPw" class="form-control" placeholder="비밀번호입력" name="memberPw">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -361,10 +361,10 @@
 <script>
 	//비 로그인 시 메신저 버튼누를경우 
 	$("#mate_talk_login").click(function(){
-		msgpopupopne();
+		msgpopupopen();
 	});
 	//팝업 열때의 함수
-	function msgpopupopne(){
+	function msgpopupopen(){
 		$(".msg_popup_modal").css("display","flex");
 	    $('body').css("overflow", "hidden"); //모달시 스크롤 방지
 	    $(".back_dark").show();
@@ -443,14 +443,6 @@
        },400 );
        return false;
        });
-<<<<<<< HEAD
    }); */
-  
-  //로그인
-  function initInput(){
-		$("[name=loginFrm] input").val("");
-  }
-=======
-   });
->>>>>>> refs/heads/br
+
  </script>

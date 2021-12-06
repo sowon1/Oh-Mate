@@ -184,7 +184,7 @@
 	<script>
 		//모달
 	    $("#house_modal").click(function(){
-	    	msgpopupopne();
+	    	msgpopupopen();
 	    });
 	    $("#btnclose").click(function(){
 	    	msgpopupclose();
@@ -193,7 +193,7 @@
 	    	msgpopupclose();
 	    });
 	    $("#main_house_login").click(function(){
-	    	msgpopupopne();
+	    	msgpopupopen();
 	    });
 	    $(".main_modal_login").click(function(){
 	    	msgpopupclose();
