@@ -14,7 +14,7 @@
   	insert into address 
   	values(address_seq.nextval,#{addressNumber},#{addressCode},#{addressName},#{addressRoad},#{addressLegal},1,#{addressDetail})
   </insert>
-  <insert id="insertIncome" parameterMap="i">
+  <insert id="insertIncome" parameterType="i">
   	insert into income
   	values(income_seq.nextval,#{incomeBank},#{incomeAccount},#{incomeName},2,#{incomeNum})
   </insert>

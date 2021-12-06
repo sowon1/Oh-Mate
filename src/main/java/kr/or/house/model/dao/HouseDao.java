@@ -25,6 +25,8 @@ public class HouseDao {
 
 	public int insertIncome(Income i) {
 		int result = session.insert("house.insertIncome",i);
-		return 0;
+		return result;
 	}
+
+
 }

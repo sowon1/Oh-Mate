@@ -1,5 +1,7 @@
 package kr.or.house.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import kr.or.common.Address;
 import kr.or.common.Income;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
+import kr.or.room.model.vo.Room;
 
 @Service
 public class HouseService {
@@ -30,4 +33,5 @@ public class HouseService {
 			return 0;
 		}
 	}
+
 }
