@@ -119,11 +119,11 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="memberId">아이디</label>
-							<input type="text" id="memberId" class="form-control" placeholder="아이디입력" name="memberId">
+							<input type="text" name="memberId" class="form-control" placeholder="아이디입력" >
 						</div><br>
 						<div class="form-group">
 							<label for="memberPw">비밀번호</label>
-							<input type="password" id="memberPw" class="form-control" placeholder="비밀번호입력" name="memberPw">
+							<input type="password" name="memberPw" class="form-control" placeholder="비밀번호입력" >
 						</div>
 					</div>
 					<div class="modal-footer">

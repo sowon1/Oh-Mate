@@ -24,7 +24,7 @@ public class HouseService {
 			int result2 = dao.insertAddress(address); 	//주소등록(하우스주소)
 			if(result2>0) {
 			i.setIncomeNum(h.getHouseNo());	
-			 int result3 = dao.insertIncome(i);
+			 int result3 = dao.insertIncome(i); 		//계좌등록
 			 return result3;
 			}else {
 				return 0;

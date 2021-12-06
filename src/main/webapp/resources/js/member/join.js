@@ -11,10 +11,10 @@ $(function(){
 	 //입력값 변수
 	 function checkJoin(){  
 	 	var pf = $("[name=uploadFile]").val();
-    	var id = $("[name=memberId]").val();
+    	var id = $("#memberId").val();
     	var email = $("#email").val();
     	var emailCode = $("#authMsg").html();
-    	var pw = $("[name=memberPw]").val();
+    	var pw = $("#memberPw").val();
 		var pwre = $("#memberPwre").val();
 		var name = $("#memberName").val();
 		var phone = $("#phone").val();
@@ -64,7 +64,7 @@ $(function(){
 	});
 
     //아이디 유효성검사
-    $("[name=memberId]").keyup(function(){
+    $("#memberId").keyup(function(){
         var memberId = $(this).val();
         var value = /^[a-zA-Z0-9]{5,11}$/;  
         if(value.test(memberId)){   
@@ -82,7 +82,7 @@ $(function(){
 
     //아이디 중복체크
     $("[name=memberIdChk]").click(function(){
-        var memberId = $("[name=memberId]").val();
+        var memberId = $("#memberId").val();
         var value = /^[a-zA-Z0-9]{5,11}$/;
         if(memberId == "" || !(value.test(memberId))){
             $(".result1").html("아이디를 올바르게 입력해주세요.");
@@ -184,7 +184,7 @@ $(function(){
 	
     
     //비밀번호
-    $("[name=memberPw]").keyup(function(){
+    $("#memberPw").keyup(function(){
         var password = $(this).val();
         var value = /^[a-zA-Z0-9]{4,12}$/;
         if(value.test(password)){
@@ -201,7 +201,7 @@ $(function(){
 
     //비밀번호 확인
     $("[name=memberPwre]").keyup(function(){
-        var password = $("[name=memberPw]").val();
+        var password = $("#memberPw").val();
         var passwordChk = $(this).val();
         if(password == passwordChk){
             $(".result4").html("비밀번호가 일치합니다.");

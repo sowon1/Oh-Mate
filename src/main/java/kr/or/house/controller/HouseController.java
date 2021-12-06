@@ -2,6 +2,8 @@ package kr.or.house.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
@@ -30,7 +32,12 @@ public class HouseController {
 	}
 	//하우스 등록
 	@RequestMapping(value = "/houseWrite.do")
-	public String houseWrite(House h,Address address,Income i,Model model) {
+	public String houseWrite(House h,Address address,Income i,Model model,HttpSession session) {
+		/*
+		 * 
+		 * Member m = session.getattribute("m")
+		 * m.memberno
+		 * */
 		int result = service.insertHouse(h,address,i); // 하우스 등록
 		if(result>0) {
 			//그전에 등록한 하우스 번호를 가져와야하는 상황
