@@ -135,7 +135,7 @@
         <h3>당신의 집 가치는 얼마입니까?</h3>
         <h1>내 집도 이제 오늘부터 메이트!</h1>
         <c:choose>
-       		<c:when test="${not empty sessionScope.member}">
+       		<c:when test="${not empty sessionScope.m}">
        			<c:choose>
        				<c:when test="${sessionScope.m.memberLevel eq 2}">
 		       			<a href="/houseWrite.do" class="sect05_btn">하우스 등록하기</a>      				
