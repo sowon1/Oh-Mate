@@ -1,13 +1,24 @@
 package kr.or.member.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Random;
+
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
@@ -16,6 +27,9 @@ import kr.or.member.model.vo.Member;
 public class MemberController {
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	//로그인1
 	@RequestMapping(value="/login.do")
@@ -48,8 +62,6 @@ public class MemberController {
 	}
 	 */
 
-	
-	
 	//로그아웃
 	@RequestMapping(value="/logout.do")
 	public String logout(HttpSession session) {
@@ -74,6 +86,206 @@ public class MemberController {
 	public String joinOwner() {
 		return "member/joinOwner";
 	}
+
+	//메이트 회원가입
+	@RequestMapping(value="/join1.do")
+	public String join1(Member member, MultipartFile uploadFile, HttpServletRequest request, Model model){
+
+		if(uploadFile.isEmpty()) { //첨부파일이 없는경우
+			
+		}else { //첨부파일이 있는경우
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/member/");
+			
+				//파일처리(파일업로드)
+				String filename = uploadFile.getOriginalFilename();   
+				String onlyFilename = filename.substring(0,filename.indexOf("."));  
+				String extention = filename.substring(filename.indexOf("."));  
+				
+				//실제 업로드 할 파일명을 저장할 변수
+				String filepath = null;   
+				
+				//파일명 중복 시 숫자를 붙이는 코드
+				int count = 0;   
+				while(true) {    
+					if(count == 0) {
+						filepath = onlyFilename + extention;  
+					}else {
+						filepath = onlyFilename + "_" + count + extention;  
+					}
+					File checkFile = new File(savePath+filepath);  
+					if(!checkFile.exists()) { 
+						break;
+					}
+					count++;    
+				}  
+				
+			try {
+				System.out.println(savePath+filepath);
+				FileOutputStream fos = new FileOutputStream(new File(savePath+filepath));
+				//업로드 속도증가를 위한 보조스트림
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				//파일업로드
+				byte[] bytes = uploadFile.getBytes();
+				bos.write(bytes);
+				bos.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			member.setFilepath(filepath);
+	}// else	
+		//파일 저장할 경로
+		
+		member.setMemberLevel(1);
+		member.setProfileStatus(2); 
+		
+		System.out.println(member.toString());
+		int result = service.join(member);  
+		
+		if(result > 0) {   // 성공 
+			model.addAttribute("msg","회원가입 성공하였습니다~!");
+			model.addAttribute("loc","/");
+		}else {
+			model.addAttribute("msg","회원가입 실패하였습니다.");
+			model.addAttribute("loc","/joinMate");
+		}
+		return "common/msg";
+	}
+	
+	//하우스오너 회원가입 -> 중복 나중에 수정하기
+		@RequestMapping(value="/join2.do")
+		public String join2(Member member, MultipartFile uploadFile, HttpServletRequest request, Model model){
+
+			if(uploadFile.isEmpty()) { //첨부파일이 없는경우
+				
+			}else { //첨부파일이 있는경우
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/member/");
+				
+					//파일처리(파일업로드)
+					String filename = uploadFile.getOriginalFilename();   
+					String onlyFilename = filename.substring(0,filename.indexOf("."));  
+					String extention = filename.substring(filename.indexOf("."));  
+					
+					//실제 업로드 할 파일명을 저장할 변수
+					String filepath = null;   
+					
+					//파일명 중복 시 숫자를 붙이는 코드
+					int count = 0;   
+					while(true) {    
+						if(count == 0) {
+							filepath = onlyFilename + extention;  
+						}else {
+							filepath = onlyFilename + "_" + count + extention;  
+						}
+						File checkFile = new File(savePath+filepath);  
+						if(!checkFile.exists()) { 
+							break;
+						}
+						count++;    
+					}  
+					
+				try {
+					System.out.println(savePath+filepath);
+					FileOutputStream fos = new FileOutputStream(new File(savePath+filepath));
+					//업로드 속도증가를 위한 보조스트림
+					BufferedOutputStream bos = new BufferedOutputStream(fos);
+					//파일업로드
+					byte[] bytes = uploadFile.getBytes();
+					bos.write(bytes);
+					bos.close();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				member.setFilepath(filepath);
+		}// else	
+			//파일 저장할 경로
+			
+			member.setMemberLevel(2);
+			member.setProfileStatus(2); 
+			
+			System.out.println(member.toString());
+			int result = service.join(member);  
+			
+			if(result > 0) {   // 성공 
+				model.addAttribute("msg","회원가입 성공하였습니다~!");
+				model.addAttribute("loc","/");
+			}else {
+				model.addAttribute("msg","회원가입 실패하였습니다.");
+				model.addAttribute("loc","/joinOwner");
+			}
+			return "common/msg";
+		}
+		
+	//회원가입_아이디 중복체크
+	@ResponseBody
+	@RequestMapping(value="/IdCheck.do")
+    public String idCheck(String memberId){
+        Member m = service.idCheck(memberId);
+        if(m == null) {
+        	return "1";  //사용가능 아이디
+        }else {
+        	return "2";  //사용불가 아이디
+        }
+    }
+
+	//회원가입_이메일 중복체크
+	@ResponseBody
+	@RequestMapping(value="/emailCheck.do")
+	public String emailCheck(String email) {
+		Member m = service.emailCheck(email);
+		if(m == null) {
+			return "2";  //사용가능 이메일
+		}else {
+			return "3";  //사용불가 이메일
+		}
+	}
+	
+	//이메일 인증 
+    @ResponseBody
+    @RequestMapping(value="/mailCheck")
+    public String mailCheck(String email){
+        
+        //뷰(View)로부터 넘어온 데이터 확인 
+    	System.out.println("이메일 데이터 전송 확인");
+    	System.out.println("인증번호 : " + email);
+    	
+    	//인증번호(난수) 생성
+    	Random random = new Random();
+    	int checkNum = random.nextInt(888888) + 111111;
+    	System.out.println("인증번호 : " + checkNum);
+    	
+        // 이메일 보내기 
+        String setFrom = "ohmate123@gmail.com";
+        String toMail = email;
+        String title = "회원가입 인증 이메일 입니다.";
+        String content = 
+                "(주)오나의메이트를 방문해주셔서 감사합니다." +
+                "<br><br>" + 
+                "인증 번호는 " + checkNum + "입니다." + 
+                "<br>" + 
+                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+        try {        
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+	        String num = Integer.toString(checkNum);
+			return num;
+    	}
 	
 	//아이디찾기 이동
 	@RequestMapping(value="/searchIdFrm.do")
@@ -122,17 +334,3 @@ public class MemberController {
 
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
