@@ -55,21 +55,17 @@ public class AdminController {
 		}else {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/member/");
 			String filename = file.getOriginalFilename();
-			//test.txt -> test_1.txt, test_2.txt
-			//test.txt -> test         .txt -> 파일명을 확장자 기준으로 나눔
-			String onlyFilename = filename.substring(0, filename.indexOf("."));//첫번째 문자부터 .문자의 앞까지 자르기 (test)
-			String extention = filename.substring(filename.indexOf("."));//매개변수 1개인 경우 해당 순서부터 끝까지 (.txt)
-			//실제 업로드할 파일명을 저장할 변수
+			String onlyFilename = filename.substring(0, filename.indexOf("."));
+			String extention = filename.substring(filename.indexOf("."));
 			String filepath = null;
-			//파일명 중복 시 _숫자를 붙이는 코드
 			int count = 0;
 			while(true) {
 				if(count == 0) {
-					filepath = onlyFilename+extention;			//test.txt
+					filepath = onlyFilename+extention;
 				}else {
-					filepath = onlyFilename+"_"+count+extention;//test_3.txt
+					filepath = onlyFilename+"_"+count+extention;
 				}
-				File checkFile = new File(savePath+filepath);//매개변수로 전달하는 경로 및 파일명에 해당하는 파일 정보를 읽어오는 객체
+				File checkFile = new File(savePath+filepath);
 				if(!checkFile.exists()) {
 					break;
 				}
@@ -78,7 +74,6 @@ public class AdminController {
 			try {
 				FileOutputStream fos = new FileOutputStream(new File(savePath+filepath));
 				BufferedOutputStream bos = new BufferedOutputStream(fos);
-				//파일 업로드
 				byte[] bytes = file.getBytes();
 				bos.write(bytes);
 				bos.close();
