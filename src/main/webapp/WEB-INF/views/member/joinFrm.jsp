@@ -23,10 +23,10 @@
 						고객님께서 해당하는 유형을 선택하여 회원가입을 진행해 주시기 바랍니다.
 					</p>
 					<div class="btn_wrap">
-						<a href="/joinMate.do">일반 회원가입</a>
+						<a href="/joinMate.do">메이트 회원가입</a>
 					</div>
 					<div class="btn_wrap">
-						<a href="/joinOwner.do">기업 회원가입</a>
+						<a href="/joinOwner.do">하우스오너 회원가입</a>
 					</div>
 				</div>
 			</div>

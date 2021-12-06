@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container">
-		<fieldset>
+		<fieldset><br><br>
 			<legend class="Matitle">오늘부터 메이트</legend>
 			<h6>나와 성향이 비슷한 메이트를 구해보세요</h6>
 				<div class="lg_box">
@@ -56,7 +56,47 @@
 					</form>
 				</div>
 		</fieldset>
+		<c:choose>
+			<c:when test="${empty list }">
+				<div class="emptyList">
+					게시글이 없습니다.
+				</div>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${list }" var="c" varStatus="i">
+				
+				</c:forEach>
+				
+			</c:otherwise>
+		</c:choose>
+		
 	</div>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

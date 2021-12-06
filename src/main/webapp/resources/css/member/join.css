@@ -1,7 +1,4 @@
 @charset "UTF-8";
-	.agree{
-	    color:black;
-	}
 	button:active {
 	 position: relative;
  	 background-color: lightgray;
@@ -44,6 +41,13 @@
 		letter-spacing: -0.5px;
 		line-height: 1.5;
 	}
+	.img_wrapp{
+		width: 300px;
+		margin-top : 50px;
+	}
+	.img_wrapp img{
+		max-width: 100px;
+	}
 	.gender, .age{
 		display: inline;
 	}
@@ -55,8 +59,18 @@
 		width:100%;	
 		display:flex;
 	}
+	#authCode{
+		width: 40%;
+	 	display: inline-block;
+	 	height: 48px;
+	}
 	#memberIdChk, #emailbutton{
 	 	width:40%;
+	 	line-height: normal;
+	 	margin-left:3px;
+	}
+	#authBtn{
+		width:149.15px;
 	 	line-height: normal;
 	}
 	.Mate_logo a{

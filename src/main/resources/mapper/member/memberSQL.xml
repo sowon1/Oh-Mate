@@ -61,4 +61,46 @@
 			profile_status as profileStatus	
 		from member where member_id=#{memberId} and email=#{email}
 	</select>
+	
+	<!-- 메이트 회원가입 -->
+	<insert id="join" parameterType="m">
+		insert into member values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{phone},#{email},to_char(sysdate,'yyyy-mm-dd'),
+		#{filepath},#{memberLevel},#{gender},#{age},#{profileStatus})
+	</insert>
+	
+	<!-- 회원가입_아이디 중복체크 -->
+	<select id="idCheck" parameterType="m" resultType="m">
+		select 
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			phone,
+			email,
+			enroll_date as enrollDate,
+			member_filepath as filepath,
+			member_level as memberLevel,
+			gender,
+			age,
+			profile_status as profileStatus	
+		from member where member_id=#{memberId}
+	</select>
+	
+	<!-- 회원가입_이메일 중복체크 -->
+	<select id="emailCheck" parameterType="m" resultType="m">
+		select
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			phone,
+			email,
+			enroll_date as enrollDate,
+			member_filepath as filepath,
+			member_level as memberLevel,
+			gender,
+			age,
+			profile_status as profileStatus	
+		from member where email=#{email}
+	</select>
 </mapper>
