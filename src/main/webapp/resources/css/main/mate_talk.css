@@ -4,20 +4,22 @@
 .mate_talk_open{
 	position: fixed;
     right: 40px;
-    bottom: 240px;
+    bottom: 235px;
     transition-duration: 0.8s;
 	width: 450px;
 	display:none;
 	transition-duration: 0.8s;
+	z-index:5553;
 }
 .mate_talk_view_open{
 	position: fixed;
     right: -500px;
-    bottom: 240px;
+    bottom: 235px;
     transition-duration: 0.8s;
 	width: 450px;
 	display:block;
 	transition-duration: 0.8s;
+	z-index:5554;
 }
 .mate_talk{
     width: 450px;

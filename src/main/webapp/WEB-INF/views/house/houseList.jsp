@@ -29,7 +29,6 @@
 					</a>
 				</div>
 			</div>
-		</div>
 		<form id="house_filter">
 			<div class="h_filter_open">
 				<fieldset>
@@ -118,6 +117,7 @@
 				</div>
 			</div>
 		</form>
+		</div>
 		<div class="house_list">
 			<div class="house_left">
 				list
@@ -127,6 +127,7 @@
 			</div>
 		</div>
 	</div>
+	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
 		//필터 아이콘 누를경우 
 		$(".filter_icon").click(function(){
@@ -159,6 +160,10 @@
 	            marginMin.innerHTML = values[handle];
 	        }
 	    });
+        //초기화 버튼 누를 경우
+        $(".btnBorder").click(function(){
+        	$("input[type='checkbox']").prop('checked', false);
+        });
 		//map
 		 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
@@ -196,6 +201,5 @@
 		    } 
 		});
 	</script>
-	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
 </html>
