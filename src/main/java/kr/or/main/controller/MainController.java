@@ -27,4 +27,5 @@ public class MainController {
 		model.addAttribute("loc","/");
 		return "common/main";
 	}
+	
 }

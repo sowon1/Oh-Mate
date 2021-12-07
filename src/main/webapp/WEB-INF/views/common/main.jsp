@@ -21,9 +21,9 @@
                         </div>
                         <div class="custom-options" data-type="gender" data-name="성별타입">
                             <span class="custom-option selected" data-value="">선택안함</span>
-                            <span class="custom-option" data-value="f">여성전용</span>
-                            <span class="custom-option" data-value="m">남성전용</span>
-                            <span class="custom-option" data-value="mf">남녀공용</span>
+                            <span class="custom-option" data-value="1">여성전용</span>
+                            <span class="custom-option" data-value="2">남성전용</span>
+                            <span class="custom-option" data-value="3">남녀공용</span>
                         </div>
                     </div>
                 </div>
@@ -32,11 +32,11 @@
                         <div class="custom-select__trigger"><span>룸 형태</span>
                             <div class="arrow"></div>
                         </div>
-                        <div class="custom-options" data-type="max_resident" data-name="룸 형태">
+                        <div class="custom-options" data-type="room" data-name="룸 형태">
                             <span class="custom-option selected" data-value="">선택안함</span>
                             <span class="custom-option" data-value="1">1인실</span>
                             <span class="custom-option" data-value="2">2인실</span>
-                            <span class="custom-option" data-value="3">3인실</span>
+                            <span class="custom-option" data-value="3">다인실</span>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>             
-                <a href="/" class="search_main_btn">적용하기 <img src="/resources/img/icon/search_wh.png"></a>
+                <a id="search_date" class="search_main_btn">적용하기 <img src="/resources/img/icon/search_wh.png"></a>
             </div>
         </div>
     </div>
@@ -182,6 +182,22 @@
     </div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
+		//검색 
+		$("#search_date").click(function(){
+			var keyword = $("input[name='keyword']").val();
+			var genderValue = $("div[data-type='gender']").prev().children("span").text();
+			var room = $("div[data-type='max_resident']").prev().children("span").text();
+			var housetype = $("div[data-type='house_type']").prev().children("span").text();
+			var gender;
+			if(genderValue == "남성전용"){
+				gender="1";
+			}else if(genderValue == "어성전용"){
+				gender="2";
+			}else{
+				gender="3";
+			}
+			location.href="/houseList.do?gender="+gender+"&room="+room+"&housetype="+housetype+"&keyword="+keyword;
+		});
 		//모달
 	    $("#house_modal").click(function(){
 	    	msgpopupopen();
