@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 .container_mate_filter{
 	width:100%;
 	height: auto;
@@ -14,10 +13,14 @@
     float: left;
     height: 100%;
 }
+.house_left{
+	position: relative;
+}
 .list_filter{
     display: flex;
     align-items: center;
-    position: relative;
+    width:100%;
+    padding:30px;
 }
 .filter_icon{
     width: 80px;
@@ -60,19 +63,15 @@
 
 /* 조건 검색 누를경우 */
 .h_filter_open{
-	width: 1200px;
-    margin: 0 auto;
-    height: auto;
-    /* overflow: hidden; */
-    display: none;
-    position: absolute;
-    top: 240px;
-    /* left: 150px; */
-    background: #fff;
-    z-index: 50;
-    padding: 30px;
-    border: 1px solid #333;
-    box-sizing: border-box;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	display: none;
+	padding: 30px;
+	height: 100%;
+	position: absolute;
+	top: 100px;
+	background: #fff;
 }
 
 /* 그래프 바*/
@@ -468,14 +467,11 @@
 /* 선택 */
 .genderFilter, .houseTypeWrap, .houseTypeWrap{
 	float:left;
-	width:385px;
-	margin-right:20px;
-}
-.genderFilter{
-	width:325px;
+	width:100%;
+	margin-bottom:40px;
 }
 .houseTypeWrap:last-child{
-	margin-right:0;
+	margin-bottom:0;
 }
 
 /* 버튼 */
@@ -485,8 +481,7 @@
     clear: both;
     border-top: 1px solid #eee;
     margin-top: 50px;
-    line-height: 40px;
-    padding-top:30px;
+    line-height: 81px;
 }
 .closeBtn img{
 	width:50px;

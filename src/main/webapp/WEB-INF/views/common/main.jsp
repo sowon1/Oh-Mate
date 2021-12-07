@@ -193,10 +193,14 @@
 				gender="1";
 			}else if(genderValue == "어성전용"){
 				gender="2";
-			}else{
+			}else if(genderValue == "남녀공용"){
 				gender="3";
 			}
-			location.href="/houseList.do?gender="+gender+"&room="+room+"&housetype="+housetype+"&keyword="+keyword;
+			console.log(gender);
+			console.log(room);
+			console.log(housetype);
+			console.log(keyword);
+			//location.href="/houseList.do?gender="+gender+"&room="+room+"&housetype="+housetype+"&keyword="+keyword;
 		});
 		//모달
 	    $("#house_modal").click(function(){
