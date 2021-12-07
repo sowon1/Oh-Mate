@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,6 +33,11 @@ public class NoticeController {
 	
 	@RequestMapping(value = "/noticeList.do")
 	public String noticeList(int reqPage, Model model) {
+	
+		HashMap<String, Object> map = service.selectNotice(reqPage);
+		model.addAttribute("pageNavi", map.get("pageNavi"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("start", map.get("start"));
 		return "notice/noticeList";
 	}
 	
@@ -138,5 +144,11 @@ public class NoticeController {
 		
 		return jsonObject.toString();
 
+	}
+	
+	@RequestMapping(value = "/noticeView.do")
+	public String noticeView(int noticeNo) {
+		System.out.println(noticeNo);
+		return "notice/noticeList";
 	}
 }

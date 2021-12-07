@@ -1,5 +1,9 @@
 package kr.or.notice.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,6 +25,17 @@ public class NoticeDao {
 	public int insertFile(FileVO fv) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("notice.insertFile",fv);
+	}
+
+	public ArrayList<Notice> selectNoticeList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<Notice> list = sqlSession.selectList("notice.selectList",map);
+		return (ArrayList<Notice>)list;
+	}
+
+	public int totalCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("notice.totalCount");
 	}
 	
 }
