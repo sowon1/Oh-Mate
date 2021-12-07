@@ -18,6 +18,10 @@
                         <p>검색 분류</p>
                     </div>
                     <div>
+                        <input class="form-check-input" type="checkbox" id="allChk">
+                        <label class="form-check-label" for="allChk">전체</label>
+                    </div>
+                    <div>
                         <input class="form-check-input" type="checkbox" value="1" id="mateChk" name="level">
                         <label class="form-check-label" for="mateChk">메이트</label>
                     </div>
@@ -92,4 +96,5 @@
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
 <link rel="stylesheet" href="/resources/css/admin/memberMgr.css">
+<script type="text/javascript" src="/resources/js/admin/memberMgr.js"></script>
 </html>

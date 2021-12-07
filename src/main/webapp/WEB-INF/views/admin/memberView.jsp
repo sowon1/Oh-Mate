@@ -54,15 +54,15 @@
 	                    </tr>
 	                    <tr class="table-active_mate">
 	                        <th>비밀번호</th>
-	                        <td colspan="3"><input type="password" name="memberPw" class="input_03" value="${m.memberPw }"></td>
+	                        <td colspan="3"><input type="password" name="memberPw" class="input_03" value="${m.memberPw }" maxlength="12"></td>
 	                    </tr>
 	                    <tr class="table-active_mate">
 	                        <th>이름</th>
-	                        <td colspan="3"><input type="text" name="memberName" class="input_03" value="${m.memberName }"></td>
+	                        <td colspan="3"><input type="text" name="memberName" class="input_03" value="${m.memberName }" maxlength="6"></td>
 	                    </tr>
 	                    <tr class="table-active_mate">
 	                        <th>전화번호</th>
-	                        <td colspan="3"><input type="text" name="phone" class="input_03" value="${m.phone }"></td>
+	                        <td colspan="3"><input type="text" name="phone" class="input_03" value="${m.phone }" placeholder="010-0000-0000"><span></span></td>
 	                    </tr>
 	                    <tr class="table-active_mate">
 	                        <th>이메일</th>
@@ -155,5 +155,5 @@
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
 <link rel="stylesheet" href="/resources/css/admin/memberView.css">
-<script type="text/javascript" src="/resources/js/memberView.js"></script>
+<script type="text/javascript" src="/resources/js/admin/memberView.js"></script>
 </html>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,14 @@
                 <div>
                     <div>
                         <p>검색 분류</p>
+                    </div>
+                    <div>
+                        <input class="form-check-input" type="checkbox" id="allChk"
+                        <c:if test="${not empty sm.level and fn:length(sm.level) eq 4}">
+                        	checked
+                        </c:if>
+                        >
+                        <label class="form-check-label" for="allChk">전체</label>
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="1" id="mateChk" name="level"
@@ -155,4 +164,5 @@
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
 <link rel="stylesheet" href="/resources/css/admin/memberMgr.css">
+<script type="text/javascript" src="/resources/js/admin/memberMgr.js"></script>
 </html>
