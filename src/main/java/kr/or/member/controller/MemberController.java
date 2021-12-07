@@ -326,6 +326,12 @@ public class MemberController {
 		return "common/msg";
 	}
 	
+	//마이페이지 이동
+	@RequestMapping(value="/myPageFrm.do")
+	public String myPage() {
+		return "member/myPage";
+	}
+	
 	//커뮤니티 이동
 	@RequestMapping(value="/communityFrm.do")
 	public String communityFrm() {

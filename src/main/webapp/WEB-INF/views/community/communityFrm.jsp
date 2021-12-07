@@ -35,8 +35,8 @@
 				</div><br>
 				<c:choose>
 					<c:when test="${not empty sessionScope.m}"> 
-						<a class="btn btn-secondary loginY" href="/profileUpdate">프로필 수정</a>
-						<a class="btn btn-secondary" href="/MateWriteFrm">게시글 작성</a>
+						<a class="btn btn-secondary" id="profileUp" href="/profileUpdate">프로필 수정</a>
+						<a class="btn btn-secondary" id="communityWt" href="/MateWriteFrm">게시글 작성</a>
 					</c:when>
 					<c:otherwise>
 						<a class="btn btn-secondary" href="/profileInsert" style="line-height: normal;">프로필 등록</a>
@@ -64,9 +64,13 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="c" varStatus="i">
-				
+					    <tr class="table-secondary">
+					      <th scope="row">Secondary</th>
+					      <td>Column content</td>
+					      <td>Column content</td>
+					      <td>Column content</td>
+					    </tr>
 				</c:forEach>
-				
 			</c:otherwise>
 		</c:choose>
 		

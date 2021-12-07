@@ -1,0 +1,59 @@
+@charset "UTF-8";
+	button:active {
+		position: relative;
+	 	background-color: lightgray;
+	}
+	.mainImg{
+		;
+	}
+	.profImg{
+		width: 130px;
+	    height: 130px;
+	    border-radius: 50%;
+	    overflow: hidden;
+	    margin: 0 auto;
+	    margin-bottom: 20px;
+	}
+	#uploadFile{
+		display: none;
+	}
+	#selectPr{
+		margin-left: 20px;
+		line-height: normal;
+	}
+	.myPageTbl{
+		margin: 0 auto;
+	}
+	table tbody tr {
+		height: 60px;
+	}
+	.protr th{
+		margin-top: 22px;
+		padding: 0px 10px;
+	    text-align: left;
+		border-left: 2px solid #956bfc;
+		height: 12px;
+	    line-height: 12px;
+	    display: flex;
+	    font-family: "ns_300";
+	    width: 200px;
+	}
+	.protd{
+		padding-left: 100px;
+	}
+	td>input{
+		width: 260px;
+		height: 32px;
+	}
+	em {
+		margin-top: 3px;
+		font-size : 15px;
+		color: red;
+		font-weight: 800;
+	}
+	.myPageBtn{
+		text-align: center;
+	}
+	#myPageBtn1, #myPageBtn2{
+		line-height: normal;
+	}
