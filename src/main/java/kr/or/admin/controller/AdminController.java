@@ -19,6 +19,7 @@ import kr.or.admin.model.service.AdminService;
 import kr.or.admin.model.vo.SearchMember;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.member.model.vo.Member;
+import kr.or.profile.model.vo.Profile;
 
 @Controller
 public class AdminController {
@@ -94,5 +95,16 @@ public class AdminController {
 		}
 		model.addAttribute("loc", "/adminMemberView.do?memberNo="+um.getMemberNo());
 		return "common/msg";
+	}
+	@RequestMapping(value="/adminInsertProfileFrm.do")
+	public String insertProfileFrm(String memberId, Model model) {
+		model.addAttribute("memberId", memberId);
+		return "admin/insertProfileFrm";
+	}
+	@RequestMapping(value="/adminUpdateProfileFrm.do")
+	public String updateProfileFrm(String memberId, Model model) {
+		Profile p = service.selectProfile(memberId);
+		model.addAttribute("p", p);
+		return "admin/updateProfileFrm";
 	}
 }

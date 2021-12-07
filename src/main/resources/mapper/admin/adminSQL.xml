@@ -128,4 +128,17 @@
 		</if>
 		where member_no = #{memberNo}
 	</update>
+	<select id="selectProfile" parameterType="string" resultType="kr.or.profile.model.vo.Profile">
+		select
+			p_no as pNo,
+			p_writer as pWriter,
+			p_gender as pGender,
+			p_age as pAge,
+			p_local as pLocal,
+			p_smoke as pSmoke,
+			p_pet as pPet,
+			p_cleaning as pCleaning,
+			p_pattern as pPattern
+		from profile where member_id=#{memberId}
+	</select>
 </mapper>

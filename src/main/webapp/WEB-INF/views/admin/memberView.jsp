@@ -15,6 +15,7 @@
 	            <form action="/adminMemberUpdate.do" method="post" enctype="multipart/form-data">
 	            	<input type="hidden" name="memberNo" value="${m.memberNo }">
                     <input type="hidden" name="memberLevel" value="${m.memberLevel }">
+                    <input type="hidden" id="memberId" value="${m.memberId }">
 	                <table class="table">
 	                    <tr class="table-active_mate center_list">
 	                        <th>프로필 이미지</th>
@@ -120,10 +121,10 @@
 		                        <td>
 		                        	<c:choose>
 		                        		<c:when test="${m.profileStatus eq 1 }">
-				                        	<a href="">등록</a>	                        		
+				                        	<a href="javascript:updateProfile()">등록</a>	                        		
 		                        		</c:when>
 		                        		<c:when test="${m.profileStatus eq 2 }">
-				                        	<a href="">미등록</a>	                        		
+				                        	<a href="javascript:insertProfile()">미등록</a>	                        		
 		                        		</c:when>
 		                        	</c:choose>
 		                        </td>

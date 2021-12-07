@@ -38,3 +38,11 @@ $("[name=phone]").change(function(){
 		$(this).next().html("010-0000-0000 형식으로 입력하세요.");
 	}
 });
+function insertProfile(){
+	console.log($("#memberId").val());
+	window.open("/adminInsertProfileFrm.do?memberId="+$("#memberId").val(), "_blank", "top=50, left=900, width=700, height=900");
+}
+function updateProfile(){
+	console.log($("#memberId").val());
+	window.open("/adminUpdateProfileFrm.do?memberId="+$("#memberId").val(), "_blank", "top=50, left=900, width=700, height=900");
+}
