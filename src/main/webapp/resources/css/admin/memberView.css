@@ -2,6 +2,9 @@
     margin: 0 auto;
     width: 645px;
 }
+.container_mate>h1{
+	padding-left: 35px;
+}
 .table > :not(caption) > * > *{
     box-shadow: none;
     border-bottom: none;
@@ -11,6 +14,7 @@
 }
 .table-active_mate{
     align-items: center;
+	margin-bottom: 10px;
 }
 .form-switch .form-check-input{
     width: 60px;
@@ -18,18 +22,12 @@
 .form-check-input{
     height: 30px;
 }
-.table-active_mate{
-	margin-bottom: 10px;
-}
 .table>tbody>tr:last-child{
 	margin-bottom: 0;
 }
 .table>tbody>tr:last-child>th:nth-child(3){
     margin-left: 85px;
 	position: relative;
-}
-.container_mate>h1{
-	padding-left: 35px;
 }
 .table>tbody>tr:last-child>th:nth-child(3)>span{
 	position: absolute;
@@ -62,4 +60,7 @@ table input::placeholder{
 	font-size: 13px;
 	color: #8500ff;
 	left: 230px;
+}
+.form-check-input:focus{
+	box-shadow: none;
 }

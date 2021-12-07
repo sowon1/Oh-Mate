@@ -46,4 +46,8 @@ public class AdminDao {
 	public Profile selectProfile(String memberId) {
 		return session.selectOne("admin.selectProfile", memberId);
 	}
+
+	public int insertProfile(Profile p) {
+		return session.update("admin.insertProfile", p);
+	}
 }

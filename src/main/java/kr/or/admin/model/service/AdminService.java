@@ -136,4 +136,8 @@ public class AdminService {
 	public Profile selectProfile(String memberId) {
 		return dao.selectProfile(memberId);
 	}
+	@Transactional
+	public int insertProfile(Profile p) {
+		return dao.insertProfile(p);
+	}
 }

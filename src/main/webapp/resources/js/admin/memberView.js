@@ -39,10 +39,8 @@ $("[name=phone]").change(function(){
 	}
 });
 function insertProfile(){
-	console.log($("#memberId").val());
-	window.open("/adminInsertProfileFrm.do?memberId="+$("#memberId").val(), "_blank", "top=50, left=900, width=700, height=900");
+	window.open("/adminInsertProfileFrm.do?memberId="+$("#memberId").val()+"&memberNo="+$("[name=memberNo]").val(), "_blank", "top=150, left=900, width=600, height=700");
 }
 function updateProfile(){
-	console.log($("#memberId").val());
-	window.open("/adminUpdateProfileFrm.do?memberId="+$("#memberId").val(), "_blank", "top=50, left=900, width=700, height=900");
+	window.open("/adminUpdateProfileFrm.do?memberId="+$("#memberId").val()+"&memberNo="+$("[name=memberNo]").val(), "_blank", "top=150, left=900, width=600, height=700");
 }
