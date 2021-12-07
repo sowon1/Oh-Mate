@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.common.Address;
+import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
@@ -40,6 +41,11 @@ public class HouseService {
 		} else {
 			return null;
 		}
+	}
+	//하우스 리스트 출력 - sowon
+	public ArrayList<House> selectSearchHouse(Housesearch search) {
+		ArrayList<House> list = dao.selectSearchHouse(search);
+		return null;
 	}
 
 }

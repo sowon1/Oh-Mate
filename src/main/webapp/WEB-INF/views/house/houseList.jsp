@@ -16,110 +16,108 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="container_mate_filter">
-		<div class="container_mate">
-			<div class="list_filter">
-				<div class="filter_icon">
-					<img src="/resources/img/icon/filter.png">
-					<span class="filter_name">조건검색</span>					
-				</div>
-				<div class="search_line">
-					<input class="search_input" name="keyword" placeholder="지역, 지하철역, 대학 주변 검색">
-					<a href="" class="search_icon">
-						<img src="/resources/img/icon/search_on.png">
-					</a>
-				</div>
-			</div>
-		<form id="house_filter">
-			<div class="h_filter_open">
-				<fieldset>
-					<div id="select_container">
-						<!--보증금조정-->
-						<div class="mFeeWrap">
-           	              <h2 class="filterTitle"><strong>보증금 범위</strong>&nbsp;&nbsp;<span id="rent-lower">0</span>~<span id="rent-upper">100</span>만원</h2>
-       	    		      <input name="roomCharge1" id="house-filter_rent_lower" type="hidden" value="0">
-       	    		      <input name="roomCharge2" id="house-filter_rent_upper" type="hidden" value="100">
-           	              <div id="rent-slider" class="noUi-target noUi-ltr noUi-horizontal"></div>
-           	              <h3 class="leftCaption">0만원</h3><h3 class="rightCaption">100만원</h3>
-           	            </div>
-						<!--보증금조정 끝-->
-						<div class="genderFilter">
-							<p class="filterTitle">
-								<strong>성별 타입</strong>&nbsp;&nbsp;중복 선택 가능
-							</p>
-							<div class="filter_cont">
-								<div>
-									<input type="checkbox" id="house-filter_gender_division_f" name="gender" value="2">
-									<label for="house-filter_gender_division_f"><span class="select_icon02"></span>여성전용</label>
-								</div>
-								<div>
-									<input type="checkbox" id="house-filter_gender_division_m" name="gender" value="1">
-									<label for="house-filter_gender_division_m"><span class="select_icon04"></span>남성전용</label>
-								</div>
-								<div>
-									<input type="checkbox" id="house-filter_gender_division_mf" name="gender" value="3">
-									<label for="house-filter_gender_division_mf"><span class="select_icon03"></span>남녀공용</label>
-								</div>
-							</div>
-						</div>
-						<div class="houseTypeWrap">
-							<p class="filterTitle">
-								<strong>주거 유형</strong>&nbsp;&nbsp;중복 선택 가능
-							</p>
-							<div class="filter_cont">
-								<div>
-									<input type="checkbox" id="house-filter_house_type_0" name="housetype" value="아파트">
-									<label for="house-filter_house_type_0"><span class="select_icon02"></span>아파트</label>
-								</div>
-								<div>
-									<input type="checkbox" id="house-filter_house_type_1" name="housetype" value="단독주택">
-									<label for="house-filter_house_type_1"><span class="select_icon04"></span>단독주택</label>
-								</div>
-								<div>
-									<input type="checkbox" id="house-filter_house_type_2" name="housetype" value="빌라">
-									<label for="house-filter_house_type_2"><span class="select_icon03"></span>빌라</label>
-								</div>
-								<div>
-									<input type="checkbox" id="house-filter_house_type_3" name="housetype" value="기타">
-									<label for="house-filter_house_type_3"><span class="select_icon03"></span>기타</label>
-								</div>
-							</div>
-						</div>
-						<div class="houseTypeWrap">
-							<p class="filterTitle">
-								<strong>룸 형태</strong>&nbsp;&nbsp;중복 선택 가능
-							</p>
-							<div class="filter_cont">
-								<div>
-									<input type="checkbox" id="house-filter_max_resident_1" name="room" value="1인실">
-									<label for="house-filter_max_resident_1"><span class="select_icon02"></span>1인실</label>
-								</div>
-								<div>
-									<input type="checkbox" id="house-filter_max_resident_2" name="room" value="2인실">
-									<label for="house-filter_max_resident_2"><span class="select_icon04"></span>2인실</label>
-								</div>
-								<div>
-									<input type="checkbox" id="house-filter_max_resident_3" name="room" value="다인실">
-									<label for="house-filter_max_resident_3"><span class="select_icon03"></span>다인실</label>
-								</div>
-							</div>
-						</div>
-					</div>
-				</fieldset>
-				<!--적용하기-->
-				<div class="applyWrap">
-					<span class="btnBorder" id="reset-house">초기화</span>
-					<span class="btnBackground" id="filter-apply-btn">적용하기</span>
-					<span class="filterHeader">
-						<div class="closeBtn" id="filter-close-btn">
-							<img src="/resources/img/icon/close_p.png">
-						</div>
-					</span>
-				</div>
-			</div>
-		</form>
-		</div>
 		<div class="house_list">
 			<div class="house_left">
+				<div class="list_filter">
+					<div class="filter_icon">
+						<img src="/resources/img/icon/filter.png">
+						<span class="filter_name">조건검색</span>					
+					</div>
+					<div class="search_line">
+						<input class="search_input" name="keyword" placeholder="지역, 지하철역, 대학 주변 검색">
+						<a href="" class="search_icon">
+							<img src="/resources/img/icon/search_on.png">
+						</a>
+					</div>
+				</div>
+				<form id="house_filter">
+					<div class="h_filter_open">
+						<fieldset>
+							<div id="select_container">
+								<!--보증금조정-->
+								<div class="mFeeWrap">
+		           	              <h2 class="filterTitle"><strong>보증금 범위</strong>&nbsp;&nbsp;<span id="rent-lower">0</span>~<span id="rent-upper">100</span>만원</h2>
+		       	    		      <input name="roomCharge1" id="house-filter_rent_lower" type="hidden" value="0">
+		       	    		      <input name="roomCharge2" id="house-filter_rent_upper" type="hidden" value="100">
+		           	              <div id="rent-slider" class="noUi-target noUi-ltr noUi-horizontal"></div>
+		           	              <h3 class="leftCaption">0만원</h3><h3 class="rightCaption">100만원</h3>
+		           	            </div>
+								<!--보증금조정 끝-->
+								<div class="genderFilter">
+									<p class="filterTitle">
+										<strong>성별 타입</strong>&nbsp;&nbsp;중복 선택 가능
+									</p>
+									<div class="filter_cont">
+										<div>
+											<input type="checkbox" id="house-filter_gender_division_f" name="gender" value="2">
+											<label for="house-filter_gender_division_f"><span class="select_icon02"></span>여성전용</label>
+										</div>
+										<div>
+											<input type="checkbox" id="house-filter_gender_division_m" name="gender" value="1">
+											<label for="house-filter_gender_division_m"><span class="select_icon04"></span>남성전용</label>
+										</div>
+										<div>
+											<input type="checkbox" id="house-filter_gender_division_mf" name="gender" value="3">
+											<label for="house-filter_gender_division_mf"><span class="select_icon03"></span>남녀공용</label>
+										</div>
+									</div>
+								</div>
+								<div class="houseTypeWrap">
+									<p class="filterTitle">
+										<strong>주거 유형</strong>&nbsp;&nbsp;중복 선택 가능
+									</p>
+									<div class="filter_cont">
+										<div>
+											<input type="checkbox" id="house-filter_house_type_0" name="housetype" value="아파트">
+											<label for="house-filter_house_type_0"><span class="select_icon02"></span>아파트</label>
+										</div>
+										<div>
+											<input type="checkbox" id="house-filter_house_type_1" name="housetype" value="단독주택">
+											<label for="house-filter_house_type_1"><span class="select_icon04"></span>단독주택</label>
+										</div>
+										<div>
+											<input type="checkbox" id="house-filter_house_type_2" name="housetype" value="빌라">
+											<label for="house-filter_house_type_2"><span class="select_icon03"></span>빌라</label>
+										</div>
+										<div>
+											<input type="checkbox" id="house-filter_house_type_3" name="housetype" value="기타">
+											<label for="house-filter_house_type_3"><span class="select_icon03"></span>기타</label>
+										</div>
+									</div>
+								</div>
+								<div class="houseTypeWrap">
+									<p class="filterTitle">
+										<strong>룸 형태</strong>&nbsp;&nbsp;중복 선택 가능
+									</p>
+									<div class="filter_cont">
+										<div>
+											<input type="checkbox" id="house-filter_max_resident_1" name="room" value="1인실">
+											<label for="house-filter_max_resident_1"><span class="select_icon02"></span>1인실</label>
+										</div>
+										<div>
+											<input type="checkbox" id="house-filter_max_resident_2" name="room" value="2인실">
+											<label for="house-filter_max_resident_2"><span class="select_icon04"></span>2인실</label>
+										</div>
+										<div>
+											<input type="checkbox" id="house-filter_max_resident_3" name="room" value="다인실">
+											<label for="house-filter_max_resident_3"><span class="select_icon03"></span>다인실</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						<!--적용하기-->
+						<div class="applyWrap">
+							<span class="btnBorder" id="reset-house">초기화</span>
+							<span class="btnBackground" id="filter-apply-btn">적용하기</span>
+							<span class="filterHeader">
+								<div class="closeBtn" id="filter-close-btn">
+									<img src="/resources/img/icon/close_p.png">
+								</div>
+							</span>
+						</div>
+					</div>
+				</form>
 				list
 			</div>
 			<div class="house_right">
