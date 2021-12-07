@@ -18,4 +18,25 @@
   	insert into income
   	values(income_seq.nextval,#{incomeBank},#{incomeAccount},#{incomeName},2,#{incomeNum})
   </insert>
+  
+  <!-- 하우스 리스트 출력 - sowon 
+  <select id="selectSearchHouse" parameterType="search">
+  		select * from house 
+  				<trim prefix="where" prefixOverrides="and|or">
+  					<if test="!gender.equals('')">
+  						house_gender=#{gender}
+  					</if>
+  					<if test="!housetype.equals('')">
+  						house_Form=#{housetype}
+  					</if>
+  				</trim>
+			    where house_gender=#{gender}
+			    and house_Form=#{housetype}
+			    and ((house_title || house_content || HOUSE_FORM) like=%#{keyword}%)    
+			    or house_no = (select address_number from address where ADDRESS_CATEGORY='1' and (address_name || address_road || address_legal) like=%#{keyword}%);
+			   <if test="">			   
+			    	and house_no in (select house_no from room where ROOM_PERSONNEL=#{room} and ROOM_CHARGE between #{roomCharge1} and #{roomCharge2})
+			   </if>
+  </select>
+  -->
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.or.common.Address;
+import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
@@ -27,7 +28,8 @@ public class HouseController {
 	}
 	//하우스 리스트 출력
 	@RequestMapping(value="/houseList.do")
-	public String houseList() {
+	public String houseList(Housesearch search, Model model) {
+		ArrayList<House> list = service.selectSearchHouse(search);
 		return "house/houseList";
 	}
 	//하우스 등록
