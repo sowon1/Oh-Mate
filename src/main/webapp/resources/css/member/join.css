@@ -1,7 +1,7 @@
 @charset "UTF-8";
 	button:active {
-	 position: relative;
- 	 background-color: lightgray;
+		position: relative;
+	 	background-color: lightgray;
 	}
 	.join_wrap{
 		position: fixed;

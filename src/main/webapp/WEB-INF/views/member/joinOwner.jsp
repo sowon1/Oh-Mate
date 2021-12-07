@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<link rel="stylesheet" href="/resources/css/member/join.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-
+	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="join_wrap">
 		<div class="join_container">
 			<div class="logo">
@@ -142,8 +141,6 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript" src="/resources/js/member/join.js"></script>
-	
 	<!-- 프로필사진 미리보기 -->
 	<script type="text/javascript">
 		var sel_file;
@@ -173,4 +170,6 @@
 		}
 	</script>
 </body>
+<link rel="stylesheet" href="/resources/css/member/join.css">
+<script type="text/javascript" src="/resources/js/member/join.js"></script>
 </html>

@@ -182,7 +182,7 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="#">나의 정보</a></li>
+		      <li><a href="/myPageFrm.do">나의 정보</a></li>
 		      <li><a href="#">쪽지함</a></li>
 		      <li><a href="#">하우스 찜목록 확인</a></li>
 		      <li><a href="#">하우스 입주 내역 확인</a></li>
