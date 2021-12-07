@@ -51,3 +51,15 @@
 .select input[type=radio]+label{
 	line-height: 32px;
 }
+table input::placeholder{
+	color: #ddd;
+}
+.table>tbody>tr:nth-of-type(6)>td {
+	position: relative;
+}
+.table>tbody>tr:nth-of-type(6)>td>span{
+	position: absolute;
+	font-size: 13px;
+	color: #8500ff;
+	left: 230px;
+}

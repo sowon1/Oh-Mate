@@ -11,6 +11,7 @@ import kr.or.admin.model.dao.AdminDao;
 import kr.or.admin.model.vo.SearchMember;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.member.model.vo.Member;
+import kr.or.profile.model.vo.Profile;
 
 @Service
 public class AdminService {
@@ -130,5 +131,9 @@ public class AdminService {
 	@Transactional
 	public int memberUpdate(UpdateMember um) {
 		return dao.memberUpdate(um);
+	}
+
+	public Profile selectProfile(String memberId) {
+		return dao.selectProfile(memberId);
 	}
 }

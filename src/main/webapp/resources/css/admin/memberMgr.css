@@ -9,6 +9,9 @@
     width: 50%;
     display: flex;
 }
+.searchBox>div>div:first-child{
+	margin-right: 10px;
+}
 .searchBox p{
 	font-family: "ns_700";
 }
@@ -40,6 +43,9 @@ input[type="checkbox"]{
     height: auto;
     width: 250px;
 }
+.keywordBox input[name="keyword"]::placeholder{
+	color:#ddd;
+}
 table *{
     text-align: center;
 }
@@ -54,4 +60,7 @@ table p{
 }
 .container_mate>h1{
 	padding-left: 35px;
+}
+.form-check-input:focus{
+	box-shadow: none;
 }

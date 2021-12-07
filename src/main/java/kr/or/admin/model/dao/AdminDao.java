@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.member.model.vo.Member;
+import kr.or.profile.model.vo.Profile;
 
 @Repository
 public class AdminDao {
@@ -40,5 +41,9 @@ public class AdminDao {
 
 	public int memberUpdate(UpdateMember um) {
 		return session.update("admin.memberUpdate", um);
+	}
+
+	public Profile selectProfile(String memberId) {
+		return session.selectOne("admin.selectProfile", memberId);
 	}
 }

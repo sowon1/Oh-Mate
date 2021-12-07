@@ -11,6 +11,19 @@
 	<insert id="insertFile" parameterType="fi">
 		insert into file_tbl values(file_seq.nextval,#{noticeNo},#{filename},#{filepath})
 	</insert>
+	<select id="selectList" parameterType="map" resultType="n">
+		select
+			NOTICE_NO as noticeNo,
+			NOTICE_TITLE as noticeTitle,
+			NOTICE_CONTENT as noticeContent,
+			NOTICE_DATE as noticeDate,
+			NOTICE_READCOUNT as noticeReadCount
+		from (select rownum as rnum, n.* from (SELECT * FROM notice order by 1 desc)n) 
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="totalCount" resultType="_int">
+		select count(*) from notice
+	</select>
 	
 	
 	<resultMap type="n" id="notice">

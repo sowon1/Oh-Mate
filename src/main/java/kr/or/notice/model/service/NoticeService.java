@@ -1,6 +1,7 @@
 package kr.or.notice.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,6 @@ import kr.or.notice.model.vo.Notice;
 public class NoticeService {
 	@Autowired
 	private NoticeDao dao;
-
-	public ArrayList<Notice> selectAllNotice() {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
 
 	public int insertNotice(Notice n, ArrayList<FileVO> list) {
 		// TODO Auto-generated method stub
@@ -33,5 +28,58 @@ public class NoticeService {
 			return -1;
 		}
 		return result;
+	}
+
+	public HashMap<String, Object> selectNotice(int reqPage) {
+		// TODO Auto-generated method stub
+		int numPerPage=10;
+		int end = reqPage*numPerPage;
+		int start = end-numPerPage+1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Notice> list = dao.selectNoticeList(map);
+		
+		int totalCount = dao.totalCount();
+		int totalPage=0;
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage;
+		}else {
+			totalPage = totalCount/numPerPage +1;
+		}
+		int pageNaviSize=5;
+		int pageNo = 1;
+		if(reqPage>3) {
+			pageNo= reqPage-2;
+			if(totalPage - reqPage < (pageNaviSize-1)) {
+				pageNo = totalPage-(pageNaviSize-1);
+			}
+		}
+		
+		String pageNavi = "";
+		if(pageNo != 1) {
+			pageNavi += "<a href='/noticeList?reqPage="+(reqPage-1)+".do'>[이전]</a>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi = "<span>"+pageNo+"</span>";
+			}else {
+				pageNavi += "<a href='/noticeList?reqPage="+pageNo+".do'>"+pageNo+"</a>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<a href='/noticeList?reqPage="+(reqPage+1)+".do'>[다음]</a>";
+		}
+		
+		map.put("pageNavi", pageNavi);
+		map.put("list",	list);
+		
+		return map;
 	}
 }

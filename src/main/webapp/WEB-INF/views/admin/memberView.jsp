@@ -15,6 +15,7 @@
 	            <form action="/adminMemberUpdate.do" method="post" enctype="multipart/form-data">
 	            	<input type="hidden" name="memberNo" value="${m.memberNo }">
                     <input type="hidden" name="memberLevel" value="${m.memberLevel }">
+                    <input type="hidden" id="memberId" value="${m.memberId }">
 	                <table class="table">
 	                    <tr class="table-active_mate center_list">
 	                        <th>프로필 이미지</th>
@@ -54,15 +55,15 @@
 	                    </tr>
 	                    <tr class="table-active_mate">
 	                        <th>비밀번호</th>
-	                        <td colspan="3"><input type="password" name="memberPw" class="input_03" value="${m.memberPw }"></td>
+	                        <td colspan="3"><input type="password" name="memberPw" class="input_03" value="${m.memberPw }" maxlength="12"></td>
 	                    </tr>
 	                    <tr class="table-active_mate">
 	                        <th>이름</th>
-	                        <td colspan="3"><input type="text" name="memberName" class="input_03" value="${m.memberName }"></td>
+	                        <td colspan="3"><input type="text" name="memberName" class="input_03" value="${m.memberName }" maxlength="6"></td>
 	                    </tr>
 	                    <tr class="table-active_mate">
 	                        <th>전화번호</th>
-	                        <td colspan="3"><input type="text" name="phone" class="input_03" value="${m.phone }"></td>
+	                        <td colspan="3"><input type="text" name="phone" class="input_03" value="${m.phone }" placeholder="010-0000-0000"><span></span></td>
 	                    </tr>
 	                    <tr class="table-active_mate">
 	                        <th>이메일</th>
@@ -120,10 +121,10 @@
 		                        <td>
 		                        	<c:choose>
 		                        		<c:when test="${m.profileStatus eq 1 }">
-				                        	<a href="">등록</a>	                        		
+				                        	<a href="javascript:updateProfile()">등록</a>	                        		
 		                        		</c:when>
 		                        		<c:when test="${m.profileStatus eq 2 }">
-				                        	<a href="">미등록</a>	                        		
+				                        	<a href="javascript:insertProfile()">미등록</a>	                        		
 		                        		</c:when>
 		                        	</c:choose>
 		                        </td>
@@ -155,5 +156,5 @@
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
 <link rel="stylesheet" href="/resources/css/admin/memberView.css">
-<script type="text/javascript" src="/resources/js/memberView.js"></script>
+<script type="text/javascript" src="/resources/js/admin/memberView.js"></script>
 </html>
