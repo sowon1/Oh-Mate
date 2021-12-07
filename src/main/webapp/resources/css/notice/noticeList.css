@@ -3,6 +3,15 @@
 		float: right;
 		font-family: "ns_500";
 	}
-	.table tr{
-		text-align: center;
+	table *{
+	    text-align: center;
+	}
+	table a{
+		color: #333;
+	}
+	table a:hover{
+		text-decoration: underline;	
+	}
+	.container_mate>h1{
+		padding-left: 35px;
 	}
