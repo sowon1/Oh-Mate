@@ -153,7 +153,7 @@
                 	</c:when>
                 	<c:otherwise>
                 		<tr>
-                			<th colspan="6"><p>조회 결과가 없습니다.</p></th>
+                			<td colspan="6"><p>조회 결과가 없습니다.</p></td>
                 		</tr>
                 	</c:otherwise>
                 </c:choose>
