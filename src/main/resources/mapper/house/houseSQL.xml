@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="house">
+	<!-- 하우스등록 -->
   <insert id="insertHouse" parameterType="h">
   insert into house
-  values(house_seq.nextval,#{memberNo},#{houseTitle},#{houseownerDeadLine},2,null,#{houseContent},#{houseCharge},
+  values(house_seq.nextval,#{memberNo},#{houseTitle},#{houseownerDeadline},2,null,#{houseContent},#{houseRoom},#{houseCharge},
   #{houseRule},#{houseForm},#{houseGender},#{houseConvenience},1)
   	<selectKey resultType="_int" order="AFTER" keyProperty="houseNo">
   	<!-- 하우스 번호 넘기기위한 selectkey 발동 -->
   		select max(house_no) from house
   	</selectKey>
   </insert>
+  <!-- 하우스 등록할때 주소등록 -->
   <insert id="insertAddress" parameterType="addr">
   	insert into address 
   	values(address_seq.nextval,#{addressNumber},#{addressCode},#{addressName},#{addressRoad},#{addressLegal},1,#{addressDetail})
   </insert>
+  <!-- 하우스 등록할때 계좌등록 -->
   <insert id="insertIncome" parameterType="i">
   	insert into income
   	values(income_seq.nextval,#{incomeBank},#{incomeAccount},#{incomeName},2,#{incomeNum})

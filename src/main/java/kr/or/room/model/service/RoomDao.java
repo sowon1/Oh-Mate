@@ -1,11 +1,22 @@
 package kr.or.room.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import kr.or.room.model.vo.Room;
 
 @Repository
 public class RoomDao {
 	@Autowired
 	private SqlSessionTemplate session;
+
+	public ArrayList<Room> selectAllRoom(HashMap<String, Object> map) {
+		List<Room> list = session.selectList("");
+		return null;
+	}
 }

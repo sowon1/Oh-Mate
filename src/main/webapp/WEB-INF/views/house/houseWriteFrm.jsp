@@ -15,16 +15,19 @@
 	border: 1px solid #9F9F9F;
 	border-radius: 5px;
 }
-.note-modal-content{
-      height: auto;
-      position: fixed;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%,-50%);
- 	}
+
+.note-modal-content {
+	height: auto;
+	position: fixed;
+	top: 40%;
+	left: 20%;
+	transform: translate(-50%, -50%);
+}
+
 .note-modal-footer {
 	margin-bottom: 40px
 }
+
 .content-place>select {
 	width: 100%;
 	height: 45px;
@@ -78,7 +81,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	
+
 	<!-- 달력 -->
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -86,9 +89,9 @@
 		src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-		<link rel="stylesheet" type="text/css"
+	<link rel="stylesheet" type="text/css"
 		href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-		<!-- 썸머노트 등록 -->
+	<!-- 썸머노트 등록 -->
 
 	<script src="/resources/summernote/summernote-lite.js"></script>
 	<!-- include summernote-ko-KR -->
@@ -96,8 +99,10 @@
 	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 	<div class="container_mate">
 		<div class="content">
-			<form action="/houseWrite.do" id="frm" method="post" enctype="multipart/form-data">
-				<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
+			<form action="/houseWrite.do" id="frm" method="post"
+				enctype="multipart/form-data">
+				<input type="hidden" name="memberNo"
+					value="${sessionScope.m.memberNo }">
 				<div class="houseForm" style="display: block;">
 					<h4 class="form-title">정산받을 계좌를 입력해주세요</h4>
 					<div class="content-place">
@@ -126,7 +131,7 @@
 				<div class="houseForm">
 					<h4 class="form-title">소개가 끝나는 날짜를 정해주세요</h4>
 					<div class="content-place">
-						<input type="text" name="houseownerDeadLine" id="datefilter"
+						<input type="text" name="houseownerDeadline" id="datefilter"
 							class="input_date input_04" style="width: 100%;"
 							readonly="readonly">
 					</div>
@@ -140,19 +145,20 @@
 					<div class="content-place">
 						<div class="postcode">
 							<input type="text" id="postCode" name="addressCode"
-								class="input_04" readonly placeholder="우편번호" style="width: 81%">
+								class="input_04" readonly="readonly" placeholder="우편번호"
+								style="width: 81%">
 							<button type="button" onclick="addrSearch();" class="btn btn_sm"
 								style="line-height: 30px">주소검색</button>
 						</div>
 						<div class="postcode">
 							<input type="text" id="roadAddr" class="input_03"
-								placeholder="도로명 주소" name="companyAddr"> 
-								<input type="hidden" id="addressName" name="addressName">
-								<input type="hidden" id="addressRoad" name="addressRoad"> 
-								<input type="hidden" id="addressLegal" name="addressLegal">
+								placeholder="도로명 주소" name="companyAddr" readonly="readonly">
+							<input type="hidden" id="addressName" name="addressName">
+							<input type="hidden" id="addressRoad" name="addressRoad">
+							<input type="hidden" id="addressLegal" name="addressLegal">
 						</div>
 						<div class="postcode">
-							<input type="text" name="houseTitle" id="detailAddr"
+							<input type="text" name="addressDetail" id="detailAddr"
 								class="input_03" placeholder="상세주소">
 						</div>
 					</div>
@@ -164,12 +170,15 @@
 				</div>
 				<div class="houseForm">
 					<h4 class="form-title">집정보 입력</h4>
-					<div class="content-place" style="height: 800px">
+					<div class="content-place" style="height: 1200px">
 						<p class="ac-title">하우스 이름</p>
 						<input type="text" name="houseTitle" id="houseName"
 							class="input_03" placeholder="하우스이름">
 						<p class="ac-title">주거형태</p>
-						<select id="HSF" class="control-group" name="houseForm">
+						<p class="ac-title">보증금(대표)</p>
+						<input type="text" name="houseCharge" id="houseCharge"
+							class="input_03" placeholder="보증금"> <select id="HSF"
+							class="control-group" name="houseForm">
 							<option value="">선택</option>
 							<option value="아파트">아파트</option>
 							<option value="단독주택">단독주택</option>
@@ -177,7 +186,9 @@
 							<option value="기타">기타</option>
 						</select>
 						<p class="ac-title">하우스 시설 소개</p>
-						<textarea id="summernote" name="houseContent"></textarea>
+						<textarea class="summernote" name="houseContent"></textarea>
+						<p class="ac-title">하우스 이용규칙</p>
+						<textarea class="summernote" name="houseRule"></textarea>
 					</div>
 					<div class="button-place">
 						<a class="btn btn_out" style="line-height: 30px;"
@@ -202,7 +213,7 @@
 										<input type="checkbox" class="chk" name="funderCategory"
 											id="fun_01" value="0"><label for="fun_01">냉장고</label>
 									</div>
-								</td >
+								</td>
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
@@ -276,45 +287,13 @@
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_13" value="0"><label for="fun_13">건조기</label>
+											id="fun_13" value="0"><label for="fun_13">건조시설</label>
 									</div>
 								</td>
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_14" value="0"><label for="fun_14">건조대</label>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="find">
-									<div class="check_ent displayflex" style="text-align: left;">
-										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_15" value="0"><label for="fun_15">침대</label>
-									</div>
-								</td>
-								<td class="find">
-									<div class="check_ent displayflex" style="text-align: left;">
-										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_16" value="0"><label for="fun_16">서랍</label>
-									</div>
-								</td>
-								<td class="find">
-									<div class="check_ent displayflex" style="text-align: left;">
-										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_17" value="0"><label for="fun_17">옷장</label>
-									</div>
-								</td>
-								<td class="find">
-									<div class="check_ent displayflex" style="text-align: left;">
-										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_18" value="0"><label for="fun_18">비데</label>
-									</div>
-								</td>
-								<td class="find">
-									<div class="check_ent displayflex" style="text-align: left;">
-										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_19" value="0"><label for="fun_19">의자</label>
+											id="fun_14" value="0"><label for="fun_14">침대</label>
 									</div>
 								</td>
 							</tr>
@@ -322,31 +301,51 @@
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_20" value="0"><label for="fun_20">인터넷TV</label>
+											id="fun_15" value="0"><label for="fun_15">서랍</label>
 									</div>
 								</td>
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_21" value="0"><label for="fun_21">엘레베이터</label>
+											id="fun_16" value="0"><label for="fun_16">옷장</label>
 									</div>
 								</td>
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_22" value="0"><label for="fun_22">보안</label>
+											id="fun_17" value="0"><label for="fun_17">비데</label>
 									</div>
 								</td>
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_23" value="0"><label for="fun_23">청소</label>
+											id="fun_18" value="0"><label for="fun_18">의자</label>
 									</div>
 								</td>
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_24" value="0"><label for="fun_24">WIFI</label>
+											id="fun_19" value="0"><label for="fun_19">인터넷시설</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
+										<input type="checkbox" class="chk" name="funderCategory"
+											id="fun_20" value="0"><label for="fun_20">엘레베이터</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
+										<input type="checkbox" class="chk" name="funderCategory"
+											id="fun_21" value="0"><label for="fun_21">보안</label>
+									</div>
+								</td>
+								<td class="find">
+									<div class="check_ent displayflex" style="text-align: left;">
+										<input type="checkbox" class="chk" name="funderCategory"
+											id="fun_22" value="0"><label for="fun_22">청소</label>
 									</div>
 								</td>
 							</tr>
@@ -363,7 +362,8 @@
 							<option value="6">6</option>
 						</select>
 						<p class="ac-title">지정성별</p>
-						<div class="check_ent displayflex" id="chkGender" style="text-align: center;">
+						<div class="check_ent displayflex" id="chkGender"
+							style="text-align: center;">
 							<input type="checkbox" class="chk" name="funderCategory"
 								id="gender1" value="1" onclick="checkOnlyOne(this)"><label
 								for="gender1">남성전용</label> <input type="checkbox" class="chk"
@@ -391,16 +391,14 @@
 			$(this).val("1");
 			$("#houseConvenience").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+
 					$("#fun_07").val()+$("#fun_08").val()+$("#fun_09").val()+$("#fun_10").val()+$("#fun_11").val()+$("#fun_12").val()+$("#fun_13").val()+$("#fun_14").val()+
-					$("#fun_15").val()+$("#fun_16").val()+$("#fun_17").val()+$("#fun_18").val()+$("#fun_19").val()+$("#fun_20").val()+$("#fun_21").val()+$("#fun_22").val()+
-					$("#fun_23").val()+$("#fun_24").val());	
+					$("#fun_15").val()+$("#fun_16").val()+$("#fun_17").val()+$("#fun_18").val()+$("#fun_19").val()+$("#fun_20").val()+$("#fun_21").val()+$("#fun_22").val());	
 			console.log($(this).val());
 			console.log($("#houseConvenience").val());
 		}else{
 			$(this).val("0");
 			$("#houseConvenience").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+
 					$("#fun_07").val()+$("#fun_08").val()+$("#fun_09").val()+$("#fun_10").val()+$("#fun_11").val()+$("#fun_12").val()+$("#fun_13").val()+$("#fun_14").val()+
-					$("#fun_15").val()+$("#fun_16").val()+$("#fun_17").val()+$("#fun_18").val()+$("#fun_19").val()+$("#fun_20").val()+$("#fun_21").val()+$("#fun_22").val()+
-					$("#fun_23").val()+$("#fun_24").val());	
+					$("#fun_15").val()+$("#fun_16").val()+$("#fun_17").val()+$("#fun_18").val()+$("#fun_19").val()+$("#fun_20").val()+$("#fun_21").val()+$("#fun_22").val());	
 			console.log($(this).val());
 			console.log($("#houseConvenience").val());
 		}
@@ -541,14 +539,37 @@
 		        }
 		    }).open();
 		}
-		//썸머노트
-		$("#summernote").summernote({
-			height: 500,
-			 maxHeight: 500,             // 최대 높이
-			lang: "ko-KR"
+		//썸머노트(파일업로드 문제)
+		$(".summernote").summernote({
+			height: 300,
+			 maxHeight: 300,             // 최대 높이
+			lang: "ko-KR",
+				callbacks:{
+				onImageUpload : function(files){
+					houseUploadImage(files[0],this);
+				}
+			}
+			
 		});
+		//이미지가 제대로 안올라간다.
+		function houseUploadImage(file, editor) {
+			var form = new FormData();
+			form.append("file", file);
+			$.ajax({
+				url : "/houseUploadImage.do",
+				type : "post",
+				data : form,
+				processData : false,
+				enctype : 'multipart/form-data',
+				contentType : false,
+				success : function(data) {
+					$(editor).summernote("insertImage", data.url);
+				}
+			});
+		}
 	</script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
