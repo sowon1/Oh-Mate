@@ -107,7 +107,7 @@ public class HouseController {
 					int houseNo= house.getHouseNo();
 					int result = service.insertImgfiles(list,houseNo);
 					if(result>0) {
-						return "redirect:/main.do";
+						return "redirect:/roomList.do";
 						
 					}else {
 						return "house/houseWriteFrm";
@@ -162,5 +162,5 @@ public class HouseController {
 		
 		return jsonObject.toString();
 	}
-	
+
 }
