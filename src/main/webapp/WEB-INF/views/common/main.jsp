@@ -76,7 +76,7 @@
 	                            <span class="list_house_title">${h.houseTitle}</span>
 	                        </div>
 	                        <div class="list_line_02">
-	                            <span class="house_tag">${h.houseConvenience}</span>
+	                            <span class="house_content">${h.houseContent}</span>
 	                        </div>
 	                        <div class="list_line_03">
 	                            <span class="list_tag">
@@ -93,7 +93,7 @@
 	                            	</c:choose>
 	                            </span>
 	                            <span class="house_form">${h.houseForm}</span>
-	                            <span class="house_sum">월 30만원 ~</span>
+	                            <span class="house_sum">보증금 ${h.houseCharge}만원 ~</span>
 	                        </div>
 	                    </div>
 	                    <a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>" class="house_more_btn">${h.houseRoom}명 입주가능</a>

@@ -64,6 +64,13 @@ table input::placeholder{
 .form-check-input:focus{
 	box-shadow: none;
 }
+.container_mate .table a{
+	color:#333;
+}
+.container_mate .table a:hover{
+	color:#8500ff;
+	text-decoration: underline;
+}
 /* 프로필 모달 */
 .modal_profile{
 	height:100%;

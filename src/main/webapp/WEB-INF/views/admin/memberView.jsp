@@ -20,7 +20,14 @@
 	                        <th>프로필 이미지</th>
 	                        <td class="displayflex" colspan="3">
 	                            <div class="img-viewr">
-	                                <img id="img-view" class="profile_view" src="/resources/upload/member/${m.filepath }">
+	                            	<c:choose>
+	                            		<c:when test="${not empty m.filepath }">
+			                                <img id="img-view" class="profile_view" src="/resources/upload/member/${m.filepath }">	                            		
+	                            		</c:when>
+	                            		<c:otherwise>
+	                            			<img id="img-view" class="profile_view" src="/resources/img/icon/profile.png">
+	                            		</c:otherwise>
+	                            	</c:choose>
 	                            </div>
 	                            <label class="btn btn_sm btn_out" for="profile">프로필 선택</label>
 	                            <input type="file" name="file" id="profile" accept=".jpg,.jpeg,.png,.gif" style="display: none;">

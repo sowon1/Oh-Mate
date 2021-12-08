@@ -9,7 +9,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<link rel="stylesheet" href="/resources/css/admin/memberMgr.css">
+	<link rel="stylesheet" href="/resources/css/notice/noticeList.css">
 	<div class="container_mate">
 		<h1>공지사항</h1>
 		<br>
@@ -37,7 +37,7 @@
 		</div>
 		<div id="pageNavi">${pageNavi }</div>
 		<div class="notice-button">
-			<c:if test="${sessionScope.m.memberLevel eq 0 }">
+			<c:if test="${not empty sessionScope.m && sessionScope.m.memberLevel eq 0 }">
 				<a href="/noticeWriteFrm.do" class="btn btn_sm btn-right" style="height: 45px;">작성</a>
 			</c:if>	
 		</div>
