@@ -118,7 +118,12 @@
 						</div>
 					</div>
 				</form>
-				list
+				<ul class="list_container">
+					
+				</ul>
+				<div class="loading">
+					loading
+				</div>
 			</div>
 			<div class="house_right">
 				<div id="map" style="width:100%;height:100%;"></div>
@@ -127,6 +132,50 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
+		
+		//스크롤 페이징
+		var currentPage = 1;
+		var isLoading=false;
+		var totalCount = '${totalPageCount}';
+		//웹 브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
+		$(window).on("scroll",function(){
+			//위로 스크롤된 길이
+			var scrollTop = $(window).scrollTop();
+			//웹 브라우저의 창의 높이
+			var windowHeight = $(window).height();
+			//문서 전체의 높이
+			var documentHeight = $(document).height();
+			//바닥까지 스크롤 되었는지 여부 확인
+			var isBottom = scrollTop + windowHeight + 10 >= documentHeight;
+			if(isBottom){
+				//만일 현재 마지막 페이지라면
+				if(currentPage == totalCount || isLoading){
+					return; //함수끝
+				}
+				//로딩 표시
+				isLoading=true;
+				$(".loading").show();
+				//요청페이지 1증가
+				currentPage++;
+				console.log("inscroll"+currentPage);
+				GetList(currentPage);
+			}
+		})
+		function GetList(currentPage){
+			$.ajax({
+				type : "POST",
+				data : {"pageNum" : currentPage},
+				url : "/ajax_page.do",
+				success : function(data){
+					$(".list_container").append(data);
+					$(".loading").hide();
+					isLoading = false;
+				}
+			});
+		}
+		$(document).ready(function(){
+			GetList(1);
+		});
 		//필터 아이콘 누를경우 
 		$(".filter_icon").click(function(){
 			$(".h_filter_open").slideToggle();

@@ -26,7 +26,7 @@
   	insert into photo
   	values(photo_seq.nextval,1,#{photoPath},#{photoNum})
   </insert>
-  <!-- 하우스 리스트 출력 - sowon 
+   <!-- 하우스 리스트 출력 
   <select id="selectSearchHouse" parameterType="search">
   		select * from house 
   				<trim prefix="where" prefixOverrides="and|or">
@@ -37,6 +37,16 @@
   						house_Form=#{housetype}
   					</if>
   				</trim>
+  	-->
+  <!-- 하우스 리스트 출력 - sowon   -->
+  <select id="selectAllHouse" parameterType="h" resultMap="house">
+  		select 
+			*
+		from  
+			(select rownum as rnum, h.* from
+			(select * from house where house_allow=2 order by 1 desc)h) 
+		where rnum between 1 and 10
+  				<!--  
 			    where house_gender=#{gender}
 			    and house_Form=#{housetype}
 			    and ((house_title || house_content || HOUSE_FORM) like=%#{keyword}%)    
@@ -44,6 +54,53 @@
 			   <if test="">			   
 			    	and house_no in (select house_no from room where ROOM_PERSONNEL=#{room} and ROOM_CHARGE between #{roomCharge1} and #{roomCharge2})
 			   </if>
+			   -->
   </select>
-  -->
+	<!-- 하우스 사진 조회 테이블 -->
+	<select id="selectFileList" resultType="f">
+		select
+			photo_no as photoNo,
+			photo_category as photoCategory, 
+			photo_path as photoPath, 
+			photo_num as photoNum 
+		from 
+			(select rownum as rnum, h.* from
+			(select * from photo where photo_category=2 and photo_num = ${houseNo} order by 1 )h) 
+		where rnum = 1
+	</select>
+	<!-- 하우스 사진 연결 -->
+	<resultMap type="h" id="house">
+		<result column="house_no" property="houseNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="house_title" property="houseTitle"/>
+		<result column="houseowner_deadline" property="houseownerDeadline"/>
+		<result column="house_selling" property="houseSelling"/>
+		<result column="refuse_reason" property="refuseReason"/>
+		<result column="house_content" property="houseContent"/>
+		<result column="house_room" property="houseRoom"/>
+		<result column="house_charge" property="houseCharge"/>
+		<result column="house_rule" property="houseRule"/>
+		<result column="house_form" property="houseForm"/>
+		<result column="house_gender" property="houseGender"/>
+		<result column="house_convenience" property="houseConvenience"/>
+		<result column="house_allow" property="houseAllow"/>
+		<collection property="photoList"
+					column="house_no"
+					javaType="java.util.ArrayList"
+					ofType="f"
+					select="selectFileList"	
+		/>
+	</resultMap>
+	<select id="selectAjaxHouse" parameterType="map" resultMap="house">
+	 	select 
+			*
+		from  
+			(select rownum as rnum, h.* from
+			(select * from house where house_allow=2 order by 1 desc)h) 
+		where rnum between #{start} and #{end}
+	</select>
+	<!-- total -->
+	<select id="houseTotal" resultType="_int">
+	 	select count(*) from house
+	</select>
 </mapper>
