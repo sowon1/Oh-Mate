@@ -105,9 +105,11 @@ public class HouseController {
 						
 					}
 					int houseNo= house.getHouseNo();
+					int houseRoom= h.getHouseRoom();
 					int result = service.insertImgfiles(list,houseNo);
 					if(result>0) {
-						return "redirect:/roomList.do";
+						
+						return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
 						
 					}else {
 						return "house/houseWriteFrm";
