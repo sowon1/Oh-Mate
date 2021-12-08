@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.or.common.Address;
 import kr.or.common.Housesearch;
 import kr.or.common.Income;
+import kr.or.common.Photo;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
@@ -46,6 +47,14 @@ public class HouseService {
 	public ArrayList<House> selectSearchHouse(Housesearch search) {
 		ArrayList<House> list = dao.selectSearchHouse(search);
 		return null;
+	}
+	public int insertImgfiles(ArrayList<Photo> list, int houseNo) {
+		int result =0;
+		for(Photo p : list) {
+			p.setPhotoNum(houseNo);
+			result+=dao.insertImgFiles(p);
+		}
+		return result;
 	}
 
 }

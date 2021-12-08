@@ -77,6 +77,10 @@
 .houseForm {
 	display: none;
 }
+.img_wap>span>img{
+	width: 80px;
+	height:	100px;
+}
 </style>
 </head>
 <body>
@@ -170,14 +174,15 @@
 				</div>
 				<div class="houseForm">
 					<h4 class="form-title">집정보 입력</h4>
-					<div class="content-place" style="height: 1200px">
+					<div class="content-place" style="height: 700px;">
 						<p class="ac-title">하우스 이름</p>
 						<input type="text" name="houseTitle" id="houseName"
 							class="input_03" placeholder="하우스이름">
-						<p class="ac-title">주거형태</p>
 						<p class="ac-title">보증금(대표)</p>
 						<input type="text" name="houseCharge" id="houseCharge"
-							class="input_03" placeholder="보증금"> <select id="HSF"
+							class="input_03" placeholder="보증금"> 							
+						<p class="ac-title">주거형태</p>
+							<select id="HSF"
 							class="control-group" name="houseForm">
 							<option value="">선택</option>
 							<option value="아파트">아파트</option>
@@ -187,13 +192,32 @@
 						</select>
 						<p class="ac-title">하우스 시설 소개</p>
 						<textarea class="summernote" name="houseContent"></textarea>
-						<p class="ac-title">하우스 이용규칙</p>
-						<textarea class="summernote" name="houseRule"></textarea>
 					</div>
 					<div class="button-place">
 						<a class="btn btn_out" style="line-height: 30px;"
 							onclick="backAddr()">이전</a> <a class="btn"
 							style="line-height: 30px" onclick="introChk()">다음</a>
+					</div>
+				</div>
+				<div class="houseForm" >
+					<h4 class="form-title">이용규칙/이미지 업로드</h4>
+					<div class="content-place" style="height: 500px;">
+					<p class="ac-title">하우스 이용규칙</p>
+					<textarea class="summernote" name="houseRule"></textarea>
+					</div>
+					<div class="imageForm">
+						<div class="input_wrap">
+							<p class="ac-title">이미지업로드</p>
+							<input type="file" id="input_imgs" name="photoPath" multiple/>
+						</div>
+						<div class="img_wrap">
+								
+						</div>
+					</div>
+					<div class="button-place">
+						<a class="btn btn_out" style="line-height: 30px;"
+							onclick="backIntro()">이전</a> <a class="btn"
+							style="line-height: 30px" onclick="ruleChk()">다음</a>
 					</div>
 				</div>
 				<div class="houseForm">
@@ -359,7 +383,7 @@
 							<option value="3">3</option>
 							<option value="4">4</option>
 							<option value="5">5</option>
-							<option value="6">6</option>
+							<option value="6" >6</option>
 						</select>
 						<p class="ac-title">지정성별</p>
 						<div class="check_ent displayflex" id="chkGender"
@@ -376,7 +400,7 @@
 					</div>
 					<div class="button-place">
 						<a class="btn btn_out" style="line-height: 30px;"
-							onclick="backIntro()">이전</a> <a class="btn"
+							onclick="backCondition()">이전</a> <a class="btn"
 							style="line-height: 30px" onclick="chkRoom()">다음</a>
 					</div>
 				</div>
@@ -489,8 +513,8 @@
 		//주소확인(공백확인)
 		function chkAddr() {
 			var postCode = $("#postCode").val();
-			var roadCode = $("roadCode").val();
-			var detailAddr = $("detailAddr").val();
+			var roadCode = $("#roadCode").val();
+			var detailAddr = $("#detailAddr").val();
 			if (roadCode != "" && detailAddr != "") {
 				next(3);
 			} else {
@@ -546,12 +570,14 @@
 			lang: "ko-KR",
 				callbacks:{
 				onImageUpload : function(files){
-					houseUploadImage(files[0],this);
+					for (var i = 0; i < files.length; i++) {
+					houseUploadImage(files[i],this);
+					}
 				}
 			}
 			
 		});
-		//이미지가 제대로 안올라간다.
+		//ajax이용 이미지 업로드
 		function houseUploadImage(file, editor) {
 			var form = new FormData();
 			form.append("file", file);
@@ -565,6 +591,33 @@
 				success : function(data) {
 					$(editor).summernote("insertImage", data.url);
 				}
+			});
+		}
+		function ruleChk() {
+			next(5);
+		}
+		//하우스 전체적 이미지
+		var sel_files = [];
+		$(document).ready(function () {
+			$("#input_imgs").on("change",handleImgsFilesSelect);
+		});
+		function handleImgsFilesSelect(e) {
+			var files = e.target.files;
+			var fileArr = Array.prototype.slice.call(files);
+			
+			fileArr.forEach(function (f) {
+				if(!f.type.match("image.*")){
+					alert("확장자는 이미지 확장자만 가능합니다.");
+					return;
+				}
+				sel_files.push(f);
+				
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					var img_html = "<span><img src=\""+e.target.result+"\" style='width:80px;height:80px;'/></span>";
+					$(".img_wrap").append(img_html);
+				}
+				reader.readAsDataURL(f);
 			});
 		}
 	</script>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.common.Address;
 import kr.or.common.Housesearch;
 import kr.or.common.Income;
+import kr.or.common.Photo;
 import kr.or.house.model.vo.House;
 
 @Repository
@@ -35,6 +36,12 @@ public class HouseDao {
 	public ArrayList<House> selectSearchHouse(Housesearch search) {
 		List<House> list = session.selectList("house.selectSearchHouse",search);
 		return (ArrayList<House>)list;
+	}
+
+
+	public int insertImgFiles(Photo p) {
+		int result =session.insert("house.insertImgFile",p);
+		return result;
 	}
 
 

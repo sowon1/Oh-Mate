@@ -21,7 +21,11 @@
   	insert into income
   	values(income_seq.nextval,#{incomeBank},#{incomeAccount},#{incomeName},2,#{incomeNum})
   </insert>
-  
+  <insert id="insertImgFile" parameterType="f">
+  <!-- 하우스 다중사진 처리 -->
+  	insert into photo
+  	values(photo_seq.nextval,1,#{photoPath},#{photoNum})
+  </insert>
   <!-- 하우스 리스트 출력 - sowon 
   <select id="selectSearchHouse" parameterType="search">
   		select * from house 
