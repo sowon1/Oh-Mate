@@ -1,6 +1,7 @@
 package kr.or.house.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -32,9 +33,18 @@ public class HouseDao {
 		return result;
 	}
 	//하우스 리스트 출력 - sowon
-	public ArrayList<House> selectSearchHouse(Housesearch search) {
-		List<House> list = session.selectList("house.selectSearchHouse",search);
+	public ArrayList<House> selectAllHouse(House h) {
+		List<House> list = session.selectList("house.selectAllHouse",h);
 		return (ArrayList<House>)list;
+	}
+	//하우스 리스트 출력 - ajax - sowon
+	public ArrayList<House> selectAjaxHouse(HashMap<String, Object> map) {
+		List<House> list = session.selectList("house.selectAjaxHouse",map);
+		return (ArrayList<House>)list;
+	}
+	//글의 개수
+	public int selectAjaxTotal() {		
+		return session.selectOne("house.houseTotal");
 	}
 
 
