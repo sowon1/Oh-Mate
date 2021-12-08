@@ -64,7 +64,7 @@ function modalShow(){
 }
 function modalClose(){
 	$("#modal_profile").hide();
-	$(".select [type=radio]").prop("checked",false);
+	$(".modal_profile_content .select [type=radio]").prop("checked",false);
 	$("option").prop("selected",false);
 }
 $(".modal_profile_close").click(function(){
