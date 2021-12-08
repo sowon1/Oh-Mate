@@ -1,5 +1,7 @@
 package kr.or.notice.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 
 @Data
@@ -9,4 +11,5 @@ public class Notice {
 	private String noticeContent;
 	private String noticeDate;
 	private int NoticeReadCount;
+	private ArrayList<FileVO> list;
 }

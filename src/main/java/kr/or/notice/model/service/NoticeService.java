@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.notice.model.dao.NoticeDao;
 import kr.or.notice.model.vo.FileVO;
@@ -14,7 +15,8 @@ import kr.or.notice.model.vo.Notice;
 public class NoticeService {
 	@Autowired
 	private NoticeDao dao;
-
+	
+	@Transactional
 	public int insertNotice(Notice n, ArrayList<FileVO> list) {
 		// TODO Auto-generated method stub
 		int result1 = dao.insertNotice(n);
@@ -30,7 +32,7 @@ public class NoticeService {
 		return result;
 	}
 
-	public HashMap<String, Object> selectNotice(int reqPage) {
+	public HashMap<String, Object> selectNoticeList(int reqPage) {
 		// TODO Auto-generated method stub
 		int numPerPage=10;
 		int end = reqPage*numPerPage;
@@ -82,4 +84,13 @@ public class NoticeService {
 		
 		return map;
 	}
+
+	@Transactional
+	public Notice selectNotice(int noticeNo) {
+		// TODO Auto-generated method stub
+		int result = dao.updateReadCount(noticeNo);
+		Notice n = dao.selectNoticeList(noticeNo);
+		return n;
+	}
+	
 }
