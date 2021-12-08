@@ -343,34 +343,3 @@
 }
 
 
-/* 버튼 */
-.main_modal_btn{
-	width: 100%;
-    clear: both;
-    float: left;
-    text-align: center;
-}
-.main_modal_btn a{
-	margin:0 auto;
-	width: 150px;
-	height: 45px;
-	line-height: 38px;
-}
-.main_btn{
-	outline: none;
-	background: #956bfc;
-	color: #fff;
-	text-decoration: none;
-	cursor: pointer;
-	outline: none;
-	display: inline-block;;
-	font-size: 18px;
-	text-align: center;
-	transition-duration: 0.5s;
-	border: 1px solid #956bfc;
-}
-.btn_out{
-	background: none;
-	border: 1px solid #956bfc;
-	color: #956bfc;
-}

@@ -57,7 +57,7 @@ ul{
 	position: fixed;
 	height: 60px;
 	background: #fff;
-	z-index:9997;
+	z-index:4999;
 }
 .nav{
 	width:1200px;
@@ -290,6 +290,7 @@ ul{
     bottom: 30px;
 	display: flex;
 	filter: drop-shadow(rgba(0, 0, 0, 0.4) 0px 1px 4px);
+	z-index:4995;
 }
 .top img{
 	width: 80px;
@@ -300,6 +301,7 @@ ul{
     bottom: 80px;
     transition-duration: 0.5s;
     box-sizing: content-box;
+    z-index:4996;
 }
 .chat_icon img{
 	width: 60px;
@@ -311,6 +313,7 @@ ul{
     bottom: 155px;
     transition-duration: 0.5s;
     box-sizing: content-box;
+    z-index:4997;
 }
 .chat_icon2 img{
 	width: 60px;
@@ -1392,6 +1395,7 @@ input[name="funderCategory"]:checked+label:after{
 	font-size:20px;
 	text-align: center;
 	margin-bottom: 20px;
+	font-family: "ns_300";
 }
 .msg_modal_content{
 	background: #fff;
@@ -1401,7 +1405,33 @@ input[name="funderCategory"]:checked+label:after{
     padding: 20px 0px;
 }
 
-/* 하단 탑버튼과 챗버튼들 */
+
+/* 버튼 */
+.main_modal_btn{
+	width: 100%;
+    clear: both;
+    float: left;
+    text-align: center;
+}
+.main_modal_btn a{
+	margin:0 auto;
+	width: 150px;
+	height: 45px;
+	line-height: 38px;
+}
 .main_btn{
-	z-index:9993;
+	outline: none;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	outline: none;
+	display: inline-block;;
+	font-size: 18px;
+	text-align: center;
+	transition-duration: 0.5s;
+}
+.btn_out{
+	background: none;
+	border: 1px solid #956bfc;
+	color: #956bfc;
 }

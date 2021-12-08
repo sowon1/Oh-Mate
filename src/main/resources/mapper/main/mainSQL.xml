@@ -25,7 +25,7 @@
 	<select id="houseList" resultMap="house">
 		select * from 
 			(select rownum as rnum, h.* from
-			(select * from house where HOUSE_ALLOW=2 order by 1 desc)h) 
+			(select * from house where HOUSE_ALLOW=1 order by 1 desc)h) 
 		where rnum between 1 and 3
 	</select>
 	<!-- 하우스 사진 조회 테이블 -->
@@ -37,7 +37,7 @@
 			photo_num as photoNum 
 		from 
 			(select rownum as rnum, h.* from
-			(select * from photo where photo_category=2 and photo_num = ${houseNo} order by 1 )h) 
+			(select * from photo where photo_category=1 and photo_num = #{houseNo} order by 1 )h) 
 		where rnum = 1
 	</select>
 	<!-- 하우스 사진 연결 -->

@@ -157,13 +157,13 @@
 				$(".loading").show();
 				//요청페이지 1증가
 				currentPage++;
-				console.log("inscroll"+currentPage);
+				console.log("확인용 : inscroll"+currentPage);
 				GetList(currentPage);
 			}
 		})
 		function GetList(currentPage){
 			$.ajax({
-				type : "POST",
+				type : "GET",
 				data : {"pageNum" : currentPage},
 				url : "/ajax_page.do",
 				success : function(data){

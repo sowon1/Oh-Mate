@@ -52,7 +52,6 @@ public class HouseController {
 	}
 	//ajax 하우스 리스트 - sowon
 	@RequestMapping(value="/ajax_page.do")
-	@ResponseBody
 	public String ajax_page(int pageNum, Model model) {
 		HashMap<String, Object> data = service.selectAjaxHouse(pageNum);
 		model.addAttribute("list",data.get("list"));

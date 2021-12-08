@@ -66,7 +66,7 @@ public class HouseService {
 		ArrayList<House>list = dao.selectAjaxHouse(map);
 		int totalRow = dao.selectAjaxTotal();
 		//전체 페이지의 갯수 구하기
-		int totalPageCount = (int)Math.ceil(totalRow / (double)numPerPage);
+		int totalPageCount = (totalRow % numPerPage == 0) ? (totalRow / numPerPage) : (totalRow / numPerPage + 1);
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		data.put("list", list);
 		data.put("totalPageCount", totalPageCount);

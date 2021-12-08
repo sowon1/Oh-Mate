@@ -44,7 +44,7 @@
 			*
 		from  
 			(select rownum as rnum, h.* from
-			(select * from house where house_allow=2 order by 1 desc)h) 
+			(select * from house where house_allow=1 order by 1 desc)h) 
 		where rnum between 1 and 10
   				<!--  
 			    where house_gender=#{gender}
@@ -65,10 +65,10 @@
 			photo_num as photoNum 
 		from 
 			(select rownum as rnum, h.* from
-			(select * from photo where photo_category=2 and photo_num = ${houseNo} order by 1 )h) 
+			(select * from photo where photo_category=1 and photo_num = #{houseNo} order by 1 )h) 
 		where rnum = 1
 	</select>
-	<!-- 하우스 사진 연결 -->
+	<!-- 하우스 사진 연결 메소드를 하나 만들어두고 사용하는거라고 생각하면됨 id가 메소드명-->
 	<resultMap type="h" id="house">
 		<result column="house_no" property="houseNo"/>
 		<result column="member_no" property="memberNo"/>
@@ -96,7 +96,7 @@
 			*
 		from  
 			(select rownum as rnum, h.* from
-			(select * from house where house_allow=2 order by 1 desc)h) 
+			(select * from house where house_allow=1 order by 1 desc)h) 
 		where rnum between #{start} and #{end}
 	</select>
 	<!-- total -->
