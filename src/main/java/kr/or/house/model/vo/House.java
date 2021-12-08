@@ -22,4 +22,5 @@ public class House {
 	private String houseConvenience;	//제공시설
 	private int houseAllow;				//1. 승인대기 2, 승인 3, 승인거부
 	private ArrayList<Photo> photoList; //사진테이블
+	private String likedCheck;			//좋아요 체크용
 }

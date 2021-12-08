@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/resources/css/nouislider.css">
 <script type="text/javascript" src="/resources/js/nouislider.js"></script>
 <!-- 지도 -->
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2fe50c2d1b8d26d2ec5e7053eeb12b16&libraries=services"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2fe50c2d1b8d26d2ec5e7053eeb12b16&libraries=services,clusterer"></script>
 <head>
 <meta charset="UTF-8">
 <title>Oh-Mate!</title>
@@ -122,7 +122,7 @@
 					
 				</ul>
 				<div class="loading">
-					loading
+					Loading...
 				</div>
 			</div>
 			<div class="house_right">
@@ -217,7 +217,7 @@
 			 	center: new kakao.maps.LatLng(38.00994423, 126.9531742), // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
 		    };  		
-		// 지도를 생성합니다    
+		// 지도를 생성합니다   
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
 		// 버튼 클릭에 따라 지도 이동 기능을 막거나 풀고 싶은 경우에는 map.setDraggable 함수를 사용합니다
 		var mapTypeControl = new daum.maps.MapTypeControl();

@@ -31,7 +31,7 @@
                       <span class="house_form">${h.houseForm}</span>
                   </div>
               </div>
-              <a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>" class="house_more_btn">${h.houseRoom}명 입주가능</a>
+              <a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>" class="house_more_btn">입주 가능 방 ${h.houseRoom}개</a>
        </li>         
 	</a>
 </c:forEach>

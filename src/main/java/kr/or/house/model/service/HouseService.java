@@ -52,7 +52,7 @@ public class HouseService {
 	//하우스 리스트 출력 - ajax - sowon
 	public HashMap<String, Object> selectAjaxHouse(int pageNum) {
 		//한 페이지에 몇개 보여줄건지
-		int numPerPage = 12;
+		int numPerPage = 9;
 		//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
 		int startPageNum = 1;
 		//보여줄 페이지의 시작 ROWNUM - 0부터 시작

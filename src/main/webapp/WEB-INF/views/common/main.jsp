@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/resources/css/main/main.css">
@@ -63,14 +64,30 @@
         <h3 class="sub_text">혼자 시작하는 첫 걸음, 나를 위한 집!</h3>
         <ul class="main_house_list">
 	        <c:forEach items="${hlist}" var="h">
-	        	<a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>">
 		            <li>
 	                    <div class="house_list_photo">
 	                        <div class="like_house">
-	                            <img src="/resources/img/icon/heart_off.png">
+	                        	<c:choose>
+	                        		<c:when test="${empty sessionScope.member}">
+	                        			<button onclick="likehouse(this,${h.houseNo});" class="heart">	                        			
+				                            <img src="/resources/img/icon/heart_off.png">
+	                        			</button>
+	                        		</c:when>
+	                        		<c:when test="${h.likedCheck == '좋아요'}">
+				                		<button onclick="likehouse(this,${h.houseNo});" class="heart">
+				                			<img src="/resources/img/icon/heart_on.png">
+				                		</button>
+				                	</c:when>
+				                	<c:otherwise>                							              
+										<button onclick="likehouse(this,${h.houseNo});" class="heart">
+											<img src="/resources/img/icon/heart_off.png">
+										</button>
+				                	</c:otherwise>
+	                        	</c:choose>
 	                        </div>
 	                        <img src="/resources/upload/house/${h.photoList}">
 	                    </div>
+	        	<a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>">
 	                    <div class="house_list_text">
 	                        <div class="list_line_01">
 	                            <span class="list_house_title">${h.houseTitle}</span>
@@ -93,10 +110,10 @@
 	                            	</c:choose>
 	                            </span>
 	                            <span class="house_form">${h.houseForm}</span>
-	                            <span class="house_sum">보증금 ${h.houseCharge}만원 ~</span>
+	                            <span class="house_sum">보증금 <fmt:formatNumber value="${h.houseCharge}" pattern="#,###"/>원 ~</span>   
 	                        </div>
 	                    </div>
-	                    <a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>" class="house_more_btn">${h.houseRoom}명 입주가능</a>
+	                    <a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>" class="house_more_btn">입주 가능 방 ${h.houseRoom}개</a>
 		            </li>           
 	        	</a>
 	        </c:forEach>            
@@ -182,6 +199,23 @@
     </div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
+		//좋아요
+		function likehouse(c,obj){
+			var memberNo = "${sessionScope.member.memberNo}";
+			var houseNo = obj;
+			$.ajax({
+				url : "/houseLike.do",
+				data : {memberNo:memberNo, houseNo:houseNo},
+				type: "POST",
+				success : function(data){
+					if(data.like_check == 0){
+						$(c).children().attr("src","/resources/img/icon/heart_off.png");
+					}else{
+						$(c).children().attr("src","/resources/img/icon/heart_on.png");
+					}
+				}
+			})
+		}
 		//검색 
 		$("#search_date").click(function(){
 			var keyword = $("input[name='keyword']").val();

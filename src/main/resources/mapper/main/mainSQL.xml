@@ -28,6 +28,10 @@
 			(select * from house where HOUSE_ALLOW=1 order by 1 desc)h) 
 		where rnum between 1 and 3
 	</select>
+	<!-- 
+			(select rownum as rnum, h.*,decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','y','n') as liked_check from
+			(select * from house where HOUSE_ALLOW=1 order by 1 desc)h) 
+	 -->
 	<!-- 하우스 사진 조회 테이블 -->
 	<select id="selectFileList" resultType="f">
 		select
@@ -69,4 +73,24 @@
 			count(*)
 		from member
 	</select>
+	<!-- house Like select -->
+	<select id="houseLike" parameterType="book" resultType="_int">
+		select 
+			 bookmark_no as bookmarkNo,
+			 bookmarker,
+			 bookmark_num as bookmarkNum,
+			 bookmark_category as bookmarkCategory,
+			 bookmark_date as bookmarkDate
+		from bookmark
+		where bookmark_category=2 and bookmarker=#{memberNo} and bookmark_num=#{houseNo}
+	</select>
+	<!-- House like insert -->
+	<insert id="insertHouseLike" parameterType="book">
+		insert into bookmark 
+  		values(bookmark_seq.nextval,bookmarker=#{memberNo},bookmark_num=#{houseNo},2,to_char(sysdate,'yyyy-mm-dd')
+	</insert>
+	<!-- house like delete -->
+	<delete id="deleteHouseLike" parameterType="book">
+		delete from bookmark where bookmark_category=2 and bookmarker=#{memberNo} and bookmark_num=#{houseNo}
+	</delete>
 </mapper>

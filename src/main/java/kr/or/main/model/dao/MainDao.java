@@ -1,12 +1,14 @@
 package kr.or.main.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.common.Bookmark;
 import kr.or.helper.model.vo.Helper;
 import kr.or.house.model.vo.House;
 import kr.or.main.model.vo.Main;
@@ -28,5 +30,17 @@ public class MainDao {
 	//토탈 조회
 	public int total() {
 		return sqlSession.selectOne("main.membertotal");
+	}
+	//house like select
+	public int houseLike(HashMap<String, Object> map) {
+		return sqlSession.selectOne("main.houseLike",map);
+	}
+	//house like insert
+	public int insertHouseLike(HashMap<String, Object> map) {
+		return sqlSession.update("main.insertHouseLike",map);
+	}
+	//house like delete
+	public int deleteHouseLike(HashMap<String, Object> map) {
+		return sqlSession.delete("main.deleteHouseLike",map);
 	}
 }

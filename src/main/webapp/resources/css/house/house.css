@@ -12,6 +12,7 @@
     width: 50%;
     float: left;
     height: 100%;
+    
 }
 .house_left{
 	position: relative;
@@ -608,5 +609,27 @@
     font-size: 20px;
     line-height: 50px;
 }
-
+.loading{
+    width: 100%;
+    text-align: center;
+    background: #956bfc;
+    padding: 20px 0px;
+    color: #fff;
+}
+@media all and (min-width:300px) and (max-width:1200px) {
+  .list_container li {
+    width:100%;
+	}
+	.house_list_photo{
+	height: 300px;
+	}
+}
+@media all and (min-width:1200px) and (max-width:1774px) {
+  .list_container li {
+    width:403px;
+	}
+	.house_list_photo{
+	height: 250px;
+	}
+}
 /* 오른쪽 맵 */

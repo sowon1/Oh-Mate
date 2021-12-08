@@ -176,17 +176,10 @@
 .house_list_photo img{
     width:100%;
 }
-/* 좋아요 버튼 부분 */
-.like_house{
-    position: absolute;
-    right: 15px;
-    top: 15px;   
-}
-.like_house img{
-    width: 30px;
-}
+
 .house_list_text{
     padding: 20px;
+    height: 161px;
 }
 .list_line_01{
     overflow: hidden;
@@ -342,4 +335,17 @@
 	color:#fff;
 }
 
-
+/* 좋아유 */
+/* 좋아요 버튼 부분 */
+.like_house{
+    position: absolute;
+    right: 15px;
+    top: 15px;   
+}
+.heart{
+	cursor: pointer;
+    outline:none;
+    border:none;
+    background:none;
+    width:35px;
+}
