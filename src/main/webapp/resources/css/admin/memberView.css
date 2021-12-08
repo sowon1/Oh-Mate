@@ -94,10 +94,10 @@ table input::placeholder{
 	margin:0;
 	color: #fff;
 }
-#modal_profile_close{
+.modal_profile_close{
 	cursor: pointer;
 }
-#modal_profile_close>img{
+.modal_profile_close>img{
 	width:25px;
 }
 .modal_profile_content table{
@@ -127,4 +127,7 @@ table input::placeholder{
 	display:flex;
 	justify-content: space-around;
 	width:300px;
+}
+.btn:focus{
+	box-shadow: none;
 }

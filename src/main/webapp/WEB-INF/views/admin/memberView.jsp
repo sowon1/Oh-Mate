@@ -157,7 +157,7 @@
 			<div class="modal_profile_win">
 				<div class="modal_profile_title">
 					<h3>프로필 등록</h3>
-					<span id="modal_profile_close">
+					<span class="modal_profile_close">
 						<img src="/resources/img/icon/close_wh.png">
 					</span>
 				</div>
@@ -170,7 +170,7 @@
 		                		<th>선호 지역</th>
 		                		<td>
 		                			<select class="form-select" name="pLocal">
-		                				<option value="0">지역구 선택</option>
+		                				<option value="0" class="n">지역구 선택</option>
 		                			</select>
 		                		</td>
 		                	</tr>
@@ -240,71 +240,6 @@
 		</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
-<script>
-	var local = [
-		'강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구',
-		'마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'
-	];
-	$("#modal_profile").click(function(e){
-	    var eTarget = e.target
-	    if(eTarget.classList[0] == ("modal_profile")) {
-	    	modalClose();
-	    }
-	});
-	function modalShow(){
-		$("#modal_profile").css("display","flex");
-	}
-	function modalClose(){
-		$("#modal_profile").hide();
-		$(".select [type=radio]").prop("checked",false);
-		$("option").prop("selected",false);
-	}
-	$("#modal_profile_close").click(function(){
-		modalClose();
-	});
-	$(function(){
-		for(var i=0;i<local.length;i++){
-			var option = $("<option>");
-			option.attr("value",i+1);
-			option.html(local[i]);
-			$("select").append(option);
-		}
-	});
-	function profileMgrModal(){
-		$.ajax({
-			url: "/adminSelectProfile.do",
-			data: {memberId:$(".container_mate [name=memberId]").val()},
-			success:function(data){
-				$(".modal_profile_title>h3").html("프로필 관리");
-				$("[name=pGender]").eq([data.pGender-1]).prop("checked",true);
-				$("[name=pAge]").eq([data.pAge-1]).prop("checked",true);
-				$("[name=pSmoke]").eq([data.pSmoke-1]).prop("checked",true);
-				$("[name=pPet]").eq([data.pPet-1]).prop("checked",true);
-				$("[name=pCleaning]").eq([data.pCleaning-1]).prop("checked",true);
-				$("[name=pPattern]").eq([data.pPattern-1]).prop("checked",true);
-				$("option").each(function(index, item){
-					if($(item).val() == data.pLocal){
-						$(item).prop("selected",true);
-					} 
-				});
-				$(".modal_profile_content .btnBox").empty();
-				$(".modal_profile_content .btnBox").append('<button type="button" class="btn btn_out" id="updateBtn">수정</button');
-				$(".modal_profile_content .btnBox").append('<button type="button" class="btn btn_out" id="deleteBtn">삭제</button');
-				modalShow();
-			}
-		});
-	}
-	$(document).on("click","#updateBtn",function(){
-		var form = $("[name=profileFrm]");
-		form.attr("action","/adminUpdateProfile.do");
-		form.submit();
-	});
-	$(document).on("click","#deleteBtn",function(){
-		var form = $("[name=profileFrm]");
-		form.attr("action","/adminDeleteProfile.do");
-		form.submit();
-	});
-</script>
 <link rel="stylesheet" href="/resources/css/admin/memberView.css">
 <script type="text/javascript" src="/resources/js/admin/memberView.js"></script>
 </html>
