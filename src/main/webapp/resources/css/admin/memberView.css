@@ -64,3 +64,67 @@ table input::placeholder{
 .form-check-input:focus{
 	box-shadow: none;
 }
+/* 프로필 모달 */
+.modal_profile{
+	height:100%;
+	background:rgba(0, 0, 0, 0.5);
+	position:fixed;
+	z-index: 9999;
+	display:none;
+	justify-content: center;
+	align-items: center;
+}
+.modal_profile_win{
+	width:600px;
+	height:640px;
+	background-color: #fff;
+	box-shadow: 0 8px 32px 0 rgba(68, 71, 106, 0.8 );
+	border-radius: 15px;
+	overflow: hidden;
+}
+.modal_profile_title{
+	height:60px;
+	display:flex;
+	background-color: #956bfc;
+	padding: 20px;
+	justify-content: space-between;
+	align-items: center;
+}
+.modal_profile_title>h3{
+	margin:0;
+	color: #fff;
+}
+#modal_profile_close{
+	cursor: pointer;
+}
+#modal_profile_close>img{
+	width:25px;
+}
+.modal_profile_content table{
+	margin: 35px auto;
+	width:500px;
+}
+.modal_profile_content .table-active_mate th{
+	width: 145px;
+}
+.modal_profile_content .btn{
+	line-height: 0;
+	width:120px;
+	height:40px;
+	font-size: 17px;
+}
+.modal_profile_content .form-select:focus{
+	box-shadow: none;
+}
+.modal_profile_content .form-select{
+	width:150px;
+}
+.modal_profile_content .select input[type=radio]+label{
+	width:100px;
+}
+.modal_profile_content .btnBox{
+	margin:35px auto 0;
+	display:flex;
+	justify-content: space-around;
+	width:300px;
+}

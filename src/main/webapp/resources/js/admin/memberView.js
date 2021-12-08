@@ -16,7 +16,7 @@ $("[type=file]").change(function(){
 $("[type=button]").click(function(){
 	history.go(-1);
 });
-$("[type=submit]").click(function(){
+$(".container_mate [type=submit]").click(function(){
 	if($(".table-active_mate [name=memberPw]").val() == ""){
 		alert("비밀번호를 입력하세요.");
 		return false;
@@ -38,9 +38,3 @@ $("[name=phone]").change(function(){
 		$(this).next().html("010-0000-0000 형식으로 입력하세요.");
 	}
 });
-function insertProfile(){
-	window.open("/adminInsertProfileFrm.do?memberId="+$("#memberId").val()+"&memberNo="+$("[name=memberNo]").val(), "_blank", "top=150, left=900, width=600, height=700");
-}
-function updateProfile(){
-	window.open("/adminUpdateProfileFrm.do?memberId="+$("#memberId").val()+"&memberNo="+$("[name=memberNo]").val(), "_blank", "top=150, left=900, width=600, height=700");
-}

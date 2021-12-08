@@ -48,6 +48,14 @@ public class AdminDao {
 	}
 
 	public int insertProfile(Profile p) {
-		return session.update("admin.insertProfile", p);
+		return session.insert("admin.insertProfile", p);
+	}
+
+	public int updateProfile(Profile p) {
+		return session.update("admin.updateProfile", p);
+	}
+
+	public int deleteProfile(String pWriter) {
+		return session.delete("admin.deleteProfile", pWriter);
 	}
 }

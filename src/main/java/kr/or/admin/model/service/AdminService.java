@@ -140,4 +140,12 @@ public class AdminService {
 	public int insertProfile(Profile p) {
 		return dao.insertProfile(p);
 	}
+	@Transactional
+	public int updateProfile(Profile p) {
+		return dao.updateProfile(p);
+	}
+	@Transactional
+	public int deleteProfile(String pWriter) {
+		return dao.deleteProfile(pWriter);
+	}
 }
