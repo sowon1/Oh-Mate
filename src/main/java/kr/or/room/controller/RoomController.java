@@ -22,6 +22,12 @@ public class RoomController {
 		ArrayList<Room> list = service.selectAllRoom(houseNo);
 		model.addAttribute("list", list);
 		model.addAttribute("houseRoom", houseRoom);
+		model.addAttribute("houseNo", houseNo);
 		return "room/roomList";
+	}
+	@RequestMapping(value = "/roomWriteFrm.do")
+	public String roomWriteFrm(int houseNo,Model model) {
+		model.addAttribute("houseNo", houseNo);
+		return "room/roomWriteFrm";
 	}
 }

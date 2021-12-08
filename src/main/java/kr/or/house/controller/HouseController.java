@@ -70,9 +70,11 @@ public class HouseController {
 		HouseResult house = service.insertHouse(h,address,i); // 하우스 등록
 		if(house.getResult()>0) {
 			ArrayList<Photo> list = new ArrayList<Photo>();
+			int houseNo= house.getHouseNo();
+			int houseRoom= h.getHouseRoom();
 				if(photoPath[0].isEmpty()) {
 				//파일 없는경우 	
-					return "redirect:/houseownerList.do";
+					return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
 				}else {
 				//파일이 있는경우
 					String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/house");
@@ -117,8 +119,7 @@ public class HouseController {
 						list.add(p);
 						
 					}
-					int houseNo= house.getHouseNo();
-					int houseRoom= h.getHouseRoom();
+					
 					int result = service.insertImgfiles(list,houseNo);
 					if(result>0) {
 						

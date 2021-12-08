@@ -77,9 +77,10 @@
 .houseForm {
 	display: none;
 }
-.img_wap>span>img{
+
+.img_wap>span>img {
 	width: 80px;
-	height:	100px;
+	height: 100px;
 }
 </style>
 </head>
@@ -180,10 +181,9 @@
 							class="input_03" placeholder="하우스이름">
 						<p class="ac-title">보증금(대표)</p>
 						<input type="text" name="houseCharge" id="houseCharge"
-							class="input_03" placeholder="보증금"> 							
+							class="input_03" placeholder="보증금">
 						<p class="ac-title">주거형태</p>
-							<select id="HSF"
-							class="control-group" name="houseForm">
+						<select id="HSF" class="control-group" name="houseForm">
 							<option value="">선택</option>
 							<option value="아파트">아파트</option>
 							<option value="단독주택">단독주택</option>
@@ -199,20 +199,18 @@
 							style="line-height: 30px" onclick="introChk()">다음</a>
 					</div>
 				</div>
-				<div class="houseForm" >
+				<div class="houseForm">
 					<h4 class="form-title">이용규칙/이미지 업로드</h4>
 					<div class="content-place" style="height: 500px;">
-					<p class="ac-title">하우스 이용규칙</p>
-					<textarea class="summernote" name="houseRule"></textarea>
+						<p class="ac-title">하우스 이용규칙</p>
+						<textarea class="summernote" name="houseRule"></textarea>
 					</div>
 					<div class="imageForm">
 						<div class="input_wrap">
 							<p class="ac-title">이미지업로드</p>
-							<input type="file" id="input_imgs" name="photoPath" multiple/>
+							<input type="file" id="input_imgs" name="photoPath" multiple />
 						</div>
-						<div class="img_wrap">
-								
-						</div>
+						<div class="img_wrap"></div>
 					</div>
 					<div class="button-place">
 						<a class="btn btn_out" style="line-height: 30px;"
@@ -383,20 +381,23 @@
 							<option value="3">3</option>
 							<option value="4">4</option>
 							<option value="5">5</option>
-							<option value="6" >6</option>
+							<option value="6">6</option>
 						</select>
 						<p class="ac-title">지정성별</p>
-						<div class="check_ent displayflex" id="chkGender"
-							style="text-align: center;">
-							<input type="checkbox" class="chk" name="funderCategory"
-								id="gender1" value="1" onclick="checkOnlyOne(this)"><label
-								for="gender1">남성전용</label> <input type="checkbox" class="chk"
-								name="funderCategory" id="gender2" value="2"
-								onclick="checkOnlyOne(this)"><label for="gender2">여성전용</label>
-							<input type="checkbox" class="chk" name="funderCategory"
-								id="gender3" value="3" onclick="checkOnlyOne(this)"><label
-								for="gender3">남녀공용</label>
-						</div>
+						<table>
+							<tr style="text-align: center;">
+								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
+									id="gender1" value="1"><label for="gender1">남성전용</label>
+								</td >
+								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
+									id="gender2" value="2"><label for="gender2">여성전용</label>
+								</td>
+								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
+									id="gender3" value="3"><label for="gender3">남녀공용</label>
+								</td>
+							</tr>
+						</table>
+
 					</div>
 					<div class="button-place">
 						<a class="btn btn_out" style="line-height: 30px;"
@@ -404,48 +405,85 @@
 							style="line-height: 30px" onclick="chkRoom()">다음</a>
 					</div>
 				</div>
-				
+
 			</form>
 		</div>
 	</div>
 	<script>
-	//input 값변경
-		
-	$(".find>div>input").change(function() {
-		if($(this).is(":checked")){
-			$(this).val("1");
-			$("#houseConvenience").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+
-					$("#fun_07").val()+$("#fun_08").val()+$("#fun_09").val()+$("#fun_10").val()+$("#fun_11").val()+$("#fun_12").val()+$("#fun_13").val()+$("#fun_14").val()+
-					$("#fun_15").val()+$("#fun_16").val()+$("#fun_17").val()+$("#fun_18").val()+$("#fun_19").val()+$("#fun_20").val()+$("#fun_21").val()+$("#fun_22").val());	
-			console.log($(this).val());
-			console.log($("#houseConvenience").val());
-		}else{
-			$(this).val("0");
-			$("#houseConvenience").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+
-					$("#fun_07").val()+$("#fun_08").val()+$("#fun_09").val()+$("#fun_10").val()+$("#fun_11").val()+$("#fun_12").val()+$("#fun_13").val()+$("#fun_14").val()+
-					$("#fun_15").val()+$("#fun_16").val()+$("#fun_17").val()+$("#fun_18").val()+$("#fun_19").val()+$("#fun_20").val()+$("#fun_21").val()+$("#fun_22").val());	
-			console.log($(this).val());
-			console.log($("#houseConvenience").val());
-		}
-	});	
-	//체크박스 1개만 선택하도록
-	function checkOnlyOne(target) {
-	    document.querySelectorAll('#chkGender>input[type=checkbox]').forEach(el => el.checked = false);			
-	    target.checked = true;
-	}
-	//오늘날짜 yyyy-mm-dd
-	function getToday(){
-	    var date = new Date();
-	    var year = date.getFullYear();
-	    var month = ("0" + (1 + date.getMonth())).slice(-2);
-	    var day = ("0" + date.getDate()).slice(-2);
+		//input 값변경
 
-	    return year + "-" + month + "-" + day;
-	}
+		$(".find>div>input").change(
+				function() {
+					if ($(this).is(":checked")) {
+						$(this).val("1");
+						$("#houseConvenience").val(
+								$("#fun_00").val() + $("#fun_01").val()
+										+ $("#fun_02").val()
+										+ $("#fun_03").val()
+										+ $("#fun_04").val()
+										+ $("#fun_05").val()
+										+ $("#fun_06").val()
+										+ $("#fun_07").val()
+										+ $("#fun_08").val()
+										+ $("#fun_09").val()
+										+ $("#fun_10").val()
+										+ $("#fun_11").val()
+										+ $("#fun_12").val()
+										+ $("#fun_13").val()
+										+ $("#fun_14").val()
+										+ $("#fun_15").val()
+										+ $("#fun_16").val()
+										+ $("#fun_17").val()
+										+ $("#fun_18").val()
+										+ $("#fun_19").val()
+										+ $("#fun_20").val()
+										+ $("#fun_21").val()
+										+ $("#fun_22").val());
+						console.log($(this).val());
+						console.log($("#houseConvenience").val());
+					} else {
+						$(this).val("0");
+						$("#houseConvenience").val(
+								$("#fun_00").val() + $("#fun_01").val()
+										+ $("#fun_02").val()
+										+ $("#fun_03").val()
+										+ $("#fun_04").val()
+										+ $("#fun_05").val()
+										+ $("#fun_06").val()
+										+ $("#fun_07").val()
+										+ $("#fun_08").val()
+										+ $("#fun_09").val()
+										+ $("#fun_10").val()
+										+ $("#fun_11").val()
+										+ $("#fun_12").val()
+										+ $("#fun_13").val()
+										+ $("#fun_14").val()
+										+ $("#fun_15").val()
+										+ $("#fun_16").val()
+										+ $("#fun_17").val()
+										+ $("#fun_18").val()
+										+ $("#fun_19").val()
+										+ $("#fun_20").val()
+										+ $("#fun_21").val()
+										+ $("#fun_22").val());
+						console.log($(this).val());
+						console.log($("#houseConvenience").val());
+					}
+				});
+
+		//오늘날짜 yyyy-mm-dd
+		function getToday() {
+			var date = new Date();
+			var year = date.getFullYear();
+			var month = ("0" + (1 + date.getMonth())).slice(-2);
+			var day = ("0" + date.getDate()).slice(-2);
+
+			return year + "-" + month + "-" + day;
+		}
 		// 달력 한글화 
 		$('#datefilter').daterangepicker(
-				{	
-					 minDate: getToday(),
+				{
+					minDate : getToday(),
 					singleDatePicker : true,
 					locale : {
 						cancelLabel : 'Clear',
@@ -545,38 +583,39 @@
 		function chkRoom() {
 			var houseRoom = $("#houseRoom").val();
 			// 추가해야됨 제공편의시설 하나라도 체크하면 넘어가게(월요일 선생님에게 문의)
-			if (houseRoom != "" && $("#chkGender input[type=checkbox]:checked").length == 1) {
+			if (houseRoom != "") {
 				$("#frm").submit();
 			} else {
 				alert("방개수 및 제공 편의시설을 확인해주세요");
 			}
 		}
 		//카카오 주소
-		function addrSearch(){
-			new daum.Postcode({
-		        oncomplete: function(data) {
-					
-		        	document.querySelector("#postCode").value = data.zonecode;
-		            document.querySelector("#roadAddr").value =  data.address;
-		            document.querySelector("#addressName").value =  data.sigungu;
-		            document.querySelector("#addressRoad").value =  data.roadname;
-		            document.querySelector("#addressLegal").value =  data.bname2;
-		        }
-		    }).open();
+		function addrSearch() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+
+							document.querySelector("#postCode").value = data.zonecode;
+							document.querySelector("#roadAddr").value = data.address;
+							document.querySelector("#addressName").value = data.sigungu;
+							document.querySelector("#addressRoad").value = data.roadname;
+							document.querySelector("#addressLegal").value = data.bname2;
+						}
+					}).open();
 		}
 		//썸머노트(파일업로드 문제)
 		$(".summernote").summernote({
-			height: 300,
-			 maxHeight: 300,             // 최대 높이
-			lang: "ko-KR",
-				callbacks:{
-				onImageUpload : function(files){
+			height : 300,
+			maxHeight : 300, // 최대 높이
+			lang : "ko-KR",
+			callbacks : {
+				onImageUpload : function(files) {
 					for (var i = 0; i < files.length; i++) {
-					houseUploadImage(files[i],this);
+						houseUploadImage(files[i], this);
 					}
 				}
 			}
-			
+
 		});
 		//ajax이용 이미지 업로드
 		function houseUploadImage(file, editor) {
@@ -599,27 +638,28 @@
 		}
 		//하우스 전체적 이미지
 		var sel_files = [];
-		$(document).ready(function () {
-			$("#input_imgs").on("change",handleImgsFilesSelect);
+		$(document).ready(function() {
+			$("#input_imgs").on("change", handleImgsFilesSelect);
 		});
 		function handleImgsFilesSelect(e) {
 			var files = e.target.files;
 			var fileArr = Array.prototype.slice.call(files);
-			
-			fileArr.forEach(function (f) {
-				if(!f.type.match("image.*")){
-					alert("확장자는 이미지 확장자만 가능합니다.");
-					return;
-				}
-				sel_files.push(f);
-				
-				var reader = new FileReader();
-				reader.onload = function(e) {
-					var img_html = "<span><img src=\""+e.target.result+"\" style='width:80px;height:80px;'/></span>";
-					$(".img_wrap").append(img_html);
-				}
-				reader.readAsDataURL(f);
-			});
+
+			fileArr
+					.forEach(function(f) {
+						if (!f.type.match("image.*")) {
+							alert("확장자는 이미지 확장자만 가능합니다.");
+							return;
+						}
+						sel_files.push(f);
+
+						var reader = new FileReader();
+						reader.onload = function(e) {
+							var img_html = "<span><img src=\""+e.target.result+"\" style='width:80px;height:80px;'/></span>";
+							$(".img_wrap").append(img_html);
+						}
+						reader.readAsDataURL(f);
+					});
 		}
 	</script>
 	<script

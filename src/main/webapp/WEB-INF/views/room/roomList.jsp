@@ -73,12 +73,7 @@
 	margin: 5px;
 	font-weight: bold;
 }
-
-.houseForm {
-	display: none;
-}
 </style>
-<link >
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -91,7 +86,10 @@
 					<span id="nowRoom"></span>/<span id="endRoom">${houseRoom }</span>
 				</div>
 				<div class="plus-room">
-					<button class="btn btn_w">방 등록하기</button>
+					<form action="/roomWriteFrm.do" method="post">
+						<input type="hidden" name="houseNo" value="${houseNo }">
+						<button class="btn btn_w" type="submit">방 등록하기</button>
+					</form>
 				</div>
 				<div class="room-list">
 					<c:forEach items="${list }" var="r" varStatus="i">
@@ -100,12 +98,9 @@
 								<div class="room-title">
 									<p>${r.roomTitle }</p>
 									<div class="roomBtn">
-									<a href="/roomMod.do">
-									<i class="fas fa-pen far-2x"></i>
-									</a>
-									<a href="/roomDel.do">
-									<i class="fas fa-times far-2x"></i>
-									</a>
+										<a href="/roomMod.do"> <i class="fas fa-pen far-2x"></i>
+										</a> <a href="/roomDel.do"> <i class="fas fa-times far-2x"></i>
+										</a>
 									</div>
 								</div>
 								<div class="room-detail">
@@ -118,11 +113,11 @@
 											<td>
 												<p class="ac-title">첫달 월세</p>
 												<div class="font-mid">${r.roomMonth }원</div>
-											</td>	
+											</td>
 										</tr>
 										<tr>
 											<td>
-												<p class="ac-title"> ${r.roomSize }평·${r.roomPersonnel }</p>
+												<p class="ac-title">${r.roomSize }평·${r.roomPersonnel }</p>
 											</td>
 											<td>
 												<p class="ac-title">전화번호 : ${r.roomPhone }</p>

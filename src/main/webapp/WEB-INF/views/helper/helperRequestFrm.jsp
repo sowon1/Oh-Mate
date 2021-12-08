@@ -30,28 +30,19 @@
 					<tr class="table-active_mate center_list">
 						<th>1. 자신이 자신 있는 분야</th>
 						<td>
-							<div class="check_ent displayflex">
-								<input type="checkbox" class="chk" name="helperCategory1"
-									id="fun_01" value="0"><label for="fun_01">배달·장보기</label>
-								<input type="checkbox" class="chk" name="helperCategory2"
-									id="fun_02" value="0"><label for="fun_02">청소·집안일</label>
-								<input type="checkbox" class="chk" name="helperCategory3"
-									id="fun_03" value="0"><label for="fun_03">설치·조립·운반</label>
-								<input type="checkbox" class="chk" name="helperCategory4"
-									id="fun_04" value="0"><label for="fun_04">동행·돌봄</label>
+							<div class="check_ent displayflex" style="text-align: left;">
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_00" value="0" ><label for="fun_00" style="width: 140px">배달·장보기</label>
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_01" value="0" ><label for="fun_01" style="width: 140px">청소·집안일</label>
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_02" value="0" ><label for="fun_02" style="width: 140px">설치·조립·운반</label>
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_03" value="0" ><label for="fun_03" style="width: 140px">동행·돌봄</label>
 							</div>
-							<div class="check_ent displayflex">
-								<input type="checkbox" class="chk" name="helperCategory5"
-									id="fun_05" value="0"><label for="fun_05">벌레·쥐
-									잡기</label> <input type="checkbox" class="chk" name="helperCategory6"
-									id="fun_06" value="0"><label for="fun_06">역할대행</label>
-								<input type="checkbox" class="chk" name="helperCategory7"
-									id="fun_07" value="0"><label for="fun_07">과외·알바</label>
-								<input type="checkbox" class="chk" name="helperCategory8"
-									id="fun_08" value="0"><label for="fun_08">기타·원격</label>
-								<input type="hidden" name="category">
+							<div class="check_ent displayflex" style="text-align: left;">
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_04" value="0" ><label for="fun_04" style="width: 140px">벌레·쥐</label>
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_05" value="0" ><label for="fun_05" style="width: 140px">역할대행</label>
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_06" value="0" ><label for="fun_06" style="width: 140px">과외·알바</label>
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_07" value="0" ><label for="fun_07" style="width: 140px">동행·돌봄</label>
 							</div>
-							<input type="hidden" name="HelperCategory">
+							<input type="hidden" id="helperCategory" name="helperCategory">
 						</td>
 					</tr>
 					<tr class="table-active_mate">
@@ -89,7 +80,6 @@
 					<tr class="table-active_mate">
 						<th>6.이동수단</th>
 						<td>
-							<div class="check_ent displayflex">
 								<input type="radio" name="helperRide" id="ride01" value="1"><label
 									for="ride01">자동차</label> <input type="radio" name="helperRide"
 									id="ride02" value="2"><label for="ride02">오토바이</label>
@@ -98,7 +88,6 @@
 									name="helperRide" id="ride04" value="4"><label
 									for="ride04">자전거</label> <input type="radio" name="helperRide"
 									id="ride05" value="5"><label for="ride05">없음</label>
-							</div>
 						</td>
 					</tr>
 					<tr class="table-active_mate">
@@ -132,7 +121,19 @@
 		</form>
 	</div>
 	<script>
-	//폼 안에서 태그 엔터로 허용하기 위해서 나머지 엔터 막기
+	//카테고리 설정(00000000);
+	$(".chk").change(function () {
+		if($(this).is(":checked")){
+			$(this).val(1);
+			$("#helperCategory").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()
+				+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+$("#fun_07").val()	);
+		}else{
+			$(this).val(0);
+			$("#helperCategory").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()
+					+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+$("#fun_07").val()	);
+		}
+
+	});
 	$("form input").keydown(function(event){
 		if(event.keyCode === 13){
 			event.preventDefault();
@@ -279,7 +280,7 @@
 				$("input[name='skillName']").val(skillname.join("/"));
 				$("input[name='skillLevel']").val(skilllevel.join("/"));
 			});
-			
+			//
 	</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>

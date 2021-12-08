@@ -188,6 +188,9 @@
 		      <li><a href="#">하우스 입주 내역 확인</a></li>
 		      <li><a href="#">투어 신청 내역 확인</a></li>
 		      <li><a href="#">커뮤니티 게시글 확인/댓글 확인</a></li>
+		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
+		      	<li><a href="/helperRequestFrm.do">헬퍼 신청하기</a></li>
+		      	</c:if>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
 		      <c:if test="${sessionScope.m.memberLevel eq 4 }">
 			      <li><a href="#">메뉴4</a></li>
