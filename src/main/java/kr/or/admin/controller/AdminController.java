@@ -96,19 +96,6 @@ public class AdminController {
 		model.addAttribute("loc", "/adminMemberView.do?memberNo="+um.getMemberNo());
 		return "common/msg";
 	}
-	@RequestMapping(value="/adminInsertProfileFrm.do")
-	public String insertProfileFrm(String memberId, String memberNo, Model model) {
-		model.addAttribute("memberId", memberId);
-		model.addAttribute("memberNo", memberNo);
-		return "admin/insertProfileFrm";
-	}
-	@RequestMapping(value="/adminUpdateProfileFrm.do")
-	public String updateProfileFrm(String memberId, String memberNo, Model model) {
-		Profile p = service.selectProfile(memberId);
-		model.addAttribute("p", p);
-		model.addAttribute("memberNo", memberNo);
-		return "admin/updateProfileFrm";
-	}
 	@RequestMapping(value="/adminInsertProfile.do")
 	public String insertProfile(Profile p, int memberNo, Model model) {
 		int result = service.insertProfile(p);
