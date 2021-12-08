@@ -34,7 +34,7 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeList.do")
 	public String noticeList(int reqPage, Model model) {
 	
-		HashMap<String, Object> map = service.selectNotice(reqPage);
+		HashMap<String, Object> map = service.selectNoticeList(reqPage);
 		model.addAttribute("pageNavi", map.get("pageNavi"));
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("start", map.get("start"));
@@ -147,8 +147,9 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "/noticeView.do")
-	public String noticeView(int noticeNo) {
-		System.out.println(noticeNo);
-		return "notice/noticeList";
+	public String noticeView(int noticeNo, Model model) {
+		Notice n = service.selectNotice(noticeNo);
+		model.addAttribute("n", n);
+		return "notice/noticeView";
 	}
 }

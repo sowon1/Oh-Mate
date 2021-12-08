@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="notice">
-
 	<insert id="insertNotice" parameterType="n">
 		insert into notice values(NOTICE_SEQ.NEXTVAL,#{noticeTitle},#{noticeContent},to_char(sysdate,'yyyy-mm-dd hh24:mi'),0)
 		<selectKey resultType="_int" order="AFTER" keyProperty="noticeNo">
@@ -24,8 +23,18 @@
 	<select id="totalCount" resultType="_int">
 		select count(*) from notice
 	</select>
-	
-	
+	<select id="selectNotice" parameterType="_int" resultMap="notice">
+		select * from notice where notice_no = #{noticeNo}
+	</select>
+	<select id="selectFileList" parameterType="_int" resultType="fi">
+		select
+			file_no as fileNo,
+			notice_no as noticeNo,
+			filename,
+			filepath
+		from file_tbl 
+		where notice_no = #{noticeNo}
+	</select>
 	<resultMap type="n" id="notice">
 		<result column="notice_no" property="noticeNo"/>
 		<result column="notice_title" property="noticeTitle"/>
@@ -39,4 +48,9 @@
 					select="selectFileList"
 		/>
 	</resultMap>
+	<update id="updateReadCount">
+		update notice set 
+			notice_readcount = notice_readcount+1
+		where notice_no = #{noticeNo}
+	</update>
 </mapper>
