@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="room">
- 	
+ 	<select id="selectAllRoom" parameterType="_int" resultType="r">
+ 		select
+ 			room_no as roomNo,
+ 			house_no as houseNo,
+ 			room_title as roomTitle,
+ 			room_size as roomSize,
+ 			room_phone as roomPhone,
+ 			room_status as roomStatus,
+ 			room_charge as roomCharge,
+ 			room_content as roomContent,
+ 			room_personnel as roomPersonnel,
+ 			room_month as roomMonth
+ 		from room where house_no=#{houseNo}
+ 	</select>
 </mapper>

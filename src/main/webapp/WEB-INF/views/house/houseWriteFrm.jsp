@@ -404,6 +404,7 @@
 							style="line-height: 30px" onclick="chkRoom()">다음</a>
 					</div>
 				</div>
+				
 			</form>
 		</div>
 	</div>
