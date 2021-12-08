@@ -145,4 +145,19 @@
 			p_pattern as pPattern
 		from profile where p_writer=#{memberId}
 	</select>
+	<update id="updateProfile" parameterType="kr.or.profile.model.vo.Profile">
+		update profile set
+			p_writer = #{pWriter},
+			p_gender = #{pGender},
+			p_age = #{pAge},
+			p_local = #{pLocal},
+			p_smoke = #{pSmoke},
+			p_pet = #{pPet},
+			p_cleaning = #{pCleaning},
+			p_pattern = #{pPattern}
+		where p_writer = #{pWriter}
+	</update>
+	<delete id="deleteProfile" parameterType="string">
+		delete from profile where p_writer = #{pWriter}
+	</delete>
 </mapper>

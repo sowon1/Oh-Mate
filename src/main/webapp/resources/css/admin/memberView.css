@@ -124,4 +124,7 @@ table input::placeholder{
 }
 .modal_profile_content .btnBox{
 	margin:35px auto 0;
+	display:flex;
+	justify-content: space-around;
+	width:300px;
 }

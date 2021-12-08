@@ -15,7 +15,6 @@
 	            <form action="/adminMemberUpdate.do" method="post" enctype="multipart/form-data">
 	            	<input type="hidden" name="memberNo" value="${m.memberNo }">
                     <input type="hidden" name="memberLevel" value="${m.memberLevel }">
-                    <input type="hidden" id="memberId" value="${m.memberId }">
 	                <table class="table">
 	                    <tr class="table-active_mate center_list">
 	                        <th>프로필 이미지</th>
@@ -121,7 +120,7 @@
 		                        <td>
 		                        	<c:choose>
 		                        		<c:when test="${m.profileStatus eq 1 }">
-				                        	<a href="javascript:modalShow()">등록</a>
+				                        	<a href="javascript:profileMgrModal()">등록</a>
 		                        		</c:when>
 		                        		<c:when test="${m.profileStatus eq 2 }">
 				                        	<a href="javascript:modalShow()">미등록</a>
@@ -163,12 +162,12 @@
 					</span>
 				</div>
 				<div class="modal_profile_content">
-					<form action="/adminInsertProfile.do" method="post">
+					<form action="/adminInsertProfile.do" method="post" name="profileFrm">
 		            	<input type="hidden" name="pWriter" value="${m.memberId }">
 		            	<input type="hidden" name="memberNo" value="${m.memberNo }">
 		                <table class="table">
 		                	<tr class="table-active_mate">
-		                		<th>지역</th>
+		                		<th>선호 지역</th>
 		                		<td>
 		                			<select class="form-select" name="pLocal">
 		                				<option value="0">지역구 선택</option>
@@ -270,6 +269,40 @@
 			option.html(local[i]);
 			$("select").append(option);
 		}
+	});
+	function profileMgrModal(){
+		$.ajax({
+			url: "/adminSelectProfile.do",
+			data: {memberId:$(".container_mate [name=memberId]").val()},
+			success:function(data){
+				$(".modal_profile_title>h3").html("프로필 관리");
+				$("[name=pGender]").eq([data.pGender-1]).prop("checked",true);
+				$("[name=pAge]").eq([data.pAge-1]).prop("checked",true);
+				$("[name=pSmoke]").eq([data.pSmoke-1]).prop("checked",true);
+				$("[name=pPet]").eq([data.pPet-1]).prop("checked",true);
+				$("[name=pCleaning]").eq([data.pCleaning-1]).prop("checked",true);
+				$("[name=pPattern]").eq([data.pPattern-1]).prop("checked",true);
+				$("option").each(function(index, item){
+					if($(item).val() == data.pLocal){
+						$(item).prop("selected",true);
+					} 
+				});
+				$(".modal_profile_content .btnBox").empty();
+				$(".modal_profile_content .btnBox").append('<button type="button" class="btn btn_out" id="updateBtn">수정</button');
+				$(".modal_profile_content .btnBox").append('<button type="button" class="btn btn_out" id="deleteBtn">삭제</button');
+				modalShow();
+			}
+		});
+	}
+	$(document).on("click","#updateBtn",function(){
+		var form = $("[name=profileFrm]");
+		form.attr("action","/adminUpdateProfile.do");
+		form.submit();
+	});
+	$(document).on("click","#deleteBtn",function(){
+		var form = $("[name=profileFrm]");
+		form.attr("action","/adminDeleteProfile.do");
+		form.submit();
 	});
 </script>
 <link rel="stylesheet" href="/resources/css/admin/memberView.css">

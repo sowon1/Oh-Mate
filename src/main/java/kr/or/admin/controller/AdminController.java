@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import kr.or.admin.model.service.AdminService;
 import kr.or.admin.model.vo.SearchMember;
@@ -103,6 +106,34 @@ public class AdminController {
 			model.addAttribute("msg", "프로필 등록 완료");
 		}else {
 			model.addAttribute("msg", "프로필 등록 실패");
+		}
+		model.addAttribute("loc", "/adminMemberView.do?memberNo="+memberNo);
+		return "common/msg";
+	}
+	@ResponseBody
+	@RequestMapping(value="/adminSelectProfile.do", produces = "application/json;charset=utf-8")
+	public String selectProfile(String memberId) {
+		Profile p = service.selectProfile(memberId);
+		return new Gson().toJson(p);
+	}
+	@RequestMapping(value="/adminUpdateProfile.do")
+	public String updateProfile(Profile p, int memberNo, Model model) {
+		int result = service.updateProfile(p);
+		if(result>0) {
+			model.addAttribute("msg", "프로필 수정 완료");
+		}else {
+			model.addAttribute("msg", "프로필 수정 실패");
+		}
+		model.addAttribute("loc", "/adminMemberView.do?memberNo="+memberNo);
+		return "common/msg";
+	}
+	@RequestMapping(value="/adminDeleteProfile.do")
+	public String deleteProfile(String pWriter, int memberNo, Model model) {
+		int result = service.deleteProfile(pWriter);
+		if(result>0) {
+			model.addAttribute("msg", "프로필 삭제 완료");
+		}else {
+			model.addAttribute("msg", "프로필 삭제 실패");
 		}
 		model.addAttribute("loc", "/adminMemberView.do?memberNo="+memberNo);
 		return "common/msg";
