@@ -14,11 +14,8 @@ public class RoomService {
 	@Autowired
 	private RoomDao dao;
 
-	public ArrayList<Room> selectAllRoom(int houseNo, int memberNo) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("houseNo", houseNo);
-		map.put("memberNo", memberNo);
-		ArrayList<Room> r=dao.selectAllRoom(map);
-		return null;
+	public ArrayList<Room> selectAllRoom(int houseNo) {
+		ArrayList<Room> list=dao.selectAllRoom(houseNo);
+		return list;
 	}
 }

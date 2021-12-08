@@ -26,7 +26,7 @@
   	insert into photo
   	values(photo_seq.nextval,1,#{photoPath},#{photoNum})
   </insert>
-   <!-- 하우스 리스트 출력 
+  <!-- 하우스 리스트 출력 - sowon 
   <select id="selectSearchHouse" parameterType="search">
   		select * from house 
   				<trim prefix="where" prefixOverrides="and|or">

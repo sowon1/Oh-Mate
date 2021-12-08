@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import kr.or.common.Address;
@@ -50,6 +49,7 @@ public class HouseController {
 		model.addAttribute("loc","/");
 		return "house/houseList";
 	}
+
 	//ajax 하우스 리스트 - sowon
 	@RequestMapping(value="/ajax_page.do")
 	public String ajax_page(int pageNum, Model model) {
@@ -59,6 +59,7 @@ public class HouseController {
 		model.addAttribute("startPageNum",data.get("startPageNum"));
 		return "house/ajax_page";
 	}
+
 	//하우스 등록
 	@RequestMapping(value = "/houseWrite.do")
 	public String houseWrite(House h,Address address,Income i,Model model,HttpSession session,MultipartFile[] photoPath,HttpServletRequest request) {
@@ -118,15 +119,17 @@ public class HouseController {
 						
 					}
 					int houseNo= house.getHouseNo();
+					int houseRoom= h.getHouseRoom();
 					int result = service.insertImgfiles(list,houseNo);
 					if(result>0) {
-						return "redirect:/roomList.do";
+						
+						return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
 						
 					}else {
 						return "house/houseWriteFrm";
 					}
 				}
-//			return "redirect:/roomList.do?houseNo="+house.getHouseNo()+"&memberNo="+h.getMemberNo();
+				//return "redirect:/roomList.do?houseNo="+house.getHouseNo()+"&memberNo="+h.getMemberNo();
 		}else {
 			return "house/houseWriteFrm";
 		}

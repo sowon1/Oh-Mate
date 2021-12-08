@@ -15,8 +15,8 @@ public class RoomDao {
 	@Autowired
 	private SqlSessionTemplate session;
 
-	public ArrayList<Room> selectAllRoom(HashMap<String, Object> map) {
-		List<Room> list = session.selectList("");
-		return null;
+	public ArrayList<Room> selectAllRoom(int houseNo) {
+		List<Room> list = session.selectList("room.selectAllRoom",houseNo);
+		return (ArrayList<Room>)list;
 	}
 }
