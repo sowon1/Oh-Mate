@@ -45,7 +45,7 @@
 		<result column="house_no" property="houseNo"/>
 		<result column="member_no" property="memberNo"/>
 		<result column="house_title" property="houseTitle"/>
-		<result column="houseowner_deline" property="houseownerDeline"/>
+		<result column="houseowner_deadline" property="houseownerDeadline"/>
 		<result column="house_selling" property="houseSelling"/>
 		<result column="refuse_reason" property="refuseReason"/>
 		<result column="house_content" property="houseContent"/>

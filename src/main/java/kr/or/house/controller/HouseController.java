@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import kr.or.common.Address;
@@ -42,9 +44,21 @@ public class HouseController {
 	}
 	//하우스 리스트 출력
 	@RequestMapping(value="/houseList.do")
-	public String houseList(Housesearch search, Model model) {
-		ArrayList<House> list = service.selectSearchHouse(search);
+	public String houseList(House h, Model model) {
+		ArrayList<House> list = service.selectAllHouse(h);
+		model.addAttribute("list",list);
+		model.addAttribute("loc","/");
 		return "house/houseList";
+	}
+	//ajax 하우스 리스트 - sowon
+	@RequestMapping(value="/ajax_page.do")
+	@ResponseBody
+	public String ajax_page(int pageNum, Model model) {
+		HashMap<String, Object> data = service.selectAjaxHouse(pageNum);
+		model.addAttribute("list",data.get("list"));
+		model.addAttribute("totalPageCount",data.get("totalPageCount"));
+		model.addAttribute("startPageNum",data.get("startPageNum"));
+		return "house/ajax_page";
 	}
 	//하우스 등록
 	@RequestMapping(value = "/houseWrite.do")

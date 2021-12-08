@@ -186,7 +186,7 @@
 		$("#search_date").click(function(){
 			var keyword = $("input[name='keyword']").val();
 			var genderValue = $("div[data-type='gender']").prev().children("span").text();
-			var room = $("div[data-type='max_resident']").prev().children("span").text();
+			var room = $("div[data-type='room']").prev().children("span").text();
 			var housetype = $("div[data-type='house_type']").prev().children("span").text();
 			var gender;
 			if(genderValue == "남성전용"){
@@ -195,12 +195,14 @@
 				gender="2";
 			}else if(genderValue == "남녀공용"){
 				gender="3";
+			}else{
+				gender="";
 			}
 			console.log(gender);
 			console.log(room);
 			console.log(housetype);
 			console.log(keyword);
-			//location.href="/houseList.do?gender="+gender+"&room="+room+"&housetype="+housetype+"&keyword="+keyword;
+			location.href="/houseList.do?gender="+gender+"&room="+room+"&housetype="+housetype+"&keyword="+keyword;
 		});
 		//모달
 	    $("#house_modal").click(function(){
