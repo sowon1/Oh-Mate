@@ -37,5 +37,16 @@ public class NoticeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("notice.totalCount");
 	}
+
+	public Notice selectNoticeList(int noticeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("notice.selectNotice", noticeNo);
+	}
+
+	public int updateReadCount(int noticeNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("notice.updateReadCount", noticeNo);
+	}
+
 	
 }
