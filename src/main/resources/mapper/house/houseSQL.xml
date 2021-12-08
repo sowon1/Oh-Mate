@@ -91,6 +91,7 @@
 					select="selectFileList"	
 		/>
 	</resultMap>
+	
 	<select id="selectAjaxHouse" parameterType="map" resultMap="house">
 	 	select 
 			*

@@ -49,7 +49,6 @@ public class HouseController {
 		model.addAttribute("loc","/");
 		return "house/houseList";
 	}
-
 	//ajax 하우스 리스트 - sowon
 	@RequestMapping(value="/ajax_page.do")
 	public String ajax_page(int pageNum, Model model) {
