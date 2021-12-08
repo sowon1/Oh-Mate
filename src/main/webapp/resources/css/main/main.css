@@ -205,7 +205,7 @@
     font-size: 18px;
     font-family: "ns_700";
 }
-.list_house_title, .house_tag{
+.list_house_title, .house_content{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -218,7 +218,7 @@
 	display:flex;
 	align-items: center;
 }
-.house_tag{
+.house_content{
 	color:#666;
 }
 .house_form{

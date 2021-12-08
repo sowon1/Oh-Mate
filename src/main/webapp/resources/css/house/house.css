@@ -15,6 +15,7 @@
 }
 .house_left{
 	position: relative;
+	overflow: scroll;
 }
 .list_filter{
     display: flex;
@@ -64,13 +65,14 @@
 /* 조건 검색 누를경우 */
 .h_filter_open{
 	width: 100%;
-	height: auto;
+	height: 100%;
 	overflow: hidden;
 	display: none;
 	padding: 30px;
 	position: absolute;
 	top: 100px;
 	background: #fff;
+	z-index:10;
 }
 
 /* 그래프 바*/
@@ -505,4 +507,106 @@
 	float:right;
 	cursor: pointer;
 }
+
+/* 리스트 css */
+.list_container{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 0px 30px;
+}
+.list_container li{
+    width: 266px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    float: left;
+    border-radius: 20px;
+    margin-right:10px;
+    box-sizing: border-box;
+    margin-bottom:10px;
+}
+
+.house_list_photo{
+    width: 100%;
+    height: 170px;
+    overflow: hidden;
+    position: relative;
+}
+.house_list_photo img{
+    width:100%;
+}
+
+/* 좋아요 버튼 부분 */
+.like_house{
+    position: absolute;
+    right: 15px;
+    top: 15px;   
+}
+.like_house img{
+    width: 30px;
+}
+.house_list_text{
+    padding: 20px;
+}
+.list_line_01{
+    overflow: hidden;
+}
+.list_tag{
+    border: 2px solid #956bfc;
+    border-radius: 50px;
+    padding: 3px 8px;
+    float: left;
+    margin-right: 10px;
+    width: 81px;
+    font-family: 'ns_500';
+    color: #956bfc;
+}
+.list_house_title{
+    font-size: 18px;
+    font-family: "ns_700";
+}
+.list_house_title, .house_content{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;	
+}
+.list_line_02{
+    margin-top:10px;
+    display:flex;
+	align-items: center;
+}
+
+.house_content{
+	color:#666;
+}
+.house_form{
+    color:#ff0071;
+    margin-right: 10px;
+}
+.house_sum{
+    position: relative;
+    padding-left: 10px;
+    color: #666;
+}
+.house_sum:before {
+    content: "";
+    left: -1px;
+    height: 0.8em;
+    top: 50%;
+    margin-top: -0.4em;
+    position: absolute;
+    border-left: 1px solid #aaa;
+}
+.house_more_btn{
+    background: #956bfc;
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    color: #fff;
+    display: block;
+    font-size: 20px;
+    line-height: 50px;
+}
+
 /* 오른쪽 맵 */
