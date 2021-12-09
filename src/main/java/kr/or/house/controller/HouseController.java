@@ -17,10 +17,12 @@ import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import kr.or.common.Address;
@@ -30,12 +32,17 @@ import kr.or.common.Photo;
 import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
+import kr.or.main.model.service.MainService;
+import kr.or.member.model.vo.Member;
 import kr.or.room.model.vo.Room;
 
 @Controller
 public class HouseController {
 	@Autowired
 	private HouseService service;
+	@Autowired
+	private MainService mService;
+	
 	//하우스 등록
 	@RequestMapping(value = "/houseWriteFrm.do")
 	public String houseWriteFrm() {
@@ -51,11 +58,19 @@ public class HouseController {
 	}
 	//ajax 하우스 리스트 - sowon
 	@RequestMapping(value="/ajax_page.do")
-	public String ajax_page(int pageNum, Model model) {
-		HashMap<String, Object> data = service.selectAjaxHouse(pageNum);
-		model.addAttribute("list",data.get("list"));
-		model.addAttribute("totalPageCount",data.get("totalPageCount"));
-		model.addAttribute("startPageNum",data.get("startPageNum"));
+	public String ajax_page(int pageNum, Model model, HttpSession session) {
+		if(session != null) {
+			Member m = (Member)session.getAttribute("m");
+			int memberNo = 0;
+			if(m != null)
+			{
+				memberNo = m.getMemberNo();
+			}	
+			HashMap<String, Object> data = service.selectAjaxHouse(pageNum,memberNo);
+			model.addAttribute("list",data.get("list"));
+			model.addAttribute("totalPageCount",data.get("totalPageCount"));
+			model.addAttribute("startPageNum",data.get("startPageNum"));
+		}
 		return "house/ajax_page";
 	}
 
@@ -180,6 +195,24 @@ public class HouseController {
 		}
 		
 		return jsonObject.toString();
+	}
+	
+	//하우스 리스트에서 좋아요 - sowon
+	@ResponseBody
+	@RequestMapping(value="/houseListLike.do", method = {RequestMethod.POST}, produces="application/json;charset=UTF-8")
+	public String houseListLike(int memberNo, int houseNo) {
+		int like_check = 0;
+		like_check = mService.houseLike(memberNo,houseNo);
+		if(like_check == 0) {
+			like_check++;
+			int like_up = mService.insertHouseLike(memberNo,houseNo);
+		}else {
+			like_check--;
+			int like_down = mService.deleteHouseLike(memberNo,houseNo);
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("likeCheck", like_check);
+		return new Gson().toJson(map);
 	}
 
 }

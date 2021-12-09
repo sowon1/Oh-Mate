@@ -160,4 +160,22 @@
 	<delete id="deleteProfile" parameterType="string">
 		delete from profile where p_writer = #{pWriter}
 	</delete>
+	<select id="selectAllReport" parameterType="map" resultType="rp">
+		select
+			report_no as reportNo,
+			report_category as reportCategory,
+			report_num as reportNum,
+			reporter,
+			atacker,
+    		(select member_id from member where member_no=reporter) reporterId,
+    		(select member_id from member where member_no=atacker) atackerId,
+			report_content as reportContent,
+			report_date as reportDate,
+			report_status as reportStatus
+		from (select rownum as rnum, r.* from (SELECT * FROM report order by 1 desc)r)rr
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="reportTotal" resultType="_int">
+		select count(*) from report
+	</select>
 </mapper>

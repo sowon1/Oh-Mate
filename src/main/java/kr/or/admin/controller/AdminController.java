@@ -138,4 +138,12 @@ public class AdminController {
 		model.addAttribute("loc", "/adminMemberView.do?memberNo="+memberNo);
 		return "common/msg";
 	}
+	@RequestMapping(value="/reportMgr.do")
+	public String reportMgr(int reqPage, Model model) {
+		HashMap<String, Object> data = service.selectAllReport(reqPage);
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		return "admin/reportMgr";
+	}
 }

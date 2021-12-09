@@ -12,4 +12,6 @@ public class Report {
 	private String reportContent;	//사유
 	private String reportDate;		//신고일 YYYY-MM-DD
 	private int reportStatus;		//상태 1. 미처리 / 2. 처리완료 / 3. 허위신고
+	private String reporterId;		//reporter 아이디
+	private String atackerId;		//atacker 아이디
 }

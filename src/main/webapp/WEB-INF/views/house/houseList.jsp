@@ -170,11 +170,34 @@
 					$(".list_container").append(data);
 					$(".loading").hide();
 					isLoading = false;
+					
+					
+					
+					
 				}
 			});
 		}
 		$(document).ready(function(){
 			GetList(1);
+			
+		});
+		//스크롤 안에 리스트에서의 좋아요 부분 
+		$(document).on("click",".heart",function(){
+			var memberNo = "${sessionScope.m.memberNo}";
+			var houseNo = $(this).attr('idx');		
+			var heart = $(this);
+			$.ajax({
+				url : "/houseListLike.do",
+				data : {memberNo:memberNo, houseNo:houseNo},
+				type: "POST",
+				success : function(data){
+					if(data.likeCheck == 0){
+						heart.children().attr("src","/resources/img/icon/heart_off.png");						
+					}else{
+						heart.children().attr("src","/resources/img/icon/heart_on.png");						
+					}
+				}
+			});
 		});
 		//필터 아이콘 누를경우 
 		$(".filter_icon").click(function(){
