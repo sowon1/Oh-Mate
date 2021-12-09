@@ -84,6 +84,7 @@ public class HouseController {
 						String onlyFilename = filename.substring(0,filename.indexOf(".")); //test
 						String extention = filename.substring(filename.indexOf("."));//.txt
 						String filepath =null;
+						System.out.println("사진경로:"+filename);
 						int count = 0;
 						while(true) {
 							if(count == 0) {
@@ -98,6 +99,8 @@ public class HouseController {
 							count++;
 						}
 						//파일명 중복처리가 끝나면 파일업로드
+						System.out.println("photoPathfile:"+photoPathfile);
+						System.out.println("filepath"+filepath);
 						try {
 							//중복처리가 끝난 파일명(filepath)으로 파일을 업로드
 							FileOutputStream fos = new FileOutputStream(new File(photoPathfile+filepath));
@@ -115,7 +118,7 @@ public class HouseController {
 							e.printStackTrace();
 						}
 						Photo p = new Photo();
-						p.setPhotoPath(photoPathfile);
+						p.setPhotoPath(filepath);
 						list.add(p);
 						
 					}

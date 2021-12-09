@@ -92,6 +92,7 @@
 	<context:component-scan base-package="kr.or.main"/>
 	<context:component-scan base-package="kr.or.house"/>
 	<context:component-scan base-package="kr.or.notice"/>
+	<context:component-scan base-package="kr.or.room"/>
 	
 	
 </beans:beans>

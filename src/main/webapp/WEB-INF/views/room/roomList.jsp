@@ -54,7 +54,7 @@
 }
 
 .ac-title {
-	text-align: left;
+	text-align: center;
 	font-size: 16px;
 	color: #847E78;
 	margin: 5px;
@@ -66,78 +66,116 @@
 
 .content-place {
 	margin-top: 30px;
-	height: 300px;
 }
 
 .form-title {
 	margin: 5px;
 	font-weight: bold;
 }
+
+.room-counting>span {
+	font-size: 18px;
+	color: #956bfc;
+}
+.room-title{
+	overflow: hidden;
+	border-bottom: 1px solid #9F9F9F;
+}
+.roomTL{
+	float: left;
+	margin-left: 5px;
+}
+.roomBtn{
+	float: right;
+	margin-right: 5px;
+}
+.room-list{
+	border: 1px solid #9F9F9F;
+	border-radius: 5px;
+	
+}
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container_mate">
-		<div class="houseForm">
-			<h4 class="form-title">방 리스트</h4>
-			<div class="content-place">
-				<div class="room-status">
-					<p class="ac-title">현재 방갯수 ※등록하신 방갯수 채워야함</p>
-					<span id="nowRoom"></span>/<span id="endRoom">${houseRoom }</span>
-				</div>
-				<div class="plus-room">
-					<form action="/roomWriteFrm.do" method="post">
-						<input type="hidden" name="houseNo" value="${houseNo }">
-						<button class="btn btn_w" type="submit">방 등록하기</button>
-					</form>
-				</div>
-				<div class="room-list">
+		<div class="content">
+			<div class="houseForm" >
+				<h4 class="form-title">방 리스트</h4>
+				<div class="content-place">
+					<div class="room-status">
+						<p class="ac-title">현재 방갯수 ※등록하신 방갯수 채워야함</p>
+						<div class="room-counting" style="text-align: left;">
+							<span id="nowRoom"></span>/<span id="endRoom">${houseRoom }</span>
+						</div>
+					</div>
+					<hr>
+					<div class="plus-room">
+						<form action="/roomWriteFrm.do" method="post">
+							<input type="hidden" name="houseNo" value="${houseNo }">
+							<input type="hidden" name="houseRoom" value="${houseRoom }">
+							<button class="btn btn_w" type="submit"
+								style="height: 40px; line-height: 25px">방 등록하기</button>
+						</form>
+					</div>
+					<br>
 					<c:forEach items="${list }" var="r" varStatus="i">
-						<ul>
-							<li class="room_li">
-								<div class="room-title">
-									<p>${r.roomTitle }</p>
-									<div class="roomBtn">
-										<a href="/roomMod.do"> <i class="fas fa-pen far-2x"></i>
-										</a> <a href="/roomDel.do"> <i class="fas fa-times far-2x"></i>
-										</a>
+						<div class="room-list">
+							<ul >
+								<li class="room_li">
+									<div class="room-title">
+									<div class="roomTL">
+										<p style="font-size: 25px; font-weight: bold; color: #956bfc; margin-left: 5px">${r.roomTitle }</p>
 									</div>
-								</div>
-								<div class="room-detail">
-									<table>
-										<tr>
-											<td>
-												<p class="ac-title">보증금</p>
-												<div class="font-mid">${r.roomCharge }원</div>
-											</td>
-											<td>
-												<p class="ac-title">첫달 월세</p>
-												<div class="font-mid">${r.roomMonth }원</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<p class="ac-title">${r.roomSize }평·${r.roomPersonnel }</p>
-											</td>
-											<td>
-												<p class="ac-title">전화번호 : ${r.roomPhone }</p>
-											</td>
-										</tr>
-									</table>
-								</div>
-							</li>
-						</ul>
+										<div class="roomBtn">
+											<a href="/roomMod.do"> <i class="fas fa-pen far-2x"></i>
+											</a> <a href="/roomDel.do?houseNo=${r.houseNo }&roomNo=${r.roomNo }&houseRoom=${houseRoom}"> <i class="fas fa-times far-2x"></i>
+											</a>
+										</div>
+									</div>
+									<div class="room-detail">
+										<table>
+											<tr>
+												<td style="width: 100px;">
+													<p class="ac-title">보증금</p>
+													<div class="font-mid">${r.roomCharge }원</div>
+												</td>
+												<td>
+													<p class="ac-title">첫달 월세</p>
+													<div class="font-mid">${r.roomMonth }원</div>
+												</td>
+												<td>
+													<p class="ac-title" style="margin-top: 40px;margin-left: 30px;">${r.roomSize }평·${r.roomPersonnel }/전화번호 : ${r.roomPhone }</p>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</li>
+							</ul>
+						</div>
 					</c:forEach>
 				</div>
-			</div>
-			<div class="button-place">
-				<a class="btn" style="line-height: 30px" onclick="roomChk()">메인으로돌아가기
-				</a>
+				<div class="button-place">
+					<button class="btn btn_w" type="button" onclick="chkRoom()"
+						style="line-height: 30px">메인페이지로 돌아가기</button>
+				</div>
 			</div>
 		</div>
 	</div>
 	<script>
-		
+		$(function() {
+			var length= $(".room-list").length;
+			$("#nowRoom").html(length);
+		});
+		function chkRoom() {
+			var now = $("#nowRoom").html();
+			var end = $("#endRoom").html();
+			if(now==end){
+				location.href="/main.do";
+			}else{
+				alert("등록하신 최대 방갯수를 채워주세요~");
+			}
+		}
 	</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
