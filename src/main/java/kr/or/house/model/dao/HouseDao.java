@@ -57,6 +57,11 @@ public class HouseDao {
 	public House selectHouseOneView(int houseNo) {
 		return session.selectOne("house.selectHouseOneView",houseNo);
 	}
+	//하우스 오너 리스트 출력
+	public ArrayList<House> selectHouseOwnerList(int memberNo) {
+		List<House> list = session.selectList("house.selectHouseOwnerList", memberNo);
+		return null;
+	}
 
 
 }

@@ -84,5 +84,9 @@ public class HouseService {
 		House h = dao.selectHouseOneView(houseNo);
 		return h;
 	}
+	public ArrayList<House> selectHouseOwnerList(int memberNo) {
+		ArrayList<House> list = dao.selectHouseOwnerList(memberNo);
+		return list;
+	}
 
 }
