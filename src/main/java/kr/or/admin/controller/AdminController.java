@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 
 import kr.or.admin.model.service.AdminService;
 import kr.or.admin.model.vo.SearchMember;
+import kr.or.admin.model.vo.SearchReport;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
@@ -153,5 +154,10 @@ public class AdminController {
 		model.addAttribute("list", data.get("list"));
 		model.addAttribute("start", data.get("start"));
 		return "admin/reportMgr";
+	}
+	@RequestMapping(value="/reportSearch.do")
+	public String reportSearch(int reqPage, SearchReport sr, Model model) {
+		HashMap<String, Object> data = service.reportSearch(reqPage, sr);
+		return "";
 	}
 }

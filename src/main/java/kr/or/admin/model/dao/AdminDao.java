@@ -68,4 +68,13 @@ public class AdminDao {
 	public int totalReportCount() {
 		return session.selectOne("admin.reportTotal");
 	}
+
+	public ArrayList<Report> reportSearch(HashMap<String, Object> map) {
+		List<Report> list = session.selectList("admin.searchReport", map);
+		return (ArrayList<Report>)list;
+	}
+
+	public int totalSearchReportCnt(HashMap<String, Object> map) {
+		return session.selectOne("admin.totalSearchReport", map);
+	}
 }
