@@ -246,52 +246,42 @@ public class NoticeController {
 		return "common/msg";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value = "/downFile.do")
-	public String downloadFile(String filepath, String filename, HttpServletRequest request, HttpServletResponse response) {
+	public void downloadFile(String filepath, String filename, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
+		System.out.println(filepath);
+		System.out.println(filename);
 		String file = savePath+filepath;
 		
 		
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			BufferedInputStream bis = new BufferedInputStream(fis);
-			ServletOutputStream sos = response.getOutputStream();
-			BufferedOutputStream bos = new BufferedOutputStream(sos);
-			
-			String resFilename = "";
-			
-			boolean bool = request.getHeader("user-agent").indexOf("MSIE") != -1 || request.getHeader("user-agent").indexOf("Trident") != -1;
-			System.out.println("IE 여부 : "+bool);
-			if(bool) {
-				resFilename = URLEncoder.encode(filename,"UTF-8");
-				resFilename = resFilename.replaceAll("\\\\", "%20");
-			}else {
-				resFilename = new String(filename.getBytes("UTF-8"),"ISO-8859-1");
-			}
-			System.out.println(resFilename);
-			response.setContentType("application/octet-stream");
-			response.setHeader("Content-Disposition", "attachment;filename="+resFilename);
-			
-			while(true) {
-				int read = bis.read();
-				if(read != -1) {
-					bos.write(read);
-				}else {
-					break;
-				}
-			}
-			bis.close();
-			bos.close();
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		FileInputStream fis = new FileInputStream(file);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		ServletOutputStream sos = response.getOutputStream();
+		BufferedOutputStream bos = new BufferedOutputStream(sos);
+		
+		String resFilename = "";
+		
+		boolean bool = request.getHeader("user-agent").indexOf("MSIE") != -1 || request.getHeader("user-agent").indexOf("Trident") != -1;
+		if(bool) {
+			resFilename = URLEncoder.encode(filename,"UTF-8");
+			resFilename = resFilename.replaceAll("\\\\", "%20");
+		}else {
+			resFilename = new String(filename.getBytes("UTF-8"),"ISO-8859-1");
 		}
-			
-		return null;
+		response.setContentType("application/octet-stream;charset=utf-8");
+		response.setHeader("Content-Disposition", "attachment;filename="+resFilename);
+		
+		while(true) {
+			int read = bis.read();
+			if(read != -1) {
+				bos.write(read);
+			}else {
+				break;
+			}
+		}
+		
+		bis.close();
+		bos.close();
+		
 	}
 }
