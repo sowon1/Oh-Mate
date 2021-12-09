@@ -53,6 +53,10 @@ public class HouseDao {
 		int result =session.insert("house.insertImgFile",p);
 		return result;
 	}
+	//하우스 상세보기 - sowon
+	public House selectHouseOneView(int houseNo) {
+		return session.selectOne("house.selectHouseOneView",houseNo);
+	}
 
 
 }

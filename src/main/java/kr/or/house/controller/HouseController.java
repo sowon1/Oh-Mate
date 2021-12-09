@@ -214,5 +214,12 @@ public class HouseController {
 		map.put("likeCheck", like_check);
 		return new Gson().toJson(map);
 	}
+	//하우스 상세보기 - sowon
+	@RequestMapping(value="/houseView.do")
+	public String houseView(int houseNo, Model model) {
+		House h = service.selectHouseOneView(houseNo);
+		model.addAttribute("h",h);
+		return "house/houseView";
+	}
 
 }
