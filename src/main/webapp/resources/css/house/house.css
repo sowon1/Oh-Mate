@@ -632,4 +632,18 @@
 	height: 250px;
 	}
 }
+/* 좋아유 */
+/* 좋아요 버튼 부분 */
+.like_house{
+    position: absolute;
+    right: 15px;
+    top: 15px;   
+}
+.heart{
+	cursor: pointer;
+    outline:none;
+    border:none;
+    background:none;
+    width:35px;
+}
 /* 오른쪽 맵 */

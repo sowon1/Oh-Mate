@@ -18,9 +18,9 @@ public class MainService {
 	@Autowired
 	private MainDao dao;
 	//하우스, 헬퍼, 멤버카운트 
-	public Main selectMainList() {
+	public Main selectMainList(int memberNo) {
 		ArrayList<Helper> helperList = dao.selectHelperList();
-		ArrayList<House> houseList = dao.selectHouseList();
+		ArrayList<House> houseList = dao.selectHouseList(memberNo);
 		int total = dao.total();
 		Main main = new Main();
 		main.setHlist(houseList);
