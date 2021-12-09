@@ -84,5 +84,10 @@ public class HouseService {
 		House h = dao.selectHouseOneView(houseNo);
 		return h;
 	}
+	//하우스오너리스트 가져오기
+	public ArrayList<House> selectHouseOwnerList(int memberNo) {
+		ArrayList<House> list = dao.selectHouseOwnerList(memberNo);
+		return list;
+	}
 
 }

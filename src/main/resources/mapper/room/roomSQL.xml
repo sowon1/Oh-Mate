@@ -50,4 +50,22 @@
  		room_month = #{roomMonth}
  		where room_no=#{roomNo} and house_no=#{houseNo}
  	</update>
+ 	<select id="selectHouseOwnerList" parameterType="_int" resultType="h">
+ 	select
+ 		house_no as houseNo,
+ 		member_no as memberNo,
+ 		house_title as houseTitle,
+ 		houseowner_deadline as houseownerDeadline,
+ 		house_selling as houseSelling,
+ 		refuse_reason as refuseReason,
+ 		house_content as houseContent,
+ 		house_room as houseRoom,
+ 		house_charge as houseCharge,
+ 		house_rule as houseRule,
+ 		house_form as houseForm,
+ 		house_gender as houseGender,
+ 		house_convenience as houseConvenience
+ 		house_allow as houseAllow
+ 	from house where member_no = #{memberNo}
+ 	</select>
 </mapper>

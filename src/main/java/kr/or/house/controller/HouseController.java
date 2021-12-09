@@ -221,5 +221,10 @@ public class HouseController {
 		model.addAttribute("h",h);
 		return "house/houseView";
 	}
-
+	//내 하우스 리스트 보기
+	@RequestMapping(value = "/houseOwnerList.do")
+	public String houseOwnerList(int memberNo) {
+		ArrayList<House> list = service.selectHouseOwnerList(memberNo);
+		return "house/houseownerList";
+	}
 }

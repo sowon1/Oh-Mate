@@ -218,7 +218,7 @@
 		    </header>
 		    <ul>
 		      <li><a href="/houseWriteFrm.do">하우스등록</a></li>
-		      <li><a href="#">메뉴2</a></li>
+		      <li><a href="/houseOwnerList.do?memberNo=${sessionScope.m.memberNo }">내 하우스리스트</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <li><a href="#">메뉴4</a></li>
 		      <li><a href="#">메뉴5</a></li>
