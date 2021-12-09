@@ -138,3 +138,6 @@ table input::placeholder{
 .btn:focus{
 	box-shadow: none;
 }
+.form-switch .form-check-input{
+	border-radius: 15px;
+}
