@@ -23,8 +23,8 @@ public class MainDao {
 		return (ArrayList<Helper>)helperList;
 	}
 	//전체 하우스 조회
-	public ArrayList<House> selectHouseList() {
-		List<House> houseList = sqlSession.selectList("main.houseList");
+	public ArrayList<House> selectHouseList(int memberNo) {
+		List<House> houseList = sqlSession.selectList("main.houseList",memberNo);
 		return (ArrayList<House>)houseList;
 	}
 	//토탈 조회
@@ -44,3 +44,4 @@ public class MainDao {
 		return sqlSession.delete("main.deleteHouseLike",map);
 	}
 }
+

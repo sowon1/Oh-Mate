@@ -96,7 +96,7 @@
 	 	select 
 			*
 		from  
-			(select rownum as rnum, h.* from
+			(select rownum as rnum, h.*,decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
 			(select * from house where house_allow=1 order by 1 desc)h) 
 		where rnum between #{start} and #{end}
 	</select>

@@ -68,8 +68,8 @@
 	                    <div class="house_list_photo">
 	                        <div class="like_house">
 	                        	<c:choose>
-	                        		<c:when test="${empty sessionScope.member}">
-	                        			<button onclick="likehouse(this,${h.houseNo});" class="heart">	                        			
+	                        		<c:when test="${empty sessionScope.m}">
+	                        			<button onclick="msgpopupopen();" class="heart">	                        			
 				                            <img src="/resources/img/icon/heart_off.png">
 	                        			</button>
 	                        		</c:when>
@@ -85,7 +85,7 @@
 				                	</c:otherwise>
 	                        	</c:choose>
 	                        </div>
-	                        <img src="/resources/upload/house/${h.photoList}">
+	                        <img src="/resources/upload/house/${h.photoList[0].photoPath}">
 	                    </div>
 	        	<a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>">
 	                    <div class="house_list_text">
@@ -201,17 +201,17 @@
 	<script>
 		//좋아요
 		function likehouse(c,obj){
-			var memberNo = "${sessionScope.member.memberNo}";
+			var memberNo = "${sessionScope.m.memberNo}";
 			var houseNo = obj;
 			$.ajax({
 				url : "/houseLike.do",
 				data : {memberNo:memberNo, houseNo:houseNo},
 				type: "POST",
-				success : function(data){
-					if(data.like_check == 0){
-						$(c).children().attr("src","/resources/img/icon/heart_off.png");
+				success : function(data){					
+					if(data.likeCheck == 0){						
+						$(c).children().attr("src","/resources/img/icon/heart_off.png");						
 					}else{
-						$(c).children().attr("src","/resources/img/icon/heart_on.png");
+						$(c).children().attr("src","/resources/img/icon/heart_on.png");						
 					}
 				}
 			})

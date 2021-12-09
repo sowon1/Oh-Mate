@@ -22,9 +22,9 @@
 		where rnum between 1 and 3
 	</select>
 	<!-- 하우스 리스트 조회 3개만 -->
-	<select id="houseList" resultMap="house">
+	<select id="houseList" parameterType="_int" resultMap="house">
 		select * from 
-			(select rownum as rnum, h.* from
+			(select rownum as rnum, h.*,decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
 			(select * from house where HOUSE_ALLOW=1 order by 1 desc)h) 
 		where rnum between 1 and 3
 	</select>
@@ -74,23 +74,19 @@
 		from member
 	</select>
 	<!-- house Like select -->
-	<select id="houseLike" parameterType="book" resultType="_int">
+	<select id="houseLike" parameterType="map" resultType="_int">
 		select 
-			 bookmark_no as bookmarkNo,
-			 bookmarker,
-			 bookmark_num as bookmarkNum,
-			 bookmark_category as bookmarkCategory,
-			 bookmark_date as bookmarkDate
+			 count(*)
 		from bookmark
 		where bookmark_category=2 and bookmarker=#{memberNo} and bookmark_num=#{houseNo}
 	</select>
 	<!-- House like insert -->
-	<insert id="insertHouseLike" parameterType="book">
+	<insert id="insertHouseLike" parameterType="map">
 		insert into bookmark 
-  		values(bookmark_seq.nextval,bookmarker=#{memberNo},bookmark_num=#{houseNo},2,to_char(sysdate,'yyyy-mm-dd')
+  		values(bookmark_seq.nextval,#{memberNo},#{houseNo},2,to_char(sysdate,'yyyy-mm-dd'))
 	</insert>
 	<!-- house like delete -->
-	<delete id="deleteHouseLike" parameterType="book">
+	<delete id="deleteHouseLike" parameterType="map">
 		delete from bookmark where bookmark_category=2 and bookmarker=#{memberNo} and bookmark_num=#{houseNo}
 	</delete>
 </mapper>
