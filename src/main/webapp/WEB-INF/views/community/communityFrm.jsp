@@ -17,7 +17,7 @@
 				<div class="lg_box">
 					<ul>
 						<li>
-							- 게시글을 작성하시려면 <span><a href="/profileInsert" style="color:red; font-style:italic;">프로필을 등록해주세요.</a></span>&nbsp;&nbsp;
+							- 게시글을 작성하시려면 <span><a href="/profile.do" style="color:red; font-style:italic;">프로필을 등록해주세요.</a></span>&nbsp;&nbsp;
 							<span>나와 비슷한 성향을 가진 메이트를 구할 수 있습니다.</span>
 						</li>
 						<li>
@@ -34,13 +34,13 @@
 					</ul>
 				</div><br>
 				<c:choose>
-					<c:when test="${not empty sessionScope.m}"> 
+					<c:when test="${sessionScope.m.profileStatus eq 1}"> <!-- 프로필 등록했을 때 --> 
 						<a class="btn btn-secondary" id="profileUp" href="/profileUpdate">프로필 수정</a>
 						<a class="btn btn-secondary" id="communityWt" href="/MateWriteFrm">게시글 작성</a>
 					</c:when>
-					<c:otherwise>
-						<a class="btn btn-secondary" href="/profileInsert" style="line-height: normal;">프로필 등록</a>
-					</c:otherwise>
+					<c:when test="${sessionScope.m.profileStatus eq 2}"> <!-- 프로필 등록 안했을 때 --> 
+						<a class="btn btn-secondary" href="/profile.do" style="line-height: normal;">프로필 등록</a>
+					</c:when>
 				</c:choose>
 				<div class="MateSearch">
 					<form style="position: relative;" action="/mateSearch1" method="post">
@@ -63,13 +63,8 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<c:forEach items="${list }" var="c" varStatus="i">
-					    <tr class="table-secondary">
-					      <th scope="row">Secondary</th>
-					      <td>Column content</td>
-					      <td>Column content</td>
-					      <td>Column content</td>
-					    </tr>
+				<c:forEach items="${list }" var="b" varStatus="i">
+				   
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>

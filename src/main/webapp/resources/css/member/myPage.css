@@ -3,8 +3,12 @@
 		position: relative;
 	 	background-color: lightgray;
 	}
-	.mainImg{
-		;
+	p.myPageinfo{
+		font-size: 20px;
+		padding-bottom: 20px;
+	}
+	b, strong{
+		color: #956bfc;
 	}
 	.profImg{
 		width: 130px;
@@ -13,6 +17,7 @@
 	    overflow: hidden;
 	    margin: 0 auto;
 	    margin-bottom: 20px;
+	    margin-left:5px;
 	}
 	#uploadFile{
 		display: none;
@@ -20,6 +25,7 @@
 	#selectPr{
 		margin-left: 20px;
 		line-height: normal;
+		float:left;
 	}
 	.myPageTbl{
 		margin: 0 auto;
@@ -37,9 +43,10 @@
 	    display: flex;
 	    font-family: "ns_300";
 	    width: 200px;
+	    margin-left: 130px;
 	}
 	.protd{
-		padding-left: 100px;
+		padding-left: 150px;
 	}
 	td>input{
 		width: 260px;
@@ -56,4 +63,10 @@
 	}
 	#myPageBtn1, #myPageBtn2{
 		line-height: normal;
+	}
+	#myPageBtn2{
+		padding-top:9px;
+	}
+	.pwResult, .pwReResult, .phoneResult, .emailResult {
+		width:400px;
 	}
