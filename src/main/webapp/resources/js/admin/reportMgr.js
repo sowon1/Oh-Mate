@@ -1,15 +1,29 @@
-$("#allChk").click(function(){
+$("#allChk1").click(function(){
 	if($(this).is(":checked")){
-		$("[name=level]").prop("checked", true);
+		$("[name=status]").prop("checked", true);
 	}else{
-		$("[name=level]").prop("checked", false);
+		$("[name=status]").prop("checked", false);
 	}
 });
-$("[name=level]").click(function(){
-	if($("[name=level]").length == $("[name=level]:checked").length){
-		$("#allChk").prop("checked", true);
+$("[name=status]").click(function(){
+	if($("[name=status]").length == $("[name=status]:checked").length){
+		$("#allChk1").prop("checked", true);
 	}else{
-		$("#allChk").prop("checked", false);
+		$("#allChk1").prop("checked", false);
+	}
+});
+$("#allChk2").click(function(){
+	if($(this).is(":checked")){
+		$("[name=cate]").prop("checked", true);
+	}else{
+		$("[name=cate]").prop("checked", false);
+	}
+});
+$("[name=cate]").click(function(){
+	if($("[name=cate]").length == $("[name=cate]:checked").length){
+		$("#allChk2").prop("checked", true);
+	}else{
+		$("#allChk2").prop("checked", false);
 	}
 });
 $("[name=type]").change(function(){

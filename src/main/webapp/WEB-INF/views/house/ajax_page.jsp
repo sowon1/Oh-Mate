@@ -25,7 +25,7 @@
                      </div>
                   <img src="/resources/upload/house/${h.photoList[0].photoPath}">
               </div>
-		<a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>">
+		<a href="<c:url value='houseView.do?houseNo=${h.houseNo}'/>">
               <div class="house_list_text">
                   <div class="list_line_01">
                       <span class="list_house_title">${h.houseTitle}</span>
@@ -47,7 +47,7 @@
                       <span class="house_form">${h.houseForm}</span>
                   </div>
               </div>
-              <a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>" class="house_more_btn">입주 가능 방 ${h.houseRoom}개</a>
+              <a href="<c:url value='houseView.do?houseNo=${h.houseNo}'/>" class="house_more_btn">입주 가능 방 ${h.houseRoom}개</a>
        </li>         
 	</a>
 </c:forEach>

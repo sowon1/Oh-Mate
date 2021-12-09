@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -30,7 +31,14 @@ public class AdminController {
 	private AdminService service;
 	
 	@RequestMapping(value="/memberMgr.do")
-	public String memberMgr(int reqPage, Model model) {
+	public String memberMgr(int reqPage, Model model,@SessionAttribute Member m) {
+		/*
+		if(m == null) {
+			return "admin/memberMgr";
+		}else if(m.getMemberLevel()!=1) {
+			return "admin/memberMgr";
+		}
+		*/
 		HashMap<String, Object> data = service.selectAllMember(reqPage);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));

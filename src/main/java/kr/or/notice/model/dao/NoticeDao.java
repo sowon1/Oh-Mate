@@ -48,5 +48,21 @@ public class NoticeDao {
 		return sqlSession.update("notice.updateReadCount", noticeNo);
 	}
 
+	public int deleteNotice(int noticeNo) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.delete("notice.deleteNotice", noticeNo);
+	}
+
+	public int deleteFile(int fileNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("notice.deleteFile", fileNo);
+	}
+
+	public int updateNotice(Notice n) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("notice.updateNotice", n);
+	}
+
 	
 }

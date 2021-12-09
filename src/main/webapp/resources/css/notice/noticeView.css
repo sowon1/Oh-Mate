@@ -3,8 +3,17 @@
 		line-height: 17.5px;
 	}
 	table *{
-
+		
 	}
 	table a{
 		color: #333;
+	}
+	table a:hover{
+		text-decoration: underline;	
+	}
+	.fileDownload{
+		cursor: pointer;
+	}
+	.fileDownload:hover{
+		text-decoration: underline;	
 	}

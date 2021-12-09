@@ -4,26 +4,35 @@
     border-bottom: 1px solid #e7e7e7;
     margin: 50px 0 50px 0;
     padding: 40px 20px 40px 20px;
+    align-items: center;
 }
 .searchBox>div{
     width: 50%;
-    display: flex;
 }
-.searchBox>div>div:first-child{
-	margin-right: 10px;
-}
-.searchBox p{
-	font-family: "ns_700";
-}
-.searchBox>div:first-child{
-    justify-content: space-around;
-    align-items: center;
-}
-.searchBox>div:first-child>div>p{
-    margin: 0;
+.searchBox>div:last-child{
+    display: flex;	
 }
 .searchBox>div:last-child{
     justify-content: flex-end;
+    align-items: center;
+}
+.chkBox>table{
+	width:100%;
+}
+.chkBox>table tr{
+	height:40px;
+}
+.chkBox>table th{
+	width:21%;
+	text-align: left;
+	padding-left: 10px;
+}
+.chkBox>table tr>td{
+	width:17%;
+	text-align: left;
+}
+.chkBox>table tr>td:first-of-type{
+	width:15%;
 }
 input[type="checkbox"]{
     margin-right: 5px;
@@ -34,14 +43,15 @@ input[type="checkbox"]{
 }
 .keywordBox>select{
     width: auto;
+    height:45px;
 }
 .keywordBox>select:focus{
     box-shadow: none;
     border-color: #956bfc;
 }
 .keywordBox input[name="keyword"]{
-    height: auto;
     width: 250px;
+    height:45px;
 }
 .keywordBox input[name="keyword"]::placeholder{
 	color:#ddd;

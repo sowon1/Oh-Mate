@@ -53,4 +53,16 @@
 			notice_readcount = notice_readcount+1
 		where notice_no = #{noticeNo}
 	</update>
+	<delete id="deleteNotice" parameterType="_int">
+		delete from notice where notice_no=#{noticeNo}
+	</delete>
+	<delete id="deleteFile" parameterType="_int">
+		delete from File_tbl where file_no=#{fileNo}
+	</delete>
+	<update id="updateNotice" parameterType="n">
+		update notice set
+			notice_title = #{noticeTitle},
+			notice_content = #{noticeContent}
+		where notice_no = #{noticeNo}
+	</update>
 </mapper>

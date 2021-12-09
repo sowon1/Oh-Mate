@@ -9,7 +9,6 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<link rel="stylesheet" href="/resources/css/notice/noticeView.css">
 	<div class="container_mate">
 		<h1>공지사항</h1>
 		<br>
@@ -28,9 +27,9 @@
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td>
+					<td colspan="3">
 						<c:forEach items="${n.list }" var="f">
-							<a href="/noticeFileDownload.do?fileNo=${f.fileNo }">${f.filename }</a><br>
+							<a href="/downFile.do?filepath=${f.filepath }&filename=${f.filename }">${f.filename }</a><br>
 						</c:forEach>
 					</td>
 
@@ -46,8 +45,8 @@
 					<th colspan="4" style="text-align:center;">
 						<button class="btn btn_sm btn_out" onclick="history.go(-1);">이전화면</button>
 						<c:if test="${not empty sessionScope.m && sessionScope.m.memberLevel eq 0 }">
-							<a href="/noticeUpdateFrm?noticeNo=${n.noticeNo }" class="btn btn_sm">수정</a>
-							<a href="/noticeDelete?noticeNo=${n.noticeNo }" class="btn btn_pk btn_sm">삭제</a>
+							<a href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }" class="btn btn_sm">수정</a>
+							<a href="/noticeDelete.do?noticeNo=${n.noticeNo }" class="btn btn_pk btn_sm">삭제</a>
 						</c:if>
 					</th>
 				</tr>
@@ -56,4 +55,5 @@
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
+<link rel="stylesheet" href="/resources/css/notice/noticeView.css">
 </html>
