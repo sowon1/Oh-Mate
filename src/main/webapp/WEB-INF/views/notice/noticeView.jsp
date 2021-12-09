@@ -29,8 +29,7 @@
 					<th>첨부파일</th>
 					<td colspan="3">
 						<c:forEach items="${n.list }" var="f">
-							<div class="fileDownload" onclick="downloadFile('${f.filepath}','${f.filename }')">${f.filename }</div>
-							<%-- <a href="/noticeFileDownload.do?fileNo=${f.filepath }">${f.filename }</a><br> --%>
+							<a href="/downFile.do?filepath=${f.filepath }&filename=${f.filename }">${f.filename }</a><br>
 						</c:forEach>
 					</td>
 
@@ -55,20 +54,6 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	<script>
-		function downloadFile(filepath,filename){
-			var downFilepath = filepath;
-			var downFilename = filename;
-			$.ajax({
-				url: "/downFile.do",
-				type: "post",
-				data: {filepath:downFilepath,filename:downFilename},
-				success: function(data){
-					
-				}
-			})
-		}
-	</script>
 </body>
 <link rel="stylesheet" href="/resources/css/notice/noticeView.css">
 </html>

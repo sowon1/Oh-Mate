@@ -53,7 +53,7 @@ public class NoticeService {
 		}
 		int pageNaviSize=5;
 		int pageNo = 1;
-		if(reqPage>3) {
+		if(reqPage>4) {
 			pageNo= reqPage-2;
 			if(totalPage - reqPage < (pageNaviSize-1)) {
 				pageNo = totalPage-(pageNaviSize-1);
