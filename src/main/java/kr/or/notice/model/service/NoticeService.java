@@ -60,15 +60,15 @@ public class NoticeService {
 			}
 		}
 		
-		String pageNavi = "";
+		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if(pageNo != 1) {
-			pageNavi += "<a href='/noticeList?reqPage="+(reqPage-1)+".do'>[이전]</a>";
+			pageNavi += "<li class='page-item'><a href='/noticeList.do?reqPage="+(reqPage-1)+"'>&lt;</a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi = "<span>"+pageNo+"</span>";
+				pageNavi += "<li class='page-item active'><a href='/noticeList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
 			}else {
-				pageNavi += "<a href='/noticeList?reqPage="+pageNo+".do'>"+pageNo+"</a>";
+				pageNavi += "<li class='page-item'><a href='/noticeList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
 			}
 			pageNo++;
 			if(pageNo > totalPage) {
@@ -76,8 +76,9 @@ public class NoticeService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<a href='/noticeList?reqPage="+(reqPage+1)+".do'>[다음]</a>";
+			pageNavi += "<li class='page-item'><a href='/noticeList.do?reqPage="+(reqPage+1)+"'>&gt;</a><li>";
 		}
+		pageNavi += "</ul>";
 		
 		map.put("pageNavi", pageNavi);
 		map.put("list",	list);
@@ -88,9 +89,42 @@ public class NoticeService {
 	@Transactional
 	public Notice selectNotice(int noticeNo) {
 		// TODO Auto-generated method stub
-		int result = dao.updateReadCount(noticeNo);
+		dao.updateReadCount(noticeNo);
 		Notice n = dao.selectNoticeList(noticeNo);
 		return n;
+	}
+
+	@Transactional
+	public int deleteNotice(int noticeNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteNotice(noticeNo);
+	}
+
+	public Notice selectOneNotice(int noticeNo) {
+		// TODO Auto-generated method stub
+		return dao.selectNoticeList(noticeNo);
+	}
+	
+	@Transactional
+	public int deleteFile(int fileNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteFile(fileNo);
+	}
+
+	@Transactional
+	public int updateNotice(Notice n, ArrayList<FileVO> list) {
+		// TODO Auto-generated method stub
+		int result1 = dao.updateNotice(n);
+		int result = 0;
+		if(result1>0) {
+			for(FileVO fv : list) {
+				fv.setNoticeNo(n.getNoticeNo());
+				result += dao.insertFile(fv);
+			}
+		}else {
+			return -1;
+		}
+		return result;
 	}
 	
 }
