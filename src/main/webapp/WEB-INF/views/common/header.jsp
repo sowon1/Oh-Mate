@@ -182,7 +182,7 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="/myPageFrm.do">나의 정보</a></li>
+		      <li><a href="/myPage.do?memberId=${sessionScope.m.memberId }">나의 정보</a></li>
 		      <li><a href="#">쪽지함</a></li>
 		      <li><a href="#">하우스 찜목록 확인</a></li>
 		      <li><a href="#">하우스 입주 내역 확인</a></li>
@@ -214,7 +214,7 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="#">메뉴1</a></li>
+		      <li><a href="/myPageFrm.do">나의 정보</a></li>
 		      <li><a href="#">메뉴2</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <li><a href="#">메뉴4</a></li>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.member.model.dao.MemberDao;
 import kr.or.member.model.vo.Member;
@@ -34,7 +35,8 @@ public class MemberService {
 		return dao.searchPw(member);
 	}
 
-	//메이트 회원가입 
+	//회원가입
+	@Transactional
 	public int join(Member m) {
 		return dao.join(m);
 	}
@@ -47,6 +49,24 @@ public class MemberService {
 	//회원가입_이메일 중복체크
 	public Member emailCheck(String email) {
 		return dao.emailCheck(email);
+	}
+	
+	//마이페이지
+	public Member selectMyPageFrm(String memberId) {
+		System.out.println("memberId :" +  memberId);
+		return dao.selectMyPageFrm(memberId);
+	}
+
+	//마이페이지_수정
+	@Transactional
+	public int myPageUpdate(Member member) {
+		return dao.myPageUpdate(member);
+	}
+
+	//회원탈퇴
+	@Transactional
+	public int deleteMember(int memberNo) {
+		return dao.deleteMember(memberNo);
 	}
 
 

@@ -11,6 +11,8 @@ import java.util.Random;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -27,7 +29,6 @@ import kr.or.member.model.vo.Member;
 public class MemberController {
 	@Autowired
 	private MemberService service;
-	
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -35,10 +36,19 @@ public class MemberController {
 	@RequestMapping(value="/login.do")
 	public String login(Member member, HttpSession session, Model model) {
 		Member m = service.selectOneMember(member);
-		if(m != null) {
-			session.setAttribute("m", m);
-			model.addAttribute("msg","로그인 성공~!");
-		}else {
+		if(m != null) {  // 로그인  성공
+			if(m.getMemberLevel() == 3 || m.getMemberLevel() == 6 || m.getMemberLevel() == 7) {  // 정지회원
+				if(session!=null) {
+					session.invalidate();
+					model.addAttribute("msg","계정 정지 회원입니다. 관리자에게 문의하세요.");
+					model.addAttribute("loc","/");
+				}
+				
+			}else {  // 그 외
+				session.setAttribute("m", m);
+				model.addAttribute("msg","로그인 성공~");
+			}
+		}else {  // 로그인 실패
 			model.addAttribute("msg","아이디 또는 비밀번호를 다시 확인해주세요.");
 		}
 		model.addAttribute("loc","/");
@@ -120,7 +130,7 @@ public class MemberController {
 				}  
 				
 			try {
-				System.out.println(savePath+filepath);
+				//System.out.println(savePath+filepath);
 				FileOutputStream fos = new FileOutputStream(new File(savePath+filepath));
 				//업로드 속도증가를 위한 보조스트림
 				BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -137,12 +147,8 @@ public class MemberController {
 			}
 			member.setFilepath(filepath);
 	}// else	
-		//파일 저장할 경로
 		
-		member.setMemberLevel(1);
-		member.setProfileStatus(2); 
-		
-		System.out.println(member.toString());
+		System.out.println("join1 " +member.toString());
 		int result = service.join(member);  
 		
 		if(result > 0) {   // 성공 
@@ -155,7 +161,7 @@ public class MemberController {
 		return "common/msg";
 	}
 	
-	//하우스오너 회원가입 -> 중복 나중에 수정하기
+	//하우스오너 회원가입 
 		@RequestMapping(value="/join2.do")
 		public String join2(Member member, MultipartFile uploadFile, HttpServletRequest request, Model model){
 
@@ -188,7 +194,7 @@ public class MemberController {
 					}  
 					
 				try {
-					System.out.println(savePath+filepath);
+					//System.out.println(savePath+filepath);
 					FileOutputStream fos = new FileOutputStream(new File(savePath+filepath));
 					//업로드 속도증가를 위한 보조스트림
 					BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -205,12 +211,9 @@ public class MemberController {
 				}
 				member.setFilepath(filepath);
 		}// else	
-			//파일 저장할 경로
+			//파일 저장할 경로 
 			
-			member.setMemberLevel(2);
-			member.setProfileStatus(2); 
-			
-			System.out.println(member.toString());
+			System.out.println("join2 " + member.toString());
 			int result = service.join(member);  
 			
 			if(result > 0) {   // 성공 
@@ -278,8 +281,7 @@ public class MemberController {
             helper.setTo(toMail);
             helper.setSubject(title);
             helper.setText(content,true);
-            mailSender.send(message);
-            
+            mailSender.send(message);    
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -298,8 +300,7 @@ public class MemberController {
 	public String searchId(Member member, Model model) {
 		Member m = service.searchId(member);
 		if(m != null) {
-			model.addAttribute("msg","아이디는 ["+m.getMemberId()+"] 입니다.");
-			
+			model.addAttribute("msg","아이디는 ["+m.getMemberId()+"] 입니다.");	
 		}else {
 			model.addAttribute("msg","회원정보가 없습니다.");
 		}
@@ -327,9 +328,87 @@ public class MemberController {
 	}
 	
 	//마이페이지 이동
-	@RequestMapping(value="/myPageFrm.do")
-	public String myPage() {
+	@RequestMapping(value="/myPage.do")
+	public String myPageFrm(String memberId, Model model) {
+		System.out.println("memberId : " +  memberId);
+		Member m = service.selectMyPageFrm(memberId);
+		System.out.println("마이페이지 이동" +  m);
+		model.addAttribute("m",m);
 		return "member/myPage";
+	}
+	
+	//마이페이지_수정
+	@RequestMapping(value="/myPageUpdate.do")
+	public String myPageUpdate(Member member, MultipartFile uploadFile, HttpServletRequest request, Model model, HttpSession session) {
+		if(uploadFile.isEmpty()) { //첨부파일이 없는경우
+			
+		}else { //첨부파일이 있는경우
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/member/");
+			
+			//파일처리(파일업로드)
+			String filename = uploadFile.getOriginalFilename();   
+			String onlyFilename = filename.substring(0,filename.indexOf("."));  
+			String extention = filename.substring(filename.indexOf("."));  
+			
+			//실제 업로드 할 파일명을 저장할 변수
+			String filepath = null;   
+			
+			//파일명 중복 시 숫자를 붙이는 코드
+			int count = 0;   
+			while(true) {    
+				if(count == 0) {
+					filepath = onlyFilename + extention;  
+				}else {
+					filepath = onlyFilename + "_" + count + extention;  
+				}
+				File checkFile = new File(savePath+filepath);  
+				if(!checkFile.exists()) { 
+					break;
+				}
+				count++;    
+			}  	
+			try {
+				//System.out.println(savePath+filepath);
+				FileOutputStream fos = new FileOutputStream(new File(savePath+filepath));
+				//업로드 속도증가를 위한 보조스트림
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				//파일업로드
+				byte[] bytes = uploadFile.getBytes();
+				bos.write(bytes);
+				bos.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			member.setFilepath(filepath);
+		}// else	
+		int result = service.myPageUpdate(member);
+		System.out.println("마이페이지 수정" +  result);
+		if(result>0) {   // 성공 
+			model.addAttribute("msg","회원정보 수정 완료~");
+			session.setAttribute("member", member);
+		}else {    
+			model.addAttribute("msg","회원정보 수정 실패");
+		}
+		model.addAttribute("loc","/myPage.do?memberId="+member.getMemberId());
+		return "common/msg";
+	}
+	
+	//회원탈퇴
+	@RequestMapping(value="/deleteMember.do")
+	public String deleteMember(int memberNo, HttpSession session, Model model) {
+		int result = service.deleteMember(memberNo);
+		if(result > 0) {
+			model.addAttribute("msg","정상적으로 탈퇴 되었습니다.");
+			session.invalidate();
+		}else {
+			model.addAttribute("msg","탈퇴 실패");
+		}
+		model.addAttribute("loc","/");
+		return "common/msg";
 	}
 	
 	//커뮤니티 이동
@@ -337,6 +416,28 @@ public class MemberController {
 	public String communityFrm() {
 		return "community/communityFrm";
 	}
-
+	
+	//프로필등록 이동
+	@RequestMapping(value="/profile.do")
+	public String profile() {
+		return "community/profile";
+	}
+	
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
