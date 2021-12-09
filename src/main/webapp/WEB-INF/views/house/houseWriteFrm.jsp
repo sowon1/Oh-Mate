@@ -9,13 +9,12 @@
 <style>
 .content {
 	width: 600px;
-	margin: 0 auto;
-	padding: 10px;
+	margin: 150px auto;
 	box-sizing: border-box;
-	border: 1px solid #9F9F9F;
+	padding:30px;
 	border-radius: 5px;
+	background-color: #fff;
 }
-
 .note-modal-content {
 	height: auto;
 	position: fixed;
@@ -48,7 +47,9 @@
 	color: ##9F9F9F;
 	outline: none;
 }
-
+.content{
+	background-color: #fff;
+}
 .content div {
 	text-align: center;
 }
@@ -71,7 +72,9 @@
 
 .form-title {
 	margin: 5px;
+	margin-bottom: 30px;
 	font-weight: bold;
+	text-align: left;
 }
 
 .houseForm {
@@ -102,14 +105,14 @@
 	<!-- include summernote-ko-KR -->
 	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
-	<div class="container_mate">
+	<div style="margin: 0; background-color: #f8f8fa; height: 100%;">
 		<div class="content">
 			<form action="/houseWrite.do" id="frm" method="post"
 				enctype="multipart/form-data">
 				<input type="hidden" name="memberNo"
 					value="${sessionScope.m.memberNo }">
 				<div class="houseForm" style="display: block;">
-					<h4 class="form-title">정산받을 계좌를 입력해주세요</h4>
+					<h4 class="form-title point_title">정산받을 계좌를 입력해주세요</h4>
 					<div class="content-place">
 						<p class="ac-title">은행</p>
 						<select id="bank" class="control-group" name="incomeBank">
@@ -134,7 +137,7 @@
 					</div>
 				</div>
 				<div class="houseForm">
-					<h4 class="form-title">소개가 끝나는 날짜를 정해주세요</h4>
+					<h4 class="form-title point_title">소개가 끝나는 날짜를 정해주세요</h4>
 					<div class="content-place">
 						<input type="text" name="houseownerDeadline" id="datefilter"
 							class="input_date input_04" style="width: 100%;"
@@ -146,12 +149,12 @@
 					</div>
 				</div>
 				<div class="houseForm">
-					<h4 class="form-title">위치정보 입력</h4>
+					<h4 class="form-title point_title">위치정보 입력</h4>
 					<div class="content-place">
 						<div class="postcode">
 							<input type="text" id="postCode" name="addressCode"
 								class="input_04" readonly="readonly" placeholder="우편번호"
-								style="width: 81%">
+								style="width: 78%">
 							<button type="button" onclick="addrSearch();" class="btn btn_sm"
 								style="line-height: 30px">주소검색</button>
 						</div>
@@ -174,8 +177,8 @@
 					</div>
 				</div>
 				<div class="houseForm">
-					<h4 class="form-title">집정보 입력</h4>
-					<div class="content-place" style="height: 700px;">
+					<h4 class="form-title point_title">집정보 입력</h4>
+					<div class="content-place" style="height: 600px;">
 						<p class="ac-title">하우스 이름</p>
 						<input type="text" name="houseTitle" id="houseName"
 							class="input_03" placeholder="하우스이름">
@@ -200,8 +203,8 @@
 					</div>
 				</div>
 				<div class="houseForm">
-					<h4 class="form-title">이용규칙/이미지 업로드</h4>
-					<div class="content-place" style="height: 500px;">
+					<h4 class="form-title point_title">이용규칙/이미지 업로드</h4>
+					<div class="content-place" style="height: 400px;">
 						<p class="ac-title">하우스 이용규칙</p>
 						<textarea class="summernote" name="houseRule"></textarea>
 					</div>
@@ -219,8 +222,8 @@
 					</div>
 				</div>
 				<div class="houseForm">
-					<h4 class="form-title">집정보 입력</h4>
-					<div class="content-place" style="height: 400px">
+					<h4 class="form-title point_title">제공정보 입력</h4>
+					<div class="content-place" style="height: auto;">
 						<p class="ac-title">제공편의시설</p>
 						<table>
 							<tr>
@@ -383,7 +386,7 @@
 							<option value="5">5</option>
 							<option value="6">6</option>
 						</select>
-						<p class="ac-title">지정성별</p>
+						<p class="ac-title" style="margin-top: 15px;">지정성별</p>
 						<table>
 							<tr style="text-align: center;">
 								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
@@ -605,8 +608,8 @@
 		}
 		//썸머노트(파일업로드 문제)
 		$(".summernote").summernote({
-			height : 300,
-			maxHeight : 300, // 최대 높이
+			height : 250,
+			maxHeight : 250, // 최대 높이
 			lang : "ko-KR",
 			callbacks : {
 				onImageUpload : function(files) {
@@ -662,8 +665,6 @@
 					});
 		}
 	</script>
-	<script
-		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

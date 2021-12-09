@@ -60,4 +60,28 @@ public class RoomController {
 			return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
 		}
 	}
+	@RequestMapping(value = "/roomMod.do")
+	public String roomMod(int houseNo, int roomNo, int houseRoom, Model model) {
+		Room r = service.selectOneRoom(houseNo,roomNo);
+		if(r!=null) {
+			model.addAttribute("r", r);
+			model.addAttribute("houseRoom", houseRoom);
+			return "room/roomUpdateFrm";
+		}else {
+			model.addAttribute("msg", "조회하신 방이 없습니다.");
+			return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+		}
+	}
+	@RequestMapping(value = "/roomUpdate.do")
+	public String roomUpdate(Room r,int houseRoom,Model model) {
+		int result = service.updateRoom(r);
+		int houseNo = r.getHouseNo();
+		if(result>0) {
+			model.addAttribute("msg", "수정성공");
+			return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+		}else {
+			model.addAttribute("msg", "수정실패");
+			return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+		}
+	}
 }

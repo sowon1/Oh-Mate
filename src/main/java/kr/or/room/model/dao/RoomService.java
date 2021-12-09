@@ -28,4 +28,18 @@ public class RoomService {
 		int result = dao.deleteRoom(r);
 		return result;
 	}
+
+	public Room selectOneRoom(int houseNo, int roomNo) {
+		HashMap<String, Object> map =new HashMap<String, Object>();
+		map.put("houseNo", houseNo);
+		map.put("roomNo", roomNo);
+		Room r = dao.selectOneRoom(map);
+		System.out.println(r.getRoomPersonnel());
+		return r;
+	}
+
+	public int updateRoom(Room r) {
+		int result = dao.updateRoom(r);
+		return result;
+	}
 }

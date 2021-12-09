@@ -25,4 +25,29 @@
  	<delete id="deleteRoom" parameterType="r">
  		delete from room where room_no=#{roomNo} and house_no=#{houseNo}
  	</delete>
+ 	<select id="selectOneRoom" parameterType="map" resultType="r">
+ 		select
+ 			room_no as roomNo,
+ 			house_no as houseNo,
+ 			room_title as roomTitle,
+ 			room_size as roomSize,
+ 			room_phone as roomPhone,
+ 			room_status as roomStatus,
+ 			room_charge as roomCharge,
+ 			room_content as roomContent,
+ 			room_personnel as roomPersonnel,
+ 			room_month as roomMonth
+ 		from room where house_no=#{houseNo} and room_no=#{roomNo}
+ 	</select>
+ 	<update id="updateRoom" parameterType="r">
+ 		update room set 
+ 		room_title = #{roomTitle},
+ 		room_size = #{roomSize},
+ 		room_phone = #{roomPhone},
+ 		room_charge = #{roomCharge},
+ 		room_content = #{roomContent},
+ 		room_personnel = #{roomPersonnel},
+ 		room_month = #{roomMonth}
+ 		where room_no=#{roomNo} and house_no=#{houseNo}
+ 	</update>
 </mapper>

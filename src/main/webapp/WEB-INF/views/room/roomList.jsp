@@ -10,9 +10,8 @@
 .content {
 	width: 600px;
 	margin: 0 auto;
-	padding: 10px;
+	padding: 30px;
 	box-sizing: border-box;
-	border: 1px solid #9F9F9F;
 	border-radius: 5px;
 }
 
@@ -27,7 +26,9 @@
 .note-modal-footer {
 	margin-bottom: 40px
 }
-
+.content{
+	background-color: #fff;
+}
 .content-place>select {
 	width: 100%;
 	height: 45px;
@@ -49,12 +50,11 @@
 	outline: none;
 }
 
-.content div {
+.houseForm div {
 	text-align: center;
 }
 
 .ac-title {
-	text-align: center;
 	font-size: 16px;
 	color: #847E78;
 	margin: 5px;
@@ -98,14 +98,14 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<div class="container_mate">
+	<div style="margin: 0; padding-top: 200px; background-color: #f8f8fa; height: 100%;">
 		<div class="content">
 			<div class="houseForm" >
-				<h4 class="form-title">방 리스트</h4>
+				<h4 class="form-title point_title">방 리스트</h4>
 				<div class="content-place">
 					<div class="room-status">
-						<p class="ac-title">현재 방갯수 ※등록하신 방갯수 채워야함</p>
 						<div class="room-counting" style="text-align: left;">
+						<p class="ac-title">현재 방갯수 ※등록하신 방갯수 채워야함</p>
 							<span id="nowRoom"></span>/<span id="endRoom">${houseRoom }</span>
 						</div>
 					</div>
@@ -115,12 +115,12 @@
 							<input type="hidden" name="houseNo" value="${houseNo }">
 							<input type="hidden" name="houseRoom" value="${houseRoom }">
 							<button class="btn btn_w" type="submit"
-								style="height: 40px; line-height: 25px">방 등록하기</button>
+								style="height: 40px; line-height: 25px" onclick="return chkNum()">방 등록하기</button>
 						</form>
 					</div>
 					<br>
 					<c:forEach items="${list }" var="r" varStatus="i">
-						<div class="room-list">
+						<div class="room-list" style="margin-top: 15px;">
 							<ul >
 								<li class="room_li">
 									<div class="room-title">
@@ -128,7 +128,7 @@
 										<p style="font-size: 25px; font-weight: bold; color: #956bfc; margin-left: 5px">${r.roomTitle }</p>
 									</div>
 										<div class="roomBtn">
-											<a href="/roomMod.do"> <i class="fas fa-pen far-2x"></i>
+											<a href="/roomMod.do?roomNo=${r.roomNo }&houseNo=${r.houseNo}&houseRoom=${houseRoom}"> <i class="fas fa-pen far-2x"></i>
 											</a> <a href="/roomDel.do?houseNo=${r.houseNo }&roomNo=${r.roomNo }&houseRoom=${houseRoom}"> <i class="fas fa-times far-2x"></i>
 											</a>
 										</div>
@@ -145,7 +145,7 @@
 													<div class="font-mid">${r.roomMonth }원</div>
 												</td>
 												<td>
-													<p class="ac-title" style="margin-top: 40px;margin-left: 30px;">${r.roomSize }평·${r.roomPersonnel }/전화번호 : ${r.roomPhone }</p>
+													<p class="ac-title" style="margin-top: 40px;margin-left: 30px;">${r.roomSize }·${r.roomPersonnel }/전화번호 : ${r.roomPhone }</p>
 												</td>
 											</tr>
 										</table>
@@ -164,6 +164,7 @@
 	</div>
 	<script>
 		$(function() {
+			
 			var length= $(".room-list").length;
 			$("#nowRoom").html(length);
 		});
@@ -176,7 +177,16 @@
 				alert("등록하신 최대 방갯수를 채워주세요~");
 			}
 		}
+		function chkNum() {
+			var start = $("#nowRoom").html();
+			var co = $("#endRoom").html();
+			if(start==co){
+				alert("최대 방갯수가 초과됬습니다.")
+				return false;
+			}else{
+				return true;
+			}
+		}
 	</script>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

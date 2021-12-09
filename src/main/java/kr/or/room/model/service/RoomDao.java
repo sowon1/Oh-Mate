@@ -29,4 +29,14 @@ public class RoomDao {
 		int result =session.delete("room.deleteRoom",r);
 		return result;
 	}
+
+	public Room selectOneRoom(HashMap<String, Object> map) {
+		Room r = session.selectOne("room.selectOneRoom",map);
+		return r;
+	}
+
+	public int updateRoom(Room r) {
+		int result=session.update("room.updateRoom",r);
+		return result;
+	}
 }

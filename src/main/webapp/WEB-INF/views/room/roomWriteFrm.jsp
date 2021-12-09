@@ -11,8 +11,9 @@
 	margin: 0 auto;
 	padding: 10px;
 	box-sizing: border-box;
-	border: 1px solid #9F9F9F;
 	border-radius: 5px;
+	background-color: #fff;
+	padding: 30px;
 }
 
 .note-modal-content {
@@ -69,17 +70,17 @@
 
 .form-title {
 	margin: 5px;
+	margin-bottom: 30px;
 	font-weight: bold;
 }
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<div class="container_mate">
-		<div class="houseForm">
+	<div style="margin: 0; padding-top: 80px; background-color: #f8f8fa; height: 100%;">
 			<div class="content">
 				<form action="/roomWrite.do" method="post">
-					<h4 class="form-title">방 리스트</h4>
+					<h4 class="form-title point_title">방 리스트</h4>
 					<input type="hidden" name="houseNo" value="${houseNo }">
 					<input type="hidden" name="houseRoom" value="${houseRoom }">
 					<div class="content-place">
@@ -126,11 +127,11 @@
 					</div>
 				</form>
 			</div>
-		</div>
 	</div>
 	<script>
 		function accountChk() {
-			if($("#roomTitle").val()!="" && $("#roomSize").val()!=""&& $("#roomPhone").va()!=""&& $("#roomMonth").val()!="" && $(#"#roomPersonnel").val()!=""){
+			if($("#roomTitle").val()!="" && $("#roomSize").val()!=""&& $("#roomPhone").va()!=""&& $("#roomMonth").val()!="" && $("#roomPersonnel").val()!="")
+			{
 				return true;
 			}else{
 				alert("방등록 내용을 확인해주세요!!")
@@ -139,6 +140,5 @@
 	
 		}
 	</script>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
