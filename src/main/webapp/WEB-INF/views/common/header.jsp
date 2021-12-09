@@ -156,11 +156,11 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
+		      <li><a href="#">메뉴1</a></li>
 		      <li><a href="/memberMgr.do?reqPage=1">회원관리</a></li>
-		      <li><a href="#">메뉴2</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <li><a href="#">메뉴4</a></li>
-		      <li><a href="#">메뉴5</a></li>
+		      <li><a href="/reportMgr.do?reqPage=1">신고관리</a></li>
 		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>

@@ -1,0 +1,66 @@
+.searchBox{
+    display: flex;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    margin: 50px 0 50px 0;
+    padding: 40px 20px 40px 20px;
+}
+.searchBox>div{
+    width: 50%;
+    display: flex;
+}
+.searchBox>div>div:first-child{
+	margin-right: 10px;
+}
+.searchBox p{
+	font-family: "ns_700";
+}
+.searchBox>div:first-child{
+    justify-content: space-around;
+    align-items: center;
+}
+.searchBox>div:first-child>div>p{
+    margin: 0;
+}
+.searchBox>div:last-child{
+    justify-content: flex-end;
+}
+input[type="checkbox"]{
+    margin-right: 5px;
+}
+.keywordBox input[type="submit"]{
+    line-height: 0;
+    width: 100px;
+}
+.keywordBox>select{
+    width: auto;
+}
+.keywordBox>select:focus{
+    box-shadow: none;
+    border-color: #956bfc;
+}
+.keywordBox input[name="keyword"]{
+    height: auto;
+    width: 250px;
+}
+.keywordBox input[name="keyword"]::placeholder{
+	color:#ddd;
+}
+table *{
+    text-align: center;
+}
+table a{
+	color: #333;
+}
+table a:hover{
+	text-decoration: underline;	
+}
+table p{
+	margin: 50px 0;
+}
+.container_mate>h1{
+	padding-left: 35px;
+}
+.form-check-input:focus{
+	box-shadow: none;
+}

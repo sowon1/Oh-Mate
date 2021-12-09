@@ -12,5 +12,6 @@
 		<typeAlias type="kr.or.admin.model.vo.UpdateMember" alias="um"/>
 		<typeAlias type="kr.or.notice.model.vo.Notice" alias="n"/>
 		<typeAlias type="kr.or.notice.model.vo.FileVO" alias="fi"/>
+		<typeAlias type="kr.or.common.Report" alias="rp"/>
 	</typeAliases>
 </configuration>

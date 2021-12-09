@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.admin.model.vo.UpdateMember;
+import kr.or.common.Report;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -57,5 +58,14 @@ public class AdminDao {
 
 	public int deleteProfile(String pWriter) {
 		return session.delete("admin.deleteProfile", pWriter);
+	}
+
+	public ArrayList<Report> selectAllReport(HashMap<String, Object> map) {
+		List<Report> list = session.selectList("admin.selectAllReport", map);
+		return (ArrayList<Report>)list;
+	}
+
+	public int totalReportCount() {
+		return session.selectOne("admin.reportTotal");
 	}
 }
