@@ -13,6 +13,7 @@ import kr.or.common.Photo;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
+import kr.or.room.model.vo.Room;
 
 @Service
 public class HouseService {
@@ -80,8 +81,15 @@ public class HouseService {
 		return result;
 	}
 	//하우스 상세보기 - sowon
-	public House selectHouseOneView(int houseNo) {
-		House h = dao.selectHouseOneView(houseNo);
+	public House selectHouseOneView(int houseNo, int memberNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("houseNo", houseNo);
+		map.put("memberNo", memberNo);
+		House h = dao.selectHouseOneView(map);
+		ArrayList<Room> houseRoomView = dao.selectHouseRoomView(houseNo);
+		ArrayList<Photo> photoList = dao.selectHousePhotoView(houseNo);
+		h.setPhotoList(photoList);
+		h.setHouseRoomView(houseRoomView);
 		return h;
 	}
 
