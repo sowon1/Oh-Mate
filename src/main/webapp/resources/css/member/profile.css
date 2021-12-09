@@ -1,0 +1,46 @@
+@charset "UTF-8";
+	button:active {
+		position: relative;
+	 	background-color: lightgray;
+	}
+	.localH{
+		display:inline-block
+	}
+	.pofile_wrap{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: #f8f8fa;
+		overflow-y: scroll;
+	}
+	.pofile_wrap .pofile_container{
+		width: 600px;
+		margin: 150px auto 210px;
+	}
+	.pofile_wrap .pofile_cont{
+		background: #fff;
+		padding: 50px 45px 60px;
+	}
+	.Mate_logo a{
+		font-size:40px;
+		font-family: "logo";
+		color: #956bfc;
+		text-decoration: none;
+		line-height: 60px;	
+	}
+	.Mate_logo{
+		text-align: center;
+		padding-bottom: 10px;
+	}
+	#profilesubmit{
+		width: 80%;	
+		line-height: normal;
+	}
+	.centerBox{
+		margin-left: 50px;
+	}
+	.submitbtn{
+		text-align: center;
+	}
