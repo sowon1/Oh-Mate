@@ -339,13 +339,32 @@
 /* 좋아요 버튼 부분 */
 .like_house{
     position: absolute;
-    right: 15px;
-    top: 15px;   
+    right: -20px;
+    top: -20px;   
 }
 .heart{
 	cursor: pointer;
+    height: 120px;
+    width: 120px;
     outline:none;
     border:none;
     background:none;
-    width:35px;
+    background-image:url("/resources/img/icon/web_heart_animation.png");
+    background-position: left;
+    background-repeat:no-repeat;
+    background-size:2900%;
 }
+.heart:hover {
+    background-position:right;
+  }
+  
+  .is_animating {
+    animation: heart-burst .8s steps(28) 1;
+  }
+  ._click{
+    background-position:right;
+  }
+  @keyframes heart-burst {
+    from {background-position:left;}
+    to { background-position:right;}
+  }

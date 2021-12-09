@@ -79,5 +79,10 @@ public class HouseService {
 		}
 		return result;
 	}
+	//하우스 상세보기 - sowon
+	public House selectHouseOneView(int houseNo) {
+		House h = dao.selectHouseOneView(houseNo);
+		return h;
+	}
 
 }
