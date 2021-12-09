@@ -13,6 +13,7 @@ import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.common.Photo;
 import kr.or.house.model.vo.House;
+import kr.or.room.model.vo.Room;
 
 @Repository
 public class HouseDao {
@@ -54,14 +55,22 @@ public class HouseDao {
 		return result;
 	}
 	//하우스 상세보기 - sowon
-	public House selectHouseOneView(int houseNo) {
-		return session.selectOne("house.selectHouseOneView",houseNo);
+	public House selectHouseOneView(HashMap<String, Object> map) {
+		return session.selectOne("house.selectHouseOneView",map);
 	}
 	//하우스 오너 리스트 출력
 	public ArrayList<House> selectHouseOwnerList(int memberNo) {
 		List<House> list = session.selectList("house.selectHouseOwnerList", memberNo);
 		return null;
 	}
-
-
+	//하우스 상세보기 - 룸 정보
+	public ArrayList<Room> selectHouseRoomView(int houseNo) {
+		List<Room> houseRoomView = session.selectList("house.selectHouseRoomView",houseNo);
+		return (ArrayList<Room>)houseRoomView;
+	}
+	//하우스 상세보기 - 사진 정보
+	public ArrayList<Photo> selectHousePhotoView(int houseNo) {
+		List<Photo> photoList = session.selectList("house.selectHousePhotoView",houseNo);
+		return (ArrayList<Photo>)photoList;
+	}
 }
