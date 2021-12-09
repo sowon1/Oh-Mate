@@ -68,7 +68,7 @@
 		#{filepath},#{memberLevel},#{gender},#{age},#{profileStatus})
 	</insert>
 	
-	<!-- 회원가입_아이디 중복체크 -->
+	<!-- 회원가입_아이디 중복체크 / 마이페이지 -->
 	<select id="idCheck" parameterType="m" resultType="m">
 		select 
 			member_no as memberNo,
@@ -103,4 +103,32 @@
 			profile_status as profileStatus	
 		from member where email=#{email}
 	</select>
+	
+	<!-- 마이페이지_수정 -->
+	<update id="myPageUpdate" parameterType="m">
+		update member set 
+		<if test="filepath != null">
+			member_filepath=#{filepath},
+		</if>
+			member_pw=#{memberPw},
+			phone=#{phone},
+			email=#{email}
+		where member_no=#{memberNo}
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="delteMember" parameterType="m">
+		delete from member where member_no=#{memberNo}
+	</delete>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+

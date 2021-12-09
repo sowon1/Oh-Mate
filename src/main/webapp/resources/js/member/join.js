@@ -10,7 +10,6 @@ $(function(){
 	
 	 //입력값 변수
 	 function checkJoin(){  
-	 	var pf = $("[name=uploadFile]").val();
     	var id = $("#memberId").val();
     	var email = $("#email").val();
     	var emailCode = $("#authMsg").html();
@@ -20,10 +19,7 @@ $(function(){
 		var phone = $("#phone").val();
 		var priBox = $("#agree").val();
 	
-		if(pf == ""){
-			alert("프로필 사진을 넣어주세요.");
-			return false;
-    	}else if($(':radio[name="gender"]:checked').length < 1){
+		if($(':radio[name="gender"]:checked').length < 1){
 	    	alert('성별을 선택해주세요.');     
 	    	return false;                   
 		}else if($(':radio[name="age"]:checked').length < 1){
@@ -56,7 +52,6 @@ $(function(){
 		}else{
 			return true;
 		}
-
 	  }
 
     $("#joinsubmit").on("click", function(){
@@ -200,9 +195,9 @@ $(function(){
     });
 
     //비밀번호 확인
-    $("[name=memberPwre]").keyup(function(){
+    $("#memberPwre").keyup(function(){
         var password = $("#memberPw").val();
-        var passwordChk = $(this).val();
+        var passwordChk = $("#memberPwre").val();
         if(password == passwordChk){
             $(".result4").html("비밀번호가 일치합니다.");
             $(".result4").css("color","blue");

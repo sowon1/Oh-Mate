@@ -16,6 +16,12 @@ public class MemberDao {
 	public Member selectOneMember(Member member) {
 		return sqlSession.selectOne("member.selectOneMember",member);
 	}
+	
+	/* 로그인2
+	public int selectOneMember1(HashMap<String, Object> map) {
+		return sqlSession.selectOne("member.selectOneMember1", map);
+	}
+	*/
 
 	//아이디찾기
 	public Member searchId(Member member) {
@@ -42,11 +48,27 @@ public class MemberDao {
 		return sqlSession.selectOne("member.emailCheck",email);
 	}
 
-
-	/* 로그인2
-	public int selectOneMember1(HashMap<String, Object> map) {
-		return sqlSession.selectOne("member.selectOneMember1", map);
+	//마이페이지
+	public Member selectMyPageFrm(String memberId) {
+		System.out.println("dao :" +  memberId);
+		return sqlSession.selectOne("member.idCheck",memberId);
 	}
-	*/
+	
+	//마이페이지_수정
+	public int myPageUpdate(Member member) {
+		return sqlSession.update("member.myPageUpdate",member);
+	}
+
+	//회원탈퇴
+	public int deleteMember(int memberNo) {
+		return sqlSession.delete("member.delteMember",memberNo);
+	}
+
 
 }
+
+
+
+
+
+

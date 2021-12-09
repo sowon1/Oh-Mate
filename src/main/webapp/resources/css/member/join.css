@@ -3,6 +3,12 @@
 		position: relative;
 	 	background-color: lightgray;
 	}
+	em {
+		margin-top: 3px;
+		font-size : 15px;
+		color: red;
+		font-weight: 800;
+	}
 	.join_wrap{
 		position: fixed;
 		top: 0;

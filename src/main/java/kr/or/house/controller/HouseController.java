@@ -216,9 +216,19 @@ public class HouseController {
 	}
 	//하우스 상세보기 - sowon
 	@RequestMapping(value="/houseView.do")
-	public String houseView(int houseNo, Model model) {
-		House h = service.selectHouseOneView(houseNo);
+	public String houseView(int houseNo, Model model, HttpSession session) {
+		if(session != null) {
+			Member m = (Member)session.getAttribute("m");
+			int memberNo = 0;
+			if(m != null)
+			{
+				memberNo = m.getMemberNo();
+			}	
+		House h = service.selectHouseOneView(houseNo,memberNo);
 		model.addAttribute("h",h);
+		model.addAttribute("photo",h.getPhotoList());
+		model.addAttribute("room",h.getHouseRoomView());
+		}
 		return "house/houseView";
 	}
 	//내 하우스 리스트 보기

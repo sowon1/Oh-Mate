@@ -105,16 +105,45 @@
 	 	select count(*) from house
 	</select>
 	<!-- 하우스 상세보기 -->
-	<select id="selectHouseOneView" parameterType="_int" resultMap="house2">
+	<select id="selectHouseOneView" parameterType="map" resultType="h">
 		select 
-             h.*,
+             h.house_no as houseNo,
+             h.member_no as memberNo,
+             h.house_title as houseTitle,
+             h.houseowner_deadline as houseownerDeadline,
+             h.house_selling as houseSelling,
+             h.refuse_reason as refuseReason,
+             h.house_content as houseContent,
+             h.house_room as houseRoom,
+             h.house_charge as houseCharge,
+             h.house_rule as houseRule,
+             h.house_form as houseForm,
+             h.house_gender as houseGender,
+             h.house_convenience as houseConvenience,
+             h.house_allow as houseAllow,
+             (select address_name from address where address_category=1 and address_number=h.house_no) as addressName,
              (select address_road from address where address_category=1 and address_number=h.house_no) as addressRoad,
              (select count(*) from bookmark where BOOKMARK_CATEGORY=2 and bookmark_num=h.house_no) as likeCount,
              (select count(*) from bookmark where BOOKMARK_CATEGORY=2 and bookmark_num=h.house_no and bookmarker=#{memberNo}) as likedCheck
-        from house h where house_no=#{houneNo}
+        from house h where house_no=#{houseNo}
 	</select>
-	<!-- 하우스 사진 여러장 조회 테이블 -->
-	<select id="selectFileViewList" resultType="f">
+	<!-- 룸 테이블 조회 -->
+	<select id="selectHouseRoomView" parameterType="_int" resultType="r">
+		select 
+			room_no as roomNo,
+			house_no as houseNo,
+			room_title as roomTitle,
+			room_size as roomSize,
+			room_phone as roomPhone,
+			room_status as roomStatus,
+			room_charge as roomCharge,
+			room_content as roomContent,
+			room_personnel as roomPersonnel,
+			room_month as roomMonth
+		from room where house_no=#{houseNo}
+	</select>
+	<!-- 사진테이블 조회 -->
+	<select id="selectHousePhotoView" parameterType="_int" resultType="f">
 		select
 			photo_no as photoNo,
 			photo_category as photoCategory, 
@@ -124,27 +153,4 @@
 			(select rownum as rnum, h.* from
 			(select * from photo where photo_category=1 and photo_num = #{houseNo} order by 1 )h) 
 	</select>
-	<!-- 하우스 사진 연결 메소드를 하나 만들어두고 사용하는거라고 생각하면됨 id가 메소드명-->
-	<resultMap type="h" id="house2">
-		<result column="house_no" property="houseNo"/>
-		<result column="member_no" property="memberNo"/>
-		<result column="house_title" property="houseTitle"/>
-		<result column="houseowner_deadline" property="houseownerDeadline"/>
-		<result column="house_selling" property="houseSelling"/>
-		<result column="refuse_reason" property="refuseReason"/>
-		<result column="house_content" property="houseContent"/>
-		<result column="house_room" property="houseRoom"/>
-		<result column="house_charge" property="houseCharge"/>
-		<result column="house_rule" property="houseRule"/>
-		<result column="house_form" property="houseForm"/>
-		<result column="house_gender" property="houseGender"/>
-		<result column="house_convenience" property="houseConvenience"/>
-		<result column="house_allow" property="houseAllow"/>
-		<collection property="photoList"
-					column="house_no"
-					javaType="java.util.ArrayList"
-					ofType="f"
-					select="selectFileViewList"	
-		/>
-	</resultMap>
 </mapper>
