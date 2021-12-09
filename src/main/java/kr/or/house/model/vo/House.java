@@ -2,6 +2,7 @@ package kr.or.house.model.vo;
 
 import java.util.ArrayList;
 
+import kr.or.common.Address;
 import kr.or.common.Photo;
 import lombok.Data;
 
@@ -23,4 +24,6 @@ public class House {
 	private int houseAllow;				//1. 승인대기 2, 승인 3, 승인거부
 	private ArrayList<Photo> photoList; //사진테이블
 	private String likedCheck;			//좋아요 체크용
+	private String likeCount;			//좋아요 카운트
+	private String addressRoad; //주소 테이블
 }

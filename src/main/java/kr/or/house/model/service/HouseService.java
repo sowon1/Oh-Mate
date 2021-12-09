@@ -50,19 +50,17 @@ public class HouseService {
 		return list;
 	}
 	//하우스 리스트 출력 - ajax - sowon
-	public HashMap<String, Object> selectAjaxHouse(int pageNum) {
+	public HashMap<String, Object> selectAjaxHouse(int pageNum, int memberNo) {
 		//한 페이지에 몇개 보여줄건지
 		int numPerPage = 9;
-		//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
-		int startPageNum = 1;
-		//보여줄 페이지의 시작 ROWNUM - 0부터 시작
-		int start = 0 + (pageNum - 1) * numPerPage;
+		//보여줄 페이지의 시작 ROWNUM - 0부터 시작		
 		//보여줄 페이지의 끝 ROWNUM
 		int end = pageNum * numPerPage;
-		int rowCount = numPerPage;
+		int start = end-numPerPage+1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start",start);
 		map.put("end",end);
+		map.put("memberNo",memberNo);
 		ArrayList<House>list = dao.selectAjaxHouse(map);
 		int totalRow = dao.selectAjaxTotal();
 		//전체 페이지의 갯수 구하기
@@ -70,7 +68,7 @@ public class HouseService {
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		data.put("list", list);
 		data.put("totalPageCount", totalPageCount);
-		data.put("startPageNum", startPageNum);	
+		data.put("startPageNum", start);	
 		return data;
 	}
 	public int insertImgfiles(ArrayList<Photo> list, int houseNo) {
@@ -80,6 +78,11 @@ public class HouseService {
 			result+=dao.insertImgFiles(p);
 		}
 		return result;
+	}
+	//하우스 상세보기 - sowon
+	public House selectHouseOneView(int houseNo) {
+		House h = dao.selectHouseOneView(houseNo);
+		return h;
 	}
 
 }

@@ -26,8 +26,38 @@ public class RoomController {
 		return "room/roomList";
 	}
 	@RequestMapping(value = "/roomWriteFrm.do")
-	public String roomWriteFrm(int houseNo,Model model) {
+	public String roomWriteFrm(int houseNo,int houseRoom,Model model) {
+		System.out.println(houseRoom);
 		model.addAttribute("houseNo", houseNo);
+		model.addAttribute("houseRoom", houseRoom);
 		return "room/roomWriteFrm";
+	}
+	@RequestMapping(value = "/roomWrite.do")
+	public String roomWrite(Room r,int houseRoom,Model model) {
+		int houseNo=r.getHouseNo();
+		System.out.println(houseNo);
+		int result = service.insertRoom(r);
+		if(result>0) {
+			model.addAttribute("msg", "방 등록성공!!");
+			return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+			
+		}else {
+			model.addAttribute("msg", "방 등록실패!");
+			return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+		}
+	}
+	@RequestMapping(value = "/roomDel.do")
+	public String roomDel(int houseNo, int roomNo,int houseRoom,Model model) {
+		Room r = new Room();
+		r.setHouseNo(houseNo);
+		r.setRoomNo(roomNo);
+		int result = service.deleteRoom(r);
+		if(result>0) {
+			model.addAttribute("msg", "삭제 성공");
+			return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+		}else {
+			model.addAttribute("msg", "삭제 실패");
+			return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+		}
 	}
 }

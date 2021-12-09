@@ -68,26 +68,26 @@
 	                    <div class="house_list_photo">
 	                        <div class="like_house">
 	                        	<c:choose>
-	                        		<c:when test="${empty sessionScope.member}">
-	                        			<button onclick="likehouse(this,${h.houseNo});" class="heart">	                        			
-				                            <img src="/resources/img/icon/heart_off.png">
+	                        		<c:when test="${empty sessionScope.m}">
+	                        			<button onclick="msgpopupopen();" class="heart">	                        			
+				                         
 	                        			</button>
 	                        		</c:when>
 	                        		<c:when test="${h.likedCheck == '좋아요'}">
-				                		<button onclick="likehouse(this,${h.houseNo});" class="heart">
-				                			<img src="/resources/img/icon/heart_on.png">
+				                		<button onclick="likehouse(this,${h.houseNo});" class="heart _click">
+				                		
 				                		</button>
 				                	</c:when>
 				                	<c:otherwise>                							              
 										<button onclick="likehouse(this,${h.houseNo});" class="heart">
-											<img src="/resources/img/icon/heart_off.png">
+											
 										</button>
 				                	</c:otherwise>
 	                        	</c:choose>
 	                        </div>
-	                        <img src="/resources/upload/house/${h.photoList}">
+	                        <img src="/resources/upload/house/${h.photoList[0].photoPath}">
 	                    </div>
-	        	<a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>">
+	        	<a href="<c:url value='houseView.do?houseNo=${h.houseNo}'/>">
 	                    <div class="house_list_text">
 	                        <div class="list_line_01">
 	                            <span class="list_house_title">${h.houseTitle}</span>
@@ -113,7 +113,7 @@
 	                            <span class="house_sum">보증금 <fmt:formatNumber value="${h.houseCharge}" pattern="#,###"/>원 ~</span>   
 	                        </div>
 	                    </div>
-	                    <a href="<c:url value='/house/houseView?houseNo=${h.houseNo}'/>" class="house_more_btn">입주 가능 방 ${h.houseRoom}개</a>
+	                    <a href="<c:url value='houseView.do?houseNo=${h.houseNo}'/>" class="house_more_btn">입주 가능 방 ${h.houseRoom}개</a>
 		            </li>           
 	        	</a>
 	        </c:forEach>            
@@ -155,7 +155,7 @@
        		<c:when test="${not empty sessionScope.m}">
        			<c:choose>
        				<c:when test="${sessionScope.m.memberLevel eq 2}">
-		       			<a href="/houseWrite.do" class="sect05_btn">하우스 등록하기</a>      				
+		       			<a href="/houseWriteFrm.do" class="sect05_btn">하우스 등록하기</a>      				
        				</c:when>
        				<c:otherwise>
 		       			<a id="house_modal" class="sect05_btn">하우스 등록하기</a>
@@ -201,17 +201,17 @@
 	<script>
 		//좋아요
 		function likehouse(c,obj){
-			var memberNo = "${sessionScope.member.memberNo}";
+			var memberNo = "${sessionScope.m.memberNo}";
 			var houseNo = obj;
 			$.ajax({
 				url : "/houseLike.do",
 				data : {memberNo:memberNo, houseNo:houseNo},
 				type: "POST",
-				success : function(data){
-					if(data.like_check == 0){
-						$(c).children().attr("src","/resources/img/icon/heart_off.png");
+				success : function(data){					
+					if(data.likeCheck == 0){						
+						 $(c).attr("class","heart is_animating");						
 					}else{
-						$(c).children().attr("src","/resources/img/icon/heart_on.png");
+						$(c).attr("class","heart is_animating _click");					
 					}
 				}
 			})

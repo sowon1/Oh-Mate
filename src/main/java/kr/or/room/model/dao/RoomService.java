@@ -18,4 +18,14 @@ public class RoomService {
 		ArrayList<Room> list=dao.selectAllRoom(houseNo);
 		return list;
 	}
+
+	public int insertRoom(Room r) {
+		int result = dao.insertRoom(r);
+		return result;
+	}
+
+	public int deleteRoom(Room r) {
+		int result = dao.deleteRoom(r);
+		return result;
+	}
 }

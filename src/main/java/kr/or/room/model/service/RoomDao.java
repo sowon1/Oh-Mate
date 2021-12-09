@@ -19,4 +19,14 @@ public class RoomDao {
 		List<Room> list = session.selectList("room.selectAllRoom",houseNo);
 		return (ArrayList<Room>)list;
 	}
+
+	public int insertRoom(Room r) {
+		int result = session.insert("room.insertRoom",r);
+		return result;
+	}
+
+	public int deleteRoom(Room r) {
+		int result =session.delete("room.deleteRoom",r);
+		return result;
+	}
 }

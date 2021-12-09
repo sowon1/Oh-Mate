@@ -96,7 +96,7 @@
 	 	select 
 			*
 		from  
-			(select rownum as rnum, h.* from
+			(select rownum as rnum, h.*,decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
 			(select * from house where house_allow=1 order by 1 desc)h) 
 		where rnum between #{start} and #{end}
 	</select>
@@ -104,4 +104,47 @@
 	<select id="houseTotal" resultType="_int">
 	 	select count(*) from house
 	</select>
+	<!-- 하우스 상세보기 -->
+	<select id="selectHouseOneView" parameterType="_int" resultMap="house2">
+		select 
+             h.*,
+             (select address_road from address where address_category=1 and address_number=h.house_no) as addressRoad,
+             (select count(*) from bookmark where BOOKMARK_CATEGORY=2 and bookmark_num=h.house_no) as likeCount,
+             (select count(*) from bookmark where BOOKMARK_CATEGORY=2 and bookmark_num=h.house_no and bookmarker=#{memberNo}) as likedCheck
+        from house h where house_no=#{houneNo}
+	</select>
+	<!-- 하우스 사진 여러장 조회 테이블 -->
+	<select id="selectFileViewList" resultType="f">
+		select
+			photo_no as photoNo,
+			photo_category as photoCategory, 
+			photo_path as photoPath, 
+			photo_num as photoNum 
+		from 
+			(select rownum as rnum, h.* from
+			(select * from photo where photo_category=1 and photo_num = #{houseNo} order by 1 )h) 
+	</select>
+	<!-- 하우스 사진 연결 메소드를 하나 만들어두고 사용하는거라고 생각하면됨 id가 메소드명-->
+	<resultMap type="h" id="house2">
+		<result column="house_no" property="houseNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="house_title" property="houseTitle"/>
+		<result column="houseowner_deadline" property="houseownerDeadline"/>
+		<result column="house_selling" property="houseSelling"/>
+		<result column="refuse_reason" property="refuseReason"/>
+		<result column="house_content" property="houseContent"/>
+		<result column="house_room" property="houseRoom"/>
+		<result column="house_charge" property="houseCharge"/>
+		<result column="house_rule" property="houseRule"/>
+		<result column="house_form" property="houseForm"/>
+		<result column="house_gender" property="houseGender"/>
+		<result column="house_convenience" property="houseConvenience"/>
+		<result column="house_allow" property="houseAllow"/>
+		<collection property="photoList"
+					column="house_no"
+					javaType="java.util.ArrayList"
+					ofType="f"
+					select="selectFileViewList"	
+		/>
+	</resultMap>
 </mapper>

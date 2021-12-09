@@ -81,19 +81,20 @@
 				<form action="/roomWrite.do" method="post">
 					<h4 class="form-title">방 리스트</h4>
 					<input type="hidden" name="houseNo" value="${houseNo }">
+					<input type="hidden" name="houseRoom" value="${houseRoom }">
 					<div class="content-place">
 						<p class="ac-title">방 제목</p>
-						<input type="text" class="input_03" name="roomTitle"
+						<input type="text" class="input_03" id="roomTitle" name="roomTitle"
 							placeholder="방 제목">
 					</div>
 					<div class="content-place">
 						<p class="ac-title">방 평수</p>
-						<input type="text" class="input_03" name="roomSize"
+						<input type="text" class="input_03" id="roomSize" name="roomSize"
 							placeholder="ex)30평  etc">
 					</div>
 					<div class="content-place">
 						<p class="ac-title">연락처</p>
-						<input type="text" class="input_03" name="roomPhone"
+						<input type="text" class="input_03" id="roomPhone" name="roomPhone"
 							placeholder="010-XXXX-XXXX 로 적어주세요">
 					</div>
 					<div class="content-place">
@@ -101,8 +102,8 @@
 						<textarea name="roomContent" class="textarea_pro"></textarea>
 					</div>
 					<div class="content-place" >
-						<p class="ac-title">연락처</p>
-						<select class="control-group" name="roomPersonnel">
+						<p class="ac-title">방 유형</p>
+						<select class="control-group" id="roomPersonnel" name="roomPersonnel">
 							<option value="">선택</option>
 							<option value="1인실">1인실</option>
 							<option value="3인실">3인실</option>
@@ -111,8 +112,13 @@
 					</div>
 					<div class="content-place">
 						<p class="ac-title">첫달 월세금</p>
-						<input type="text" class="input_03" name="roomPhone"
-							placeholder="숫자만 적어주세요">
+						<input type="text" class="input_03" name="roomMonth"
+							placeholder="숫자만 적어주세요" id="roomMonth">
+					</div>
+					<div class="content-place">
+						<p class="ac-title">보증금</p>
+						<input type="text" class="input_03" name="roomCharge"
+							placeholder="숫자만 적어주세요" id="roomMonth">
 					</div>
 					<div class="button-place">
 						<button class="btn btn_w" type="submit" style="line-height: 30px;"
@@ -122,6 +128,17 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		function accountChk() {
+			if($("#roomTitle").val()!="" && $("#roomSize").val()!=""&& $("#roomPhone").va()!=""&& $("#roomMonth").val()!="" && $(#"#roomPersonnel").val()!=""){
+				return true;
+			}else{
+				alert("방등록 내용을 확인해주세요!!")
+				return false;
+			}
+	
+		}
+	</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
