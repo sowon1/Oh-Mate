@@ -49,6 +49,10 @@ public class MainService {
 		map.put("houseNo", houseNo);
 		return dao.deleteHouseLike(map);
 	}
+	//house like total
+	public int houseLikeCount(int houseNo) {
+		return dao.houseLikeCount(houseNo);
+	}
 
 	
 }

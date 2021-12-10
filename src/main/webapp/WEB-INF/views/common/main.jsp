@@ -69,19 +69,13 @@
 	                        <div class="like_house">
 	                        	<c:choose>
 	                        		<c:when test="${empty sessionScope.m}">
-	                        			<button onclick="msgpopupopen();" class="heart">	                        			
-				                         
-	                        			</button>
+	                        			<button onclick="msgpopupopen();" class="heart"></button>
 	                        		</c:when>
 	                        		<c:when test="${h.likedCheck == '좋아요'}">
-				                		<button onclick="likehouse(this,${h.houseNo});" class="heart _click">
-				                		
-				                		</button>
+				                		<button onclick="likehouse(this,${h.houseNo});" class="heart _click"></button>
 				                	</c:when>
 				                	<c:otherwise>                							              
-										<button onclick="likehouse(this,${h.houseNo});" class="heart">
-											
-										</button>
+										<button onclick="likehouse(this,${h.houseNo});" class="heart"></button>
 				                	</c:otherwise>
 	                        	</c:choose>
 	                        </div>
@@ -163,7 +157,7 @@
 		                    <div class="popup_modal">
 		                       <div class="msg_modal_top">
 		                       		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
-		                            <span id="btnclose" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+		                            <span class="main_btn_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
 		                        </div>
 		                        <div class="msg_modal_content">
 		                        	<h1>하우스 등록은 하우스 오너만 등록할 수 있습니다.</h1>
@@ -183,13 +177,13 @@
 		                    <div class="popup_modal">
 		                       <div class="msg_modal_top">
 		                       		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
-		                            <span id="btnclose" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+		                            <span class="main_btn_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
 		                        </div>
 		                        <div class="msg_modal_content">
 		                        	<h1>로그인이 필요한 기능입니다.</h1>
 		                        	<div class="main_modal_btn">
 			                        	<a data-toggle="modal" href="#modal1" class="main_btn btn_out main_modal_login">로그인</a>
-			                        	<a id="main_close" class="main_btn btn_out">닫기</a>
+			                        	<a class="main_btn btn_out main_btn_close">닫기</a>
 		                        	</div>
 		                        </div>
 		                	</div> 
@@ -199,6 +193,14 @@
     </div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
+		//닫기 버튼 
+		$(".main_btn_close").click(function(){
+			msgpopupclose();
+		});
+		//로그인 누를경우 닫기버튼
+		$(".main_modal_login").click(function(){
+	    	msgpopupclose();
+	    });
 		//좋아요
 		function likehouse(c,obj){
 			var memberNo = "${sessionScope.m.memberNo}";
@@ -242,19 +244,9 @@
 	    $("#house_modal").click(function(){
 	    	msgpopupopen();
 	    });
-	    $("#btnclose").click(function(){
-	    	msgpopupclose();
-	    });
-	    $("#main_close").click(function(){
-	    	msgpopupclose();
-	    });
 	    $("#main_house_login").click(function(){
 	    	msgpopupopen();
 	    });
-	    $(".main_modal_login").click(function(){
-	    	msgpopupclose();
-	    });
-
 		//검색 쪽 셀렉트박스
 		$(document).ready(function(){
 	        var selected = $(".custom-options>span");

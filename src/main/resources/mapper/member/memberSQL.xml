@@ -120,6 +120,41 @@
 	<delete id="delteMember" parameterType="m">
 		delete from member where member_no=#{memberNo}
 	</delete>
+	
+	<!-- 프로필 이동 -->
+	<select id="selectProfile" parameterType="String" resultType="p">
+		select 
+			p_no as pNo,
+			p_writer as pWriter,
+			p_gender as pGender,
+			p_age as pAge,
+			p_local as pLocal,
+			p_smoke as pSmoke,
+			p_pet as pPet,
+			p_cleaning as pCleaning,
+			p_pattern as pPattern
+		from profile where p_writer=#{memberId}
+	</select>
+	
+	<!-- 프로필 작성 -->
+	<insert id="insertProfile" parameterType="p">
+		insert into profile values(p_seq.nextval,#{pWriter},#{pGender},#{pAge},#{pLocal},#{pSmoke},#{pPet},#{pCleaning},#{pPattern})
+	</insert>
+	
+	<!-- 프로필 -->
+	<select id="profileUpdate" parameterType="String" resultType="p">
+		select 
+			p_no as pNo,
+			p_writer as pWriter,
+			p_gender as pGender,
+			p_age as pAge,
+			p_local as pLocal,
+			p_smoke as pSmoke,
+			p_pet as pPet,
+			p_cleaning as pCleaning,
+			p_pattern as pPattern
+		from profile where p_writer=#{memberId}
+	</select>
 </mapper>
 
 

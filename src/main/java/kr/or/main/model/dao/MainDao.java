@@ -43,5 +43,9 @@ public class MainDao {
 	public int deleteHouseLike(HashMap<String, Object> map) {
 		return sqlSession.delete("main.deleteHouseLike",map);
 	}
+	//house like total
+	public int houseLikeCount(int houseNo) {
+		return sqlSession.selectOne("main.houseLikeCount",houseNo);
+	}
 }
 

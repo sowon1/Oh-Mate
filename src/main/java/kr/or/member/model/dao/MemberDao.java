@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.member.model.vo.Member;
+import kr.or.profile.model.vo.Profile;
 
 @Repository
 public class MemberDao {
@@ -63,6 +64,22 @@ public class MemberDao {
 	public int deleteMember(int memberNo) {
 		return sqlSession.delete("member.delteMember",memberNo);
 	}
+
+	//프로필 등록 이동
+	public Profile selectProfile(String memberId) {
+		return sqlSession.selectOne("member.selectProfile",memberId);
+	}
+	
+	//프로필 작성
+	public int insertProfile(Profile pr) {
+		return sqlSession.insert("member.insertProfile",pr);
+	}
+
+	public Profile profileUpdate(String memberId) {
+		return sqlSession.selectOne("member.profileUpdate",memberId);
+	}
+
+
 
 
 }
