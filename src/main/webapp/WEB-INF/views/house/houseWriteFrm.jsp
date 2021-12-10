@@ -248,7 +248,7 @@
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_03" value="0"><label for="fun_03">식탁</label>
+											id="fun_03" value="0"><label for="fun_03">책상</label>
 									</div>
 								</td>
 								<td class="find">
@@ -300,7 +300,7 @@
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_11" value="0"><label for="fun_11">커피포드</label>
+											id="fun_11" value="0"><label for="fun_11">커피포트</label>
 									</div>
 								</td>
 								<td class="find">
@@ -335,22 +335,23 @@
 											id="fun_16" value="0"><label for="fun_16">옷장</label>
 									</div>
 								</td>
+								
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_17" value="0"><label for="fun_17">비데</label>
+											id="fun_17" value="0"><label for="fun_17">의자</label>
 									</div>
 								</td>
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_18" value="0"><label for="fun_18">의자</label>
+											id="fun_18" value="0"><label for="fun_18">인터넷시설</label>
 									</div>
 								</td>
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_19" value="0"><label for="fun_19">인터넷시설</label>
+											id="fun_19" value="0"><label for="fun_19">엘레베이터</label>
 									</div>
 								</td>
 							</tr>
@@ -358,19 +359,7 @@
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_20" value="0"><label for="fun_20">엘레베이터</label>
-									</div>
-								</td>
-								<td class="find">
-									<div class="check_ent displayflex" style="text-align: left;">
-										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_21" value="0"><label for="fun_21">보안</label>
-									</div>
-								</td>
-								<td class="find">
-									<div class="check_ent displayflex" style="text-align: left;">
-										<input type="checkbox" class="chk" name="funderCategory"
-											id="fun_22" value="0"><label for="fun_22">청소</label>
+											id="fun_20" value="0"><label for="fun_20">보안</label>
 									</div>
 								</td>
 							</tr>
@@ -439,9 +428,7 @@
 										+ $("#fun_17").val()
 										+ $("#fun_18").val()
 										+ $("#fun_19").val()
-										+ $("#fun_20").val()
-										+ $("#fun_21").val()
-										+ $("#fun_22").val());
+										+ $("#fun_20").val());
 						console.log($(this).val());
 						console.log($("#houseConvenience").val());
 					} else {
@@ -466,9 +453,7 @@
 										+ $("#fun_17").val()
 										+ $("#fun_18").val()
 										+ $("#fun_19").val()
-										+ $("#fun_20").val()
-										+ $("#fun_21").val()
-										+ $("#fun_22").val());
+										+ $("#fun_20").val());
 						console.log($(this).val());
 						console.log($("#houseConvenience").val());
 					}
