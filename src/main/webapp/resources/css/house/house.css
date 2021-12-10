@@ -646,8 +646,14 @@
     background:none;
     width:35px;
 }
+.heart img{
+	-webkit-animation: scaleUpCenter .4s ease-out both;
+	animation: scaleUpCenter .4s ease-out both;
+}
+@-webkit-keyframes scaleUp {
+from { opacity: 0; -webkit-transform: scale(.8); }
+}
 /* 오른쪽 맵 */
-
 
 
 /* 상세보기 */
@@ -716,6 +722,13 @@
 	clear:both;
 	font-size:18px;
 	font-family: "ns_500";
+	margin-top:8px;
+}
+.box_text_house_title_code2{
+	float:left;
+	font-size:18px;
+	margin-top:8px;
+	margin-left:5px;
 }
 .box_text_house_title:before {
     content: '';

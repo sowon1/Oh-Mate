@@ -99,7 +99,7 @@
 	                        <span class="box_text_house_title2">
 	                        	💜 <em id="house_view_count">${h.likeCount}</em>명이 관심
 	                        </span>
-	                        <span class="box_text_house_title_code">
+	                        <span class="box_text_house_title_code2">
 	                        	중 인 하우스
 	                        </span>
                         </div>

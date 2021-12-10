@@ -69,19 +69,13 @@
 	                        <div class="like_house">
 	                        	<c:choose>
 	                        		<c:when test="${empty sessionScope.m}">
-	                        			<button onclick="msgpopupopen();" class="heart">	                        			
-				                         
-	                        			</button>
+	                        			<button onclick="msgpopupopen();" class="heart"></button>
 	                        		</c:when>
 	                        		<c:when test="${h.likedCheck == '좋아요'}">
-				                		<button onclick="likehouse(this,${h.houseNo});" class="heart _click">
-				                		
-				                		</button>
+				                		<button onclick="likehouse(this,${h.houseNo});" class="heart _click"></button>
 				                	</c:when>
 				                	<c:otherwise>                							              
-										<button onclick="likehouse(this,${h.houseNo});" class="heart">
-											
-										</button>
+										<button onclick="likehouse(this,${h.houseNo});" class="heart"></button>
 				                	</c:otherwise>
 	                        	</c:choose>
 	                        </div>
