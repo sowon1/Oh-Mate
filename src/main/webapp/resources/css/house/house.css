@@ -680,16 +680,217 @@
 .section01_right_text{
 	float:left;
 	clear:both;
-	margin-top:30px;
+	margin-top:20px;
 }
 .house_name{
 	float:left;
 	clear:both;
 	font-size:32px;
-	font-family: "ns_600";
-	margin-top:20px;
+	font-family: "ns_700";
+	margin-top:15px;
 }
 .house_addr{
 	float:left;
 	clear:both;
+	margin-top:8px;
+}
+.house_addr img{
+	width:22px;
+	vertical-align: text-bottom;
+}
+.box_text_house{
+	float:left;
+	clear:both;
+	margin-top:40px;
+	border-top:2px solid #eee;
+	padding-top:10px;
+	width:340px;
+}
+.box_text_house_title{
+	float:left;
+	clear:both;
+	font-size:18px;
+}
+.box_text_house_title2{
+	float:left;
+	clear:both;
+	font-size:18px;
+	font-family: "ns_500";
+}
+.box_text_house_title:before {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 14px;
+    margin: -5px 3px 0 0;
+    vertical-align: middle;
+    background: #956bfc;
+}
+.box_text_house_title_code{
+	float:left;
+	font-size:18px;
+	margin-left:8px;
+}
+.list_tag_pk{
+    border: 2px solid #ff0071;
+    border-radius: 50px;
+    padding: 3px 8px;
+    float: left;
+    margin-right: 10px;
+    width: 84px;
+    font-family: 'ns_500';
+    color: #ff0071;
+}
+
+.container_mate_house{
+	width: 1200px;
+	margin: 0 auto;
+	padding-top: 80px;
+	clear: both;
+}
+
+/* 2. 기본 정보  */
+.house_view_section2_top, .house_view_section2_bottom{
+	margin-top:50px;
+}
+.house_view_section2_bottom table{
+	width:100%;
+	border: 1px solid #eee;
+}
+.house_view_section2_bottom table tr:first-child{
+	border-bottom:1px solid #eee;
+}
+.house_view_section2_bottom table th{
+	background: #f9f9f9;
+	padding:20px;
+	font-size:16px;
+	border-right:1px solid #eee;
+	border-left:1px solid #eee;
+}
+.house_view_section2_bottom table td{
+	padding:20px;
+	font-size:16px;
+}
+
+/* 3. room */
+.house_view_room_info li{
+	float:left;
+	border: 1px solid #eee;
+	background: #f9f9f9;
+	border-radius: 8px;
+	padding:20px;
+	margin-right:10px;
+	width: 300px;
+}
+.house_view_room_info li:last-child{
+	margin-right:0px;
+}
+.house_view_room_title{
+	font-size:22px;
+	font-family: "ns_500";
+	color:#956bfc;
+	float:left;
+}
+.house_view_room_text{
+	float:left;
+	clear:both;
+	margin-top:10px;
+	font-size:16px;
+	line-height: 28px;
+}
+.house_view_room_text_title{
+	float:left;
+	clear:both;
+	color:#666;
+	width:100px;
+}
+.house_view_room_text_code{
+	float:left;
+	margin-left:20px;
+}
+.house_view_room_btn{
+	float:left;
+	clear: both;
+	margin-top:15px;
+}
+.house_view_room_btn a{
+	display: block;
+	float:left;
+	width:120px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	border-radius: 5px;
+	font-size:18px;
+}
+.room_tour_btn{
+	background: #fff;
+	border : 1px solid #eee;
+	color:#333;
+	margin-right: 8px;
+}
+.room_move_btn{
+	background: #956bfc;
+	border: 1px solid #956bfc;
+	color : #fff;
+}
+
+/* 4 */
+.option_view{
+	width: 100%;
+    background: #f9f9f9;
+    height: auto;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 8px;
+    float:left;
+    clear:both;
+    margin-top:50px;
+}
+.option_view li{
+	text-align: center;
+	padding:15px;
+	border:1px solid #eee;
+	background: #fff;
+	margin-right:10px;
+	border-radius: 8px;
+	width:130px;
+}
+.option_view li:last-child{
+	margin-right:0;
+}
+.option_view li,.house_option_img{
+	float:left;
+}
+.house_option_img{
+	margin:0 auto;
+	width:100%;
+}
+.house_option_img img{
+	width:60px;
+}
+.house_option_title{
+	float:left;
+	clear:both;
+	text-align: center;
+	width: 100%;
+	margin-top:15px;
+	font-size:18px;
+	color:#666;
+}
+/* 5 */
+.house_view_section05_map{
+	margin-top:50px;
+	width:100%;
+	height: 400px;
+}
+.map_title{
+	width:150px;
+	text-align: center;
+	padding:10px;
+}
+
+/* 6 */
+.house_view_section06_rule{
+	margin-top:50px;
 }

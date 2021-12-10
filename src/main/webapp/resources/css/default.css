@@ -1359,6 +1359,7 @@ input[name="funderCategory"]:checked+label:after{
 	width: 150px;
 	height: 45px;
 	line-height: 38px;
+	border: 2px solid #956bfc;
 }
 .main_btn{
 	outline: none;

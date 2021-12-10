@@ -89,4 +89,10 @@
 	<delete id="deleteHouseLike" parameterType="map">
 		delete from bookmark where bookmark_category=2 and bookmarker=#{memberNo} and bookmark_num=#{houseNo}
 	</delete>
+	<!-- house like total -->
+	<select id="houseLikeCount" parameterType="_int" resultType="_int">
+		select count(*)
+		from bookmark
+		where bookmark_category=2 and bookmark_num=#{houseNo}
+	</select>
 </mapper>
