@@ -7,6 +7,7 @@
 	</settings>	
 	<typeAliases>
 		<typeAlias type="kr.or.member.model.vo.Member" alias="m"/>
+		<typeAlias type="kr.or.profile.model.vo.Profile" alias="p"/>
 		<typeAlias type="kr.or.common.Photo" alias="f"/>
 		<typeAlias type="kr.or.common.Address" alias="addr"/>
 		<typeAlias type="kr.or.house.model.vo.House" alias="h"/>

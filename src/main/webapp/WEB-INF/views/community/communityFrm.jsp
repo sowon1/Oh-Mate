@@ -34,12 +34,12 @@
 					</ul>
 				</div><br>
 				<c:choose>
-					<c:when test="${sessionScope.m.profileStatus eq 1}"> <!-- 프로필 등록했을 때 --> 
-						<a class="btn btn-secondary" id="profileUp" href="/profileUpdate">프로필 수정</a>
-						<a class="btn btn-secondary" id="communityWt" href="/MateWriteFrm">게시글 작성</a>
+					<c:when test="${sessionScope.m.profileStatus eq 1}"> <!-- 프로필 등록했을 때 -->  
+						<a class="btn btn-secondary" id="profileUp" href="/profileUpFrm.do?memberNo=${SessionScope.m.memberNo }">프로필 수정/삭제</a>
+						<a class="btn btn-secondary" id="communityWt" href="/MateWriteFrm.do">게시글 작성</a>
 					</c:when>
 					<c:when test="${sessionScope.m.profileStatus eq 2}"> <!-- 프로필 등록 안했을 때 --> 
-						<a class="btn btn-secondary" href="/profile.do" style="line-height: normal;">프로필 등록</a>
+						<a class="btn btn-secondary" href="/insertProfile.do" style="line-height: normal;">프로필 등록</a>
 					</c:when>
 				</c:choose>
 				<div class="MateSearch">

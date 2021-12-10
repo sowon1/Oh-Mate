@@ -44,3 +44,9 @@
 	.submitbtn{
 		text-align: center;
 	}
+	#profilesubmit1, #profilesubmit2{
+		padding: 0px;
+	}
+	#profilesubmit2{
+		margin-left:15px;
+	}

@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="/resources/css/member/myPage.css">
+<script type="text/javascript" src="/resources/js/member/myPage.js"></script>
 <title>마이페이지</title>
 </head>
 <body>
@@ -184,10 +186,10 @@
 						<td class="protd">
 							<c:choose>
 								<c:when test="${sessionScope.m.profileStatus eq 1}">
-									<a href="#">등록</a>
+									<a href="/profileUpFrm.do?memberId=${sessionScope.m.memberId }">등록</a> <!-- 수정/삭제페이지 -->
 								</c:when>
 								<c:when test="${sessionScope.m.profileStatus eq 2}">
-									<a href=/profile.do style="margin-top:10px;">미등록</a>
+									<a href="/profile.do?memberId=${sessionScope.m.memberId }">미등록</a>  <!-- 등록페이지 -->
 								</c:when>
 							</c:choose>
 						</td>
@@ -202,6 +204,4 @@
 		</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
-<link rel="stylesheet" href="/resources/css/member/myPage.css">
-<script type="text/javascript" src="/resources/js/member/myPage.js"></script>
 </html>

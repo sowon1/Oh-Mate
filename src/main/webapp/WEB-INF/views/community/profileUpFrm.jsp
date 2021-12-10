@@ -18,13 +18,13 @@
 		            <a href="/">Oh-Mate!</a>
 		        </div>
 				<div class="pofile_cont">
-					<h2>프로필 등록</h2>
+					<h2>프로필 수정/삭제</h2>
 					<p>
 						나의 성향에 대해 알려주세요 
 						<br>
 						나와 비슷한 성향의 메이트를 구할 수 있어요
 					</p><br>
-					<form action="/insertProfile.do" method="post">	
+					<form action="/updateProfile.do" method="post">	
 					<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo}">
 				    <input type="hidden" name="pWriter" value="${sessionScope.m.memberId}">
 				    <div class="centerBox">
@@ -34,7 +34,7 @@
 				    			<option value="서울특별시" selected disabled>서울특별시</option>
 				    		</select>&ensp;
 				    		<select id="pLocal2" name="pLocal">
-				    			<option value=" " selected disabled>지역구 선택</option>
+				    			<option value="0" selected disabled>지역구 선택</option>
 				    			<option value="1">강남구</option>
 				    			<option value="2">강동구</option>
 				    			<option value="3">강북구</option>
@@ -96,7 +96,8 @@
 		           		</div>
 	           		</div><br><br>
 	           		<div class="submitbtn">
-	           			<input type="submit" class="btn btn-primary" id="profilesubmit" value="프로필등록">
+	           			<input type="submit" class="btn btn-primary" id="profilesubmit1" value="프로필 수정">
+	           			<a href="#" class="btn" id="profilesubmit2">프로필 삭제</a>
 					</div>
 					</form>
 				</div>

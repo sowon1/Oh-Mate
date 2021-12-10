@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.member.model.dao.MemberDao;
 import kr.or.member.model.vo.Member;
+import kr.or.profile.model.vo.Profile;
 
 @Service
 public class MemberService {
@@ -68,6 +69,22 @@ public class MemberService {
 	public int deleteMember(int memberNo) {
 		return dao.deleteMember(memberNo);
 	}
+
+	//프로필등록 이동
+	public Profile profile(String memberId) {
+		return dao.selectProfile(memberId);
+	}
+	
+	//프로필 작성
+	@Transactional
+	public int insertProfile(Profile pr) {
+		return dao.insertProfile(pr);
+	}
+
+	public Profile profileUpdate(String memberId) {
+		return dao.profileUpdate(memberId);
+	}
+
 
 
 }

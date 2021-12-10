@@ -77,6 +77,7 @@
 						<input type="text" name="phone" id="phone" class="form-control" placeholder="전화번호 형식 000-0000-0000" maxlength="13">
 						<span class="result6"></span><br>
 					
+					<input type="hidden" id="agree" value="9">
 					<input type="checkbox" id="allCheck">약관 전체 동의<br> 			
 					<input type="checkbox" class="priBox" id="necessary1" name="agree">
 					<label for="necessary1">개인정보 수집 이용 동의(필수)</label> &ensp;

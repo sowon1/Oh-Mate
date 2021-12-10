@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
+import kr.or.profile.model.vo.Profile;
 
 @Controller
 public class MemberController {
@@ -330,9 +331,7 @@ public class MemberController {
 	//마이페이지 이동
 	@RequestMapping(value="/myPage.do")
 	public String myPageFrm(String memberId, Model model) {
-		System.out.println("memberId : " +  memberId);
 		Member m = service.selectMyPageFrm(memberId);
-		System.out.println("마이페이지 이동" +  m);
 		model.addAttribute("m",m);
 		return "member/myPage";
 	}
@@ -386,10 +385,10 @@ public class MemberController {
 			member.setFilepath(filepath);
 		}// else	
 		int result = service.myPageUpdate(member);
-		System.out.println("마이페이지 수정" +  result);
-		if(result>0) {   // 성공 
+		if(result>0) {   // 성공 (정보변경했을 때 변경된게 반영안됨, 회원정보 다시 조회해서 세션에 다시 넣어줌)
 			model.addAttribute("msg","회원정보 수정 완료~");
-			session.setAttribute("member", member);
+			Member m = service.selectOneMember(member);
+			session.setAttribute("m", m);
 		}else {    
 			model.addAttribute("msg","회원정보 수정 실패");
 		}
@@ -419,11 +418,31 @@ public class MemberController {
 	
 	//프로필등록 이동
 	@RequestMapping(value="/profile.do")
-	public String profile() {
+	public String profile(String memberId, Model model) {
+		Profile result = service.profile(memberId);
+		model.addAttribute("pr",result);
 		return "community/profile";
 	}
 	
+	//프로필 미등록 -> 작성
+	@RequestMapping(value="/insertProfile.do")
+	public String insertProfile(int memberNo, Profile pr, Model model) {
+		int result = service.insertProfile(pr);
+		if(result>0) {
+			model.addAttribute("msg","프로필 등록 완료~");
+		}else {
+			model.addAttribute("msg","프로필 등록 실패");
+		}
+		model.addAttribute("loc","/communityFrm.do?memberNo="+memberNo);
+		return "common/msg";
+	}
 	
+	//프로필 수정,삭제 페이지 이동
+	@RequestMapping(value="/profileUpFrm.do")
+	public String profileUpdate(String memberId, Model model) {
+		Profile pr = service.profileUpdate(memberId);
+		return "community/profileUpFrm";
+	}
 	
 }
 
