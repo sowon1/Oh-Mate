@@ -203,15 +203,19 @@ public class HouseController {
 	public String houseListLike(int memberNo, int houseNo) {
 		int like_check = 0;
 		like_check = mService.houseLike(memberNo,houseNo);
+		int like_cnt = mService.houseLikeCount(houseNo);
 		if(like_check == 0) {
-			like_check++;
 			int like_up = mService.insertHouseLike(memberNo,houseNo);
+			like_check++;
+			like_cnt ++;
 		}else {
-			like_check--;
 			int like_down = mService.deleteHouseLike(memberNo,houseNo);
+			like_check--;
+			like_cnt --;
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("likeCheck", like_check);
+		map.put("likeCnt", like_cnt);
 		return new Gson().toJson(map);
 	}
 	//하우스 상세보기 - sowon
