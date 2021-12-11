@@ -51,7 +51,6 @@ public class MemberDao {
 
 	//마이페이지
 	public Member selectMyPageFrm(String memberId) {
-		System.out.println("dao :" +  memberId);
 		return sqlSession.selectOne("member.idCheck",memberId);
 	}
 	
@@ -62,12 +61,7 @@ public class MemberDao {
 
 	//회원탈퇴
 	public int deleteMember(int memberNo) {
-		return sqlSession.delete("member.delteMember",memberNo);
-	}
-
-	//프로필 등록 이동
-	public Profile selectProfile(String memberId) {
-		return sqlSession.selectOne("member.selectProfile",memberId);
+		return sqlSession.delete("member.deleteMember",memberNo);
 	}
 	
 	//프로필 작성
@@ -75,10 +69,20 @@ public class MemberDao {
 		return sqlSession.insert("member.insertProfile",pr);
 	}
 
-	public Profile profileUpdate(String memberId) {
-		return sqlSession.selectOne("member.profileUpdate",memberId);
+	//프로필 조회
+	public Profile selectProfile(String memberId) {
+		return sqlSession.selectOne("member.selectProfile",memberId);
 	}
 
+	//프로필 수정
+	public int updateProfile(Profile pr) {
+		return sqlSession.update("member.updateProfile",pr);
+	}
+
+	//프로필 삭제
+	public int deleteProfile(String memberId) {
+		return sqlSession.delete("member.deleteProfile",memberId);
+	}
 
 
 

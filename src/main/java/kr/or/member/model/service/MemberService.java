@@ -54,7 +54,6 @@ public class MemberService {
 	
 	//마이페이지
 	public Member selectMyPageFrm(String memberId) {
-		System.out.println("memberId :" +  memberId);
 		return dao.selectMyPageFrm(memberId);
 	}
 
@@ -69,11 +68,6 @@ public class MemberService {
 	public int deleteMember(int memberNo) {
 		return dao.deleteMember(memberNo);
 	}
-
-	//프로필등록 이동
-	public Profile profile(String memberId) {
-		return dao.selectProfile(memberId);
-	}
 	
 	//프로필 작성
 	@Transactional
@@ -81,8 +75,19 @@ public class MemberService {
 		return dao.insertProfile(pr);
 	}
 
-	public Profile profileUpdate(String memberId) {
-		return dao.profileUpdate(memberId);
+	//프로필 조회
+	public Profile selectProfile(String memberId) {
+		return dao.selectProfile(memberId);
+	}
+
+	//프로필 수정
+	public int updateProfile(Profile pr) {
+		return dao.updateProfile(pr);
+	}
+
+	//프로필 삭제
+	public int deleteProfile(String memberId) {
+		return dao.deleteProfile(memberId);
 	}
 
 

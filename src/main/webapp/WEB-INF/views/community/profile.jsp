@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="/resources/css/member/profile.css">
+<script type="text/javascript" src="/resources/js/member/profileUpFrm.js"></script>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
@@ -30,36 +31,9 @@
 				    <div class="centerBox">
 				    	<div>
 				    	<h6 class="localH">선호 지역</h6>&emsp;
-				    		<select id="pLocal1" name="pLocal">
-				    			<option value="서울특별시" selected disabled>서울특별시</option>
-				    		</select>&ensp;
+				    		<span>서울특별시</span>&ensp;
 				    		<select id="pLocal2" name="pLocal">
-				    			<option value=" " selected disabled>지역구 선택</option>
-				    			<option value="1">강남구</option>
-				    			<option value="2">강동구</option>
-				    			<option value="3">강북구</option>
-				    			<option value="4">강서구</option>
-				    			<option value="5">관악구</option>
-				    			<option value="6">광진구</option>
-				    			<option value="7">구로구</option>
-				    			<option value="8">금천구</option>
-				    			<option value="9">노원구</option>
-				    			<option value="10">도봉구</option>
-				    			<option value="11">동대문구</option>
-				    			<option value="12">동작구</option>
-				    			<option value="13">마포구</option>
-				    			<option value="14">서대문구</option>
-				    			<option value="15">서초구</option>
-				    			<option value="16">성동구</option>
-				    			<option value="17">성북구</option>
-				    			<option value="18">송파구</option>
-				    			<option value="19">양천구</option>
-				    			<option value="20">영등포구</option>
-				    			<option value="21">용산구</option>
-				    			<option value="22">은평구</option>
-				    			<option value="23">종로구</option>
-				    			<option value="24">중구구</option>
-				    			<option value="25">중랑구</option>
+				    			<option value="0" id="sel" selected disabled>지역구 선택</option>
 				    		</select>
 				    	</div><br>
 						<h6>선호 성별</h6>

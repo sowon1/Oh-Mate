@@ -17,7 +17,7 @@
 				<div class="lg_box">
 					<ul>
 						<li>
-							- 게시글을 작성하시려면 <span><a href="/profile.do" style="color:red; font-style:italic;">프로필을 등록해주세요.</a></span>&nbsp;&nbsp;
+							- 게시글을 작성하시려면 <span><a style="color:red; font-style:italic;">프로필을 등록해주세요.</a></span>&nbsp;&nbsp;
 							<span>나와 비슷한 성향을 가진 메이트를 구할 수 있습니다.</span>
 						</li>
 						<li>
@@ -35,7 +35,7 @@
 				</div><br>
 				<c:choose>
 					<c:when test="${sessionScope.m.profileStatus eq 1}"> <!-- 프로필 등록했을 때 -->  
-						<a class="btn btn-secondary" id="profileUp" href="/profileUpFrm.do?memberNo=${SessionScope.m.memberNo }">프로필 수정/삭제</a>
+						<a class="btn btn-secondary" id="profileUp" href="/profileUpFrm.do?memberId=${sessionScope.m.memberId }">프로필 수정/삭제</a>
 						<a class="btn btn-secondary" id="communityWt" href="/MateWriteFrm.do">게시글 작성</a>
 					</c:when>
 					<c:when test="${sessionScope.m.profileStatus eq 2}"> <!-- 프로필 등록 안했을 때 --> 

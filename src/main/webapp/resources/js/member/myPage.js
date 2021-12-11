@@ -124,9 +124,10 @@ $(function(){
 		}
 	});
 	
+	//회원탈퇴
 	$("#myPageBtn2").click(function(){
 		var memberNo=$("#memberNo").val();
-		var confirmAl = confirm("정말로 탈퇴하시겠습니까?");
+		var confirmAl = confirm("정말 탈퇴하시겠습니까?");
 		if(confirmAl == true){
 			location.href="/deleteMember.do?memberNo="+memberNo;
 		}else{
