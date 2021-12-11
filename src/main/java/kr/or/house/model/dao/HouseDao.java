@@ -59,9 +59,9 @@ public class HouseDao {
 		return session.selectOne("house.selectHouseOneView",map);
 	}
 	//하우스 오너 리스트 출력
-	public ArrayList<House> selectHouseOwnerList(int memberNo) {
-		List<House> list = session.selectList("house.selectHouseOwnerList", memberNo);
-		return null;
+	public ArrayList<House> selectHouseOwnerList(HashMap<String, Object> map) {
+		List<House> h = session.selectList("house.selectHouseOwnerList", map);
+		return (ArrayList<House>)h;
 	}
 	//하우스 상세보기 - 룸 정보
 	public ArrayList<Room> selectHouseRoomView(int houseNo) {
@@ -73,4 +73,35 @@ public class HouseDao {
 		List<Photo> photoList = session.selectList("house.selectHousePhotoView",houseNo);
 		return (ArrayList<Photo>)photoList;
 	}
+	//하우스오너 리스트 출력
+	public ArrayList<Photo> selectPhoto(int houseNo) {
+		List<Photo> photo = session.selectList("house.selelctPhotolist",houseNo);
+		return (ArrayList<Photo>)photo;
+	}
+
+	public ArrayList<Room> selectHouseRoomList(int houseNo) {
+		List<Room> room = session.selectList("house.selectHouseRoomView",houseNo); 
+		return (ArrayList<Room>)room;
+	}
+
+	public ArrayList<Income> selectIncome(int houseNo) {
+		List<Income> income = session.selectList("house.selectIncomeList",houseNo);
+		return (ArrayList<Income>)income;
+	}
+
+	public ArrayList<Address> selectAddress(int houseNo) {
+		List<Address> address = session.selectList("house.selectAddressList",houseNo);
+		return (ArrayList<Address>)address;
+	}
+
+	public int selectCount(int houseNo) {
+		int roomCount= session.selectOne("house.selectRoomCount",houseNo);
+		return roomCount;
+	}
+
+	public int houseTotalCount(int memberNo) {
+		int totalCount = session.selectOne("house.houseTotalCount", memberNo);
+		return totalCount;
+	}
+
 }

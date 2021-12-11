@@ -218,7 +218,7 @@
 		    </header>
 		    <ul>
 		      <li><a href="/houseWriteFrm.do">하우스등록</a></li>
-		      <li><a href="/houseOwnerList.do?memberNo=${sessionScope.m.memberNo }">내 하우스리스트</a></li>
+		      <li><a href="/houseOwnerList.do?memberNo=${sessionScope.m.memberNo }&reqPage=1">내 하우스리스트</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <li><a href="#">메뉴4</a></li>
 		      <li><a href="#">메뉴5</a></li>
@@ -345,13 +345,13 @@
 	             <div class="popup_modal">
 	                <div class="msg_modal_top">
 	                		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
-	                     <span class="btnclose" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+	                     <span class="main_btn_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
 	                 </div>
 	                 <div class="msg_modal_content">
 	                 	<h1>로그인이 필요한 기능입니다.</h1>
 	                 	<div class="main_modal_btn">
 	                  	<a data-toggle="modal" href="#modal1" class="main_btn btn_out main_modal_login">로그인</a>
-	                  	<a class="main_btn btn_out main_close">닫기</a>
+	                  	<a class="main_btn btn_out main_btn_close">닫기</a>
 	                 	</div>
 	                 </div>
 	         	</div> 
@@ -378,6 +378,14 @@
 	    $('body').css("overflow", "auto");
 	    $(".back_dark").hide();
 	}
+	//닫기 버튼 
+	$(".main_btn_close").click(function(){
+		msgpopupclose();
+	});
+	//로그인 누를경우 닫기버튼
+	$(".main_modal_login").click(function(){
+    	msgpopupclose();
+    });
 	$(document).mouseup(function (e){
 	//마우스 영역 밖 클릭 시 모달 닫기
 	var container = $('.msg_popup_modal');

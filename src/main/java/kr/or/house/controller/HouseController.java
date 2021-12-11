@@ -32,6 +32,7 @@ import kr.or.common.Photo;
 import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
+import kr.or.house.model.vo.housePageData;
 import kr.or.main.model.service.MainService;
 import kr.or.member.model.vo.Member;
 import kr.or.room.model.vo.Room;
@@ -82,6 +83,7 @@ public class HouseController {
 		 * Member m = session.getattribute("m")
 		 * m.memberNo
 		 * */
+		
 		HouseResult house = service.insertHouse(h,address,i); // 하우스 등록
 		if(house.getResult()>0) {
 			ArrayList<Photo> list = new ArrayList<Photo>();
@@ -203,15 +205,19 @@ public class HouseController {
 	public String houseListLike(int memberNo, int houseNo) {
 		int like_check = 0;
 		like_check = mService.houseLike(memberNo,houseNo);
+		int like_cnt = mService.houseLikeCount(houseNo);
 		if(like_check == 0) {
-			like_check++;
 			int like_up = mService.insertHouseLike(memberNo,houseNo);
+			like_check++;
+			like_cnt ++;
 		}else {
-			like_check--;
 			int like_down = mService.deleteHouseLike(memberNo,houseNo);
+			like_check--;
+			like_cnt --;
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("likeCheck", like_check);
+		map.put("likeCnt", like_cnt);
 		return new Gson().toJson(map);
 	}
 	//하우스 상세보기 - sowon
@@ -233,8 +239,13 @@ public class HouseController {
 	}
 	//내 하우스 리스트 보기
 	@RequestMapping(value = "/houseOwnerList.do")
-	public String houseOwnerList(int memberNo) {
-		ArrayList<House> list = service.selectHouseOwnerList(memberNo);
+	public String houseOwnerList(int memberNo,int reqPage,Model model) {
+		housePageData hpd = service.selectHouseOwnerList(memberNo,reqPage);
+		model.addAttribute("list", hpd.getList());
+		model.addAttribute("start", hpd.getStart());
+		model.addAttribute("pageNavi", hpd.getPageNavi());
+		model.addAttribute("totalCount", hpd.getTotalCount());
+		
 		return "house/houseownerList";
 	}
 }

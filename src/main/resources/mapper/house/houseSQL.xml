@@ -153,4 +153,64 @@
 			(select rownum as rnum, h.* from
 			(select * from photo where photo_category=1 and photo_num = #{houseNo} order by 1 )h) 
 	</select>
+	<!-- 하우스 오너 하우스 리스트 조회 -->
+	<select id="selectHouseOwnerList" parameterType="map" resultType="h">
+		SELECT HH.* FROM
+(SELECT ROWNUM AS RNUM, H.* FROM
+(select
+			house_no as houseNo,
+			member_no as memberNo,
+			house_title as houseTitle,
+			houseowner_deadline as houseownerDeadline,
+			house_selling as houseSelling,
+			refuse_reason as refuseReason,
+			house_content as houseContent,
+			house_room as houseRoom,
+			house_charge as houseCharge,
+			house_rule as houseRule,
+			house_form as houseForm,
+			house_gender as houseGender,
+			house_convenience as houseConvenience,
+			house_allow as houseAllow
+            from house
+		 where member_no=#{memberNo} order by house_no desc)H)HH 
+         WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 하우스오너리스트  사진-->
+	<select id="selelctPhotolist" parameterType="_int" resultType="f">
+		select
+			photo_no as photoNo,
+			photo_category as photoCategory, 
+			photo_path as photoPath, 
+			photo_num as photoNum 
+		from photo where photo_num = #{houseNo} and photo_category = 1
+	</select>
+	<!-- 하우스오너 계좌 조회 -->
+	<select id="selectIncomeList" parameterType="_int" resultType="i">
+		select
+			income_no as incomeNo,
+			income_bank as incomeBank,
+			income_account as incomeAccount,
+			income_name as incomeName,
+			income_category as incomeCategory
+		from income where income_num=#{houseNo} and income_category=2
+	</select>
+	<select id="selectAddressList" parameterType="_int" resultType="addr">
+		select
+			address_no as addressNo,
+			address_number as addressNumber,
+			address_code as addressCode,
+			address_name as addressName,
+			address_road as addressRoad,
+			address_legal as addressLegal,
+			address_category as addressCategory,
+			address_detail as addressDetail
+		from address where address_category = 1 and address_number=#{houseNo}
+	</select>
+	<select id="selectRoomCount" parameterType="_int" resultType="_int">
+		select count(*)from room where house_no=#{houseNo} and room_status=2 
+	</select>
+	<select id="houseTotalCount" parameterType="_int" resultType="_int">
+		select count(*)from house where member_no=#{memberNo}
+	</select>
 </mapper>

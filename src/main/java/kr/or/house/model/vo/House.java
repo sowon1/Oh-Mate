@@ -3,6 +3,7 @@ package kr.or.house.model.vo;
 import java.util.ArrayList;
 
 import kr.or.common.Address;
+import kr.or.common.Income;
 import kr.or.common.Photo;
 import kr.or.room.model.vo.Room;
 import lombok.Data;
@@ -29,4 +30,7 @@ public class House {
 	private String addressName;				//무슨 구
 	private String addressRoad; 			//무슨 로
 	private ArrayList<Room> houseRoomView;	//방정보 조회..
+	private ArrayList<Address> houseAddressView; // 하우스 주소
+	private ArrayList<Income> houseIncome;
+	private int roomCount;					//잔여방확인
 }
