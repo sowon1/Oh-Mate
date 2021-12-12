@@ -282,6 +282,19 @@ ul{
 	align-items: center;
 	z-index: 9998;
 }
+.tour_back_dark{
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	/* 실제로 modal은 처음에 안보여야하니 none으로 */
+	display: none;
+	justify-content: center;
+	align-items: center;
+	z-index: 9996;
+}
 
 /* top 버튼 */
 .top {

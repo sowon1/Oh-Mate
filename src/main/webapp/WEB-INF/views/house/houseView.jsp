@@ -20,6 +20,11 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
+	<!-- 달력 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 	<div class="container_mate">
 		<div class="house_view">
 			<div class="house_view_section01">
@@ -198,14 +203,88 @@
        								</span>
        							</div>
        							<div class="house_view_room_btn">
-       								<a href="" class="room_tour_btn">투어 신청</a>
-       								<a href="" class="room_move_btn">입주 신청</a>
-       							</div>
+       								<c:choose>
+			                     		<c:when test="${empty sessionScope.m}">
+			                     			<a id="house_tour_login" class="room_tour_btn">투어 신청</a>
+			                     			<a id="house_move_login" class="room_move_btn">입주 신청</a>			                     			
+			                     		</c:when>
+					                	<c:otherwise>                							              
+											<a id="tour_request" class="room_tour_btn">투어 신청</a>
+		       								<a href="" class="room_move_btn">입주 신청</a>
+					                	</c:otherwise>
+			                     	</c:choose>	        
+       							</div>		
        						</li>
        					</c:forEach>
        				</ul>
        			</div>
+       			<div class="room_popup_modal">		       			
+                    <div class="room_tour_popup_modal">
+                       <div class="room_modal_top">
+                       		<span class="room_modal_text">투어신청</span>
+                            <span class="room_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+                        </div>
+                        <div class="room_modal_content">
+                        	<form action="/tourrequest.do" method="post">
+                        		<table class="tour_table">
+                        			<tr class="table-active_mate">
+                        				<th>이름</th>
+                        				<td>
+			                        		<input type="text" class="input_03" value="${sessionScope.m.memberName}" readonly="readonly">
+                        				</td>
+                        			</tr>
+                        			<tr class="table-active_mate">
+                        				<th>연락처 <em class="point">*</em></th>
+                        				<td>
+			                        		<input type="text" name="tourPhone" class="input_03" placeholder="하이픈(-)을 포함하여 입력해주세요.">
+                        				</td>
+                        			</tr>
+                        			<tr class="table-active_mate">
+                        				<th>이메일 <em class="point">*</em></th>
+                        				<td>
+			                        		<input type="text" name="tourEmail" class="input_03" placeholder="이메일">
+                        				</td>
+                        			</tr>
+                        			<tr class="table-active_mate">
+                        				<th>하우스명</th>
+                        				<td>
+			                        		<input type="text" name="houseName" class="input_03" value="${h.houseTitle}" readonly="readonly">
+                        				</td>
+                        			</tr>
+                        			<tr class="table-active_mate">
+                        				<th>투어 희망일 <em class="point">*</em></th>
+                        				<td>
+			                        		<input type="text" name="tourVisit" class="input_date input_03" readonly="readonly">
+                        				</td>
+                        			</tr>
+                        			<tr class="table-active_mate">
+                        				<th>문의사항</th>
+                        				<td>
+			                        		<textarea name="tourQna" class="textarea_pro" placeholder="문의사항"></textarea>
+                        				</td>
+                        			</tr>
+                        			<input type="hidden" name="roomNo" value="${h.houseNo}">
+                        			<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo}">
+                        		</table>
+                        		<div class="form_btn">
+                        			<a class="btn_100" type="submit" onclick="return checkVal();">신청하기</a>
+                        		</div>
+                        	</form>
+                        </div>
+                	</div> 
+                </div>
 			</div>
+			<div class="msg_popup_modal">		       			
+	             <div class="popup_modal">
+	                <div class="msg_modal_top">
+	                		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
+	                 </div>
+	                 <div class="msg_modal_content">
+	                 	<h3 class="modal_msg_timetitle"><em id="title_name"></em> 정보를 입력해주세요.</h3>
+	                 	<h2 class="modal_msg_timetext">해당 창은 <em id="countdown"></em>초 후 자동으로 닫힙니다.</h2>                
+	                 </div>
+	         	</div> 
+	         </div>
 			<!-- 4 -->
 			<div class="container_mate_house house_view_section04">
 				<h1 class="point_title">제공 옵션</h1>
@@ -359,11 +438,103 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<Script>
+		// login
 		$("#house_view_login").click(function(){
-			$(".msg_popup_modal").css("display","flex");
-		    $('body').css("overflow", "hidden"); //모달시 스크롤 방지
-		    $(".back_dark").show();
+			msgpopupopen();
 		});
+		$("#house_tour_login").click(function(){
+			msgpopupopen();
+		});
+		$("#house_move_login").click(function(){
+			msgpopupopen();
+		});
+		//투어 신청
+		function touropen(){
+			$(".room_popup_modal").css("display","flex");
+		    $("body").css("overflow", "hidden");
+		    $(".tour_back_dark").show();
+		}
+		function tourclose(){
+			$(".room_popup_modal").css("display","none");
+			$("body").css("overflow", "auto");
+			$(".tour_back_dark").hide();
+		}
+		$("#tour_request").click(function(){
+			touropen();
+		});
+		$(".room_modal_close").click(function(){
+			tourclose();
+		});
+		//
+		var nowDate = new Date();
+		var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate()+1);
+		// 달력 한글화 
+        $("input[name='tourVisit']").daterangepicker({
+        	minDate : today,
+        	timePicker: true,
+        	timePicker24Hour: true,
+        	singleDatePicker: true,
+           autoUpdateInput: false,
+           locale: {
+               cancelLabel: 'Clear',
+               "format": "YYYY-MM-DD HH:MM", 
+               "separator": " ~ ", 
+               "applyLabel": "확인", 
+               "cancelLabel": "취소", 
+               "fromLabel": "From", 
+               "toLabel": "To", 
+               "customRangeLabel": "Custom", 
+               "weekLabel": "W", 
+               "daysOfWeek": ["월", "화", "수", "목", "금", "토", "일"],
+               "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+               "firstDay": 0
+           }
+       });
+       $("input[name='tourVisit']").on('apply.daterangepicker', function(ev, picker) {
+           //클릭 시 인풋에 날짜표시 바꾸려면 해당부분 변경하면됨!
+           $(this).val(picker.endDate.format('YYYY-MM-DD HH:MM'));
+       });
+       $("input[name='tourVisit']").on('cancel.daterangepicker', function(ev, picker) {
+           $(this).val('');
+       });
+       //자동닫기
+       function autoClose(){
+    	   setTimeout('closed()',5000);
+       }
+       function closed(){
+    	   msgpopupclose();
+       }
+       //카운트 다운
+       var timeleft = 5;
+		var downloadTimer = setInterval(function(){
+		  if(timeleft <= 0){
+		    clearInterval(downloadTimer);
+		    document.getElementById("countdown");
+		  } else {
+		    document.getElementById("countdown").innerHTML = timeleft;
+		  }
+		  timeleft -= 1;
+		}, 1000);
+       //form 입력값 검사
+       function checkVal(){
+    	   var email = $("input[name='tourEmail']");
+    	   var phone = $("input[name='tourPhone']");
+    	   var tourVisit = $("input[name='tourVisit']");
+    	   if(email.val() == ""){
+    		   email.focus();
+    		   msgpopupopen(autoClose());
+    		   $("#title_name").text("이메일");
+    	   }else if(phone.val() == ""){
+    		   phone.focus();
+    		   msgpopupopen(autoClose());
+    		   $("#title_name").text("연락처");
+    	   }else if(tourVisit.val() == ""){
+    		   tourVisit.focus();
+    		   msgpopupopen(autoClose());
+    	   }else{
+    		   $("form").submit();
+    	   }
+       }
 		//편의시설
 		$(function(){
 			var options = $(".option_view").attr("value");

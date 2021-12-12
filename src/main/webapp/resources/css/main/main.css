@@ -204,6 +204,12 @@
     overflow: hidden;
     display: block;	
 }
+.house_content p{
+	display:none;
+}
+.house_content p:first-child{
+	display:block;
+}
 .list_line_02{
     margin: 8px 0px 12px 0px;
 }
