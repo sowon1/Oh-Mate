@@ -11,6 +11,7 @@ import kr.or.common.Address;
 import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.common.Photo;
+import kr.or.common.Tour;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
@@ -113,18 +114,27 @@ public class HouseService {
 		map.put("memberNo", memberNo);
 		ArrayList<House> list = dao.selectHouseOwnerList(map);
 		for(int i=0;i<list.size();i++) {
-			System.out.println(list.get(i).getHouseNo());
 			int houseNo = list.get(i).getHouseNo();
+			
 			ArrayList<Photo> photoArray = dao.selectPhoto(houseNo);
 			ArrayList<Room> roomArray = dao.selectHouseRoomList(houseNo);
 			ArrayList<Income> incomeArray = dao.selectIncome(houseNo);
 			ArrayList<Address> addressArray  = dao.selectAddress(houseNo);
 			int roomCount = dao.selectCount(houseNo);
+			if(list.get(i).getHouseAllow()==2) {
+				//하우스 승인시==>하우스 판매중으로 변경
+				int houseRoomCh1=dao.updateRoomSelling1(list.get(i).getHouseNo());
+				if(list.get(i).getHouseRoom()==list.get(i).getRoomCount()) {
+					//하우스 승인되있을 시 방이 다차면
+					int houseRoomCh2 = dao.updateRoomSelling2(houseNo);
+				}
+			}
 			list.get(i).setPhotoList(photoArray);
 			list.get(i).setHouseRoomView(roomArray);
 			list.get(i).setHouseIncome(incomeArray);
 			list.get(i).setHouseAddressView(addressArray);
 			list.get(i).setRoomCount(roomCount);
+			
 		}
 		int totalCount = dao.houseTotalCount(memberNo);
 		int totalPage = 0;
@@ -137,18 +147,18 @@ public class HouseService {
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;
 		String pageNavi = "<ul class='pagination pagination'>";
 		if(pageNo != 1) {
-			pageNavi += "<li class = 'page-item'>";
-			pageNavi += "<a class='page-link' href='/houseownerList?reqPage="+(pageNo-1)+"&memberNo="+memberNo+"'>";
+			pageNavi += "<li class = 'page-item-mate'>";
+			pageNavi += "<a class='page-link' href='/houseOwnerList.do?memberNo="+memberNo+"&reqPage="+(pageNo-1)+"'>";
 			pageNavi += "&lt;</a></li>";
 		}
 		for(int i=0; i<pageNaviSize;i++) {
 			if(pageNo==reqPage) {
-				pageNavi += "<li class='page-item active'>";
-				pageNavi += "<a class='page-link' href='/houseownerList?reqPage=" + pageNo + "&memberNo="+memberNo+"'>";
+				pageNavi += "<li class='page-item-mate active'>";
+				pageNavi += "<a class='page-link' href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage="+pageNo+"'>";
 				pageNavi += pageNo + "</a></li>";
 			}else {
-				pageNavi += "<li class='page-item'>";
-				pageNavi += "<a class='page-link' href='/houseownerList?reqPage=" + pageNo + "&memberNo="+memberNo+"'>";
+				pageNavi += "<li class='page-item-mate'>";
+				pageNavi += "<a class='page-link' href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage="+pageNo+"'>";
 				pageNavi += pageNo + "</a></li>";
 			}
 			pageNo++;
@@ -164,6 +174,10 @@ public class HouseService {
 		pageNavi += "</ul>";
 		housePageData hpd = new housePageData(list,pageNavi,start,totalCount);
 		return hpd;
+	}
+	//투어신청 - sowon
+	public int insertTour(Tour t) {
+		return dao.insertTour(t);
 	}
 
 }

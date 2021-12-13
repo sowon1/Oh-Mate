@@ -29,6 +29,7 @@ import kr.or.common.Address;
 import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.common.Photo;
+import kr.or.common.Tour;
 import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
@@ -94,7 +95,7 @@ public class HouseController {
 					return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
 				}else {
 				//파일이 있는경우
-					String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/house");
+					String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
 					for(MultipartFile file: photoPath) {
 						//사용자가 올린 파일명
 						String filename = file.getOriginalFilename();
@@ -248,4 +249,26 @@ public class HouseController {
 		
 		return "house/houseownerList";
 	}
+
+	//하우스 업데이트
+	@RequestMapping(value = "/houseUpdateFrm.do")
+	public String houseUpdateFrm(int houseNo) {
+		return"";
+	}
+
+	//투어 신청 - sowon
+	@RequestMapping(value="/tourrequest.do")
+	public String tourrequest(Tour t,Model model) {
+		int result = service.insertTour(t);
+		if(result > 0) {
+			model.addAttribute("msg","투어신청이 완료되었습니다.");
+			model.addAttribute("loc","/");
+		}else {
+			model.addAttribute("msg","실패 오류찾기");
+			model.addAttribute("loc","/");
+		}
+		return "common/msg";
+	}
+	
+
 }

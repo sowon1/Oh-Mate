@@ -169,11 +169,12 @@
 }
 .house_list_photo{
     width: 100%;
-    height: 210px;
+    height: 230px;
     overflow: hidden;
     position: relative;
 }
-.house_list_photo img{
+.house_list_photo>img:last-child{
+    height:100%;
     width:100%;
 }
 
@@ -203,6 +204,12 @@
     text-overflow: ellipsis;
     overflow: hidden;
     display: block;	
+}
+.house_content p{
+	display:none;
+}
+.house_content p:first-child{
+	display:block;
 }
 .list_line_02{
     margin: 8px 0px 12px 0px;

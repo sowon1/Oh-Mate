@@ -11,7 +11,7 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
 		<h1>신고 관리</h1>
-		<form action="/adminReportSearch.do?reqPage=1" method="post">
+		<form action="/reportSearch.do?reqPage=1" method="post">
             <div class="searchBox">
             	<div>
 	                <div class="chkBox">

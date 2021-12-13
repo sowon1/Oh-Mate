@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="/resources/css/main/mate_talk.css">
 </head>
 <div class="back_dark"></div>
+<div class="tour_back_dark"></div>
 <div class="nav_wrap">
     <nav class="nav">
         <div class="brand_logo">

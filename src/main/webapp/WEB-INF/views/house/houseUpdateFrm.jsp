@@ -107,7 +107,7 @@
 	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 	<div style="margin: 0; background-color: #f8f8fa; height: 100%;">
 		<div class="content">
-			<form action="/houseWrite.do" id="frm" method="post"
+			<form action="/houseUpdate.do" id="frm" method="post"
 				enctype="multipart/form-data">
 				<input type="hidden" name="memberNo"
 					value="${sessionScope.m.memberNo }">

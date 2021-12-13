@@ -529,12 +529,13 @@
 
 .house_list_photo{
     width: 100%;
-    height: 170px;
+    height: 200px;
     overflow: hidden;
     position: relative;
 }
-.house_list_photo img{
-    width:100%;
+.house_list_photo>img:last-child{
+    height: 100%;
+    width: 100%;
 }
 
 /* 좋아요 버튼 부분 */
@@ -558,7 +559,7 @@
     padding: 3px 8px;
     float: left;
     margin-right: 10px;
-    width: 81px;
+   /*  width: 81px; */
     font-family: 'ns_500';
     color: #956bfc;
 }
@@ -766,6 +767,9 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .house_view_section2_top, .house_view_section2_bottom{
 	margin-top:50px;
 }
+.house_view_section2_top p{
+	margin-bottom:8px;
+}
 .house_view_section2_bottom table{
 	width:100%;
 	border: 1px solid #eee;
@@ -793,16 +797,25 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	border-radius: 8px;
 	padding:20px;
 	margin-right:10px;
-	width: 300px;
+	width: 290px;
+	overflow:hidden;
+	margin-bottom:10px;
 }
 .house_view_room_info li:last-child{
 	margin-right:0px;
 }
+.house_view_room_info li:nth-child(9n){
+	clear:both;
+}
 .house_view_room_title{
-	font-size:22px;
+	font-size:20px;
 	font-family: "ns_500";
 	color:#956bfc;
 	float:left;
+	overflow:hidden; 
+	text-overflow:ellipsis; 
+	white-space:nowrap;
+	width: 100%;
 }
 .house_view_room_text{
 	float:left;
@@ -841,13 +854,184 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	border : 1px solid #eee;
 	color:#333;
 	margin-right: 8px;
+	cursor: pointer;
 }
 .room_move_btn{
 	background: #956bfc;
 	border: 1px solid #956bfc;
 	color : #fff;
 }
-
+/* 메세지 팝업 */
+.room_popup_modal{
+    /* 현재 화면 중앙에 모달 뜰수있게 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9993;
+}
+.form_popup_modal{
+    /* 현재 화면 중앙에 모달 뜰수있게 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9995;
+}
+.room_tour_popup_modal{
+    width: 50vw;
+    min-width: 650px;
+    max-width: 550px;
+    height: 50vh;
+    min-height: 664px;
+    max-height: 664px;
+    text-align: left;
+    z-index: 10;
+    overflow-y: auto;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.room_modal_top{
+    display: block;
+    align-items: center;
+    width: 100%;
+    padding: 0px 20px;
+    /* justify-content: center; */
+    align-items: center;
+    background: #956bfc;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+}
+.room_modal_text{
+	font-size: 24px;
+    color: #fff;
+}
+.logo_point{
+	font-family: "logo";
+	color: rgba(255, 255, 255, 0.397);
+}
+.room_modal_top img{
+	width:25px;
+}
+.room_modal_top span:last-child{
+	float:right;	
+}
+.room_modal_content{
+	background: #fff;
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    height: auto;
+}
+/* 테이블 */
+.tour_table{
+	width: 100%;
+    box-sizing: border-box;
+    padding: 50px 30px 20px 30px;
+    border-collapse: inherit;
+}
+.table-active_mate{
+    display: flex;
+    align-items: flex-start;
+}
+.table-active_mate{
+    margin-bottom: 20px;
+}
+.table-active_mate th{
+    padding: 0px 10px;
+    text-align: left;
+    border-left: 2px solid #956bfc;
+    height: 12px;
+    line-height: 12px;
+    display: flex;
+    font-family: "ns_300";
+    width: 200px;
+}
+.table-active_mate td{
+    flex-grow: 2;
+}
+.form_btn{
+	clear:both;
+	float:left;
+	width:100%;
+	display: block;
+}
+.form_btn a{
+	border:none;
+	outline: none;
+	background: #956bfc;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	height: 55px;
+	font-size: 18px;
+	line-height: 55px;
+	text-align: center;
+	transition-duration: 0.5s;
+	display: block;
+}
+.form_btn a:hover{
+	background: #8c62f2;
+}
+.daterangepicker{
+	z-index:9998 !important;
+}
+.hourselect option:nth-child(-n+9) {
+    display: none;
+}
+.hourselect option:nth-child(n+20) {
+    display: none;
+}
+.modal_msg_timetitle{
+	font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top:15px;
+    font-family: "ns_300";
+}
+.modal_msg_timetext{
+	font-size: 20px;
+    text-align: center;
+    font-family: "ns_300";
+}
+#countdown, #title_name{
+	font-size:22px;
+	font-family:"ns_700";
+	color:#956bfc;
+}
+/* input 추가  */
+.input_tour{
+	outline: none;
+	border: none;
+	border-radius: 3px;
+	display: block;
+    width: 188px;
+    height: 40px;
+    box-shadow: none;
+    background-color: #fff;
+    padding: 0 12px;
+    -webkit-appearance: none;
+    border: 1px solid #9f9f9f;
+    color: #292929;
+    float:left;
+}
+.input_tour:first-child{
+	margin-right:10px;
+}
+.input_tour:focus{
+	border:1px solid #956bfc;
+}
 /* 4 */
 .option_view{
 	width: 100%;
@@ -867,7 +1051,8 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	background: #fff;
 	margin-right:10px;
 	border-radius: 8px;
-	width:130px;
+	width:120px;
+	margin-bottom:10px;
 }
 .option_view li:last-child{
 	margin-right:0;
@@ -875,12 +1060,18 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .option_view li,.house_option_img{
 	float:left;
 }
+.option_view li:nth-child(9),.option_view li:nth-child(18){
+	margin-right:0;
+}
+.option_view li:nth-child(10){
+	clear:both;
+}
 .house_option_img{
 	margin:0 auto;
 	width:100%;
 }
 .house_option_img img{
-	width:60px;
+	width:55px;
 }
 .house_option_title{
 	float:left;
@@ -888,7 +1079,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	text-align: center;
 	width: 100%;
 	margin-top:15px;
-	font-size:18px;
+	font-size:16px;
 	color:#666;
 }
 /* 5 */
@@ -898,12 +1089,17 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	height: 400px;
 }
 .map_title{
-	width:150px;
-	text-align: center;
-	padding:10px;
+	width: 150px;
+    text-align: center;
+    padding: 5px;
+    font-size: 14px;
+    word-break: keep-all;
 }
 
 /* 6 */
 .house_view_section06_rule{
 	margin-top:50px;
+}
+.house_view_section06_rule p{
+	margin-bottom:8px;
 }
