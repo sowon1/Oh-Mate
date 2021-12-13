@@ -476,7 +476,7 @@
 			$("body").css("overflow", "auto");
 			$(".back_dark").hide();
 		}
-		//
+		//달력부분
 		var nowDate = new Date();
 		var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate()+1);
 		// 달력 한글화 
@@ -496,7 +496,7 @@
                "toLabel": "To", 
                "customRangeLabel": "Custom", 
                "weekLabel": "W", 
-               "daysOfWeek": ["월", "화", "수", "목", "금", "토", "일"],
+               "daysOfWeek": [ "일", "월", "화", "수", "목", "금", "토" ],
                "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                "firstDay": 0
            }

@@ -1168,3 +1168,167 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .house_view_section06_rule p{
 	margin-bottom:8px;
 }
+
+/* 입주신청 페이지 */
+.room_move_left{
+	width: 850px;
+	float:left;
+	border-top: 2px solid #eee;
+	padding : 30px 0px;
+	box-sizing: border-box;
+	margin-top:50px;
+	overflow: hidden;
+}
+.room_move_left_top_left{
+	width:400px;
+	height:228px;
+	float:left;
+}
+.room_move_left_top_left img{
+	width:100%;
+	height: 100%;
+}
+.room_move_left_top_right{
+	float:left;
+	width:450px;
+}
+.room_move_left_top_right ul{
+	float:left;
+	width:100%;
+	overflow: hidden;
+	padding-left:20px;
+}
+.room_move_left_top_right ul li:first-child{
+	padding-top:0;
+	border-bottom:none;
+	margin-bottom:13px;
+}
+.room_move_left_top_right ul li{
+	float:left;
+	width:100%;
+	border-bottom: 1px solid #eee;
+	padding: 15px 0px;
+}
+.room_move_top_title{
+	font-size:22px;
+}
+.room_move_top_text img{
+	width:20px;
+	margin-right: 10px;
+}
+.move_date_btn{
+	border:2px solid #956BFC;
+	padding:2px 12px;
+	color:#956BFC;
+	margin-left:8px;
+	border-radius: 50px;
+	cursor: pointer;
+}
+.room_move_right{
+	width:300px;
+	float:right;
+	box-sizing: border-box;
+	border : 1px solid #eee;
+	padding:30px;
+	color:#666;
+	margin-top:50px;
+}
+.room_move_right h1{
+	font-size: 26px;
+	font-family: "ns_400";
+}
+.room_move_right ul{
+	margin-top:30px;
+	overflow:hidden;
+	padding-bottom:20px;
+	border-bottom:1px solid #eee;
+}
+.room_move_right ul li{
+	width:100%;
+	float:left;
+	margin-bottom:5px;
+}
+.room_move_pay_title{
+	float:left;
+	font-size:18px;
+}
+.room_move_pay_code{
+	float:right;
+	overflow: hidden;
+	text-overflow:ellipsis; 
+	white-space:nowrap;
+	width:150px;
+	text-align: right;
+}
+.room_move_pay_total{
+	margin-top:20px;
+	text-align: right;
+}
+.room_move_pay_total_title{
+	float:right;
+	margin-bottom:5px;
+	font-size:18px;
+}
+.room_move_pay_total_code{
+	float:right;
+	color:#956bfc;
+	clear:both;
+	font-size:24px;
+	font-family: "ns_700";
+}
+.room_move_pay_btn{
+	float:left;
+	clear:both;
+	margin-top:30px;
+	width:100%;
+}
+.room_move_pay_btn a{
+	width:100%;
+	line-height: normal;
+}
+
+/* 제공옵션 */
+.room_move_option_view{
+	width: 850px;
+    background: #f9f9f9;
+    height: auto;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 8px;
+    float:left;
+    clear:both;
+    margin-top:50px;
+    box-sizing: content-box;
+}
+.room_move_option_view li{
+	text-align: center;
+	padding:15px;
+	border:1px solid #eee;
+	background: #fff;
+	margin-right:10px;
+	border-radius: 8px;
+	width:107px;
+	margin-bottom:10px;
+}
+.room_move_option_view li:last-child{
+	margin-right:0;
+}
+.room_move_option_view li,.room_move_option_img{
+	float:left;
+}
+.room_move_option_img{
+	margin:0 auto;
+	width:100%;
+}
+.room_move_option_img img{
+	width:50px;
+}
+.room_move_option_title{
+	float:left;
+	clear:both;
+	text-align: center;
+	width: 100%;
+	margin-top:10px;
+	font-size:14px;
+	color:#666;
+}
