@@ -178,4 +178,69 @@
 	<select id="reportTotal" resultType="_int">
 		select count(*) from report
 	</select>
+	<select id="searchReport" parameterType="map" resultType="rp">
+		select
+		    report_no as reportNo,
+		    report_category as reportCategory,
+		    report_num as reportNum,
+		    reporter,
+		    atacker,
+		    (select member_id from member where member_no=reporter) reporterId,
+		    (select member_id from member where member_no=atacker) atackerId,
+		    report_content as reportContent,
+		    report_date as reportDate,
+		    report_status as reportStatus
+		from (select rownum as rnum, r.* from (select * from report
+		<choose>
+			<when test="type != null and type.equals('reporterId')">
+				where reporter in (select member_no from member where member_id like '%'||#{keyword}||'%')
+			</when>
+			<when test="type != null and type.equals('atackerId')">
+				where atacker in (select member_no from member where member_id like '%'||#{keyword}||'%')
+			</when>
+			<when test="type != null and type.equals('reportNum')">
+				where report_num like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+		<if test="status != null">
+			and report_status in
+			<foreach collection="status" item="s" open="(" close=")" separator=",">
+				#{s}
+			</foreach>
+		</if>
+		<if test="cate != null">
+			and report_category in
+			<foreach collection="cate" item="c" open="(" close=")" separator=",">
+				#{c}
+			</foreach>
+		</if>
+		order by 1 desc)r)rr
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="totalSearchReport" parameterType="map" resultType="_int">
+		select count(*) from report
+		<choose>
+			<when test="type != null and type.equals('reporterId')">
+				where reporter in (select member_no from member where member_id like '%'||#{keyword}||'%')
+			</when>
+			<when test="type != null and type.equals('atackerId')">
+				where atacker in (select member_no from member where member_id like '%'||#{keyword}||'%')
+			</when>
+			<when test="type != null and type.equals('reportNum')">
+				where report_num like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+		<if test="status != null">
+			and report_status in
+			<foreach collection="status" item="s" open="(" close=")" separator=",">
+				#{s}
+			</foreach>
+		</if>
+		<if test="cate != null">
+			and report_category in
+			<foreach collection="cate" item="c" open="(" close=")" separator=",">
+				#{c}
+			</foreach>
+		</if>
+	</select>
 </mapper>
