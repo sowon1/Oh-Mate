@@ -190,4 +190,17 @@ public class HouseService {
 		return dao.insertTour(t);
 	}
 
+	//입주신청 페이지 이동 - 정보 넘겨주기
+	public Room selectRoom(int roomNo, int houseNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("roomNo",roomNo);
+		map.put("houseNo",houseNo);
+		Room r = dao.selectRoom(map);
+		ArrayList<House> house = dao.selectRoomHouse(houseNo);
+		ArrayList<Photo> photoList = dao.selectHousePhotoView(houseNo);
+		r.setPhotoList(photoList);
+		r.setHouse(house);
+		return r;
+	}
+
 }

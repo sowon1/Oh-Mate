@@ -210,7 +210,7 @@
 			                     		</c:when>
 					                	<c:otherwise>                							              
 											<a id="tour_request" class="room_tour_btn">투어 신청</a>
-		       								<a href="" class="room_move_btn">입주 신청</a>
+		       								<a href="/roomMoveFrm.do?roomNo=${r.roomNo}&houseNo=${h.houseNo}" class="room_move_btn">입주 신청</a>
 					                	</c:otherwise>
 			                     	</c:choose>	        
        							</div>		

@@ -1,5 +1,9 @@
 package kr.or.room.model.vo;
 
+import java.util.ArrayList;
+
+import kr.or.common.Photo;
+import kr.or.house.model.vo.House;
 import lombok.Data;
 
 @Data
@@ -14,4 +18,6 @@ public class Room {
 	private String roomContent;		//방 상세내역
 	private String roomPersonnel;	//방수용인원
 	private String roomMonth;		//첫달월세
+	ArrayList<House> house;			//해당 방이 있는 하우스 정보
+	ArrayList<Photo> photoList;		//해당 방이 있는 하우스 사진
 }

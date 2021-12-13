@@ -227,4 +227,41 @@
 		insert into tour
   		values(tour_seq.nextval,#{roomNo},#{memberNo},#{tourPhone},#{tourEmail},#{houseName},#{tourQna},#{tourVisit},2)
 	</insert>
+	
+	<!-- 입주신청 페이지 이동 하우스 정보 넘겨주기 -->
+	<select id="selectRoomHouse" parameterType="_int" resultType="h">
+		select 
+             h.house_no as houseNo,
+             h.member_no as memberNo,
+             h.house_title as houseTitle,
+             h.houseowner_deadline as houseownerDeadline,
+             h.house_selling as houseSelling,
+             h.refuse_reason as refuseReason,
+             h.house_content as houseContent,
+             h.house_room as houseRoom,
+             h.house_charge as houseCharge,
+             h.house_rule as houseRule,
+             h.house_form as houseForm,
+             h.house_gender as houseGender,
+             h.house_convenience as houseConvenience,
+             h.house_allow as houseAllow,
+             (select address_name from address where address_category=1 and address_number=h.house_no) as addressName,
+             (select address_road from address where address_category=1 and address_number=h.house_no) as addressRoad
+        from house h where house_no=#{houseNo}
+	</select>
+	<!-- 입주신청 페이지 이동 하우스 정보 넘겨주기 -->
+	<select id="selectRoom" parameterType="map" resultType="r">
+		select 
+			room_no as roomNo,
+			house_no as houseNo,
+			room_title as roomTitle,
+			room_size as roomSize,
+			room_phone as roomPhone,
+			room_status as roomStatus,
+			room_charge as roomCharge,
+			room_content as roomContent,
+			room_personnel as roomPersonnel,
+			room_month as roomMonth
+		from room where room_no=#{roomNo} and house_no=#{houseNo}
+	</select>
 </mapper>
