@@ -18,5 +18,7 @@
 		<typeAlias type="kr.or.notice.model.vo.Notice" alias="n"/>
 		<typeAlias type="kr.or.notice.model.vo.FileVO" alias="fi"/>
 		<typeAlias type="kr.or.common.Report" alias="rp"/>
+		<typeAlias type="kr.or.board.model.vo.Board" alias="b"/>
+		<typeAlias type="kr.or.board.model.vo.MateComment" alias="mc"/>
 	</typeAliases>
 </configuration>

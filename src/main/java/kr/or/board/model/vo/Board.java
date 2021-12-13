@@ -11,5 +11,6 @@ public class Board {
 	private int readCount;		 // 조회수
 	private char regDate;		 // 작성날짜(YYYY-MM-DD HH:MM)
 	private String filePath;	 // 첨부파일경로
-	private String option;		 // 0/0/00/0/0/0/0
+	private String option;		 // 0/0/00/0/0/0/0 
+	private int status;		     // 신고여부
 }

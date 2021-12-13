@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+#postBtn{
+	width:100px; 
+	height:30px; 
+	font-size:12px; 
+	padding:0px; 
+	line-height:0px;
+}
+tr>td.tdStyle{
+	padding-left:20px;
+}
+th:nth-child(-n+3){
+	width: 200px;
+	vertical-align: middle;
+	text-align: center;
+}
+input[name="boardTitle"]{
+	width: 350px;
+	height: 30px;
+	border:none;
+}
+.poption{
+	border:none;
+}
+.submitBtn{
+	text-align:center;
+}
+#boardInsert{
+	line-height:0px;
+}
