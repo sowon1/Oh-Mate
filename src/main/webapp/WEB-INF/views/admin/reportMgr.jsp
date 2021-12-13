@@ -189,9 +189,7 @@
 	                        </td>
 	                    </tr>
 	                    <tr class="table-active_mate">
-	                    	<td colspan="2">
-	                    		<p id="notice">※ 처리 후 재수정 불가</p>
-	                    	</td>
+	                    	<td colspan="2" id="notice"></td>
 	                    </tr>
 	                </table>
 	                <div class="btnBox">

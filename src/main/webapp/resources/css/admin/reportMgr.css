@@ -90,7 +90,7 @@ table p{
 	background:rgba(0, 0, 0, 0.5);
 	position:fixed;
 	z-index: 9999;
-	display:flex;
+	display:none;
 	justify-content: center;
 	align-items: center;
 }
@@ -177,7 +177,7 @@ table p{
 .modal_report_content .form-control[readonly]{
 	background-color: #fff;
 }
-#notice{
+#notice>p{
 	margin: 0;
 	color: red;
 }

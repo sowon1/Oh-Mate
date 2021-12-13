@@ -72,10 +72,13 @@ $(".reportModal").click(function(){
 			$("#reportContent").html(data.reportContent);
 			$("[name=reportStatus").eq(data.reportStatus-1).prop("checked",true);
 			$(".modal_report_content .btnBox input").prop("disabled",false);
+			$(".btnBox").css("margin","15px auto 0");
+			$("#notice").empty();
 			if(data.reportStatus != 1){
 				$(".modal_report_content .btnBox input").prop("disabled",true);
-				$("#notice").remove();
 				$(".btnBox").css("margin","28px auto 0");
+			}else {			
+				$("#notice").append("<p>※ 처리 후 재수정 불가</p>");
 			}
 			modalShow();
 		}

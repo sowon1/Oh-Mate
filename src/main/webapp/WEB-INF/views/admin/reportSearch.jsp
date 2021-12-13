@@ -291,6 +291,9 @@
 	                            </div>
 	                        </td>
 	                    </tr>
+	                    <tr class="table-active_mate">
+	                    	<td colspan="2" id="notice"></td>
+	                    </tr>
 	                </table>
 	                <div class="btnBox">
 	                    <input type="submit" class="btn btn_out" value="처리">
