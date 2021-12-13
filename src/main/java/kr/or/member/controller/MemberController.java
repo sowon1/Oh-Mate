@@ -8,12 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
-import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -25,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
-import kr.or.profile.model.vo.Profile;
 
 @Controller
 public class MemberController {
@@ -407,83 +404,5 @@ public class MemberController {
 		}
 		model.addAttribute("loc","/");
 		return "common/msg";
-	}
-	
-	//커뮤니티 이동
-	@RequestMapping(value="/communityFrm.do")
-	public String communityFrm(String memberId, Model model) {
-		return "community/communityFrm";
-	}
-	
-	//프로필등록 이동
-	@RequestMapping(value="/profile.do")
-	public String profile() {
-		return "community/profile";
-	}
-	
-	//프로필 미등록 -> 작성
-	@RequestMapping(value="/insertProfile.do")
-	public String insertProfile(String memberId, Profile pr, Model model, HttpSession session) {
-		int result = service.insertProfile(pr);
-		if(result>0) {
-			model.addAttribute("msg","프로필 등록 완료~");
-			Profile p = service.selectProfile(memberId);
-			session.setAttribute("p", p);
-		}else {
-			model.addAttribute("msg","프로필 등록 실패");
-		}
-		model.addAttribute("loc","/communityFrm.do?memberId="+ pr.getPWriter());
-		return "common/msg";
-	}
-	
-	//프로필 수정,삭제 페이지 이동
-	@RequestMapping(value="/profileUpFrm.do")
-	public String profileUpdate(String memberId, Model model) {
-		Profile p = service.selectProfile(memberId);
-		model.addAttribute("local", p.getPLocal());
-		model.addAttribute("p", p);
-		return "community/profileUpFrm";
-	}
-	
-	//프로필 수정
-	@RequestMapping(value="/updateProfile.do")
-	public String updateProfile(Profile pr, String memberId, Model model) {
-		int result = service.updateProfile(pr);
-		if(result>0) {
-			model.addAttribute("msg","프로필 수정 완료~");
-		}else {
-			model.addAttribute("msg","프로필 수정 실패");
-		}
-		model.addAttribute("loc","/communityFrm.do?memberId="+memberId);
-		return "common/msg";
-	}
-	
-	//프로필 삭제
-	@RequestMapping(value="/deleteProfile.do")
-	public String deleteProfile(String memberId, Model model) {
-		int result = service.deleteProfile(memberId);
-		if(result>0) {
-			model.addAttribute("msg","프로필 삭제 완료");
-		}else{
-			model.addAttribute("msg","프로필 삭제 실패");
-		}
-		model.addAttribute("loc","/communityFrm.do?memberId="+memberId);
-		return "common/msg";
-	}
-	
+	}	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -109,4 +109,14 @@ public class HouseDao {
 		return session.insert("house.insertTour",t);
 	}
 
+	public int updateRoomSelling1(int houseNo) {
+		int result = session.update("house.houseRoomSelling1",houseNo);
+		return result;
+	}
+
+	public int updateRoomSelling2(int houseNo) {
+		int result =session.update("house.houseRoomSelling2",houseNo);
+		return result;
+	}
+
 }

@@ -171,9 +171,127 @@
 					$(".loading").hide();
 					isLoading = false;
 					
-					
-					
-					
+					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				      mapOption = {
+				         center : new kakao.maps.LatLng(37.5640455, 126.834005), // 지도의 중심좌표
+				         level : 6
+				      };
+				      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+				      // 줌아웃에서 아웃 막기
+				      map.setMinLevel(4); // 100m
+				      map.setMaxLevel(7); // 1km
+				      mateMap();
+				      // default 서울시 
+				      function mateMap() {
+				         var lat, lon, locPosition;
+				         lat = 37.5662994, 
+				         lon = 126.9757564; 
+				         locPosition = new kakao.maps.LatLng(37.5662994, 126.9757564); // 서울특별시
+				         map.setCenter(locPosition);   
+				         map.setLevel(9);
+				         getHouseMap();
+				      }
+				      var oay = null;
+				      var selectedMarker = null;
+				      var coay = null;
+				      var cselectedMarker = null;
+				      function getHouseMap() {
+					      <c:forEach items="${list}" var="h">
+					         // 주소-좌표 변환 객체를 생성합니다
+					         var geocoder = new kakao.maps.services.Geocoder();
+					         
+					         // 주소로 좌표를 검색합니다
+					         geocoder.addressSearch('${h.houseAddressView[0].addressRoad}', function(result, status) {
+					             // 정상적으로 검색이 완료됐으면 
+					             console.log('${h.houseAddressView[0].addressRoad}');
+					              if (status === kakao.maps.services.Status.OK) {
+					                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					                 
+					               var imageSrc = '/resources/img/icon/marker.png', 
+					               imageSize = new kakao.maps.Size(40, 44), // 마커이미지의 크기입니다
+					               imageOption = {
+					                  offset : new kakao.maps.Point(10, -80)
+					               }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+					      
+					               // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					               var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize,
+					               imageOption), markerPosition = coords; // 마커가 표시될 위치입니다
+					                 
+					                 // 결과값으로 받은 위치를 마커로 표시합니다
+					                 var marker = new kakao.maps.Marker({
+					                     map: map,
+					                     image: markerImage,
+					                     zIndex : 11,
+					                     position: coords,
+				                         clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트
+					                 });
+						           // 커스텀 오버레이에 표시할 컨텐츠 입니다
+						           // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
+						           // 별도의 이벤트 메소드를 제공하지 않습니다 
+						           var content = '<div class="map_wrap">' +  
+						                       '    <div class="info">' + 
+						                       '        <div class="title">' + 
+						                       '            ${h.houseTitle}' + 
+						                       '            <div class="house_map_close" onclick="closeOverlay(this)" title="닫기"></div>' + 
+						                       '        </div>' + 
+						                       '        <div class="body">' +
+						                       '			<div class="img">' +
+						                       '                <img src="/resources/upload/house/${h.photoList[0].photoPath}">' +
+						                       '           </div>' + 
+						                       '            <div class="desc">' + 
+								               '       			<div class="title_tag">' +
+								               '           			#${h.houseForm}' + 
+								               '        		</div>' + 
+						                       '                <div class="ellipsis">${h.houseAddressView[0].addressRoad}</div>' + 
+						                       '                <div class="jibun ellipsis">입주 가능 방 ${h.houseRoom}개</div>' + 
+						                       '                <div><a href="houseView.do?houseNo=${h.houseNo}" target="_blank" class="house_view_more">자세히보기</a></div>' + 
+						                       '            </div>' + 
+						                       '        </div>' + 
+						                       '    </div>' +    
+						                       '</div>';
+						           // 마커 위에 커스텀오버레이를 표시합니다
+						           // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+						           var overlay = new kakao.maps.CustomOverlay({
+						               content: content,
+					                   zIndex : 15,
+						               position: marker.getPosition()       
+						           });
+						           
+						           kakao.maps.event.addListener(marker, 'click', function() {
+						        	   
+						               // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
+						               // 오버레이를 표시합니다.
+									   if (cselectedMarker != null){
+										   coay.setMap(null);
+									   }
+					                   // 클릭된 마커 객체가 null이 아니면
+					                   // 이전에 표시된 오버레이를 표시하지 않습니다.
+					                   if(oay != null){
+					                	   oay.setMap(null);
+					                   }
+					                   
+				                       if(coay != null){
+				                     	   coay.setMap(null);
+				                       }
+									   // 현재 오버레이를 표시합니다.
+						        	   overlay.setMap(map);
+									   // 현재 마커를 중심으로 맵을 이동합니다.
+						        	   map.setCenter(marker.getPosition());   
+									   // 이전 오버레이에 현재 오버레이를 대입합니다.
+						        	   oay = overlay;
+									   // 클릭된 마커를 변경합니다.
+						        	   selectedMarker = marker;
+						        	   cselectedMarker = null;
+						           });
+					             } 
+					            });
+					      </c:forEach>
+				      }
+				   	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+				      function closeOverlay(a) {
+				    	  oay.setMap(null);
+				      }
+
 				}
 			});
 		}
@@ -234,42 +352,7 @@
         $(".btnBorder").click(function(){
         	$("input[type='checkbox']").prop('checked', false);
         });
-		//map
-		 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		    mapOption = {
-			 	center: new kakao.maps.LatLng(38.00994423, 126.9531742), // 지도의 중심좌표
-		        level: 3 // 지도의 확대 레벨
-		    };  		
-		// 지도를 생성합니다   
-		var map = new kakao.maps.Map(mapContainer, mapOption); 
-		// 버튼 클릭에 따라 지도 이동 기능을 막거나 풀고 싶은 경우에는 map.setDraggable 함수를 사용합니다
-		var mapTypeControl = new daum.maps.MapTypeControl();
-		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-		var zoomControl = new daum.maps.ZoomControl();
-		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);	
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();	
-		// 주소로 좌표를 검색합니다 
-		var addr = '남부순환로82길';
-		var comname = '네임변수';
-		geocoder.addressSearch(addr, function(result, status) {
-		    // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {	
-		        var coords = new kakao.maps.LatLng(result[0].y,result[0].x);
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="">'+comname+'</div>'
-		        });
-		        infowindow.open(map, marker);
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        map.setCenter(new kakao.maps.LatLng(result[0].y,result[0].x));
-		    } 
-		});
+		
 	</script>
 </body>
 </html>

@@ -1,17 +1,17 @@
 	
 	//지역구 선택 옵션
-	var PLocal = [	'강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구',
+	var PLocal = ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구',
 	'동작구', '마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'];
 	
 $(function(){
-		for(var i=0; i<PLocal.length; i++){
-			var option = $("<option>");
-			option.attr("value",i+1);
-			option.html(PLocal[i]);
-			$("#pLocal2").append(option);
-		}
-		var local = $("[name=pLocalVal]").val();
-		$('select.pLocal option[value=' + local + ']').attr('selected', 'selected');
+	for(var i=0; i<PLocal.length; i++){
+		var option = $("<option>");
+		option.attr("value",i+1);
+		option.html(PLocal[i]);
+		$("#pLocal2").append(option);
+	}
+	var local = $("[name=pLocalVal]").val();
+	$('select.pLocal option[value=' + local + ']').attr('selected', 'selected');
 			
 	//프로필 삭제
 	$("#profilesubmit2").click(function(){

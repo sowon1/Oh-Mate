@@ -213,6 +213,14 @@
 	<select id="houseTotalCount" parameterType="_int" resultType="_int">
 		select count(*)from house where member_no=#{memberNo}
 	</select>
+	<!-- 하우스리스트 추가시 조건문적용 -->
+	<update id="houseRoomSelling1" parameterType="_int">
+		update room set house_selling = 1 where house_no =#{houseNo}
+	</update>
+	<update id="houseRoomSelling2" parameterType="_int">
+		update room set house_selling = 2 where house_no =#{houseNo}
+	</update>
+
 	
 	<!--  투어신청  -->
 	<insert id="insertTour" parameterType="t">
