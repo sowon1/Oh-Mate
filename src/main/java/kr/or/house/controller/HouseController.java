@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +24,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import kr.or.common.Address;
-import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.common.Photo;
 import kr.or.common.Tour;
@@ -36,7 +33,6 @@ import kr.or.house.model.vo.HouseResult;
 import kr.or.house.model.vo.housePageData;
 import kr.or.main.model.service.MainService;
 import kr.or.member.model.vo.Member;
-import kr.or.room.model.vo.Room;
 
 @Controller
 public class HouseController {
