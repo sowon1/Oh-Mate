@@ -94,7 +94,7 @@ public class HouseController {
 					return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
 				}else {
 				//파일이 있는경우
-					String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/house");
+					String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
 					for(MultipartFile file: photoPath) {
 						//사용자가 올린 파일명
 						String filename = file.getOriginalFilename();
@@ -247,5 +247,10 @@ public class HouseController {
 		model.addAttribute("totalCount", hpd.getTotalCount());
 		
 		return "house/houseownerList";
+	}
+	//하우스 업데이트
+	@RequestMapping(value = "/houseUpdateFrm.do")
+	public String houseUpdateFrm(int houseNo) {
+		return"";
 	}
 }

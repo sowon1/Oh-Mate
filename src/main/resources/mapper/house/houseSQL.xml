@@ -213,4 +213,10 @@
 	<select id="houseTotalCount" parameterType="_int" resultType="_int">
 		select count(*)from house where member_no=#{memberNo}
 	</select>
+	<update id="houseRoomSelling1" parameterType="_int">
+		update room set house_selling = 1 where house_no =#{houseNo}
+	</update>
+	<update id="houseRoomSelling2" parameterType="_int">
+		update room set house_selling = 2 where house_no =#{houseNo}
+	</update>
 </mapper>

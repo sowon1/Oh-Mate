@@ -1258,7 +1258,7 @@ input[name="funderCategory"]:checked+label:after{
     margin: 40px auto 20px auto;
     justify-content: center;
 }
-.page-item{
+.page-item-mate-mate{
 	width:33px;
 	height:33px;
 	/* line-height:30px; */
@@ -1268,7 +1268,7 @@ input[name="funderCategory"]:checked+label:after{
 	float: left;
 	border: 3px solid transparent;
 }
-.page-item>a{
+.page-item-mate-mate>a{
 	display: block;
 }
 .pagination > .active{
