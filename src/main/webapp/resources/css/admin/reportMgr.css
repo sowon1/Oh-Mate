@@ -56,21 +56,134 @@ input[type="checkbox"]{
 .keywordBox input[name="keyword"]::placeholder{
 	color:#ddd;
 }
-table *{
+.container_mate table *{
     text-align: center;
 }
 table a{
 	color: #333;
 }
 table a:hover{
-	text-decoration: underline;	
+	color:#8500ff;
+	text-decoration: underline;
+	cursor: pointer;
 }
 table p{
 	margin: 50px 0;
+}
+.table-active_mate{
+	align-items: center;
+	margin-bottom: 10px;
+}
+.table > :not(caption) > * > *{
+    box-shadow: none;
+    border-bottom: none;
 }
 .container_mate>h1{
 	padding-left: 35px;
 }
 .form-check-input:focus{
 	box-shadow: none;
+}
+/* 신고 상세 모달 */
+.modal_report{
+	height:100%;
+	background:rgba(0, 0, 0, 0.5);
+	position:fixed;
+	z-index: 9999;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+.modal_report_win{
+	width:500px;
+	height:600px;
+	background-color: #fff;
+	box-shadow: 0 8px 32px 0 rgba(68, 71, 106, 0.8 );
+	border-radius: 15px;
+	overflow: hidden;
+}
+.modal_report_title{
+	height:60px;
+	display:flex;
+	background-color: #956bfc;
+	padding: 20px;
+	justify-content: space-between;
+	align-items: center;
+}
+.modal_report_title>h3{
+	margin:0;
+	color: #fff;
+}
+.modal_report_close{
+	cursor: pointer;
+}
+.modal_report_close>img{
+	width:20px;
+}
+.modal_report_content table{
+	margin: 35px auto;
+	width:400px;
+}
+.modal_report_content .table-active_mate th{
+	width: 150px;
+}
+.modal_report_content .table-active_mate td{
+	width:250px;
+}
+.modal_report_content .btn{
+	line-height: 0;
+	height:40px;
+	font-size: 17px;
+}
+.modal_report_content .select input[type=radio]+label{
+	font-size:15px;
+	width:90px;
+}
+.modal_report_content .select input[type=radio]+label:last-child{
+	margin:0;
+}
+.modal_report_content .select{
+	display: flex;
+	justify-content: space-between;
+	width: 250px;
+}
+.modal_report_content .btnBox{
+	margin:15px auto 0;
+	width:150px;
+}
+.btn:focus{
+	box-shadow: none;
+}
+.modal_report_content table>tbody>tr:nth-of-type(6)>th{
+	align-self: flex-start;
+	margin-top: 14px;
+}
+.modal_report_content td{
+	padding:0;
+	display:flex;
+	justify-content:flex-end;
+}
+.modal_report_content .input_03{
+	border: 1px solid #cbc8d0; 
+}
+.modal_report_content .form-control{
+	padding: 5px 12px;
+	resize: none;
+}
+.modal_report_content .form-control:focus{
+	box-shadow: none;
+	border-color: #cbc8d0;
+}
+.modal_report_content .form-control[readonly]{
+	background-color: #fff;
+}
+#notice{
+	margin: 0;
+	color: red;
+}
+.modal_report_content table{
+	margin-bottom: 0;
+}
+.modal_report_content tr:last-child {
+	margin: 0;	
 }

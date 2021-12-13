@@ -243,4 +243,18 @@
 			</foreach>
 		</if>
 	</select>
+	<select id="selectOneReport" parameterType="_int" resultType="rp">
+		select
+		    report_no as reportNo,
+		    report_category as reportCategory,
+		    report_num as reportNum,
+		    reporter,
+		    atacker,
+		    (select member_id from member where member_no=reporter) reporterId,
+		    (select member_id from member where member_no=atacker) atackerId,
+		    report_content as reportContent,
+		    report_date as reportDate,
+		    report_status as reportStatus
+		from report where report_no = #{reportNo}
+	</select>
 </mapper>

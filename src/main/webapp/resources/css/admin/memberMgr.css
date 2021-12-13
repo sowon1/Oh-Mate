@@ -53,6 +53,7 @@ table a{
 	color: #333;
 }
 table a:hover{
+	color:#8500ff;
 	text-decoration: underline;	
 }
 table p{

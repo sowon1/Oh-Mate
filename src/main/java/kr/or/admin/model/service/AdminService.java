@@ -278,4 +278,8 @@ public class AdminService {
 		data.put("start", start);
 		return data;
 	}
+
+	public Report selectOneReport(int reportNo) {
+		return dao.selectOneReport(reportNo);
+	}
 }
