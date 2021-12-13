@@ -158,6 +158,10 @@ public class AdminController {
 	@RequestMapping(value="/reportSearch.do")
 	public String reportSearch(int reqPage, SearchReport sr, Model model) {
 		HashMap<String, Object> data = service.reportSearch(reqPage, sr);
-		return "";
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		model.addAttribute("sr", sr);
+		return "admin/reportSearch";
 	}
 }

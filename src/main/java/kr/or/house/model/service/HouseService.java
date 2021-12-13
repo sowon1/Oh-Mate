@@ -11,6 +11,7 @@ import kr.or.common.Address;
 import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.common.Photo;
+import kr.or.common.Tour;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
@@ -173,6 +174,10 @@ public class HouseService {
 		pageNavi += "</ul>";
 		housePageData hpd = new housePageData(list,pageNavi,start,totalCount);
 		return hpd;
+	}
+	//투어신청 - sowon
+	public int insertTour(Tour t) {
+		return dao.insertTour(t);
 	}
 
 }

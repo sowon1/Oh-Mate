@@ -12,6 +12,7 @@ import kr.or.common.Address;
 import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.common.Photo;
+import kr.or.common.Tour;
 import kr.or.house.model.vo.House;
 import kr.or.room.model.vo.Room;
 
@@ -102,6 +103,10 @@ public class HouseDao {
 	public int houseTotalCount(int memberNo) {
 		int totalCount = session.selectOne("house.houseTotalCount", memberNo);
 		return totalCount;
+	}
+	//투어신청 - sowon
+	public int insertTour(Tour t) {
+		return session.insert("house.insertTour",t);
 	}
 
 	public int updateRoomSelling1(int houseNo) {

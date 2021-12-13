@@ -215,66 +215,67 @@
 			                     	</c:choose>	        
        							</div>		
        						</li>
+			       			<div class="room_popup_modal">		       			
+			                    <div class="room_tour_popup_modal">
+			                       <div class="room_modal_top">
+			                       		<span class="room_modal_text">투어신청</span>
+			                            <span class="room_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+			                        </div>
+			                        <div class="room_modal_content">
+			                        	<form action="/tourrequest.do" method="post">
+			                        		<table class="tour_table">
+			                        			<tr class="table-active_mate">
+			                        				<th>이름</th>
+			                        				<td>
+						                        		<input type="text" class="input_03" value="${sessionScope.m.memberName}" readonly="readonly">
+			                        				</td>
+			                        			</tr>
+			                        			<tr class="table-active_mate">
+			                        				<th>연락처 <em class="point">*</em></th>
+			                        				<td>
+						                        		<input type="text" name="tourPhone" class="input_03" placeholder="하이픈(-)을 포함하여 입력해주세요.">
+			                        				</td>
+			                        			</tr>
+			                        			<tr class="table-active_mate">
+			                        				<th>이메일 <em class="point">*</em></th>
+			                        				<td>
+						                        		<input type="text" name="tourEmail" class="input_03" placeholder="이메일">
+			                        				</td>
+			                        			</tr>
+			                        			<tr class="table-active_mate">
+			                        				<th>하우스 구분</th>
+			                        				<td>
+						                        		<input type="text" name="houseName" class="input_tour" value="${h.houseTitle}" readonly="readonly">
+						                        		<input type="text" class="input_tour" value="${r.roomTitle} 투어신청" readonly="readonly">
+			                        				</td>
+			                        			</tr>
+			                        			<tr class="table-active_mate">
+			                        				<th>투어 희망일 <em class="point">*</em></th>
+			                        				<td>
+						                        		<input type="text" name="tourVisit" class="input_date input_03" readonly="readonly">
+			                        				</td>
+			                        			</tr>
+			                        			<tr class="table-active_mate">
+			                        				<th>문의사항</th>
+			                        				<td>
+						                        		<textarea name="tourQna" class="textarea_pro" placeholder="문의사항"></textarea>
+			                        				</td>
+			                        			</tr>
+			                        			<input type="hidden" name="roomNo" value="${r.roomNo}">
+			                        			<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo}">
+			                        		</table>
+			                        		<div class="form_btn">
+			                        			<a class="btn_100" type="submit" onclick="return checkVal();">신청하기</a>
+			                        		</div>
+			                        	</form>
+			                        </div>
+			                	</div> 
+			                </div>
        					</c:forEach>
        				</ul>
        			</div>
-       			<div class="room_popup_modal">		       			
-                    <div class="room_tour_popup_modal">
-                       <div class="room_modal_top">
-                       		<span class="room_modal_text">투어신청</span>
-                            <span class="room_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
-                        </div>
-                        <div class="room_modal_content">
-                        	<form action="/tourrequest.do" method="post">
-                        		<table class="tour_table">
-                        			<tr class="table-active_mate">
-                        				<th>이름</th>
-                        				<td>
-			                        		<input type="text" class="input_03" value="${sessionScope.m.memberName}" readonly="readonly">
-                        				</td>
-                        			</tr>
-                        			<tr class="table-active_mate">
-                        				<th>연락처 <em class="point">*</em></th>
-                        				<td>
-			                        		<input type="text" name="tourPhone" class="input_03" placeholder="하이픈(-)을 포함하여 입력해주세요.">
-                        				</td>
-                        			</tr>
-                        			<tr class="table-active_mate">
-                        				<th>이메일 <em class="point">*</em></th>
-                        				<td>
-			                        		<input type="text" name="tourEmail" class="input_03" placeholder="이메일">
-                        				</td>
-                        			</tr>
-                        			<tr class="table-active_mate">
-                        				<th>하우스명</th>
-                        				<td>
-			                        		<input type="text" name="houseName" class="input_03" value="${h.houseTitle}" readonly="readonly">
-                        				</td>
-                        			</tr>
-                        			<tr class="table-active_mate">
-                        				<th>투어 희망일 <em class="point">*</em></th>
-                        				<td>
-			                        		<input type="text" name="tourVisit" class="input_date input_03" readonly="readonly">
-                        				</td>
-                        			</tr>
-                        			<tr class="table-active_mate">
-                        				<th>문의사항</th>
-                        				<td>
-			                        		<textarea name="tourQna" class="textarea_pro" placeholder="문의사항"></textarea>
-                        				</td>
-                        			</tr>
-                        			<input type="hidden" name="roomNo" value="${h.houseNo}">
-                        			<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo}">
-                        		</table>
-                        		<div class="form_btn">
-                        			<a class="btn_100" type="submit" onclick="return checkVal();">신청하기</a>
-                        		</div>
-                        	</form>
-                        </div>
-                	</div> 
-                </div>
 			</div>
-			<div class="msg_popup_modal">		       			
+			<div class="form_popup_modal">		       			
 	             <div class="popup_modal">
 	                <div class="msg_modal_top">
 	                		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
@@ -465,6 +466,16 @@
 		$(".room_modal_close").click(function(){
 			tourclose();
 		});
+		function countmsgopen(){
+			$(".form_popup_modal").css("display","flex");
+		    $("body").css("overflow", "hidden");
+		    $(".back_dark").show();
+		}
+		function countmsgclose(){
+			$(".form_popup_modal").css("display","none");
+			$("body").css("overflow", "auto");
+			$(".back_dark").hide();
+		}
 		//
 		var nowDate = new Date();
 		var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate()+1);
@@ -502,7 +513,7 @@
     	   setTimeout('closed()',5000);
        }
        function closed(){
-    	   msgpopupclose();
+    	   countmsgclose();
        }
        //카운트 다운
        var timeleft = 5;
@@ -520,17 +531,17 @@
     	   var email = $("input[name='tourEmail']");
     	   var phone = $("input[name='tourPhone']");
     	   var tourVisit = $("input[name='tourVisit']");
-    	   if(email.val() == ""){
-    		   email.focus();
-    		   msgpopupopen(autoClose());
-    		   $("#title_name").text("이메일");
-    	   }else if(phone.val() == ""){
+    	   if(phone.val() == ""){
     		   phone.focus();
-    		   msgpopupopen(autoClose());
+    		   countmsgopen(autoClose());
     		   $("#title_name").text("연락처");
+    	   }else if(email.val() == ""){
+    		   email.focus();
+    		   countmsgopen(autoClose());
+    		   $("#title_name").text("이메일");
     	   }else if(tourVisit.val() == ""){
     		   tourVisit.focus();
-    		   msgpopupopen(autoClose());
+    		   countmsgopen(autoClose());
     	   }else{
     		   $("form").submit();
     	   }

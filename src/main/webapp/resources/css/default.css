@@ -280,7 +280,7 @@ ul{
 	display: none;
 	justify-content: center;
 	align-items: center;
-	z-index: 9998;
+	z-index: 9994;
 }
 .tour_back_dark{
 	width: 100vw;
@@ -293,7 +293,7 @@ ul{
 	display: none;
 	justify-content: center;
 	align-items: center;
-	z-index: 9996;
+	z-index: 9993;
 }
 
 /* top 버튼 */
@@ -330,6 +330,7 @@ ul{
 }
 .chat_icon2 img{
 	width: 60px;
+	filter: drop-shadow(rgba(0, 0, 0, 0.4) 0px 1px 4px);
 }
 /* ------------------------------------------------------------------ */
 
