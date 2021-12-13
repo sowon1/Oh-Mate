@@ -119,4 +119,14 @@ public class HouseDao {
 		return result;
 	}
 
+	//입주신청 페이지 이동 - 정보 넘겨주기.
+	public Room selectRoom(HashMap<String, Object> map) {
+		return session.selectOne("house.selectRoom",map);
+	}
+	//하우스 정보 조회
+	public ArrayList<House> selectRoomHouse(int houseNo) {
+		List<House> house = session.selectList("house.selectRoomHouse",houseNo);
+		return (ArrayList<House>)house;
+	}
+
 }

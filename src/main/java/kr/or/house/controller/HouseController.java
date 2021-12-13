@@ -33,6 +33,7 @@ import kr.or.house.model.vo.HouseResult;
 import kr.or.house.model.vo.housePageData;
 import kr.or.main.model.service.MainService;
 import kr.or.member.model.vo.Member;
+import kr.or.room.model.vo.Room;
 
 @Controller
 public class HouseController {
@@ -260,11 +261,20 @@ public class HouseController {
 			model.addAttribute("msg","투어신청이 완료되었습니다.");
 			model.addAttribute("loc","/");
 		}else {
-			model.addAttribute("msg","실패 오류찾기");
+			model.addAttribute("msg","투어신청이 실패되었습니다.");
 			model.addAttribute("loc","/");
 		}
 		return "common/msg";
 	}
 	
+	//입주신청페이지이동 - sowon
+	@RequestMapping(value="/roomMoveFrm.do")
+	public String roomMoveFrm(int roomNo, int houseNo, Model model) {
+		Room r = service.selectRoom(roomNo,houseNo);
+		model.addAttribute("r",r);
+		model.addAttribute("photo",r.getPhotoList());
+		model.addAttribute("house",r.getHouse());
+		return "house/roomMoveFrm";	
+	}
 
 }
