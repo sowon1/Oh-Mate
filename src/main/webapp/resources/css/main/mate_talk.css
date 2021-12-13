@@ -10,6 +10,7 @@
 	display:none;
 	transition-duration: 0.8s;
 	z-index:5553;
+	filter: drop-shadow(rgba(0, 0, 0, 0.4) 0px 1px 4px);
 }
 .mate_talk_view_open{
 	position: fixed;

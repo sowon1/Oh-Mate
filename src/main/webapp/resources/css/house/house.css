@@ -529,12 +529,13 @@
 
 .house_list_photo{
     width: 100%;
-    height: 170px;
+    height: 200px;
     overflow: hidden;
     position: relative;
 }
-.house_list_photo img{
-    width:100%;
+.house_list_photo>img:last-child{
+    height: 100%;
+    width: 100%;
 }
 
 /* 좋아요 버튼 부분 */
@@ -798,13 +799,13 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	margin-right:10px;
 	width: 290px;
 	overflow:hidden;
+	margin-bottom:10px;
 }
 .house_view_room_info li:last-child{
 	margin-right:0px;
 }
-.house_view_room_info li:nth-child(5n){
+.house_view_room_info li:nth-child(9n){
 	clear:both;
-	margin-top:10px;
 }
 .house_view_room_title{
 	font-size:20px;
@@ -871,7 +872,19 @@ from { opacity: 0; -webkit-transform: scale(.8); }
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 9996;
+    z-index: 9993;
+}
+.form_popup_modal{
+    /* 현재 화면 중앙에 모달 뜰수있게 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9995;
 }
 .room_tour_popup_modal{
     width: 50vw;
@@ -997,6 +1010,28 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	font-family:"ns_700";
 	color:#956bfc;
 }
+/* input 추가  */
+.input_tour{
+	outline: none;
+	border: none;
+	border-radius: 3px;
+	display: block;
+    width: 188px;
+    height: 40px;
+    box-shadow: none;
+    background-color: #fff;
+    padding: 0 12px;
+    -webkit-appearance: none;
+    border: 1px solid #9f9f9f;
+    color: #292929;
+    float:left;
+}
+.input_tour:first-child{
+	margin-right:10px;
+}
+.input_tour:focus{
+	border:1px solid #956bfc;
+}
 /* 4 */
 .option_view{
 	width: 100%;
@@ -1025,7 +1060,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .option_view li,.house_option_img{
 	float:left;
 }
-.option_view li:nth-child(9n){
+.option_view li:nth-child(9),.option_view li:nth-child(18){
 	margin-right:0;
 }
 .option_view li:nth-child(10){

@@ -213,4 +213,10 @@
 	<select id="houseTotalCount" parameterType="_int" resultType="_int">
 		select count(*)from house where member_no=#{memberNo}
 	</select>
+	
+	<!--  투어신청  -->
+	<insert id="insertTour" parameterType="t">
+		insert into tour
+  		values(tour_seq.nextval,#{roomNo},#{memberNo},#{tourPhone},#{tourEmail},#{houseName},#{tourQna},#{tourVisit},2)
+	</insert>
 </mapper>
