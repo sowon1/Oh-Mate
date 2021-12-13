@@ -270,7 +270,6 @@
 			income_name =#{incomeName},
 			where income_no = #{incomeNo} and income_category =2
 	</update>
-=======
 	
 	<!-- 입주신청 페이지 이동 하우스 정보 넘겨주기 -->
 	<select id="selectRoomHouse" parameterType="_int" resultType="h">
@@ -308,5 +307,4 @@
 			room_month as roomMonth
 		from room where room_no=#{roomNo} and house_no=#{houseNo}
 	</select>
->>>>>>> refs/heads/master
 </mapper>
