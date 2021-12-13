@@ -247,9 +247,9 @@
 		from house where house_no=#{houseNo} and member_no=#{memberNo}
 	</select>
 	<!-- 파라미터타입 확인해야함 -->
-	<delete id="housePhotoDelete" parameterType="">
+	<!-- <delete id="housePhotoDelete" parameterType="">
 		delete from photo where photo_no = #{delPhotoNo} and photo_category=1 
-	</delete>
+	</delete> -->
 	<update id="houseUpdate" parameterType="h">
 		update house set 
 			house_title =#{houseTitle},
