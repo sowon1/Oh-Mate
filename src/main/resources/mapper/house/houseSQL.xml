@@ -227,5 +227,4 @@
 		insert into tour
   		values(tour_seq.nextval,#{roomNo},#{memberNo},#{tourPhone},#{tourEmail},#{houseName},#{tourQna},#{tourVisit},2)
 	</insert>
->>>>>>> refs/heads/master
 </mapper>
