@@ -63,33 +63,4 @@ public class MemberDao {
 	public int deleteMember(int memberNo) {
 		return sqlSession.delete("member.deleteMember",memberNo);
 	}
-	
-	//프로필 작성
-	public int insertProfile(Profile pr) {
-		return sqlSession.insert("member.insertProfile",pr);
-	}
-
-	//프로필 조회
-	public Profile selectProfile(String memberId) {
-		return sqlSession.selectOne("member.selectProfile",memberId);
-	}
-
-	//프로필 수정
-	public int updateProfile(Profile pr) {
-		return sqlSession.update("member.updateProfile",pr);
-	}
-
-	//프로필 삭제
-	public int deleteProfile(String memberId) {
-		return sqlSession.delete("member.deleteProfile",memberId);
-	}
-
-
-
 }
-
-
-
-
-
-

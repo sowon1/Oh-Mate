@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+   	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/resources/css/community/communityFrm.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container">
 		<fieldset><br><br>
 			<legend class="Matitle">오늘부터 메이트</legend>
@@ -36,7 +36,7 @@
 				<c:choose>
 					<c:when test="${sessionScope.m.profileStatus eq 1}"> <!-- 프로필 등록했을 때 -->  
 						<a class="btn btn-secondary" id="profileUp" href="/profileUpFrm.do?memberId=${sessionScope.m.memberId }">프로필 수정/삭제</a>
-						<a class="btn btn-secondary" id="communityWt" href="/MateWriteFrm.do">게시글 작성</a>
+						<a class="btn btn-secondary" id="communityWt" href="/mateWriteFrm.do">게시글 작성</a>
 					</c:when>
 					<c:when test="${sessionScope.m.profileStatus eq 2}"> <!-- 프로필 등록 안했을 때 --> 
 						<a class="btn btn-secondary" href="/insertProfile.do" style="line-height: normal;">프로필 등록</a>
@@ -64,14 +64,32 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="b" varStatus="i">
-				   
+			 	<div class="row row-cols-1 row-cols-md-3" onclick="location.href='/boardView?boardNo=${b.getBoardNo()}';">
+				  <div class="col mb-4">
+				    <div class="card">
+				      <img src="/resources/upload/member/${b.getfilepath() }" class="card-img-top">
+				      <div class="card-body">
+				        <h5 class="card-title">{b.getboardTitle}</h5><br>
+				        <p class="card-text" style="color: #956BFC">{b.getboardWriter}</p>
+				        <p>{b.getregDate}</p>
+				        <p>{b.getreadCount}</p>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
+
 		
 	</div>
-		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
+<style>
+	p{
+		margin:0px;
+	}
+</style>
 </html>
 
 

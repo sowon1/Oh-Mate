@@ -9,4 +9,5 @@ public class MateComment {
 	private int boardNo;		   // 게시판번호 외래키로 참조
 	private String commentContent; // 댓글내용
 	private char regDate;		   // 작성일
+	private int status;		       // 신고여부
 }

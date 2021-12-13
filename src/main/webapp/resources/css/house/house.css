@@ -655,8 +655,73 @@
 from { opacity: 0; -webkit-transform: scale(.8); }
 }
 /* 오른쪽 맵 */
-
-
+.map_wrap{
+	width: 315px;
+    background: #fff;   
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.map_wrap .img{
+	width:100px;
+	height: 100px;
+	overflow: hidden;
+	float:left;
+}
+.map_wrap .title{
+	padding:5px 12px;
+	background: #956bfc;
+	color:#fff;
+}
+.map_wrap .body{
+	padding: 10px 12px;
+    overflow: hidden;
+}
+.map_wrap .img img{
+	height: 100%;
+}
+.map_wrap .desc{
+	float:left;
+	margin-left:10px;
+	width:180px;
+}
+.ellipsis{
+	color:#956bfc;
+	font-size:16px;
+	font-family: "ns_700";
+	clear:both;
+}
+.jibun {
+	color:#666;
+	font-size:14px;
+	font-family: "ns_300";
+}
+.house_view_more{
+	border: 2px solid #956bfc;
+    border-radius: 50px;
+    padding: 3px 8px;
+	font-size:14px;
+	color:#956bfc;
+	float:right;
+}
+.house_map_close{
+	background-image: url("/resources/img/icon/close_wh.png");
+	position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 17px;
+    height: 17px;
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.title_tag{
+    float: left;
+    color: #956bfc;
+    font-size:14px;
+}
 /* 상세보기 */
 .house_view_section01{
 	width:100%;
@@ -848,13 +913,13 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	text-align: center;
 	border-radius: 5px;
 	font-size:18px;
+	cursor: pointer;
 }
 .room_tour_btn{
 	background: #fff;
 	border : 1px solid #eee;
 	color:#333;
 	margin-right: 8px;
-	cursor: pointer;
 }
 .room_move_btn{
 	background: #956bfc;

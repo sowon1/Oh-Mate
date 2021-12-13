@@ -119,21 +119,32 @@ public class HouseDao {
 		return result;
 	}
 
+
 	public House selectHouseUpdateOneView(HashMap<String, Object> map) {
 		return session.selectOne("house.houseUpdateOne",map);
 	}
-	//
+	//하우스 수정중 사진삭제
 	public int deletePhoto(int[] delPhotoNo) {
 		
 		return session.delete("house.housePhotoDelete",delPhotoNo);
 	}
-
+	//하우스 업데이트
 	public int updateHouse(House h) {
 		return session.update("house.houseUpdate", h);
 	}
-
+	//하우스 계좌업데이트
 	public int updateIncome(Income i) {
 		return session.update("house.incomeupdate", i);
+	}
+
+	//입주신청 페이지 이동 - 정보 넘겨주기.
+	public Room selectRoom(HashMap<String, Object> map) {
+		return session.selectOne("house.selectRoom",map);
+	}
+	//하우스 정보 조회
+	public ArrayList<House> selectRoomHouse(int houseNo) {
+		List<House> house = session.selectList("house.selectRoomHouse",houseNo);
+		return (ArrayList<House>)house;
 	}
 
 }

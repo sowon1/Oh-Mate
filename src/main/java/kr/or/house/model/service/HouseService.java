@@ -52,6 +52,11 @@ public class HouseService {
 	// 하우스 리스트 출력 - sowon
 	public ArrayList<House> selectAllHouse(House h) {
 		ArrayList<House> list = dao.selectAllHouse(h);
+		for(int i=0;i<list.size();i++) {
+			int houseNo = list.get(i).getHouseNo();
+			ArrayList<Address> addressArray  = dao.selectAddress(houseNo);
+			list.get(i).setHouseAddressView(addressArray);
+		}
 		return list;
 	}
 
@@ -68,6 +73,11 @@ public class HouseService {
 		map.put("end", end);
 		map.put("memberNo", memberNo);
 		ArrayList<House> list = dao.selectAjaxHouse(map);
+		for(int i=0;i<list.size();i++) {
+			int houseNo = list.get(i).getHouseNo();
+			ArrayList<Address> addressArray  = dao.selectAddress(houseNo);
+			list.get(i).setHouseAddressView(addressArray);
+		}
 		int totalRow = dao.selectAjaxTotal();
 		// 전체 페이지의 갯수 구하기
 		int totalPageCount = (totalRow % numPerPage == 0) ? (totalRow / numPerPage) : (totalRow / numPerPage + 1);
@@ -222,6 +232,19 @@ public class HouseService {
 			
 			return 0;
 		}
+	}
+
+	//입주신청 페이지 이동 - 정보 넘겨주기
+	public Room selectRoom(int roomNo, int houseNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("roomNo",roomNo);
+		map.put("houseNo",houseNo);
+		Room r = dao.selectRoom(map);
+		ArrayList<House> house = dao.selectRoomHouse(houseNo);
+		ArrayList<Photo> photoList = dao.selectHousePhotoView(houseNo);
+		r.setPhotoList(photoList);
+		r.setHouse(house);
+		return r;
 	}
 
 }

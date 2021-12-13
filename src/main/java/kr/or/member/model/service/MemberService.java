@@ -68,28 +68,5 @@ public class MemberService {
 	public int deleteMember(int memberNo) {
 		return dao.deleteMember(memberNo);
 	}
-	
-	//프로필 작성
-	@Transactional
-	public int insertProfile(Profile pr) {
-		return dao.insertProfile(pr);
-	}
-
-	//프로필 조회
-	public Profile selectProfile(String memberId) {
-		return dao.selectProfile(memberId);
-	}
-
-	//프로필 수정
-	public int updateProfile(Profile pr) {
-		return dao.updateProfile(pr);
-	}
-
-	//프로필 삭제
-	public int deleteProfile(String memberId) {
-		return dao.deleteProfile(memberId);
-	}
-
-
 
 }

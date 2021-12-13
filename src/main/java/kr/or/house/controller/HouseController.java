@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +24,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import kr.or.common.Address;
-import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.common.Photo;
 import kr.or.common.Tour;
@@ -344,11 +341,20 @@ public class HouseController {
 			model.addAttribute("msg","투어신청이 완료되었습니다.");
 			model.addAttribute("loc","/");
 		}else {
-			model.addAttribute("msg","실패 오류찾기");
+			model.addAttribute("msg","투어신청이 실패되었습니다.");
 			model.addAttribute("loc","/");
 		}
 		return "common/msg";
 	}
 	
+	//입주신청페이지이동 - sowon
+	@RequestMapping(value="/roomMoveFrm.do")
+	public String roomMoveFrm(int roomNo, int houseNo, Model model) {
+		Room r = service.selectRoom(roomNo,houseNo);
+		model.addAttribute("r",r);
+		model.addAttribute("photo",r.getPhotoList());
+		model.addAttribute("house",r.getHouse());
+		return "house/roomMoveFrm";	
+	}
 
 }
