@@ -119,4 +119,21 @@ public class HouseDao {
 		return result;
 	}
 
+	public House selectHouseUpdateOneView(HashMap<String, Object> map) {
+		return session.selectOne("house.houseUpdateOne",map);
+	}
+	//
+	public int deletePhoto(int[] delPhotoNo) {
+		
+		return session.delete("house.housePhotoDelete",delPhotoNo);
+	}
+
+	public int updateHouse(House h) {
+		return session.update("house.houseUpdate", h);
+	}
+
+	public int updateIncome(Income i) {
+		return session.update("house.incomeupdate", i);
+	}
+
 }

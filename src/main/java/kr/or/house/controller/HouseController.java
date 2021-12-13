@@ -155,7 +155,80 @@ public class HouseController {
 			return "house/houseWriteFrm";
 		}
 	}
-	
+	//하우스 수정
+	@RequestMapping(value = "/houseUpdate.do")
+	public String houseUpdate(House h,Income i,Photo p,String[] delPhotoPath,int[] delPhotoNo,MultipartFile[] photoPath,HttpServletRequest request,Model model) {
+		//삭제 이미지 삭제하기
+		System.out.println(delPhotoNo);
+		int result = service.deletePhoto(delPhotoPath,delPhotoNo);
+		int house = service.updateHouse(h,i);
+		int houseRoom = h.getHouseRoom();
+		if(house>0) {
+			ArrayList<Photo> list = new ArrayList<Photo>();
+			int houseNo= h.getHouseNo();
+			if(photoPath[0].isEmpty()) {
+				return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+			}else {
+				String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
+				for(MultipartFile file: photoPath) {
+					//사용자가 올린 파일명
+					String filename = file.getOriginalFilename();
+					String onlyFilename = filename.substring(0,filename.indexOf(".")); //test
+					String extention = filename.substring(filename.indexOf("."));//.txt
+					String filepath =null;
+					System.out.println("사진경로:"+filename);
+					int count = 0;
+					while(true) {
+						if(count == 0) {
+							filepath = onlyFilename+extention;//test.txt
+						}else {
+							filepath = onlyFilename+"_"+count+extention;//test_1.txt
+						}
+						File checkFile = new File(photoPathfile+filepath);//File>> java.io
+						if(!checkFile.exists()) {//똑같은 파일이 없을경우 중지
+							break;
+						}
+						count++;
+					}
+					//파일명 중복처리가 끝나면 파일업로드
+					System.out.println("photoPathfile:"+photoPathfile);
+					System.out.println("filepath"+filepath);
+					try {
+						//중복처리가 끝난 파일명(filepath)으로 파일을 업로드
+						FileOutputStream fos = new FileOutputStream(new File(photoPathfile+filepath));
+						//업로드 속도증가를 위한 보조스트림
+						BufferedOutputStream bos = new BufferedOutputStream(fos);
+						//파일업로드
+						byte[] bytes =file.getBytes();
+						bos.write(bytes);
+						bos.close();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Photo photo = new Photo();
+					photo.setPhotoPath(filepath);
+					list.add(photo);
+					
+				}
+				
+				int result3 = service.insertImgfiles(list,houseNo);
+				if(result3>0) {
+					
+					return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+					
+				}else {
+					return "house/houseWriteFrm";
+				}
+			}
+		}else {
+			model.addAttribute("msg", "하우스 수정실패");
+			return "redirect:/houseOwnerList.do?memberNo=$"+h.getMemberNo()+"&reqPage=1";
+		}
+	}
 	//하우스 이미지 업로드
 	@RequestMapping(value = "/houseUploadImage.do",produces = "application/json; charset=utf8")
 	@ResponseBody
@@ -250,10 +323,17 @@ public class HouseController {
 		return "house/houseownerList";
 	}
 
-	//하우스 업데이트
+	//하우스 업데이트 폼
 	@RequestMapping(value = "/houseUpdateFrm.do")
-	public String houseUpdateFrm(int houseNo) {
-		return"";
+	public String houseUpdateFrm(int houseNo,int memberNo,Model model) {
+		House h = service.selectHouseUpdateOneView(houseNo, memberNo);
+		if(h!=null) {
+			model.addAttribute("h", h);
+			return "house/houseUpdateFrm";
+		}else {
+			model.addAttribute("msg", "입력하신 내용이 없습니다.");
+			return "redirect:/houseOwnerList.do?memberNo=$"+memberNo+"&reqPage=1";
+		}
 	}
 
 	//투어 신청 - sowon

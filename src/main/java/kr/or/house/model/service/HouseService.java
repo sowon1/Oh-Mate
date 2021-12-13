@@ -179,5 +179,49 @@ public class HouseService {
 	public int insertTour(Tour t) {
 		return dao.insertTour(t);
 	}
+	//하우스 업데이트 값 불러오기
+	public House selectHouseUpdateOneView(int houseNo, int memberNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("houseNo", houseNo);
+		map.put("memberNo", memberNo);
+		House h = dao.selectHouseUpdateOneView(map);
+		ArrayList<Photo> arrayPhoto = dao.selectHousePhotoView(houseNo);
+		ArrayList<Address> arrayAddress = dao.selectAddress(houseNo);
+		ArrayList<Income> arrayIncome = dao.selectIncome(houseNo);
+		h.setPhotoList(arrayPhoto);
+		h.setHouseAddressView(arrayAddress);
+		h.setHouseIncome(arrayIncome);
+		return h;
+	}
+
+	public ArrayList<Photo> selectPhotoList(int delPhotoNo, String delPhotoPath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int deletePhoto(String[] delPhotoPath, int[] delPhotoNo) {
+		int length=delPhotoNo.length;
+		//포토 삭제부분(for문이용)
+		for(int i=0;i<length;i++) {
+			int result = dao.deletePhoto(delPhotoNo);			
+		}
+		return 0;
+	}
+
+	public int updateHouse(House h, Income i) {
+		int result = dao.updateHouse(h);
+		if(result>0) {
+			int houseNo = h.getHouseNo();
+			int result2 = dao.updateIncome(i);
+			if(result2>0) {
+				return result2;
+			}else {
+				return 0;
+			}
+		}else {
+			
+			return 0;
+		}
+	}
 
 }

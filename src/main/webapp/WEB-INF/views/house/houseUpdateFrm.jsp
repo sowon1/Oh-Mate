@@ -11,10 +11,11 @@
 	width: 600px;
 	margin: 150px auto;
 	box-sizing: border-box;
-	padding:30px;
+	padding: 30px;
 	border-radius: 5px;
 	background-color: #fff;
 }
+
 .note-modal-content {
 	height: auto;
 	position: fixed;
@@ -47,9 +48,11 @@
 	color: ##9F9F9F;
 	outline: none;
 }
-.content{
+
+.content {
 	background-color: #fff;
 }
+
 .content div {
 	text-align: center;
 }
@@ -109,109 +112,187 @@
 		<div class="content">
 			<form action="/houseUpdate.do" id="frm" method="post"
 				enctype="multipart/form-data">
+				<input type="hidden" name=houseNo value="${h.houseNo }">
 				<input type="hidden" name="memberNo"
 					value="${sessionScope.m.memberNo }">
+				<!-- 0 -->
 				<div class="houseForm" style="display: block;">
 					<h4 class="form-title point_title">정산받을 계좌를 입력해주세요</h4>
 					<div class="content-place">
 						<p class="ac-title">은행</p>
 						<select id="bank" class="control-group" name="incomeBank">
-							<option value>선택</option>
-							<option value="신한">신한</option>
-							<option value="국민">국민</option>
-							<option value="IBK">IBK</option>
-							<option value="농협">농협</option>
-							<option value="수협">수협</option>
-							<option value="우리">우리</option>
-							<option value="카카오뱅크">카카오뱅크</option>
+							<c:choose>
+								<c:when test="${h.houseIncome[0].incomeBank eq '신한' }">
+									<option value="신한" selected="selected">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.houseIncome[0].incomeBank eq '국민' }">
+									<option value="신한">신한</option>
+									<option value="국민" selected="selected">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.houseIncome[0].incomeBank eq 'IBK' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK" selected="selected">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.houseIncome[0].incomeBank eq '농협' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협" selected="selected">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.houseIncome[0].incomeBank eq '수협' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협" selected="selected">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.houseIncome[0].incomeBank eq '우리' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리" selected="selected">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.houseIncome[0].incomeBank eq '카카오뱅크' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크" selected="selected">카카오뱅크</option>
+								</c:when>
+							</c:choose>
 						</select>
+						<input type="hidden" name=incomeNo value="${h.houseIncome[0].incomeNo }">
 						<p class="ac-title">계좌번호</p>
 						<input type="text" id="number" name="incomeAccount"
-							class="input_03" placeholder="하이달(-)과 같이 기제해주세요">
+							class="input_03" placeholder="하이달(-)과 같이 기제해주세요"
+							value="${h.houseIncome[0].incomeAccount }">
 						<p class="ac-title">예금주</p>
-						<input type="text" id="name" name="incomeName" class="input_03">
+						<input type="text" id="name" name="incomeName" class="input_03"
+							value="${h.houseIncome[0].incomeName}">
 					</div>
 					<div class="button-place">
 						<button class="btn btn_w" type="button" style="line-height: 30px;"
 							id="accountcomplate" onclick="accountChk()">선택완료</button>
 					</div>
 				</div>
+				<!-- 1 -->
 				<div class="houseForm">
 					<h4 class="form-title point_title">소개가 끝나는 날짜를 정해주세요</h4>
 					<div class="content-place">
 						<input type="text" name="houseownerDeadline" id="datefilter"
 							class="input_date input_04" style="width: 100%;"
-							readonly="readonly">
+							readonly="readonly" value="${h.houseownerDeadline }">
 					</div>
 					<div class="button-place">
 						<button class="btn btn_w" type="button" style="line-height: 30px;"
 							onclick="dateChk()">선택완료</button>
 					</div>
 				</div>
-				<div class="houseForm">
-					<h4 class="form-title point_title">위치정보 입력</h4>
-					<div class="content-place">
-						<div class="postcode">
-							<input type="text" id="postCode" name="addressCode"
-								class="input_04" readonly="readonly" placeholder="우편번호"
-								style="width: 78%">
-							<button type="button" onclick="addrSearch();" class="btn btn_sm"
-								style="line-height: 30px">주소검색</button>
-						</div>
-						<div class="postcode">
-							<input type="text" id="roadAddr" class="input_03"
-								placeholder="도로명 주소" name="companyAddr" readonly="readonly">
-							<input type="hidden" id="addressName" name="addressName">
-							<input type="hidden" id="addressRoad" name="addressRoad">
-							<input type="hidden" id="addressLegal" name="addressLegal">
-						</div>
-						<div class="postcode">
-							<input type="text" name="addressDetail" id="detailAddr"
-								class="input_03" placeholder="상세주소">
-						</div>
-					</div>
-					<div class="button-place">
-						<a class="btn btn_out" style="line-height: 30px;"
-							onclick="backdate()">이전</a> <a class="btn"
-							style="line-height: 30px" onclick="chkAddr()">다음</a>
-					</div>
-				</div>
+				<!-- 2 -->
 				<div class="houseForm">
 					<h4 class="form-title point_title">집정보 입력</h4>
 					<div class="content-place" style="height: 600px;">
 						<p class="ac-title">하우스 이름</p>
 						<input type="text" name="houseTitle" id="houseName"
-							class="input_03" placeholder="하우스이름">
+							class="input_03" placeholder="하우스이름" value="${h.houseTitle }">
 						<p class="ac-title">보증금(대표)</p>
 						<input type="text" name="houseCharge" id="houseCharge"
-							class="input_03" placeholder="보증금">
+							class="input_03" placeholder="보증금" value="${h.houseCharge }">
 						<p class="ac-title">주거형태</p>
 						<select id="HSF" class="control-group" name="houseForm">
-							<option value="">선택</option>
-							<option value="아파트">아파트</option>
-							<option value="단독주택">단독주택</option>
-							<option value="빌라">빌라</option>
-							<option value="기타">기타</option>
+							<c:choose>
+								<c:when test="${h.houseForm eq '아파트' }">
+									<option value="" disabled="disabled">선택</option>
+									<option value="아파트" selected="selected">아파트</option>
+									<option value="단독주택" disabled="disabled">단독주택</option>
+									<option value="빌라" disabled="disabled">빌라</option>
+									<option value="기타" disabled="disabled">기타</option>
+								</c:when>
+								<c:when test="${h.houseForm eq '단독주택' }">
+									<option value="" disabled="disabled">선택</option>
+									<option value="아파트" disabled="disabled">아파트</option>
+									<option value="단독주택" selected="selected">단독주택</option>
+									<option value="빌라" disabled="disabled">빌라</option>
+									<option value="기타" disabled="disabled">기타</option>
+								</c:when>
+								<c:when test="${h.houseForm eq '빌라' }">
+									<option value="" disabled="disabled">선택</option>
+									<option value="아파트" disabled="disabled">아파트</option>
+									<option value="단독주택" disabled="disabled">단독주택</option>
+									<option value="빌라" selected="selected">빌라</option>
+									<option value="기타" disabled="disabled">기타</option>
+								</c:when>
+								<c:when test="${h.houseForm eq '기타' }">
+									<option value="" disabled="disabled">선택</option>
+									<option value="아파트" disabled="disabled">아파트</option>
+									<option value="단독주택" disabled="disabled">단독주택</option>
+									<option value="빌라" disabled="disabled">빌라</option>
+									<option value="기타" selected="selected">기타</option>
+								</c:when>
+							</c:choose>
 						</select>
 						<p class="ac-title">하우스 시설 소개</p>
-						<textarea class="summernote" name="houseContent"></textarea>
+						<textarea class="summernote" name="houseContent">${h.houseContent }</textarea>
 					</div>
 					<div class="button-place">
 						<a class="btn btn_out" style="line-height: 30px;"
-							onclick="backAddr()">이전</a> <a class="btn"
+							onclick="backdate()">이전</a> <a class="btn"
 							style="line-height: 30px" onclick="introChk()">다음</a>
 					</div>
 				</div>
+				<!-- 3 -->
 				<div class="houseForm">
 					<h4 class="form-title point_title">이용규칙/이미지 업로드</h4>
 					<div class="content-place" style="height: 400px;">
 						<p class="ac-title">하우스 이용규칙</p>
-						<textarea class="summernote" name="houseRule"></textarea>
+						<textarea class="summernote" name="houseRule">${h.houseRule }</textarea>
 					</div>
 					<div class="imageForm">
 						<div class="input_wrap">
 							<p class="ac-title">이미지업로드</p>
-							<input type="file" id="input_imgs" name="photoPath" multiple />
+							<c:choose>
+								<c:when test="${not empty h.photoList }">
+									<div style="height: 150px; border: 1px solid #ededed; padding: 15px;">
+									<c:forEach items="${h.photoList }" var="hs">
+									
+										<span class="delFile">${hs.photoPath }</span>
+										<button type="button" class="delBtn" style="border: none; background-color: #956bfc; color: #fff; border-radius: 2px; width: 40px;"  >삭제</button>
+										<input type="hidden" class="oldPhotoPath" name="oldPhotoPath" value="${hs.photoPath }">
+										<input type="hidden" class="oldPhotoNo" name="oldPhotoNo" value="${hs.photoNo }">
+									</c:forEach>
+									</div>
+									<input type="file" id="input_imgs" name="photoPath" multiple />
+								</c:when>
+								<c:otherwise>								
+								<input type="file" id="input_imgs" name="photoPath" multiple />
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="img_wrap"></div>
 					</div>
@@ -221,6 +302,7 @@
 							style="line-height: 30px" onclick="ruleChk()">다음</a>
 					</div>
 				</div>
+				<!-- 4 -->
 				<div class="houseForm">
 					<h4 class="form-title point_title">제공정보 입력</h4>
 					<div class="content-place" style="height: auto;">
@@ -335,7 +417,7 @@
 											id="fun_16" value="0"><label for="fun_16">옷장</label>
 									</div>
 								</td>
-								
+
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
@@ -364,29 +446,47 @@
 								</td>
 							</tr>
 						</table>
-						<input type="hidden" id="houseConvenience" name="houseConvenience">
-						<p class="ac-title">방 최대갯수(필수)</p>
-						<select id="houseRoom" name="houseRoom">
-							<option value="">선택</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-						</select>
+						<input type="hidden" id="houseConvenience" name="houseConvenience"
+							value="${h.houseConvenience }">
+						<input type="hidden" id="houseRoom" name="houseRoom" value="${h.houseRoom }">
 						<p class="ac-title" style="margin-top: 15px;">지정성별</p>
 						<table>
 							<tr style="text-align: center;">
-								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
-									id="gender1" value="1"><label for="gender1">남성전용</label>
-								</td >
-								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
-									id="gender2" value="2"><label for="gender2">여성전용</label>
-								</td>
-								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
-									id="gender3" value="3"><label for="gender3">남녀공용</label>
-								</td>
+								<c:choose>
+									<c:when test="${h.houseGender eq 1}">
+										<td style="width: 100px"><input type="radio" class="chk"
+											name="houseGender" id="gender1" value="1" checked="checked"><label
+											for="gender1">남성전용</label></td>
+										<td style="width: 100px"><input type="radio" class="chk"
+											name="houseGender" id="gender2" value="2"><label
+											for="gender2">여성전용</label></td>
+										<td style="width: 100px"><input type="radio" class="chk"
+											name="houseGender" id="gender3" value="3"><label
+											for="gender3">남녀공용</label></td>
+									</c:when>
+									<c:when test="${h.houseGender eq 2}">
+										<td style="width: 100px"><input type="radio" class="chk"
+											name="houseGender" id="gender1" value="1"><label
+											for="gender1">남성전용</label></td>
+										<td style="width: 100px"><input type="radio" class="chk"
+											name="houseGender" id="gender2" value="2" checked="checked"><label
+											for="gender2">여성전용</label></td>
+										<td style="width: 100px"><input type="radio" class="chk"
+											name="houseGender" id="gender3" value="3"><label
+											for="gender3">남녀공용</label></td>
+									</c:when>
+									<c:when test="${h.houseGender eq 3}">
+										<td style="width: 100px"><input type="radio" class="chk"
+											name="houseGender" id="gender1" value="1"><label
+											for="gender1">남성전용</label></td>
+										<td style="width: 100px"><input type="radio" class="chk"
+											name="houseGender" id="gender2" value="2"><label
+											for="gender2">여성전용</label></td>
+										<td style="width: 100px"><input type="radio" class="chk"
+											name="houseGender" id="gender3" value="3" checked="checked"><label
+											for="gender3">남녀공용</label></td>
+									</c:when>
+								</c:choose>
 							</tr>
 						</table>
 
@@ -402,6 +502,16 @@
 		</div>
 	</div>
 	<script>
+		$(function () {
+		var conval = $("#houseConvenience").val();
+		console.log(conval.length);
+		for(var i=0;i<conval.length;i++){
+			console.log($(".find input").eq(i));
+			if(conval.charAt(i)==1){
+				$(".find input").eq(i).attr("checked",true);
+				$(".find input").eq(i).val(1);
+			}
+		}
 		//input 값변경
 
 		$(".find>div>input").change(
@@ -458,6 +568,8 @@
 						console.log($("#houseConvenience").val());
 					}
 				});
+		});
+		
 
 		//오늘날짜 yyyy-mm-dd
 		function getToday() {
@@ -557,16 +669,16 @@
 			var houseName = $("#houseName").val();
 			var HSF = $("#HSF").val();
 			if (HSF != "" && houseName != "") {
-				next(4);
+				next(3);
 			} else {
 				alert("제목 및 주거형태를 확인해주세요");
 			}
 		}
 		function backIntro() {
-			next(3);
+			next(2);
 		}
 		function backCondition() {
-			next(4);
+			next(3);
 		}
 		function chkRoom() {
 			var houseRoom = $("#houseRoom").val();
@@ -591,7 +703,7 @@
 						}
 					}).open();
 		}
-		//썸머노트(파일업로드 문제)
+		//썸머노트
 		$(".summernote").summernote({
 			height : 250,
 			maxHeight : 250, // 최대 높이
@@ -622,7 +734,7 @@
 			});
 		}
 		function ruleChk() {
-			next(5);
+			next(4);
 		}
 		//하우스 전체적 이미지
 		var sel_files = [];
@@ -643,13 +755,25 @@
 
 						var reader = new FileReader();
 						reader.onload = function(e) {
-							var img_html = "<span><img src=\""+e.target.result+"\" style='width:80px;height:80px;'/></span>";
+							var img_html = "<span class='file-span'><img src=\""+e.target.result+"\" style='width:80px;height:80px;'/></span>";
 							$(".img_wrap").append(img_html);
 						}
 						reader.readAsDataURL(f);
 					});
 		}
+		$(".delBtn").click(function () {
+			var idx = $(this).index(this);
+			console.log(idx);
+			$(this).hide();
+			$(this).prev().hide();
+			$(".oldPhotoPath").eq(idx).removeAttr("name");
+			$(".oldPhotoPath").eq(idx).attr({name:"delPhotoPath"});
+			$(".oldPhotoNo").eq(idx).removeAttr("name");
+			$(".oldPhotoNo").eq(idx).attr({name:"delPhotoNo"});
+		})
+		
 	</script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

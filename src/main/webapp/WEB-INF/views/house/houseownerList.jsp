@@ -160,7 +160,8 @@ margin-left: 500px;
 									<p class="summary-name">${h.houseTitle }
 									<c:choose>
 										<c:when test="${h.houseAllow eq 1}">
-											<span class="allow-waiting" style="color: orange; border: 1px solid orange;">승인대기</span>
+											<span class="allow-waiting" style="color: orange; border: 1px solid orange; ">승인대기</span>
+											
 										</c:when>
 										<c:when test="${h.houseAllow eq 2 }">
 											<span class="allow-agree" style="color: green; border: 1px solid green;">승인</span>
@@ -175,9 +176,10 @@ margin-left: 500px;
 										</c:when>
 										<c:when test="${h.houseAllow eq 3 }">
 											<span class="allow-refuse" style="color: red; border: 1px solid red;">승인 거절</span>
-											<span>거부사유: ${h.refuseReason }</span>
+											<c:if test="${not empty h.refuseReason }">
+												<span style="color: red; border: 1px solid red; margin: 0"><i class="fas fa-exclamation" style="color: red;"></i></span>
+											</c:if>
 										</c:when>
-									
 									</c:choose>
 									</p>
 									<div class="summary-add">
@@ -194,7 +196,7 @@ margin-left: 500px;
 										상세보기</a>
 								</div>
 								<div class="btn-group">
-									<a href="/houseUpdate.do?houseNo=${h.houseNo }">수정하기</a> <a href="/houseDelete.do?houseNo=${h.houseNo }">삭제하기</a>
+									<a href="/houseUpdateFrm.do?houseNo=${h.houseNo}&memberNo=${h.memberNo}">수정하기</a> <a href="/houseDelete.do?houseNo=${h.houseNo} &memberNo=${h.memberNo}">삭제하기</a>
 									<a href="/housePerson.do">입주자 내역</a>
 								</div>
 								<div class="move-list"></div>

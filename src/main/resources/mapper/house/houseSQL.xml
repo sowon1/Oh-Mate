@@ -215,10 +215,10 @@
 	</select>
 	<!-- 하우스리스트 추가시 조건문적용 -->
 	<update id="houseRoomSelling1" parameterType="_int">
-		update room set house_selling = 1 where house_no =#{houseNo}
+		update house set house_selling = 1 where house_no =#{houseNo}
 	</update>
 	<update id="houseRoomSelling2" parameterType="_int">
-		update room set house_selling = 2 where house_no =#{houseNo}
+		update house set house_selling = 2 where house_no =#{houseNo}
 	</update>
 
 	
@@ -227,4 +227,47 @@
 		insert into tour
   		values(tour_seq.nextval,#{roomNo},#{memberNo},#{tourPhone},#{tourEmail},#{houseName},#{tourQna},#{tourVisit},2)
 	</insert>
+	<!-- 하우스 업데이트 값 가져오기 -->
+	<select id="houseUpdateOne" parameterType="map" resultType="h">
+		select
+			house_no as houseNo,
+			member_no as memberNo,
+			house_title as houseTitle,
+			houseowner_deadline as houseownerDeadline,
+			house_selling as houseSelling,
+			refuse_reason as refuseReason,
+			house_content as houseContent,
+			house_room as houseRoom,
+			house_charge as houseCharge,
+			house_rule as houseRule,
+			house_form as houseForm,
+			house_gender as houseGender,
+			house_convenience as houseConvenience,
+			house_allow as houseAllow
+		from house where house_no=#{houseNo} and member_no=#{memberNo}
+	</select>
+	<!-- 파라미터타입 확인해야함 -->
+	<delete id="housePhotoDelete" parameterType="">
+		delete from photo where photo_no = #{delPhotoNo} and photo_category=1 
+	</delete>
+	<update id="houseUpdate" parameterType="h">
+		update house set 
+			house_title =#{houseTitle},
+			houseowner_deadline = #{houseownerDeadline},
+			house_content = #{houseContent},
+			house_charge = #{houseCharge},
+			house_rule = #{houseRule},
+			house_form = #{houseForm},
+			house_gender = #{houseGender},
+			house_convenience = #{houseConvenience},
+			house_allow = 1
+		where house_no = #{houseNo} and #{memberNo}
+	</update>
+	<update id="incomeupdate" parameterType="i">
+		update income set
+			income_bank = #{incomeBank},
+			income_account = #{incomeAccount},
+			income_name =#{incomeName},
+			where income_no = #{incomeNo} and income_category =2
+	</update>
 </mapper>
