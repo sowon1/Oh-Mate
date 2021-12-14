@@ -42,12 +42,12 @@ public class HouseController {
 	@Autowired
 	private MainService mService;
 	
-	//하우스 등록
+	//하우스 등록-jisung
 	@RequestMapping(value = "/houseWriteFrm.do")
 	public String houseWriteFrm() {
 		return "house/houseWriteFrm";
 	}
-	//하우스 리스트 출력
+	//하우스 리스트 출력-jisung
 	@RequestMapping(value="/houseList.do")
 	public String houseList(House h, Model model) {
 		ArrayList<House> list = service.selectAllHouse(h);
@@ -73,7 +73,7 @@ public class HouseController {
 		return "house/ajax_page";
 	}
 
-	//하우스 등록
+	//하우스 등록-jisung
 	@RequestMapping(value = "/houseWrite.do")
 	public String houseWrite(House h,Address address,Income i,Model model,HttpSession session,MultipartFile[] photoPath,HttpServletRequest request) {
 		/*
@@ -152,7 +152,7 @@ public class HouseController {
 			return "house/houseWriteFrm";
 		}
 	}
-	//하우스 수정
+	//하우스 수정-jisung
 	@RequestMapping(value = "/houseUpdate.do")
 	public String houseUpdate(House h,Income i,Photo p,String[] delPhotoPath,int[] delPhotoNo,MultipartFile[] photoPath,HttpServletRequest request,Model model) {
 		//삭제 이미지 삭제하기
@@ -226,7 +226,7 @@ public class HouseController {
 			return "redirect:/houseOwnerList.do?memberNo=$"+h.getMemberNo()+"&reqPage=1";
 		}
 	}
-	//하우스 이미지 업로드
+	//하우스 이미지 업로드-jisung
 	@RequestMapping(value = "/houseUploadImage.do",produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String houseUploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
@@ -308,7 +308,7 @@ public class HouseController {
 		}
 		return "house/houseView";
 	}
-	//내 하우스 리스트 보기
+	//내 하우스오너 리스트 보기-jisung
 	@RequestMapping(value = "/houseOwnerList.do")
 	public String houseOwnerList(int memberNo,int reqPage,Model model) {
 		housePageData hpd = service.selectHouseOwnerList(memberNo,reqPage);
@@ -320,7 +320,7 @@ public class HouseController {
 		return "house/houseownerList";
 	}
 
-	//하우스 업데이트 폼
+	//하우스 업데이트 폼-jisung
 	@RequestMapping(value = "/houseUpdateFrm.do")
 	public String houseUpdateFrm(int houseNo,int memberNo,Model model) {
 		House h = service.selectHouseUpdateOneView(houseNo, memberNo);
@@ -356,5 +356,23 @@ public class HouseController {
 		model.addAttribute("house",r.getHouse());
 		return "house/roomMoveFrm";	
 	}
-
+	//하우스 삭제-jisung
+	@RequestMapping(value = "/houseDelete.do")
+	public String houseDelete(int memberNo, int houseNo,Model model) {
+		int result = service.deleteHouse(memberNo,houseNo);
+		int reqPage=1;
+		if(result>0) {
+			model.addAttribute("msg", "하우스 삭제 성공");
+			return "redirect:houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage;
+		}else {
+			model.addAttribute("msg", "하우스 삭제 실패");
+			return "redirect:houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage;
+		}
+	}
+	//하우스 오너 하우스 상세보기 - jisung
+	@RequestMapping(value = "/houseOwnerRoom.do")
+	public String houseOwnerRoom(int houseNo,int memberNo,Model model) {
+		House h = service.selectHouseownerOneHouse(houseNo,memberNo);
+		return "";
+	}
 }

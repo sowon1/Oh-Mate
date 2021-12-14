@@ -2,7 +2,9 @@ package kr.or.room.model.vo;
 
 import java.util.ArrayList;
 
+import kr.or.common.Move;
 import kr.or.common.Photo;
+import kr.or.common.Tour;
 import kr.or.house.model.vo.House;
 import lombok.Data;
 
@@ -20,4 +22,7 @@ public class Room {
 	private String roomMonth;		//첫달월세
 	ArrayList<House> house;			//해당 방이 있는 하우스 정보
 	ArrayList<Photo> photoList;		//해당 방이 있는 하우스 사진
+	private ArrayList<Tour> houseTour; //해당 방의 투어 리스트
+	private ArrayList<Move> houseMove; //해당 방의 입주 리스트
+	private int tourCount;
 }

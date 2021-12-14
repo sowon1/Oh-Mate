@@ -74,12 +74,28 @@
 	font-weight: bold;
 }
 </style>
+<!-- jQuery라이브러리 -->
+<script type="text/javascript" src="/resources/js/jquery-3.3.1.js"></script>
+<!--  JSTL 확장 c 태그 선언문 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 폰트어썸(아이콘) -->
+<link rel="stylesheet" href="/resources/fontawesome/css/all.css">
+<script type="text/javascript" src="/resources/fontawesome/js/all.js"></script>
+<!-- 부트스트랩 CSS -->
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
+<!-- 부트스트랩용 jQuery -->
+<script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
+<!-- 기본 CSS -->
+<link rel="stylesheet" href="/resources/css/default.css">
+<!-- 폰트 CSS -->
+<link rel="stylesheet" href="/resources/css/font.css">
+<!-- 채팅방 css -->
+<link rel="stylesheet" href="/resources/css/main/mate_talk.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<div style="margin: 0; padding-top: 80px; background-color: #f8f8fa; height: 100%;">
+	<div style="margin: 0; padding-top: 50px; background-color: #f8f8fa; height: 100%;">
 			<div class="content">
-				<form action="/roomWrite.do" method="post">
+				<form action="/roomWrite.do" method="post" id="frm">
 					<h4 class="form-title point_title">방 리스트</h4>
 					<input type="hidden" name="houseNo" value="${houseNo }">
 					<input type="hidden" name="houseRoom" value="${houseRoom }">
@@ -113,29 +129,32 @@
 					</div>
 					<div class="content-place">
 						<p class="ac-title">첫달 월세금</p>
-						<input type="text" class="input_03" name="roomMonth"
-							placeholder="숫자만 적어주세요" id="roomMonth">
+						<input type="text" class="input_03" id="roomMonth" name="roomMonth"
+							placeholder="숫자만 적어주세요" >
 					</div>
 					<div class="content-place">
 						<p class="ac-title">보증금</p>
-						<input type="text" class="input_03" name="roomCharge"
-							placeholder="숫자만 적어주세요" id="roomMonth">
+						<input type="text" class="input_03" id="roomCharge"name="roomCharge"
+							placeholder="숫자만 적어주세요" >
 					</div>
 					<div class="button-place">
-						<button class="btn btn_w" type="submit" style="line-height: 30px;"
-							id="accountcomplate" onclick="accountChk()">선택완료</button>
+						 <a class="btn" 
+							style="line-height: 30px;width: 300px;" onclick="accountChk()">방만들기</a>
 					</div>
 				</form>
 			</div>
 	</div>
 	<script>
 		function accountChk() {
-			if($("#roomTitle").val()!="" && $("#roomSize").val()!=""&& $("#roomPhone").va()!=""&& $("#roomMonth").val()!="" && $("#roomPersonnel").val()!="")
+			var roomMonth=$("#roomMonth").val();
+			var roomCharge = $("#roomCharge").val();
+			var roomIntChk=/^[0-9]/;
+			if($("#roomTitle").val()!="" && $("#roomSize").val()!=""&& $("#roomPhone").val()!=""&& $("#roomMonth").val()!="" && $("#roomPersonnel").val()!=""
+					&&roomIntChk.test(roomMonth)&&roomIntChk.test(roomCharge))
 			{
-				return true;
+				$("#frm").submit();
 			}else{
 				alert("방등록 내용을 확인해주세요!!")
-				return false;
 			}
 	
 		}

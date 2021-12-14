@@ -127,7 +127,12 @@
 .house-navi{
 margin-left: 500px;
 }
-
+.move-list{
+	margin:10px;
+}
+.tour-list{
+	margin: 10px;
+}
 </style>
 </head>
 <body>
@@ -192,14 +197,16 @@ margin-left: 500px;
 										<span>입주현황: <strong>${h.roomCount }/${h.houseRoom }</strong></span>·
 										<span>투어 신청건<strong></strong></span>
 									</div>
-									<a class="summary-datail" href="/houseOwnerRoom.do?houseNo=${h.houseNo }">계약내역
+									<a class="summary-datail" href="/houseOwnerRoom.do?houseNo=${h.houseNo }&memberNo=${h.memberNo}">하우스
 										상세보기</a>
 								</div>
 								<div class="btn-group">
 									<a href="/houseUpdateFrm.do?houseNo=${h.houseNo}&memberNo=${h.memberNo}">수정하기</a> <a href="/houseDelete.do?houseNo=${h.houseNo} &memberNo=${h.memberNo}">삭제하기</a>
-									<a href="/housePerson.do">입주자 내역</a>
+									<a href="javascript:void(0);">입주자 내역</a>
+									<a href="javascript:void(0);">투어리스트 내역</a>
 								</div>
 								<div class="move-list"></div>
+								<div class="tour-list"></div>
 							</div>
 						</li>
 					</c:forEach>

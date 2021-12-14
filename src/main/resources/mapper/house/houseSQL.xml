@@ -307,4 +307,52 @@
 			room_month as roomMonth
 		from room where room_no=#{roomNo} and house_no=#{houseNo}
 	</select>
+	<!-- 하우스 삭제 1단계 -->
+	<delete id="deleteHouse" parameterType="map">
+		delete from house where house_no=#{houseNo} and member_no=#{memberNo}
+	</delete>
+	<!-- 하우스 삭제 2단계 해당 방전체삭제 -->
+	<delete id="deleteAllRoom" parameterType="map">
+			delete from room where house_no = #{houseNo}
+	</delete>
+	<!-- 하우스 삭제 3단계 계좌삭제 -->
+	<delete id="deleteIncome" parameterType="map">
+		delete from income where income_num=${houseNo} and income_category=2
+	</delete>
+	<!-- 하우스 삭제 4단계 주소삭제 -->
+	<delete id="deleteAddress" parameterType="map">
+		delete from address where address_category=1 and address_number=#{houseNo}
+	</delete>
+	<!-- 하우스 삭제 5단계 사진삭제 -->
+	<delete id="deleteAllPhoto" parameterType="map">
+		delete from photo where photo_category=1 and photo_num=#{houseNo}
+	</delete>
+	<select id="selectTourList" parameterType="_int" resultType="t">
+		select
+			tour_no as tourNo,
+			room_no as roomNo,
+			member_no as memberNo,
+			tour_phone as tourPhone,
+			tour_email as tourEmail,
+			house_name as houseName,
+			tour_qna as tourQna,
+			tour_visit as tourVisit,
+			tour_status as tourStatus
+		from tour
+		where room_no = #{roomNo}
+	</select>
+	<select id="selectMoveList" parameterType="_int" resultType="move">
+		select
+			move_no as moveNo,
+			room_no as roomNo,
+			member_no as memberNo,
+			move_start as moveStart,
+			move_end as moveEnd,
+			move_phone as movePhone
+		from move
+		where room_no = #{roomNo}
+	</select>
+	<select id="tourCount" parameterType="_int" resultType="_int">
+		select count(*) from tour where room_no = #{roomNo}
+	</select>
 </mapper>
