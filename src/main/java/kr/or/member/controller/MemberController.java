@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.house.model.service.HouseService;
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
 
@@ -30,6 +32,8 @@ public class MemberController {
 	private MemberService service;
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+	private HouseService houseService;
 	
 	//로그인1
 	@RequestMapping(value="/login.do")
@@ -404,5 +408,23 @@ public class MemberController {
 		}
 		model.addAttribute("loc","/");
 		return "common/msg";
-	}	
+	}
+	
+	//찜목록 불러오기-jjh
+		@RequestMapping(value = "/bookmarkHouseList.do")
+		public String bookmarkHouseList(Model model, HttpSession session) {
+			if(session != null) {
+				Member m = (Member)session.getAttribute("m");
+				int memberNo = 0;
+				if(m != null)
+				{
+					memberNo = m.getMemberNo();
+				}	
+				HashMap<String, Object> data = houseService.selectAjaxHouse(1,memberNo);
+				model.addAttribute("list",data.get("list"));
+				model.addAttribute("totalPageCount",data.get("totalPageCount"));
+				model.addAttribute("startPageNum",data.get("startPageNum"));
+			}
+			return "member/bookmarkHouseList";
+		}
 }

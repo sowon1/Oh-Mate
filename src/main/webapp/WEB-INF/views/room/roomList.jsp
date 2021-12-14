@@ -95,9 +95,25 @@
 	
 }
 </style>
+<!-- jQuery라이브러리 -->
+<script type="text/javascript" src="/resources/js/jquery-3.3.1.js"></script>
+<!--  JSTL 확장 c 태그 선언문 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 폰트어썸(아이콘) -->
+<link rel="stylesheet" href="/resources/fontawesome/css/all.css">
+<script type="text/javascript" src="/resources/fontawesome/js/all.js"></script>
+<!-- 부트스트랩 CSS -->
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
+<!-- 부트스트랩용 jQuery -->
+<script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
+<!-- 기본 CSS -->
+<link rel="stylesheet" href="/resources/css/default.css">
+<!-- 폰트 CSS -->
+<link rel="stylesheet" href="/resources/css/font.css">
+<!-- 채팅방 css -->
+<link rel="stylesheet" href="/resources/css/main/mate_talk.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div style="margin: 0; padding-top: 200px; background-color: #f8f8fa; height: 100%;">
 		<div class="content">
 			<div class="houseForm" >

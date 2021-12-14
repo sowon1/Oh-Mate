@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import kr.or.common.Address;
 import kr.or.common.Income;
+import kr.or.common.Move;
 import kr.or.common.Photo;
+import kr.or.common.Tour;
 import kr.or.room.model.vo.Room;
 import lombok.Data;
 
@@ -33,4 +35,5 @@ public class House {
 	private ArrayList<Address> houseAddressView; // 하우스 주소
 	private ArrayList<Income> houseIncome;
 	private int roomCount;					//잔여방확인
+	
 }
