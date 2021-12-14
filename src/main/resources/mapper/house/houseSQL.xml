@@ -338,4 +338,14 @@
 	<select id="tourCount" parameterType="_int" resultType="_int">
 		select count(*) from tour where room_no = #{roomNo}
 	</select>
+	
+	<!-- 찜목록 불러오기 -->
+	<select id="selectBookmarkHouse" parameterType="h" resultMap="house">
+  		select * from 
+  			(select rownum as rnum, 
+  			b.bookmark_no, 
+  			h.* from BOOKMARK b left join house h ON (bookmark_num = house_no) 
+  			where BOOKMARKER=#{memberNo} )
+  		order by 2 desc
+	</select>
 </mapper>

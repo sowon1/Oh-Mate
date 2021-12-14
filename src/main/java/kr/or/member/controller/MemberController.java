@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.house.model.service.HouseService;
+import kr.or.house.model.vo.House;
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
 
@@ -420,10 +422,8 @@ public class MemberController {
 				{
 					memberNo = m.getMemberNo();
 				}	
-				HashMap<String, Object> data = houseService.selectAjaxHouse(1,memberNo);
-				model.addAttribute("list",data.get("list"));
-				model.addAttribute("totalPageCount",data.get("totalPageCount"));
-				model.addAttribute("startPageNum",data.get("startPageNum"));
+				ArrayList<House> list = houseService.selectBookmarkHouse(memberNo);
+				model.addAttribute("list", list);
 			}
 			return "member/bookmarkHouseList";
 		}
