@@ -15,10 +15,8 @@ public class HelperService {
 
 	public int helperRequestNoImg(Helper h, String[] addressCode, String[] addressName, String[] addressRoad,
 			String addressLegal) {
-			
-			
+			int result = dao.heplerRequestNoImg(h);
 		return 0;
 	}
-	
-	}
 
+}
