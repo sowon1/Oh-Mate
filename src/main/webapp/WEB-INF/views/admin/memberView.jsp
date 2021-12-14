@@ -10,7 +10,7 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
-        <h1>회원 정보</h1>
+        <h1 class="point_title">회원 정보</h1>
         <div>
             <form action="/adminMemberUpdate.do" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="memberNo" value="${m.memberNo }">

@@ -11,7 +11,7 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="container_mate">
-		<h1>회원 관리</h1>
+		<h1 class="point_title">회원 관리</h1>
 		<form action="/adminMemberSearch.do?reqPage=1" method="post">
             <div class="searchBox">
                 <div>
