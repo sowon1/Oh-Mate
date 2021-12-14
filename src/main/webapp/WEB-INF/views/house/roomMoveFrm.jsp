@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/resources/css/house/house.css">
+<!-- 아임포트 -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Oh-Mate!</title>
@@ -241,7 +243,7 @@
 						보증금
 					</span>
 					<span class="room_move_pay_code">
-						<fmt:formatNumber value="${r.roomCharge}" pattern="#,###"/>원
+						<fmt:formatNumber value="${house[0].houseCharge}" pattern="#,###"/>원
 					</span>
 				</li>
 				<li>
@@ -258,50 +260,112 @@
 					총 결제금액
 				</span>
 				<span class="room_move_pay_total_code">
-					<fmt:formatNumber value="${r.roomCharge + r.roomMonth}" pattern="#,###"/>원
+					<fmt:formatNumber value="${house[0].houseCharge + r.roomMonth}" pattern="#,###"/>원
 				</span>
 			</div>
 			<div class="room_move_pay_btn">
-				<a class="btn btn_100 btn_rx">결제하기</a>
+				<a class="btn btn_100 btn_rx" id="payment">결제하기</a>
 			</div>
 		</div>
+		<div class="form_popup_modal">		       			
+            <div class="popup_modal">
+               <div class="msg_modal_top">
+               		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
+                </div>
+                <div class="msg_modal_content">
+                	<h3 class="modal_msg_timetitle">${r.roomTitle} 계약이 완료되었습니다.</h3>
+                	<h2 class="modal_msg_timetext"><em id="countdown">5</em>초 후 자동으로 마이페이지로 이동됩니다.</h2>                
+                </div>
+        	</div> 
+        </div>
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
-		/*
 		// 결제하기
 		$("#payment").click(function(){
-			var price = $("#totalPrice").html();
+			var price = 100;
+			var totalprice = '${house[0].houseCharge + r.roomMonth}';
+			var memberName = '${sessionScope.m.memberName}';
+			var email = '${sessionScope.m.email}';
+			var phone = '${sessionScope.m.phone}';
+			var roomNo = '${r.roomNo}';
+			var memberNo = '${sessionScope.m.memberNo}';
+			var moveStart = $("input[name='moveStart']").val();
+			var moveEnd = $("input[name='moveEnd']").val();
+			var payId = '${sessionScope.m.memberId}';
+			var houseNo = '${house[0].houseNo}';
+			
 			var d = new Date();
 			//고유식별번호 문자열로 쓰려고 +""+ 붙여줌 - 월은 0~11이라 +1해줌
 			var date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
 			//결제 API 사용을 위해 아임포트 가맹점 식별코드 입력
 			IMP.init("imp41554995");
 			IMP.request_pay({ //결제할때 필요한 정보(가격 등)를 객체형태로 넣어줌
-				merchant_uid : "상품명_"+date, //거래 아이디
-				name : "결제 테스트",			// 결제 이름 설정
+				pay_method: 'card',
+				merchant_uid : date, //거래 아이디
+				name : "㈜오늘부터메이트",		// 결제 이름 설정
 				amount : price,				// 결제 금액
-				buyer_email : "zz1992@daum.net", //구매자 이메일
-				buyer_name : "꼬맹",				//구매자 이름
-				buyer_phone : "010-4818-1992",	//구매자 전하번호
-				buyer_addr : "서울시 양천구",		//구매자 주소
-				buyer_postcode : "76621"		//구매자 우편번호				
+				buyer_email : email, 		//구매자 이메일
+				buyer_name : memberName,	//구매자 이름
+				buyer_phone : phone			//구매자 전하번호		
 			},function(rsp){ //결제를 하고나면 결제 이후의 작업을 처리할 함수
 				if(rsp.success){
-					//결제 성공 시 로직을 구현 (ex. db결제정보 insert -> 사용자 화면처리)
+					console.log("오나");
+					console.log(roomNo);
+					console.log(memberNo);
+					console.log(moveStart);
+					$.ajax({
+						url : "/movePayment.do",
+						method : "POST",
+						data : {
+							roomNo : roomNo,
+							memberNo : memberNo,
+							houseNo : houseNo,
+							moveStart : moveStart,
+							moveEnd : moveEnd,
+							movePhone : phone,
+							payId : payId,
+							payName : memberName,
+							payNum : rsp.merchant_uid,
+							payPrice : totalprice,
+							payWay : rsp.pay_method
+						},
+						success : function(data){
+
+						}
+					});
 					alert("결제성공");
-					console.log("카드 승인번호 : "+rsp.apply_num);
 				}else{
 					//결제 실패 시 로직 구현 (ex. 장바구니에 저장 -> 사용자 화면처리)
-					alert("결제실패");					
+					alert("결제가 취소되었습니다.");
+					
 				}
 			});
-		}); */
+		});
+		
+		// msg
+		function countmsgopen(){
+			$(".form_popup_modal").css("display","flex");
+		    $("body").css("overflow", "hidden");
+		    $(".back_dark").show();
+		}
+		function countmsgclose(){
+			$(".form_popup_modal").css("display","none");
+			$("body").css("overflow", "auto");
+			$(".back_dark").hide();
+		}
+		//자동닫기
+       function autoClose(){
+    	   setTimeout('closed()',5000);
+       }
+       function closed(){
+    	   countmsgclose();
+       }
+      
 		//편의시설
 		$(function(){
 			var options = $(".room_move_option_view").attr("value");
 			for(var i=0;i<options.length;i++){
-				//console.log(options.charAt(i));
 				if(options.charAt(i) == 0){
 					$(".room_move_option_view>li").eq(i).hide();
 				}
@@ -312,7 +376,8 @@
 		var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate()+1);
 		// 달력 한글화 
 	    $(".move_date_btn").daterangepicker({
-	    	minDate : today,	    	
+	    	minDate : today,
+	    	endDate: moment().startOf('hour').add(32, 'hour'),
 	       autoUpdateInput: false,
 	       locale: {
 	           cancelLabel: 'Clear',
