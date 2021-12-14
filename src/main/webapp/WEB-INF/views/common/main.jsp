@@ -107,7 +107,7 @@
 	                            <span class="house_sum">보증금 <fmt:formatNumber value="${h.houseCharge}" pattern="#,###"/>원 ~</span>   
 	                        </div>
 	                    </div>
-	                    <a href="<c:url value='houseView.do?houseNo=${h.houseNo}'/>" class="house_more_btn">입주 가능 방 ${h.houseRoom}개</a>
+	                    <a href="<c:url value='houseView.do?houseNo=${h.houseNo}'/>" class="house_more_btn">입주 가능한 방 ${h.roomCount}개</a>
 		            </li>           
 	        	</a>
 	        </c:forEach>            

@@ -79,10 +79,10 @@
             <table class="table">
                 <tr class="table-secondary">
                     <th style="width:10%;">No</th>
-                    <th style="width:17%;">회원 아이디</th>
-                    <th style="width:17%;">신고자 아이디</th>
-                    <th style="width:14%;">신고 분류</th>
-                    <th style="width:14%;">콘텐츠 번호</th>
+                    <th style="width:16%;">회원 아이디</th>
+                    <th style="width:16%;">신고자 아이디</th>
+                    <th style="width:15%;">신고 분류</th>
+                    <th style="width:15%;">콘텐츠 번호</th>
                     <th style="width:18%;">신고일</th>
                     <th style="width:10%;">상태</th>
                 </tr>

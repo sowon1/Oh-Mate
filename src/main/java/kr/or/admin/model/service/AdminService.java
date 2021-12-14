@@ -282,7 +282,7 @@ public class AdminService {
 	public Report selectOneReport(int reportNo) {
 		return dao.selectOneReport(reportNo);
 	}
-
+	@Transactional
 	public int updateReport(Report rp) {
 		return dao.updateReport(rp);
 	}

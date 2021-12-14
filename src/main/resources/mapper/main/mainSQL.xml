@@ -24,7 +24,8 @@
 	<!-- 하우스 리스트 조회 3개만 -->
 	<select id="houseList" parameterType="_int" resultMap="house">
 		select * from 
-			(select rownum as rnum, h.*,decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
+			(select rownum as rnum, h.*, (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount, 
+            decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
 			(select * from house where HOUSE_ALLOW=1 order by 1 desc)h) 
 		where rnum between 1 and 3
 	</select>
