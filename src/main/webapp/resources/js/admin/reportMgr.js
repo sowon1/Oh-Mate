@@ -87,7 +87,7 @@ $(".reportModal").click(function(){
 $(".modal_report_content [type=button]").click(function(){
 	if($("[name=reportStatus]:checked").val() == 1){
 		alert("처리완료 또는 허위신고로 처리하세요.");
-	}else{
+	}else if(confirm("처리 후 수정이 불가합니다.\n처리하시겠습니까?")){
 		$.ajax({
 			url:"/updateReport.do",
 			data:{reportNo:$("[name=reportNo]").val(), reportStatus:$("[name=reportStatus]:checked").val()},
@@ -95,7 +95,7 @@ $(".modal_report_content [type=button]").click(function(){
 				if(data == '1'){
 					alert("처리되었습니다.");
 				}else{
-					alert("처리 실패!");
+					alert("처리 실패!ㅜㅜ");
 				}
 				location.reload();
 			}

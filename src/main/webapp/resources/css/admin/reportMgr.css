@@ -88,6 +88,7 @@ table p{
 }
 .form-check-input:focus{
 	box-shadow: none;
+	border: 1px solid rgba(0, 0, 0, 0.25);
 }
 /* 신고 상세 모달 */
 .modal_report{
