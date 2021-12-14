@@ -254,7 +254,7 @@
 					               '           			#${h.houseForm}' + 
 					               '        		</div>' + 
 			                       '                <div class="ellipsis">${h.houseAddressView[0].addressRoad}</div>' + 
-			                       '                <div class="jibun ellipsis">보유 중인 방 ${h.houseRoom}개</div>' + 
+			                       '                <div class="jibun ellipsis">입주 가능한 방 ${h.roomCount}개</div>' + 
 			                       '                <div><a href="houseView.do?houseNo=${h.houseNo}" target="_blank" class="house_view_more">자세히보기</a></div>' + 
 			                       '            </div>' + 
 			                       '        </div>' + 
