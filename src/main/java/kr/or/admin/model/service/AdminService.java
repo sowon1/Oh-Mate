@@ -282,4 +282,8 @@ public class AdminService {
 	public Report selectOneReport(int reportNo) {
 		return dao.selectOneReport(reportNo);
 	}
+
+	public int updateReport(Report rp) {
+		return dao.updateReport(rp);
+	}
 }

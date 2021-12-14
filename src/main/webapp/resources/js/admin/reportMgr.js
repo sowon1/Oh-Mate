@@ -50,7 +50,7 @@ $(".reportModal").click(function(){
 		url: "/selectOneReport.do",
 		data: {reportNo:$(this).prev().val()},
 		success:function(data){
-			console.log(data);
+			$("[name=reportNo]").val(data.reportNo);
 			$("#reportDate").val(data.reportDate);
 			$("#reporterId").val(data.reporterId);
 			$("#atackerId").val(data.atackerId);
@@ -70,7 +70,7 @@ $(".reportModal").click(function(){
 			}
 			$("#reportNum").val(data.reportNum);
 			$("#reportContent").html(data.reportContent);
-			$("[name=reportStatus").eq(data.reportStatus-1).prop("checked",true);
+			$("[name=reportStatus]").eq(data.reportStatus-1).prop("checked",true);
 			$(".modal_report_content .btnBox input").prop("disabled",false);
 			$(".btnBox").css("margin","15px auto 0");
 			$("#notice").empty();
@@ -83,4 +83,22 @@ $(".reportModal").click(function(){
 			modalShow();
 		}
 	});
+});
+$(".modal_report_content [type=button]").click(function(){
+	if($("[name=reportStatus]:checked").val() == 1){
+		alert("처리완료 또는 허위신고로 처리하세요.");
+	}else{
+		$.ajax({
+			url:"/updateReport.do",
+			data:{reportNo:$("[name=reportNo]").val(), reportStatus:$("[name=reportStatus]:checked").val()},
+			success:function(data){
+				if(data == '1'){
+					alert("처리되었습니다.");
+				}else{
+					alert("처리 실패!");
+				}
+				location.reload();
+			}
+		});			
+	}
 });

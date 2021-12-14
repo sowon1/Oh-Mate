@@ -163,6 +163,9 @@
                     <input type="text" class="input_03" name="keyword" value="${sr.keyword }">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </div>
+                <div id="textBox">
+                	<p>※ 처리 완료 : 헬퍼 - 헬퍼 자격 박탈 / 게시글 및 댓글 - 비공개</p>
+                </div>
             </div>
         </form>
         <div>
@@ -243,62 +246,61 @@
 				</span>
 			</div>
 			<div class="modal_report_content">
-				<form action="/reportUpdate.do" method="post">
-	                <table class="table">
-	                    <tr class="table-active_mate">
-	                        <th>신고일</th>
-	                        <td>
-	                        	<input type="text" id="reportDate" class="input_03" readonly>
-	                        </td>
-	                    </tr>
-	                    <tr class="table-active_mate">
-	                        <th>신고자 아이디</th>
-	                        <td>
-	                        	<input type="text" id="reporterId" class="input_03" readonly>
-	                        </td>
-	                    </tr>
-	                    <tr class="table-active_mate">
-	                        <th>회원 아이디</th>
-	                        <td>
-	                        	<input type="text" id="atackerId" class="input_03" readonly>
-	                        </td>
-	                    </tr>
-	                    <tr class="table-active_mate">
-	                        <th>신고 분류</th>
-	                        <td>
-	                        	<input type="text" id="cate" class="input_03" readonly>
-	                        </td>
-	                    </tr>
-	                    <tr class="table-active_mate">
-	                        <th>콘텐츠 번호</th>
-	                        <td>
-	                        	<input type="text" id="reportNum" class="input_03" readonly>
-	                        </td>
-	                    </tr>
-	                    <tr class="table-active_mate">
-	                        <th>사유</th>
-	                        <td>
-	                        	<textarea class="form-control" id="reportContent" rows="3" readonly></textarea>
-	                        </td>
-	                    </tr>
-	                    <tr class="table-active_mate">
-	                        <th>상태</th>
-	                        <td>
-	                            <div class="select">
-	                                <input type="radio" id="rpSta" name="reportStatus" value="1"><label for="rpSta">미처리</label>
-	                                <input type="radio" id="rpSta2" name="reportStatus" value="2"><label for="rpSta2">처리완료</label>
-	                                <input type="radio" id="rpSta3" name="reportStatus" value="3"><label for="rpSta3">허위신고</label>
-	                            </div>
-	                        </td>
-	                    </tr>
-	                    <tr class="table-active_mate">
-	                    	<td colspan="2" id="notice"></td>
-	                    </tr>
-	                </table>
-	                <div class="btnBox">
-	                    <input type="submit" class="btn btn_out" value="처리">
-	                </div>
-	            </form>
+				<input type="hidden" name="reportNo">
+                <table class="table">
+                    <tr class="table-active_mate">
+                        <th>신고일</th>
+                        <td>
+                        	<input type="text" id="reportDate" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>신고자 아이디</th>
+                        <td>
+                        	<input type="text" id="reporterId" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>회원 아이디</th>
+                        <td>
+                        	<input type="text" id="atackerId" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>신고 분류</th>
+                        <td>
+                        	<input type="text" id="cate" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>콘텐츠 번호</th>
+                        <td>
+                        	<input type="text" id="reportNum" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>사유</th>
+                        <td>
+                        	<textarea class="form-control" id="reportContent" rows="3" readonly></textarea>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>상태</th>
+                        <td>
+                            <div class="select">
+                                <input type="radio" id="rpSta" name="reportStatus" value="1"><label for="rpSta">미처리</label>
+                                <input type="radio" id="rpSta2" name="reportStatus" value="2"><label for="rpSta2">처리완료</label>
+                                <input type="radio" id="rpSta3" name="reportStatus" value="3"><label for="rpSta3">허위신고</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                    	<td colspan="2" id="notice"></td>
+                    </tr>
+                </table>
+                <div class="btnBox">
+                    <input type="button" class="btn btn_out" value="처리">
+                </div>
 			</div>
 		</div>
 	</div>

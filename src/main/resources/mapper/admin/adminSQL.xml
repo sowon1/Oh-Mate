@@ -128,11 +128,11 @@
 		</if>
 		where member_no = #{memberNo}
 	</update>
-	<insert id="insertProfile" parameterType="kr.or.profile.model.vo.Profile">
+	<insert id="insertProfile" parameterType="p">
 		insert into profile values(p_seq.nextval, #{pWriter}, #{pGender}, #{pAge}, #{pLocal},
 												#{pSmoke}, #{pPet}, #{pCleaning}, #{pPattern})
 	</insert>
-	<select id="selectProfile" parameterType="string" resultType="kr.or.profile.model.vo.Profile">
+	<select id="selectProfile" parameterType="string" resultType="p">
 		select
 			p_no as pNo,
 			p_writer as pWriter,
@@ -145,7 +145,7 @@
 			p_pattern as pPattern
 		from profile where p_writer=#{memberId}
 	</select>
-	<update id="updateProfile" parameterType="kr.or.profile.model.vo.Profile">
+	<update id="updateProfile" parameterType="p">
 		update profile set
 			p_writer = #{pWriter},
 			p_gender = #{pGender},
@@ -257,4 +257,7 @@
 		    report_status as reportStatus
 		from report where report_no = #{reportNo}
 	</select>
+	<update id="updateReport" parameterType="rp">
+		update report set report_status = #{reportStatus} where report_no = #{reportNo} 
+	</update>
 </mapper>
