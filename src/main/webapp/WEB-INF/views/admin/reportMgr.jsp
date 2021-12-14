@@ -10,7 +10,7 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
-		<h1>신고 관리</h1>
+		<h1 class="point_title">신고 관리</h1>
 		<form action="/reportSearch.do?reqPage=1" method="post">
             <div class="searchBox">
             	<div>
