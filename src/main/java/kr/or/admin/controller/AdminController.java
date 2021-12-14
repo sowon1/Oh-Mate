@@ -166,9 +166,19 @@ public class AdminController {
 		return "admin/reportSearch";
 	}
 	@ResponseBody
-	@RequestMapping(value="selectOneReport.do", produces = "application/json;charset=utf-8")
+	@RequestMapping(value="/selectOneReport.do", produces = "application/json;charset=utf-8")
 	public String selectReport(int reportNo, Model model) {
 		Report rp = service.selectOneReport(reportNo);
 		return new Gson().toJson(rp);
+	}
+	@ResponseBody
+	@RequestMapping(value="/updateReport.do")
+	public String updateReport(Report rp) {
+		int result = service.updateReport(rp);
+		if(result>0) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
 }

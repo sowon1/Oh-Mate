@@ -1,7 +1,7 @@
 $("[type=file]").change(function(){
 	var files = $(this)[0].files;
 	if(files.length != 0){
-		var extention = files[0].name.substring(files[0].name.lastIndexOf('.')+1, files[0].name.length);
+		var extention = files[0].name.substring(files[0].name.lastIndexOf('.')+1, files[0].name.length).toLowerCase();
 		if(extention == 'png' || extention == 'jpg' || extention == 'jpeg' || extention == 'gif'){
 			var reader = new FileReader();
 			reader.readAsDataURL(files[0]);
