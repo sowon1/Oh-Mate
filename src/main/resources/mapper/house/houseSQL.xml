@@ -26,35 +26,16 @@
   	insert into photo
   	values(photo_seq.nextval,1,#{photoPath},#{photoNum})
   </insert>
-  <!-- 하우스 리스트 출력 - sowon 
-  <select id="selectSearchHouse" parameterType="search">
-  		select * from house 
-  				<trim prefix="where" prefixOverrides="and|or">
-  					<if test="!gender.equals('')">
-  						house_gender=#{gender}
-  					</if>
-  					<if test="!housetype.equals('')">
-  						house_Form=#{housetype}
-  					</if>
-  				</trim>
-  	-->
   <!-- 하우스 리스트 출력 - sowon   -->
   <select id="selectAllHouse" parameterType="h" resultMap="house">
   		select 
-			*
-		from  
-			(select rownum as rnum, h.* from
+			*   
+		from			
+			(select rownum as rnum, h.*, 
+            (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount
+            from
 			(select * from house where house_allow=1 order by 1 desc)h) 
 		where rnum between 1 and 10
-  				<!--  
-			    where house_gender=#{gender}
-			    and house_Form=#{housetype}
-			    and ((house_title || house_content || HOUSE_FORM) like=%#{keyword}%)    
-			    or house_no = (select address_number from address where ADDRESS_CATEGORY='1' and (address_name || address_road || address_legal) like=%#{keyword}%);
-			   <if test="">			   
-			    	and house_no in (select house_no from room where ROOM_PERSONNEL=#{room} and ROOM_CHARGE between #{roomCharge1} and #{roomCharge2})
-			   </if>
-			   -->
   </select>
 	<!-- 하우스 사진 조회 테이블 -->
 	<select id="selectFileList" resultType="f">
@@ -96,7 +77,8 @@
 	 	select 
 			*
 		from  
-			(select rownum as rnum, h.*,decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
+			(select rownum as rnum, h.*, (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount,
+            decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
 			(select * from house where house_allow=1 order by 1 desc)h) 
 		where rnum between #{start} and #{end}
 	</select>

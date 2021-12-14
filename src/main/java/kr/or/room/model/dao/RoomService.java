@@ -50,12 +50,15 @@ public class RoomService {
 		map.put("memberNo", memberNo);
 		map.put("roomNo",r.getRoomNo());
 		map.put("m", m);
+		// 입주신청 등록 
 		int result = dao.insertMove(map);
 		if(result > 0) {
 			map.put("houseNo",r.getHouseNo());
+			// 하우스 - 방 업데이트 
 			int house = dao.updateHouseRoom(map);
 			if(house > 0) {
 				map.put("p", p);
+				// 결제 테이블 
 				int pay = dao.insertMovePay(map);
 				if(pay > 0) {
 					System.out.println("결제테이블 등록 성공");
