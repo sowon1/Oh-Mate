@@ -300,4 +300,10 @@ public class HouseService {
 		return null;
 	}
 
+	//찜목록 불러오기-jjh
+	public ArrayList<House> selectBookmarkHouse(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.selectBookmarkHouse(memberNo);
+	}
+
 }

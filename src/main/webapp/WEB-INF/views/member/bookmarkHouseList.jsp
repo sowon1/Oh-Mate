@@ -11,34 +11,22 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container_mate">
-		<div style="margin-left: 30px;">
+		<div>
 			<h1>내가 찜한 하우스</h1>
 		</div>
+		<br>
+		<hr>
 		<br>
 		<div class="container_mate_filter">
 			<ul class="list_container">
 				<c:forEach items="${list}" var="h">
 					<li>
 			              <div class="house_list_photo">
-			                  <div class="like_house">
-			                     	<c:choose>
-			                     		<c:when test="${empty sessionScope.m}">
-			                     			<button onclick="msgpopupopen();" class="heart">	                        			
-			                            <img src="/resources/img/icon/heart_off.png">
-			                     			</button>
-			                     		</c:when>
-			                     		<c:when test="${h.likedCheck == '좋아요'}">
-					                		<a idx="${h.houseNo}" class="heart">
-					                			<img src="/resources/img/icon/heart_on.png">
-					                		</a>
-					                	</c:when>
-					                	<c:otherwise>                							              
-											<a idx="${h.houseNo}" class="heart">
-												<img src="/resources/img/icon/heart_off.png">
-											</a>
-					                	</c:otherwise>
-			                     	</c:choose>
-			                     </div>
+			                  <div class="like_house">			                			                     		
+					          	<a idx="${h.houseNo}" class="heart">
+					            	<img src="/resources/img/icon/heart_on.png">
+					            </a>					     					               
+			                  </div>
 			                  <img src="/resources/upload/house/${h.photoList[0].photoPath}">
 			              </div>
 					<a href="<c:url value='houseView.do?houseNo=${h.houseNo}'/>">
@@ -71,6 +59,24 @@
 		</div>
 	</div>	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-
+	<script>
+	$(document).on("click",".heart",function(){
+		var memberNo = "${sessionScope.m.memberNo}";
+		var houseNo = $(this).attr('idx');		
+		var heart = $(this);
+		$.ajax({
+			url : "/houseListLike.do",
+			data : {memberNo:memberNo, houseNo:houseNo},
+			type: "POST",
+			success : function(data){
+				if(data.likeCheck == 0){
+					heart.children().attr("src","/resources/img/icon/heart_off.png");						
+				}else{
+					heart.children().attr("src","/resources/img/icon/heart_on.png");						
+				}
+			}
+		});
+	});
+	</script>
 </body>
 </html>

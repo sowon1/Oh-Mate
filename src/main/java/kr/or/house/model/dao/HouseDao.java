@@ -194,4 +194,10 @@ public class HouseDao {
 		return result;
 	}
 
+	public ArrayList<House> selectBookmarkHouse(int memberNo) {
+		// TODO Auto-generated method stub
+		List<House> list = session.selectList("house.selectBookmarkHouse", memberNo);
+		return (ArrayList<House>)list;
+	}
+
 }
