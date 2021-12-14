@@ -47,7 +47,7 @@
                       <span class="house_form">${h.houseForm}</span>
                   </div>
               </div>
-              <a href="<c:url value='houseView.do?houseNo=${h.houseNo}'/>" class="house_more_btn">입주 가능 방 ${h.houseRoom}개</a>
+              <a href="<c:url value='houseView.do?houseNo=${h.houseNo}'/>" class="house_more_btn">보유 중인 방 ${h.houseRoom}개</a>
               <input type="hidden" value='${h.houseAddressView[0].addressRoad}' name="address">
               <input type="hidden" value='${h.houseTitle}' name="houseTitle">
        </li>         

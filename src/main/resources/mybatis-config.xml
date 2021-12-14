@@ -15,6 +15,8 @@
 		<typeAlias type="kr.or.common.Income" alias="i"/>
 		<typeAlias type="kr.or.common.Tour" alias="t"/>
 		<typeAlias type="kr.or.common.Bookmark" alias="book"/>
+		<typeAlias type="kr.or.common.Move" alias="move"/>
+		<typeAlias type="kr.or.common.Pay" alias="pay"/>
 		<typeAlias type="kr.or.admin.model.vo.UpdateMember" alias="um"/>
 		<typeAlias type="kr.or.notice.model.vo.Notice" alias="n"/>
 		<typeAlias type="kr.or.notice.model.vo.FileVO" alias="fi"/>
