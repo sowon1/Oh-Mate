@@ -124,6 +124,7 @@
              (select address_name from address where address_category=1 and address_number=h.house_no) as addressName,
              (select address_road from address where address_category=1 and address_number=h.house_no) as addressRoad,
              (select count(*) from bookmark where BOOKMARK_CATEGORY=2 and bookmark_num=h.house_no) as likeCount,
+             (select count(*)from room where house_no=#{houseNo} and room_status=1) as roomCount,
              (select count(*) from bookmark where BOOKMARK_CATEGORY=2 and bookmark_num=h.house_no and bookmarker=#{memberNo}) as likedCheck
         from house h where house_no=#{houseNo}
 	</select>

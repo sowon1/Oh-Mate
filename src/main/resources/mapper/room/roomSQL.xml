@@ -68,4 +68,37 @@
  		house_allow as houseAllow
  	from house where member_no = #{memberNo}
  	</select>
+ 	<!-- 입주신청 sowon -->
+ 	<insert id="insertMove" parameterType="map">
+ 	insert into move
+  	values(
+  		move_seq.nextval,
+  		#{roomNo},
+  		#{memberNo},
+  		#{m.moveStart},
+  		#{m.moveEnd},
+  		#{m.movePhone}
+  	)
+ 	</insert>
+ 	<!-- room 상태변경  -->
+ 	<update id="updateHouseRoom" parameterType="map">
+ 		update room set room_status=2 where room_no=#{roomNo} and house_no=#{houseNo}
+ 	</update>
+ 	<!-- 결제정보 등록 -->
+ 	<insert id="insertMovePay" parameterType="map">
+ 		insert into pay
+	  	values(
+	  		pay_seq.nextval,
+	  		2,
+	  		#{roomNo},
+	  		#{p.payId},
+	  		#{p.payName},
+	  		#{p.payNum},
+	  		#{p.payPrice},
+	  		to_char(sysdate,'YYYY-MM-DD HH24:MI:SS'),
+	  		#{p.payWay},
+	  		'결제완료',
+	  		null
+	  	)	
+ 	</insert>
 </mapper>
