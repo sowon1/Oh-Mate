@@ -23,6 +23,7 @@ import kr.or.admin.model.service.AdminService;
 import kr.or.admin.model.vo.SearchMember;
 import kr.or.admin.model.vo.SearchReport;
 import kr.or.admin.model.vo.UpdateMember;
+import kr.or.common.Report;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -163,5 +164,21 @@ public class AdminController {
 		model.addAttribute("start", data.get("start"));
 		model.addAttribute("sr", sr);
 		return "admin/reportSearch";
+	}
+	@ResponseBody
+	@RequestMapping(value="/selectOneReport.do", produces = "application/json;charset=utf-8")
+	public String selectReport(int reportNo, Model model) {
+		Report rp = service.selectOneReport(reportNo);
+		return new Gson().toJson(rp);
+	}
+	@ResponseBody
+	@RequestMapping(value="/updateReport.do")
+	public String updateReport(Report rp) {
+		int result = service.updateReport(rp);
+		if(result>0) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
 }

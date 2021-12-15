@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.common.Address;
 import kr.or.common.Housesearch;
 import kr.or.common.Income;
+import kr.or.common.Move;
 import kr.or.common.Photo;
 import kr.or.common.Tour;
 import kr.or.house.model.vo.House;
@@ -117,6 +118,86 @@ public class HouseDao {
 	public int updateRoomSelling2(int houseNo) {
 		int result =session.update("house.houseRoomSelling2",houseNo);
 		return result;
+	}
+
+
+	public House selectHouseUpdateOneView(HashMap<String, Object> map) {
+		return session.selectOne("house.houseUpdateOne",map);
+	}
+	//하우스 수정중 사진삭제
+	public int deletePhoto(int[] delPhotoNo) {
+		
+		return session.delete("house.housePhotoDelete",delPhotoNo);
+	}
+	//하우스 업데이트
+	public int updateHouse(House h) {
+		return session.update("house.houseUpdate", h);
+	}
+	//하우스 계좌업데이트
+	public int updateIncome(Income i) {
+		return session.update("house.incomeupdate", i);
+	}
+
+	//입주신청 페이지 이동 - 정보 넘겨주기.
+	public Room selectRoom(HashMap<String, Object> map) {
+		return session.selectOne("house.selectRoom",map);
+	}
+	//하우스 정보 조회
+	public ArrayList<House> selectRoomHouse(int houseNo) {
+		List<House> house = session.selectList("house.selectRoomHouse",houseNo);
+		return (ArrayList<House>)house;
+	}
+
+	//하우스 삭제1-하우스삭제
+	public int deleteHouse(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.delete("house.deleteHouse", map);
+	}
+	//하우스 삭제2-방삭제
+	public int deleteAllroom(HashMap<String, Object> map) {
+		
+		return session.delete("house.deleteAllRoom",map);
+	}
+	//하우스 삭제3-계좌삭제
+	public int deleteIncome(HashMap<String, Object> map) {
+		
+		return session.delete("house.deleteIncome",map);
+	}
+	//하우스 삭제 4-주소삭제
+	public int deleteAddress(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.delete("house.deleteAddress",map);
+	}
+	//하우스 삭제5 - 사진삭제
+	public int deleteAllPhoto(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.delete("house.deleteAllPhoto", map);
+	}
+	//하우스오너 하우스 상세보기 출력
+	public House selectHouseownerOneHouse(HashMap<String, Object> map) {
+		House h = session.selectOne("house.selectHouseownerOneHouse",map);
+		return null;
+	}
+	//하우스오너 투어리스트
+	public ArrayList<Tour> selectTourList(int roomNo) {
+		List<Tour> list = session.selectList("house.selectTourList", roomNo);
+		return (ArrayList<Tour>)list;
+	}
+
+	public ArrayList<Move> selectMoveList(int roomNo) {
+		List<Move> list = session.selectList("house.selectMoveList", roomNo);
+		return (ArrayList<Move>)list;
+	}
+
+	public int tourCount(int roomNo) {
+		int result = session.selectOne("house.tourCount", roomNo);
+		return result;
+	}
+
+	public ArrayList<House> selectBookmarkHouse(int memberNo) {
+		// TODO Auto-generated method stub
+		List<House> list = session.selectList("house.selectBookmarkHouse", memberNo);
+		return (ArrayList<House>)list;
 	}
 
 }

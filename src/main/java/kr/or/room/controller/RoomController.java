@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.or.common.Move;
+import kr.or.common.Pay;
 import kr.or.house.model.vo.House;
 import kr.or.room.model.dao.RoomService;
 import kr.or.room.model.vo.Room;
@@ -84,4 +86,24 @@ public class RoomController {
 			return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
 		}
 	}
+	
+	// 입주신청 - sowon
+	@RequestMapping(value="/movePayment.do")
+	public String movePayment(Pay p, Room r, Move m, int memberNo, Model model) {
+		System.out.println(m.getMoveStart());
+		int result = service.insertMove(p,r,m,memberNo);
+		System.out.println(result);
+		System.out.println(p);
+		System.out.println(r);
+		System.out.println(m);
+		System.out.println(memberNo);
+		if(result > 0) {
+			model.addAttribute("msg", "결제 완료");
+			return "/";
+		}else {
+			model.addAttribute("msg", "결제가 실패되었습니다.");
+			return "";
+		}
+	}
+	
 }

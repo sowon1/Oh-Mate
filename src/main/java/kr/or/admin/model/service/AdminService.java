@@ -34,15 +34,15 @@ public class AdminService {
 		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
 		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if(pageNo != 1) {
-			pageNavi += "<li class='page-item'><a href='/memberMgr.do?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<li class='page-item-mate-mate'><a href='/memberMgr.do?reqPage="+(pageNo-1)+"'>";
 			pageNavi += "&lt;</a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi += "<li class='page-item active'><a href='/memberMgr.do?reqPage="+pageNo+"'>";
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/memberMgr.do?reqPage="+pageNo+"'>";
 				pageNavi += pageNo+"</a></li>";
 			}else {
-				pageNavi += "<li class='page-item'><a href='/memberMgr.do?reqPage="+pageNo+"'>";
+				pageNavi += "<li class='page-item-mate-mate'><a href='/memberMgr.do?reqPage="+pageNo+"'>";
 				pageNavi += pageNo+"</a></li>";
 			}
 			pageNo++;
@@ -51,7 +51,7 @@ public class AdminService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li class='page-item'><a href='/memberMgr.do?reqPage="+pageNo+"'>";
+			pageNavi += "<li class='page-item-mate-mate'><a href='/memberMgr.do?reqPage="+pageNo+"'>";
 			pageNavi += "&gt;</a></li>";
 		}
 		pageNavi += "</ul>";
@@ -79,7 +79,7 @@ public class AdminService {
 		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
 		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if(pageNo != 1) {
-			pageNavi += "<li class='page-item'><a href='/adminMemberSearch.do?reqPage="+(pageNo-1)+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminMemberSearch.do?reqPage="+(pageNo-1)+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
 			if(sm.getLevel() != null) {
 				for(int i=0;i<sm.getLevel().length;i++) {
 					pageNavi += "&level="+sm.getLevel()[i];
@@ -89,7 +89,7 @@ public class AdminService {
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi += "<li class='page-item active'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
 				if(sm.getLevel() != null) {
 					for(int j=0;j<sm.getLevel().length;j++) {
 						pageNavi += "&level="+sm.getLevel()[j];
@@ -97,7 +97,7 @@ public class AdminService {
 				}
 				pageNavi += "'>"+pageNo+"</a></li>";
 			}else {
-				pageNavi += "<li class='page-item'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
+				pageNavi += "<li class='page-item-mate-mate'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
 				if(sm.getLevel() != null) {
 					for(int j=0;j<sm.getLevel().length;j++) {
 						pageNavi += "&level="+sm.getLevel()[j];				
@@ -111,7 +111,7 @@ public class AdminService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li class='page-item'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
 			if(sm.getLevel() != null) {
 				for(int i=0;i<sm.getLevel().length;i++) {
 					pageNavi += "&level="+sm.getLevel()[i];				
@@ -165,15 +165,15 @@ public class AdminService {
 		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
 		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if(pageNo != 1) {
-			pageNavi += "<li class='page-item'><a href='/reportMgr.do?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<li class='page-item-mate-mate'><a href='/reportMgr.do?reqPage="+(pageNo-1)+"'>";
 			pageNavi += "&lt;</a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi += "<li class='page-item active'><a href='/reportMgr.do?reqPage="+pageNo+"'>";
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/reportMgr.do?reqPage="+pageNo+"'>";
 				pageNavi += pageNo+"</a></li>";
 			}else {
-				pageNavi += "<li class='page-item'><a href='/reportMgr.do?reqPage="+pageNo+"'>";
+				pageNavi += "<li class='page-item-mate-mate'><a href='/reportMgr.do?reqPage="+pageNo+"'>";
 				pageNavi += pageNo+"</a></li>";
 			}
 			pageNo++;
@@ -182,7 +182,7 @@ public class AdminService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li class='page-item'><a href='/reportMgr.do?reqPage="+pageNo+"'>";
+			pageNavi += "<li class='page-item-mate-mate'><a href='/reportMgr.do?reqPage="+pageNo+"'>";
 			pageNavi += "&gt;</a></li>";
 		}
 		pageNavi += "</ul>";
@@ -211,7 +211,7 @@ public class AdminService {
 		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
 		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if(pageNo != 1) {
-			pageNavi += "<li class='page-item'><a href='/reportSearch.do?reqPage="+(pageNo-1)+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
+			pageNavi += "<li class='page-item-mate-mate'><a href='/reportSearch.do?reqPage="+(pageNo-1)+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
 			if(sr.getStatus() != null) {
 				for(int i=0;i<sr.getStatus().length;i++) {
 					pageNavi += "&status="+sr.getStatus()[i];
@@ -226,7 +226,7 @@ public class AdminService {
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi += "<li class='page-item active'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
 				if(sr.getStatus() != null) {
 					for(int j=0;j<sr.getStatus().length;j++) {
 						pageNavi += "&status="+sr.getStatus()[j];
@@ -239,7 +239,7 @@ public class AdminService {
 				}
 				pageNavi += "'>"+pageNo+"</a></li>";
 			}else {
-				pageNavi += "<li class='page-item'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
+				pageNavi += "<li class='page-item-mate-mate'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
 				if(sr.getStatus() != null) {
 					for(int j=0;j<sr.getStatus().length;j++) {
 						pageNavi += "&status="+sr.getStatus()[j];				
@@ -258,7 +258,7 @@ public class AdminService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li class='page-item'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
+			pageNavi += "<li class='page-item-mate-mate'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
 			if(sr.getStatus() != null) {
 				for(int i=0;i<sr.getStatus().length;i++) {
 					pageNavi += "&status="+sr.getStatus()[i];				
@@ -277,5 +277,13 @@ public class AdminService {
 		data.put("list", list);
 		data.put("start", start);
 		return data;
+	}
+
+	public Report selectOneReport(int reportNo) {
+		return dao.selectOneReport(reportNo);
+	}
+	@Transactional
+	public int updateReport(Report rp) {
+		return dao.updateReport(rp);
 	}
 }

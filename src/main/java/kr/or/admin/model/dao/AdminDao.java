@@ -77,4 +77,12 @@ public class AdminDao {
 	public int totalSearchReportCnt(HashMap<String, Object> map) {
 		return session.selectOne("admin.totalSearchReport", map);
 	}
+
+	public Report selectOneReport(int reportNo) {
+		return session.selectOne("admin.selectOneReport", reportNo);
+	}
+
+	public int updateReport(Report rp) {
+		return session.update("admin.updateReport", rp);
+	}
 }

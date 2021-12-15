@@ -10,7 +10,7 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
-		<h1>신고 관리</h1>
+		<h1 class="point_title">신고 관리</h1>
 		<form action="/reportSearch.do?reqPage=1" method="post">
             <div class="searchBox">
             	<div>
@@ -70,18 +70,21 @@
                     <input type="text" class="input_03" name="keyword">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </div>
+                <div id="textBox">
+                	<p>※ 처리 완료 : 헬퍼 - 헬퍼 자격 박탈 / 게시글 및 댓글 - 비공개</p>
+                </div>
             </div>
         </form>
         <div>
             <table class="table">
                 <tr class="table-secondary">
-                    <th style="">No</th>
-                    <th style="">회원 아이디</th>
-                    <th style="">신고자 아이디</th>
-                    <th style="">분류</th>
-                    <th style="">콘텐츠번호</th>
-                    <th style="">신고일</th>
-                    <th style="">상태</th>
+                    <th style="width:10%;">No</th>
+                    <th style="width:16%;">회원 아이디</th>
+                    <th style="width:16%;">신고자 아이디</th>
+                    <th style="width:15%;">신고 분류</th>
+                    <th style="width:15%;">콘텐츠 번호</th>
+                    <th style="width:18%;">신고일</th>
+                    <th style="width:10%;">상태</th>
                 </tr>
                 <c:forEach items="${list }" var="rp" varStatus="i">
                 	<tr>
@@ -93,18 +96,19 @@
 	                    	<a href="/adminMemberView.do?memberNo=${rp.reporter }">${rp.reporterId }</a>
 	                    </td>
 	                    <td>
+	                    	<input type="hidden" value="${rp.reportNo }">
 	                    	<c:choose>
 	                    		<c:when test="${rp.reportCategory eq 1}">
-	                    			헬퍼
+	                    			<a class="reportModal">헬퍼</a>
 	                    		</c:when>
 	                    		<c:when test="${rp.reportCategory eq 2}">
-	                    			채팅
+	                    			<a class="reportModal">채팅</a>
 	                    		</c:when>
 	                    		<c:when test="${rp.reportCategory eq 3}">
-	                    			게시글
+	                    			<a class="reportModal">게시글</a>
 	                    		</c:when>
 	                    		<c:when test="${rp.reportCategory eq 4}">
-	                    			댓글
+	                    			<a class="reportModal">댓글</a>
 	                    		</c:when>
 	                    	</c:choose>
 	                    </td>
@@ -128,6 +132,74 @@
             </table>
         </div>
         <div id="pageNavi">${pageNavi }</div>
+	</div>
+	<!-- 신고 상세 모달 -->
+	<div id="modal_report" class="modal_report">
+		<div class="modal_report_win">
+			<div class="modal_report_title">
+				<h3>신고 내역</h3>
+				<span class="modal_report_close">
+					<img src="/resources/img/icon/close_wh.png">
+				</span>
+			</div>
+			<div class="modal_report_content">
+				<input type="hidden" name="reportNo">
+                <table class="table">
+                    <tr class="table-active_mate">
+                        <th>신고일</th>
+                        <td>
+                        	<input type="text" id="reportDate" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>신고자 아이디</th>
+                        <td>
+                        	<input type="text" id="reporterId" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>회원 아이디</th>
+                        <td>
+                        	<input type="text" id="atackerId" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>신고 분류</th>
+                        <td>
+                        	<input type="text" id="cate" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>콘텐츠 번호</th>
+                        <td>
+                        	<input type="text" id="reportNum" class="input_03" readonly>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>사유</th>
+                        <td>
+                        	<textarea class="form-control" id="reportContent" rows="3" readonly></textarea>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                        <th>상태</th>
+                        <td>
+                            <div class="select">
+                                <input type="radio" id="rpSta" name="reportStatus" value="1"><label for="rpSta">미처리</label>
+                                <input type="radio" id="rpSta2" name="reportStatus" value="2"><label for="rpSta2">처리완료</label>
+                                <input type="radio" id="rpSta3" name="reportStatus" value="3"><label for="rpSta3">허위신고</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="table-active_mate">
+                    	<td colspan="2" id="notice"></td>
+                    </tr>
+                </table>
+                <div class="btnBox">
+                    <input type="button" class="btn btn_out" value="처리">
+                </div>
+			</div>
+		</div>
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>

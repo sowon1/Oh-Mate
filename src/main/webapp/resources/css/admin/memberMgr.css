@@ -53,6 +53,7 @@ table a{
 	color: #333;
 }
 table a:hover{
+	color:#8500ff;
 	text-decoration: underline;	
 }
 table p{
@@ -63,4 +64,5 @@ table p{
 }
 .form-check-input:focus{
 	box-shadow: none;
+	border: 1px solid rgba(0, 0, 0, 0.25);
 }

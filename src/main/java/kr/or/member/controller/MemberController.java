@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -31,6 +33,8 @@ public class MemberController {
 	private MemberService service;
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+	private HouseService houseService;
 	
 	//로그인1
 	@RequestMapping(value="/login.do")
@@ -408,6 +412,22 @@ public class MemberController {
 		model.addAttribute("loc","/");
 		return "common/msg";
 	}	
+	
+	//찜목록 불러오기-jjh
+	@RequestMapping(value = "/bookmarkHouseList.do")
+	public String bookmarkHouseList(Model model, HttpSession session) {
+		if(session != null) {
+			Member m = (Member)session.getAttribute("m");
+			int memberNo = 0;
+			if(m != null)
+			{
+				memberNo = m.getMemberNo();
+			}	
+			ArrayList<House> list = houseService.selectBookmarkHouse(memberNo);
+			model.addAttribute("list", list);
+		}
+		return "member/bookmarkHouseList";
+	}
 	
 	//마이페이지_커뮤니티 작성글 보기 이동
 	@RequestMapping(value="/communityConfirm.do")

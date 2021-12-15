@@ -26,35 +26,16 @@
   	insert into photo
   	values(photo_seq.nextval,1,#{photoPath},#{photoNum})
   </insert>
-  <!-- 하우스 리스트 출력 - sowon 
-  <select id="selectSearchHouse" parameterType="search">
-  		select * from house 
-  				<trim prefix="where" prefixOverrides="and|or">
-  					<if test="!gender.equals('')">
-  						house_gender=#{gender}
-  					</if>
-  					<if test="!housetype.equals('')">
-  						house_Form=#{housetype}
-  					</if>
-  				</trim>
-  	-->
   <!-- 하우스 리스트 출력 - sowon   -->
   <select id="selectAllHouse" parameterType="h" resultMap="house">
   		select 
-			*
-		from  
-			(select rownum as rnum, h.* from
+			*   
+		from			
+			(select rownum as rnum, h.*, 
+            (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount
+            from
 			(select * from house where house_allow=1 order by 1 desc)h) 
 		where rnum between 1 and 10
-  				<!--  
-			    where house_gender=#{gender}
-			    and house_Form=#{housetype}
-			    and ((house_title || house_content || HOUSE_FORM) like=%#{keyword}%)    
-			    or house_no = (select address_number from address where ADDRESS_CATEGORY='1' and (address_name || address_road || address_legal) like=%#{keyword}%);
-			   <if test="">			   
-			    	and house_no in (select house_no from room where ROOM_PERSONNEL=#{room} and ROOM_CHARGE between #{roomCharge1} and #{roomCharge2})
-			   </if>
-			   -->
   </select>
 	<!-- 하우스 사진 조회 테이블 -->
 	<select id="selectFileList" resultType="f">
@@ -96,7 +77,8 @@
 	 	select 
 			*
 		from  
-			(select rownum as rnum, h.*,decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
+			(select rownum as rnum, h.*, (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount,
+            decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
 			(select * from house where house_allow=1 order by 1 desc)h) 
 		where rnum between #{start} and #{end}
 	</select>
@@ -124,6 +106,7 @@
              (select address_name from address where address_category=1 and address_number=h.house_no) as addressName,
              (select address_road from address where address_category=1 and address_number=h.house_no) as addressRoad,
              (select count(*) from bookmark where BOOKMARK_CATEGORY=2 and bookmark_num=h.house_no) as likeCount,
+             (select count(*)from room where house_no=#{houseNo} and room_status=1) as roomCount,
              (select count(*) from bookmark where BOOKMARK_CATEGORY=2 and bookmark_num=h.house_no and bookmarker=#{memberNo}) as likedCheck
         from house h where house_no=#{houseNo}
 	</select>
@@ -215,10 +198,10 @@
 	</select>
 	<!-- 하우스리스트 추가시 조건문적용 -->
 	<update id="houseRoomSelling1" parameterType="_int">
-		update room set house_selling = 1 where house_no =#{houseNo}
+		update house set house_selling = 1 where house_no =#{houseNo}
 	</update>
 	<update id="houseRoomSelling2" parameterType="_int">
-		update room set house_selling = 2 where house_no =#{houseNo}
+		update house set house_selling = 2 where house_no =#{houseNo}
 	</update>
 
 	
@@ -227,4 +210,142 @@
 		insert into tour
   		values(tour_seq.nextval,#{roomNo},#{memberNo},#{tourPhone},#{tourEmail},#{houseName},#{tourQna},#{tourVisit},2)
 	</insert>
+	<!-- 하우스 업데이트 값 가져오기 -->
+	<select id="houseUpdateOne" parameterType="map" resultType="h">
+		select
+			house_no as houseNo,
+			member_no as memberNo,
+			house_title as houseTitle,
+			houseowner_deadline as houseownerDeadline,
+			house_selling as houseSelling,
+			refuse_reason as refuseReason,
+			house_content as houseContent,
+			house_room as houseRoom,
+			house_charge as houseCharge,
+			house_rule as houseRule,
+			house_form as houseForm,
+			house_gender as houseGender,
+			house_convenience as houseConvenience,
+			house_allow as houseAllow
+		from house where house_no=#{houseNo} and member_no=#{memberNo}
+	</select>
+	<!-- 파라미터타입 확인해야함 -->
+	<!-- <delete id="housePhotoDelete" parameterType="">
+		delete from photo where photo_no = #{delPhotoNo} and photo_category=1 
+	</delete> -->
+	<update id="houseUpdate" parameterType="h">
+		update house set 
+			house_title =#{houseTitle},
+			houseowner_deadline = #{houseownerDeadline},
+			house_content = #{houseContent},
+			house_charge = #{houseCharge},
+			house_rule = #{houseRule},
+			house_form = #{houseForm},
+			house_gender = #{houseGender},
+			house_convenience = #{houseConvenience},
+			house_allow = 1
+		where house_no = #{houseNo} and #{memberNo}
+	</update>
+	<update id="incomeupdate" parameterType="i">
+		update income set
+			income_bank = #{incomeBank},
+			income_account = #{incomeAccount},
+			income_name =#{incomeName},
+			where income_no = #{incomeNo} and income_category =2
+	</update>
+	
+	<!-- 입주신청 페이지 이동 하우스 정보 넘겨주기 -->
+	<select id="selectRoomHouse" parameterType="_int" resultType="h">
+		select 
+             h.house_no as houseNo,
+             h.member_no as memberNo,
+             h.house_title as houseTitle,
+             h.houseowner_deadline as houseownerDeadline,
+             h.house_selling as houseSelling,
+             h.refuse_reason as refuseReason,
+             h.house_content as houseContent,
+             h.house_room as houseRoom,
+             h.house_charge as houseCharge,
+             h.house_rule as houseRule,
+             h.house_form as houseForm,
+             h.house_gender as houseGender,
+             h.house_convenience as houseConvenience,
+             h.house_allow as houseAllow,
+             (select address_name from address where address_category=1 and address_number=h.house_no) as addressName,
+             (select address_road from address where address_category=1 and address_number=h.house_no) as addressRoad
+        from house h where house_no=#{houseNo}
+	</select>
+	<!-- 입주신청 페이지 이동 하우스 정보 넘겨주기 -->
+	<select id="selectRoom" parameterType="map" resultType="r">
+		select 
+			room_no as roomNo,
+			house_no as houseNo,
+			room_title as roomTitle,
+			room_size as roomSize,
+			room_phone as roomPhone,
+			room_status as roomStatus,
+			room_charge as roomCharge,
+			room_content as roomContent,
+			room_personnel as roomPersonnel,
+			room_month as roomMonth
+		from room where room_no=#{roomNo} and house_no=#{houseNo}
+	</select>
+	<!-- 하우스 삭제 1단계 -->
+	<delete id="deleteHouse" parameterType="map">
+		delete from house where house_no=#{houseNo} and member_no=#{memberNo}
+	</delete>
+	<!-- 하우스 삭제 2단계 해당 방전체삭제 -->
+	<delete id="deleteAllRoom" parameterType="map">
+			delete from room where house_no = #{houseNo}
+	</delete>
+	<!-- 하우스 삭제 3단계 계좌삭제 -->
+	<delete id="deleteIncome" parameterType="map">
+		delete from income where income_num=${houseNo} and income_category=2
+	</delete>
+	<!-- 하우스 삭제 4단계 주소삭제 -->
+	<delete id="deleteAddress" parameterType="map">
+		delete from address where address_category=1 and address_number=#{houseNo}
+	</delete>
+	<!-- 하우스 삭제 5단계 사진삭제 -->
+	<delete id="deleteAllPhoto" parameterType="map">
+		delete from photo where photo_category=1 and photo_num=#{houseNo}
+	</delete>
+	<select id="selectTourList" parameterType="_int" resultType="t">
+		select
+			tour_no as tourNo,
+			room_no as roomNo,
+			member_no as memberNo,
+			tour_phone as tourPhone,
+			tour_email as tourEmail,
+			house_name as houseName,
+			tour_qna as tourQna,
+			tour_visit as tourVisit,
+			tour_status as tourStatus
+		from tour
+		where room_no = #{roomNo}
+	</select>
+	<select id="selectMoveList" parameterType="_int" resultType="move">
+		select
+			move_no as moveNo,
+			room_no as roomNo,
+			member_no as memberNo,
+			move_start as moveStart,
+			move_end as moveEnd,
+			move_phone as movePhone
+		from move
+		where room_no = #{roomNo}
+	</select>
+	<select id="tourCount" parameterType="_int" resultType="_int">
+		select count(*) from tour where room_no = #{roomNo}
+	</select>
+	
+	<!-- 찜목록 불러오기 -->
+	<select id="selectBookmarkHouse" parameterType="h" resultMap="house">
+  		select * from 
+  			(select rownum as rnum, 
+  			b.bookmark_no, 
+  			h.* from BOOKMARK b left join house h ON (bookmark_num = house_no) 
+  			where BOOKMARKER=#{memberNo} )
+  		order by 2 desc
+	</select>
 </mapper>

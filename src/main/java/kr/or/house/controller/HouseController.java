@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +24,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import kr.or.common.Address;
-import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.common.Photo;
 import kr.or.common.Tour;
@@ -45,12 +42,12 @@ public class HouseController {
 	@Autowired
 	private MainService mService;
 	
-	//하우스 등록
+	//하우스 등록-jisung
 	@RequestMapping(value = "/houseWriteFrm.do")
 	public String houseWriteFrm() {
 		return "house/houseWriteFrm";
 	}
-	//하우스 리스트 출력
+	//하우스 리스트 출력-jisung
 	@RequestMapping(value="/houseList.do")
 	public String houseList(House h, Model model) {
 		ArrayList<House> list = service.selectAllHouse(h);
@@ -76,7 +73,7 @@ public class HouseController {
 		return "house/ajax_page";
 	}
 
-	//하우스 등록
+	//하우스 등록-jisung
 	@RequestMapping(value = "/houseWrite.do")
 	public String houseWrite(House h,Address address,Income i,Model model,HttpSession session,MultipartFile[] photoPath,HttpServletRequest request) {
 		/*
@@ -155,8 +152,81 @@ public class HouseController {
 			return "house/houseWriteFrm";
 		}
 	}
-	
-	//하우스 이미지 업로드
+	//하우스 수정-jisung
+	@RequestMapping(value = "/houseUpdate.do")
+	public String houseUpdate(House h,Income i,Photo p,String[] delPhotoPath,int[] delPhotoNo,MultipartFile[] photoPath,HttpServletRequest request,Model model) {
+		//삭제 이미지 삭제하기
+		System.out.println(delPhotoNo);
+		int result = service.deletePhoto(delPhotoPath,delPhotoNo);
+		int house = service.updateHouse(h,i);
+		int houseRoom = h.getHouseRoom();
+		if(house>0) {
+			ArrayList<Photo> list = new ArrayList<Photo>();
+			int houseNo= h.getHouseNo();
+			if(photoPath[0].isEmpty()) {
+				return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+			}else {
+				String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
+				for(MultipartFile file: photoPath) {
+					//사용자가 올린 파일명
+					String filename = file.getOriginalFilename();
+					String onlyFilename = filename.substring(0,filename.indexOf(".")); //test
+					String extention = filename.substring(filename.indexOf("."));//.txt
+					String filepath =null;
+					System.out.println("사진경로:"+filename);
+					int count = 0;
+					while(true) {
+						if(count == 0) {
+							filepath = onlyFilename+extention;//test.txt
+						}else {
+							filepath = onlyFilename+"_"+count+extention;//test_1.txt
+						}
+						File checkFile = new File(photoPathfile+filepath);//File>> java.io
+						if(!checkFile.exists()) {//똑같은 파일이 없을경우 중지
+							break;
+						}
+						count++;
+					}
+					//파일명 중복처리가 끝나면 파일업로드
+					System.out.println("photoPathfile:"+photoPathfile);
+					System.out.println("filepath"+filepath);
+					try {
+						//중복처리가 끝난 파일명(filepath)으로 파일을 업로드
+						FileOutputStream fos = new FileOutputStream(new File(photoPathfile+filepath));
+						//업로드 속도증가를 위한 보조스트림
+						BufferedOutputStream bos = new BufferedOutputStream(fos);
+						//파일업로드
+						byte[] bytes =file.getBytes();
+						bos.write(bytes);
+						bos.close();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Photo photo = new Photo();
+					photo.setPhotoPath(filepath);
+					list.add(photo);
+					
+				}
+				
+				int result3 = service.insertImgfiles(list,houseNo);
+				if(result3>0) {
+					
+					return "redirect:/roomList.do?houseNo="+houseNo+"&houseRoom="+houseRoom;
+					
+				}else {
+					return "house/houseWriteFrm";
+				}
+			}
+		}else {
+			model.addAttribute("msg", "하우스 수정실패");
+			return "redirect:/houseOwnerList.do?memberNo=$"+h.getMemberNo()+"&reqPage=1";
+		}
+	}
+	//하우스 이미지 업로드-jisung
 	@RequestMapping(value = "/houseUploadImage.do",produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String houseUploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
@@ -238,7 +308,7 @@ public class HouseController {
 		}
 		return "house/houseView";
 	}
-	//내 하우스 리스트 보기
+	//내 하우스오너 리스트 보기-jisung
 	@RequestMapping(value = "/houseOwnerList.do")
 	public String houseOwnerList(int memberNo,int reqPage,Model model) {
 		housePageData hpd = service.selectHouseOwnerList(memberNo,reqPage);
@@ -250,10 +320,17 @@ public class HouseController {
 		return "house/houseownerList";
 	}
 
-	//하우스 업데이트
+	//하우스 업데이트 폼-jisung
 	@RequestMapping(value = "/houseUpdateFrm.do")
-	public String houseUpdateFrm(int houseNo) {
-		return"";
+	public String houseUpdateFrm(int houseNo,int memberNo,Model model) {
+		House h = service.selectHouseUpdateOneView(houseNo, memberNo);
+		if(h!=null) {
+			model.addAttribute("h", h);
+			return "house/houseUpdateFrm";
+		}else {
+			model.addAttribute("msg", "입력하신 내용이 없습니다.");
+			return "redirect:/houseOwnerList.do?memberNo=$"+memberNo+"&reqPage=1";
+		}
 	}
 
 	//투어 신청 - sowon
@@ -264,11 +341,38 @@ public class HouseController {
 			model.addAttribute("msg","투어신청이 완료되었습니다.");
 			model.addAttribute("loc","/");
 		}else {
-			model.addAttribute("msg","실패 오류찾기");
+			model.addAttribute("msg","투어신청이 실패되었습니다.");
 			model.addAttribute("loc","/");
 		}
 		return "common/msg";
 	}
 	
-
+	//입주신청페이지이동 - sowon
+	@RequestMapping(value="/roomMoveFrm.do")
+	public String roomMoveFrm(int roomNo, int houseNo, Model model) {
+		Room r = service.selectRoom(roomNo,houseNo);
+		model.addAttribute("r",r);
+		model.addAttribute("photo",r.getPhotoList());
+		model.addAttribute("house",r.getHouse());
+		return "house/roomMoveFrm";	
+	}
+	//하우스 삭제-jisung
+	@RequestMapping(value = "/houseDelete.do")
+	public String houseDelete(int memberNo, int houseNo,Model model) {
+		int result = service.deleteHouse(memberNo,houseNo);
+		int reqPage=1;
+		if(result>0) {
+			model.addAttribute("msg", "하우스 삭제 성공");
+			return "redirect:houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage;
+		}else {
+			model.addAttribute("msg", "하우스 삭제 실패");
+			return "redirect:houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage;
+		}
+	}
+	//하우스 오너 하우스 상세보기 - jisung
+	@RequestMapping(value = "/houseOwnerRoom.do")
+	public String houseOwnerRoom(int houseNo,int memberNo,Model model) {
+		House h = service.selectHouseownerOneHouse(houseNo,memberNo);
+		return "";
+	}
 }

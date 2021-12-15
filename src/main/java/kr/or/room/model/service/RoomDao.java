@@ -39,4 +39,16 @@ public class RoomDao {
 		int result=session.update("room.updateRoom",r);
 		return result;
 	}
+	// 입주신청 - sowon
+	public int insertMove(HashMap<String, Object> map) {
+		return session.insert("room.insertMove",map);
+	}
+	// 입주신청 - room 상태 변경 - sowon
+	public int updateHouseRoom(HashMap<String, Object> map) {
+		return session.update("room.updateHouseRoom",map);
+	}
+	// 결제정보 - sowon
+	public int insertMovePay(HashMap<String, Object> map) {
+		return session.insert("room.insertMovePay",map);
+	}
 }

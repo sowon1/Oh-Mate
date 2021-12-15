@@ -10,39 +10,56 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-
 	<!-- 달력 -->
-
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<!-- 썸머노트 등록 -->
+
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<!-- include summernote-ko-KR -->
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 
 	<div class="container_mate">
-		<h1>헬퍼요청서</h1>
-		<hr>
+		<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼요청서</h4>
 		<form action="/helpRequest.do" method="post"
 			enctype="multipart/form-data" id="funder_add">
+			<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
 			<div class="add_right border_a">
-				<table class="table">
+				<table class="table" style="padding: 15px;">
 					<tr class="table-active_mate center_list">
 						<th>1. 자신이 자신 있는 분야</th>
 						<td>
 							<div class="check_ent displayflex" style="text-align: left;">
-								<input type="checkbox" class="chk" name="funderCategory" id="fun_00" value="0" ><label for="fun_00" style="width: 140px">배달·장보기</label>
-								<input type="checkbox" class="chk" name="funderCategory" id="fun_01" value="0" ><label for="fun_01" style="width: 140px">청소·집안일</label>
-								<input type="checkbox" class="chk" name="funderCategory" id="fun_02" value="0" ><label for="fun_02" style="width: 140px">설치·조립·운반</label>
-								<input type="checkbox" class="chk" name="funderCategory" id="fun_03" value="0" ><label for="fun_03" style="width: 140px">동행·돌봄</label>
+								<input type="checkbox" class="chk" name="funderCategory"
+									id="fun_00" value="0"><label for="fun_00"
+									style="width: 140px">배달·장보기</label> <input type="checkbox"
+									class="chk" name="funderCategory" id="fun_01" value="0"><label
+									for="fun_01" style="width: 140px">청소·집안일</label> <input
+									type="checkbox" class="chk" name="funderCategory" id="fun_02"
+									value="0"><label for="fun_02" style="width: 140px">설치·조립·운반</label>
+								<input type="checkbox" class="chk" name="funderCategory"
+									id="fun_03" value="0"><label for="fun_03"
+									style="width: 140px">동행·돌봄</label>
 							</div>
 							<div class="check_ent displayflex" style="text-align: left;">
-								<input type="checkbox" class="chk" name="funderCategory" id="fun_04" value="0" ><label for="fun_04" style="width: 140px">벌레·쥐</label>
-								<input type="checkbox" class="chk" name="funderCategory" id="fun_05" value="0" ><label for="fun_05" style="width: 140px">역할대행</label>
-								<input type="checkbox" class="chk" name="funderCategory" id="fun_06" value="0" ><label for="fun_06" style="width: 140px">과외·알바</label>
-								<input type="checkbox" class="chk" name="funderCategory" id="fun_07" value="0" ><label for="fun_07" style="width: 140px">동행·돌봄</label>
-							</div>
-							<input type="hidden" id="helperCategory" name="helperCategory">
+								<input type="checkbox" class="chk" name="funderCategory"
+									id="fun_04" value="0"><label for="fun_04"
+									style="width: 140px">벌레·쥐</label> <input type="checkbox"
+									class="chk" name="funderCategory" id="fun_05" value="0"><label
+									for="fun_05" style="width: 140px">역할대행</label> <input
+									type="checkbox" class="chk" name="funderCategory" id="fun_06"
+									value="0"><label for="fun_06" style="width: 140px">과외·알바</label>
+								<input type="checkbox" class="chk" name="funderCategory"
+									id="fun_07" value="0"><label for="fun_07"
+									style="width: 140px">동행·돌봄</label>
+							</div> <input type="hidden" id="helperCategory" name="helperCategory">
 						</td>
 					</tr>
 					<tr class="table-active_mate">
@@ -79,39 +96,44 @@
 					</tr>
 					<tr class="table-active_mate">
 						<th>6.이동수단</th>
-						<td>
-								<input type="radio" name="helperRide" id="ride01" value="1"><label
-									for="ride01">자동차</label> <input type="radio" name="helperRide"
-									id="ride02" value="2"><label for="ride02">오토바이</label>
-								<input type="radio" name="helperRide" id="ride03" value="3"><label
-									for="ride03">전동퀵보드</label> <input type="radio"
-									name="helperRide" id="ride04" value="4"><label
-									for="ride04">자전거</label> <input type="radio" name="helperRide"
-									id="ride05" value="5"><label for="ride05">없음</label>
-						</td>
+						<td><input type="radio" name="helperRide" id="ride01"
+							value="1"><label for="ride01">자동차</label> <input
+							type="radio" name="helperRide" id="ride02" value="2"><label
+							for="ride02">오토바이</label> <input type="radio" name="helperRide"
+							id="ride03" value="3"><label for="ride03">전동퀵보드</label> <input
+							type="radio" name="helperRide" id="ride04" value="4"><label
+							for="ride04">자전거</label> <input type="radio" name="helperRide"
+							id="ride05" value="5"><label for="ride05">없음</label></td>
 					</tr>
 					<tr class="table-active_mate">
 						<th>7.자기소개</th>
-						<td><textarea name="helperIntro" class="textarea_pro"></textarea></td>
+						<td><textarea name="helperIntro" class="summernote"></textarea></td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>8.활동가능한 지역</th>
+						<th>8.활동가능한 지역)</th>
 						<td>
+							<p>※꼭 주소 등록후 엔터 칠것 (3개지점만 등록할것)</p>
+							<div class="address">
+
+							</div>
 							<div class="profile_tags">
 								<ul class="tag_list">
 
 								</ul>
 								<input type="text" name="searchTag" id="tag"
 									onfocus="this.placeholder=''"
-									onblur="this.placeholder='시군구중 구만 입력해주세요 ex)#구로구'"> <input
+									onblur="this.placeholder='등록후 엔터'" read> <input
 									type="hidden" name="tagadd">
 							</div>
-							<input type="hidden" name="helperAddress">
+							<div class="postcode">
+								<button type="button" class="btn btn_sm"
+									style="line-height: 30px; width: 100%" id="addressBtn">주소검색</button>
+							</div>
 						</td>
 					</tr>
 					<tr class="table-active_mate">
 						<th>9.자격증 기재</th>
-						<td><textarea name="helperIntro" class="textarea_pro"></textarea></td>
+						<td><textarea name="helperCredit" class="summernote"></textarea></td>
 					</tr>
 				</table>
 				<div class="next_btn">
@@ -187,6 +209,7 @@
 	                    })
 	                    // 태그 중복 검사
 	                    if (result.length == 0) {
+	                    	
 	                    $(".tag_list")
 	                        .append("<li class='tag-item'>" + tagValue + "<span class='del-btn' idx='" + counter + "'><img src='/resources/img/icon/close.png'></span></li>");
 	                    addTag(tagValue);
@@ -203,9 +226,8 @@
 	                var index = $(this)
 	                .attr("idx");
 	                tag[index] = "";
-	                $(this)
-	                .parent()
-	                .remove();
+	                $(this).parent().remove();
+	                $(".addresswrap").remove();
 	            });
 	        });
 			//체크박스 1개만 선택하도록
@@ -257,6 +279,7 @@
 			        $(this)
 			        .parent()
 			        .remove();
+			        $(".address").eq(index).remove();
 			    });
 			});
 			//컨트롤러 제출할때 값 넘기는거
@@ -280,8 +303,62 @@
 				$("input[name='skillName']").val(skillname.join("/"));
 				$("input[name='skillLevel']").val(skilllevel.join("/"));
 			});
-			//
+			//썸머노트(파일업로드 문제)
+			$(".summernote").summernote({
+				height : 250,
+				maxHeight : 250, // 최대 높이
+				lang : "ko-KR",
+				callbacks : {
+					onImageUpload : function(files) {
+						for (var i = 0; i < files.length; i++) {
+							helperUploadImage(files[i], this);
+						}
+					}
+				}
+
+			});
+			//ajax이용 이미지 업로드
+			function helperUploadImage(file, editor) {
+				var form = new FormData();
+				form.append("file", file);
+				$.ajax({
+					url : "/helperUploadImage.do",
+					type : "post",
+					data : form,
+					processData : false,
+					enctype : 'multipart/form-data',
+					contentType : false,
+					success : function(data) {
+						$(editor).summernote("insertImage", data.url);
+					}
+				});
+			}
+			$("#addressBtn").click(function () {
+				if($("input[name='addressCode']").length == 3){
+					alert("선호 주소가 3개 초과입니다. ")
+				}else{
+					var address = $(".address")
+					var addressCode = "<input type='hidden' name='addressCode'>"
+					var addressName = "<input type='hidden' name='addressName'>"
+					var addressRoad = "<input type='hidden' name='addressRoad'>"
+					var addressLegal = "<input type='hidden' name='addressLegal'>"
+					 var addressDetail = "<input type='hidden' name='addressDetail' value='헬퍼주소등록'>"
+					new daum.Postcode(
+							{
+								oncomplete : function(data) {
+									address.append("<div class='addresswrap'>"+addressCode+addressName+addressRoad+addressLegal+addressDetail+"</div>")	
+									document.querySelector("input[name='addressCode']").value = data.zonecode;
+									document.querySelector("input[name='addressName']").value = data.sigungu;
+									document.querySelector("input[name='addressRoad']").value = data.roadname;
+									document.querySelector("input[name='addressLegal']").value = data.bname2;
+					$("#tag").val($("input[name='addressName']").val()+" "+$("input[name='addressRoad']").val()+" "+$("input[name='addressLegal']").val());
+								}
+							}).open();
+				}
+			});
 	</script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

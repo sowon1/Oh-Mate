@@ -127,7 +127,12 @@
 .house-navi{
 margin-left: 500px;
 }
-
+.move-list{
+	margin:10px;
+}
+.tour-list{
+	margin: 10px;
+}
 </style>
 </head>
 <body>
@@ -160,7 +165,8 @@ margin-left: 500px;
 									<p class="summary-name">${h.houseTitle }
 									<c:choose>
 										<c:when test="${h.houseAllow eq 1}">
-											<span class="allow-waiting" style="color: orange; border: 1px solid orange;">승인대기</span>
+											<span class="allow-waiting" style="color: orange; border: 1px solid orange; ">승인대기</span>
+											
 										</c:when>
 										<c:when test="${h.houseAllow eq 2 }">
 											<span class="allow-agree" style="color: green; border: 1px solid green;">승인</span>
@@ -175,9 +181,10 @@ margin-left: 500px;
 										</c:when>
 										<c:when test="${h.houseAllow eq 3 }">
 											<span class="allow-refuse" style="color: red; border: 1px solid red;">승인 거절</span>
-											<span>거부사유: ${h.refuseReason }</span>
+											<c:if test="${not empty h.refuseReason }">
+												<span style="color: red; border: 1px solid red; margin: 0"><i class="fas fa-exclamation" style="color: red;"></i></span>
+											</c:if>
 										</c:when>
-									
 									</c:choose>
 									</p>
 									<div class="summary-add">
@@ -190,14 +197,16 @@ margin-left: 500px;
 										<span>입주현황: <strong>${h.roomCount }/${h.houseRoom }</strong></span>·
 										<span>투어 신청건<strong></strong></span>
 									</div>
-									<a class="summary-datail" href="/houseOwnerRoom.do?houseNo=${h.houseNo }">계약내역
+									<a class="summary-datail" href="/houseOwnerRoom.do?houseNo=${h.houseNo }&memberNo=${h.memberNo}">하우스
 										상세보기</a>
 								</div>
 								<div class="btn-group">
-									<a href="/houseUpdate.do?houseNo=${h.houseNo }">수정하기</a> <a href="/houseDelete.do?houseNo=${h.houseNo }">삭제하기</a>
-									<a href="/housePerson.do">입주자 내역</a>
+									<a href="/houseUpdateFrm.do?houseNo=${h.houseNo}&memberNo=${h.memberNo}">수정하기</a> <a href="/houseDelete.do?houseNo=${h.houseNo} &memberNo=${h.memberNo}">삭제하기</a>
+									<a href="javascript:void(0);">입주자 내역</a>
+									<a href="javascript:void(0);">투어리스트 내역</a>
 								</div>
 								<div class="move-list"></div>
+								<div class="tour-list"></div>
 							</div>
 						</li>
 					</c:forEach>
