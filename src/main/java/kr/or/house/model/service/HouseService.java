@@ -50,9 +50,16 @@ public class HouseService {
 		}
 	}
 
-	// 하우스 리스트 출력 - sowon
-	public ArrayList<House> selectAllHouse(House h) {
-		ArrayList<House> list = dao.selectAllHouse(h);
+	// 메인에서 검색으로 하우스 리스트 출력 - sowon
+	public ArrayList<House> selectAllHouse(House h, String keyword, Room r) {
+		h.setHouseRoomView(new ArrayList<Room>());
+		h.getHouseRoomView().add(r);	
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("h", h);
+		map.put("keyword", keyword);
+		
+		ArrayList<House> list = dao.selectAllHouse(map);
 		for (int i = 0; i < list.size(); i++) {
 			int houseNo = list.get(i).getHouseNo();
 			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
@@ -61,7 +68,7 @@ public class HouseService {
 		return list;
 	}
 
-	// 하우스 리스트 출력 - ajax - sowon
+	// 하우스 리스트에서의 출력 - ajax - sowon
 	public HashMap<String, Object> selectAjaxHouse(int pageNum, int memberNo) {
 		// 한 페이지에 몇개 보여줄건지
 		int numPerPage = 9;
@@ -73,12 +80,7 @@ public class HouseService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberNo", memberNo);
-		ArrayList<House> list = dao.selectAjaxHouse(map);
-		for (int i = 0; i < list.size(); i++) {
-			int houseNo = list.get(i).getHouseNo();
-			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
-			list.get(i).setHouseAddressView(addressArray);
-		}
+		ArrayList<House> list = dao.selectAjaxHouse(map);		
 		int totalRow = dao.selectAjaxTotal();
 		// 전체 페이지의 갯수 구하기
 		int totalPageCount = (totalRow % numPerPage == 0) ? (totalRow / numPerPage) : (totalRow / numPerPage + 1);
