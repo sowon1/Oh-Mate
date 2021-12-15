@@ -13,26 +13,36 @@
 		<h1 class="point_title">하우스 관리</h1>
 		<form action="/adminHouseSearch.do?reqPage=1" method="post">
             <div class="searchBox">
-                <div>
-                    <div>
-                        <p>승인 분류</p>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" id="allChk">
-                        <label class="form-check-label" for="allChk">전체</label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" value="1" id="waitChk" name="status">
-                        <label class="form-check-label" for="waitChk">승인 대기</label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" value="2" id="allowChk" name="status">
-                        <label class="form-check-label" for="allowChk">승인</label>
-                    </div>
-                    <div>
-                        <input class="form-check-input" type="checkbox" value="3" id="noAllowChk" name="status">
-                        <label class="form-check-label" for="noAllowChk">미승인</label>
-                    </div>
+                <div class="chkBox">
+                    <table>
+                		<tr>
+                			<th>승인 분류</th>
+                			<td>
+		                        <input class="form-check-input" type="checkbox" id="allChk">
+		                        <label class="form-check-label" for="allChk">전체</label>
+                        	</td>
+                        	<td>
+		                        <input class="form-check-input" type="checkbox" value="1" id="waitChk" name="status">
+		                        <label class="form-check-label" for="waitChk">승인 대기</label>
+                        	</td>
+                        	<td>
+		                        <input class="form-check-input" type="checkbox" value="2" id="allowChk" name="status">
+		                        <label class="form-check-label" for="allowChk">승인</label>
+                        	</td>
+                        	<td colspan="2">
+		                        <input class="form-check-input" type="checkbox" value="3" id="noAllowChk" name="status">
+		                        <label class="form-check-label" for="noAllowChk">미승인</label>
+                        	</td>
+                		</tr>
+                		<tr>
+                			<th>지역구</th>
+                			<td colspan="4">
+	                			<select class="form-select" name="addrName">
+	                				<option value="0" class="n">지역구 선택</option>
+	                			</select>
+                        	</td>
+                		</tr>
+                	</table>
                 </div>
                 <div class="keywordBox">
                     <select class="form-select" name="type">
@@ -42,18 +52,19 @@
                     <input type="text" class="input_03" name="keyword">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </div>
+				<a class="resetSearch">※ 검색 조건 초기화</a>
             </div>
         </form>
         <div>
             <table class="table">
                 <tr class="table-secondary">
-                    <th style="">No</th>
-                    <th style="">하우스오너</th>
-                    <th style="">하우스 이름</th>
-                    <th style="">주거형태</th>
-                    <th style="">임대만료일</th>
-                    <th style="">매매 상태</th>
-                    <th style="">승인 상태</th>
+                    <th style="width:10%;">No</th>
+                    <th style="width:10%;">하우스오너</th>
+                    <th style="width:260px;">하우스 이름</th>
+                    <th style="width:340px;">주소</th>
+                    <th style="width:10%;">임대 만료일</th>
+                    <th style="width:10%;">매매 상태</th>
+                    <th style="width:10%;">승인 상태</th>
                 </tr>
                 <c:forEach items="${list }" var="h" varStatus="i">
                 	<tr>
@@ -61,8 +72,10 @@
 	                    <td>
 	                    	<a href="/adminMemberView.do?memberNo=${h.memberNo }">${h.memberId }</a>
 	                    </td>
-	                    <td>${h.houseTitle }</td>
-	                    <td>${h.houseForm }</td>
+	                    <td class="titleTd">
+	                    	<a class="houseModal">${h.houseTitle }</a>
+	                    </td>
+	                    <td class="addrTd">${h.addressName } ${h.addressRoad } ${h.addressDetail }</td>
 	                    <td>${h.houseownerDeadline }</td>
 	                    <td>
 	                    	<c:choose>
@@ -95,8 +108,6 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 </body>
-<script>
-</script>
 <link rel="stylesheet" href="/resources/css/admin/houseMgr.css">
 <script type="text/javascript" src="/resources/js/admin/houseMgr.js"></script>
 </html>

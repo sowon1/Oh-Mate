@@ -12,15 +12,23 @@ $("[name=status]").click(function(){
 		$("#allChk").prop("checked", false);
 	}
 });
-$("[name=type]").change(function(){
-	$(this).next().val("");
-	$(this).next().removeAttr("placeholder");
-	if($(this).val() == 'phone'){
-		$(this).next().attr("placeholder", "010-0000-0000");
+//프로필 지역구 선택 option 배열
+var local = [
+	'강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구',
+	'마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'
+];
+$(function(){
+	//페이지 로드 후 지역구 선택 option의 value, html 설정
+	for(var i=0;i<local.length;i++){
+		var option = $("<option>");
+		option.attr("value", local[i]);
+		option.html(local[i]);
+		$(".chkBox select").append(option);
 	}
 });
-$("[name=keyword]").keyup(function(){
-	if($("[name=type]").val() == 'phone'){
-		$(this).attr("placeholder", "010-0000-0000");
-	}
+$(".resetSearch").click(function(){
+	$(".searchBox [type=checkbox]").prop("checked",false);
+	$(".n").prop("selected",true);
+	$("[name=type]>option:first").prop("selected",true);
+	$("[name=keyword]").val("");
 });
