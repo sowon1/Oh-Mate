@@ -35,5 +35,6 @@ public class House {
 	private ArrayList<Address> houseAddressView; // 하우스 주소
 	private ArrayList<Income> houseIncome;
 	private int roomCount;					//잔여방확인
+	private String memberId;
 	
 }
