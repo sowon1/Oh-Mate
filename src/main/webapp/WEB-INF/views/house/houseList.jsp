@@ -213,7 +213,7 @@
 							html += ' </div><img src="/resources/upload/house/'+list[i].photoList[0].photoPath+'"></div>';
 						}
 						
-						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'/>"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].houseTitle+'</span></div>';
+						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].houseTitle+'</span></div>';
 						html += '<div class="list_line_02"><span class="list_tag">';
 						if(list[i].houseGender == '1'){
 							html += '남성전용';
@@ -223,7 +223,7 @@
 							html += '남여공용';
 						}					
 						html += '</span><span class="house_form">'+list[i].houseForm+'</span></div></div>';
-						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'/>" class="house_more_btn">입주 가능한 방 '+list[i].roomCount+'개</a>';
+						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'" class="house_more_btn">입주 가능한 방 '+list[i].roomCount+'개</a>';
 						html += '<input type="hidden" value="'+list[i].addressRoad+'" name="address">';
 						html += '<input type="hidden" value="'+list[i].houseTitle+'" name="houseTitle">';
 						html += '</li></a>';

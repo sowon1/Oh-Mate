@@ -69,7 +69,7 @@ public class HouseService {
 	}
 
 	// 하우스 리스트에서의 출력 - ajax - sowon
-	public HashMap<String, Object> selectAjaxHouse(int pageNum, int memberNo) {
+	public HashMap<String, Object> selectAjaxHouse(int pageNum, int memberNo, String keyword, Room r, String roomCharge1, String roomCharge2, House h) {
 		// 한 페이지에 몇개 보여줄건지
 		int numPerPage = 9;
 		// 보여줄 페이지의 시작 ROWNUM - 0부터 시작
@@ -80,6 +80,12 @@ public class HouseService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberNo", memberNo);
+		map.put("keyword", keyword);
+		h.setHouseRoomView(new ArrayList<Room>());
+		h.getHouseRoomView().add(r);
+		map.put("h", h);
+		map.put("roomCharge1", roomCharge1);
+		map.put("roomCharge2", roomCharge2);
 		ArrayList<House> list = dao.selectAjaxHouse(map);		
 		int totalRow = dao.selectAjaxTotal();
 		// 전체 페이지의 갯수 구하기
