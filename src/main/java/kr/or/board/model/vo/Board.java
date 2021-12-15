@@ -9,8 +9,8 @@ public class Board {
 	private String boardTitle;	 // 제목
 	private String boardContent; // 내용
 	private int readCount;		 // 조회수
-	private char regDate;		 // 작성날짜(YYYY-MM-DD HH:MM)
+	private String regDate;		 // 작성날짜(YYYY-MM-DD HH:MM)
 	private String filePath;	 // 첨부파일경로
-	private String option;		 // 0/0/00/0/0/0/0 
+	private String profileOption;// 프로필선택
 	private int status;		     // 신고여부
 }

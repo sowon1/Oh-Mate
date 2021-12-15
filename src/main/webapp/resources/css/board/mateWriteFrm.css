@@ -1,11 +1,20 @@
 @charset "UTF-8";
-
 #postBtn{
 	width:100px; 
 	height:30px; 
 	font-size:12px; 
 	padding:0px; 
 	line-height:0px;
+	float:right;
+}
+.bell{
+	float: right;
+	margin-right: 10px;
+	margin-top: 3px;
+	font-size: 15px;
+}
+tr>td>a>.fa-bell{
+	color: red;
 }
 tr>td.tdStyle{
 	padding-left:20px;

@@ -63,4 +63,9 @@ public class MemberDao {
 	public int deleteMember(int memberNo) {
 		return sqlSession.delete("member.deleteMember",memberNo);
 	}
+
+	//프로필조회
+	public Profile selectProfile(String memberId) {
+		return sqlSession.selectOne("member.selectProfile",memberId);
+	}
 }

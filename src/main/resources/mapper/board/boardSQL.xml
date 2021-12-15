@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="board">
+	
 	<!-- 프로필 작성 -->
 	<insert id="insertProfile" parameterType="p">
 		insert into profile values(p_seq.nextval,#{pWriter},#{pGender},#{pAge},#{pLocal},#{pSmoke},#{pPet},#{pCleaning},#{pPattern})
@@ -18,9 +19,10 @@
 			p_pet as pPet,
 			p_cleaning as pCleaning,
 			p_pattern as pPattern
-		from profile where p_writer=#{memberId}
+		from profile where P_writer=#{memberId}
 	</select>
 	
+	<!-- 프로필 수정 -->
 	<update id="updateProfile" parameterType="p">
 		update profile set 
 			p_writer=#{pWriter},
@@ -39,26 +41,63 @@
 		delete from profile where p_writer=#{pWriter}
 	</delete>
 	
-	<!-- 게시글 목록 조회 -->
+		<!-- 회원조회  -->
+	<select id="selectOneMember" parameterType="int" resultType="m">
+		select 
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			phone,
+			email,
+			enroll_date as enrollDate,
+			member_filepath as filepath,
+			member_level as memberLevel,
+			gender,
+			age,
+			profile_status as profileStatus	
+ 		from member where member_no=#{memberNo}
+	</select>
+	
+	<!-- 회원조회  -->
+	<select id="selectMember" parameterType="String" resultType="m">
+		select 
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw,
+			member_name as memberName,
+			phone,
+			email,
+			enroll_date as enrollDate,
+			member_filepath as filepath,
+			member_level as memberLevel,
+			gender,
+			age,
+			profile_status as profileStatus	
+ 		from member where member_Id=#{memberId}
+	</select>
+	
+	<!-- 게시글 목록 -->
 	<select id="boardList" resultType="b">
 		select 
-			board_no as boardNo,
-			board_writer as boardWriter,
-			board_title as boardTitle,
-			board_content as boardContent,
-			read_count as readCount,
-			reg_date as regDate,
-			filepath,
-			option,
-			status
-		from board					
+			BOARD_NO as boardNo,
+			BOARD_WRITER as boardWriter,
+			BOARD_TITLE as boardTitle,
+			BOARD_CONTENT as boardContent,
+			READ_COUNT as readCount,
+			REG_DATE as regDate,
+			FILEPATH,
+			PROFILE_OPTION as profileOption,
+			STATUS
+		from board  			
 	</select>
 	
 	<!-- 게시글 작성 -->
 	<insert id="insertBoard" parameterType="b">
 		insert into board values(board_seq.nextval,#{boardWriter},#{boardTitle},#{boardContent},
-		0,to_char(sysdate,'yyyy-dd-mm'),#{filePath},0,#{status})
+		0,to_char(sysdate,'yyyy-dd-mm HH:MM'),#{filePath},(select p_gender||p_age||p_local||p_smoke||p_pet||p_cleaning||p_pattern from profile where p_writer='user03'),1)
 	</insert>
+
 </mapper>
 
 

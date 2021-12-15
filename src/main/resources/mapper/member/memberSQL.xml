@@ -64,7 +64,7 @@
 	
 	<!-- 메이트 회원가입 -->
 	<insert id="join" parameterType="m">
-		insert into member values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{phone},#{email},to_char(sysdate,'yyyy-mm-dd'),
+		insert into member values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{phone},#{email},to_char(sysdate,'yyyy-mm-dd HH:MM'),
 		#{filepath},#{memberLevel},#{gender},#{age},#{profileStatus})
 	</insert>
 	
@@ -120,4 +120,19 @@
 	<delete id="deleteMember" parameterType="_int">
 		delete from member where member_no=#{memberNo}
 	</delete>
+	
+	<!-- 프로필조회 -->
+	<select id="selectProfile" parameterType="String" resultType="p">
+		select 
+			p_no as pNo,
+			p_writer as pWriter,
+			p_gender as pGender,
+			p_age as pAge,
+			p_local as pLocal,
+			p_smoke as pSmoke,
+			p_pet as pPet,
+			p_cleaning as pCleaning,
+			p_pattern as pPattern
+		from profile where P_writer=#{memberId}
+	</select>
 </mapper>
