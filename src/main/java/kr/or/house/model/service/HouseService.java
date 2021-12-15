@@ -50,9 +50,16 @@ public class HouseService {
 		}
 	}
 
-	// 하우스 리스트 출력 - sowon
-	public ArrayList<House> selectAllHouse(House h) {
-		ArrayList<House> list = dao.selectAllHouse(h);
+	// 메인에서 검색으로 하우스 리스트 출력 - sowon
+	public ArrayList<House> selectAllHouse(House h, String keyword, Room r) {
+		h.setHouseRoomView(new ArrayList<Room>());
+		h.getHouseRoomView().add(r);	
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("h", h);
+		map.put("keyword", keyword);
+		
+		ArrayList<House> list = dao.selectAllHouse(map);
 		for (int i = 0; i < list.size(); i++) {
 			int houseNo = list.get(i).getHouseNo();
 			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
@@ -61,8 +68,8 @@ public class HouseService {
 		return list;
 	}
 
-	// 하우스 리스트 출력 - ajax - sowon
-	public HashMap<String, Object> selectAjaxHouse(int pageNum, int memberNo) {
+	// 하우스 리스트에서의 출력 - ajax - sowon
+	public HashMap<String, Object> selectAjaxHouse(int pageNum, int memberNo, String keyword, Room r, String roomCharge1, String roomCharge2, House h) {
 		// 한 페이지에 몇개 보여줄건지
 		int numPerPage = 9;
 		// 보여줄 페이지의 시작 ROWNUM - 0부터 시작
@@ -73,12 +80,13 @@ public class HouseService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberNo", memberNo);
-		ArrayList<House> list = dao.selectAjaxHouse(map);
-		for (int i = 0; i < list.size(); i++) {
-			int houseNo = list.get(i).getHouseNo();
-			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
-			list.get(i).setHouseAddressView(addressArray);
-		}
+		map.put("keyword", keyword);
+		h.setHouseRoomView(new ArrayList<Room>());
+		h.getHouseRoomView().add(r);
+		map.put("h", h);
+		map.put("roomCharge1", roomCharge1);
+		map.put("roomCharge2", roomCharge2);
+		ArrayList<House> list = dao.selectAjaxHouse(map);		
 		int totalRow = dao.selectAjaxTotal();
 		// 전체 페이지의 갯수 구하기
 		int totalPageCount = (totalRow % numPerPage == 0) ? (totalRow / numPerPage) : (totalRow / numPerPage + 1);
@@ -131,7 +139,6 @@ public class HouseService {
 			ArrayList<Room> roomArray = dao.selectHouseRoomList(houseNo);
 			for(int j = 0; j<roomArray.size();j++) {
 				int roomNo = roomArray.get(j).getRoomNo();
-				System.out.println(roomNo);
 				ArrayList<Tour> tourArray = dao.selectTourList(roomNo);
 				ArrayList<Move> moveArray = dao.selectMoveList(roomNo);
 				int tourCount = dao.tourCount(roomNo);
@@ -225,10 +232,10 @@ public class HouseService {
 		int length = delPhotoNo.length;
 		// 포토 삭제부분(for문이용)
 		for (int i = 0; i < length; i++) {
-			int result = dao.deletePhoto(delPhotoNo);
-			if (result == 0) {
-				return 0;
-			}
+			Photo p = new Photo();
+			p.setPhotoPath(delPhotoPath[i]);
+			p.setPhotoNo(delPhotoNo[i]);
+			int result2 = dao.deletePhoto(p);
 		}
 		return 1;
 	}

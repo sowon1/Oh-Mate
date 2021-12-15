@@ -2,6 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="helper">
  	<insert id="insertHelperReqNoImg" parameterType="hp">
- 		insert into helper values()
+ 		insert into helper values(helper_seq.nextval,#{memberNo},#{helperName},#{helperCategory},#{helperStartTime},#{helperEndTime},#{helperRide},1,'noImg.png',#{helperIntro},#{helperCredit},#{helperRefuse})
+ 		<selectKey resultType="_int" order="AFTER" keyProperty="helperNo">
+ 			select max(helper_no) from helper
+ 		</selectKey>
  	</insert>
+ 	<insert id="insertAddress" parameterType="addr">
+ 		insert into address values(address_seq.nextval,2,#{addressCode},#{addressName},#{addressRoad},#{addressLegal},#{addressCategory},'헬퍼번호')
+ 	</insert>
+ 	<insert id="insertHelperAndImg" parameterType="hp">
+ 		
+ 		insert into helper values(helper_seq.nextval,#{memberNo},#{helperName},#{helperCategory},#{helperStartTime},#{helperEndTime},#{helperRide},1,#{helperFilepath},#{helperIntro},#{helperCredit},null)
+ 		<selectKey resultType="_int" order="AFTER" keyProperty="helperNo">
+ 			select max(helper_no) from helper
+ 		</selectKey>
+ 	</insert>
+ 	<!-- 헬퍼 닉네임 중복확인 -->
+ 	<select id="selectOneHelper" parameterType="string" resultType="hp">
+ 		select
+ 			helper_no as helperNo,
+ 			member_no as memberNo,
+ 			helper_name as helperName,
+ 			helper_category as helperCategory,
+ 			helper_start_time as helperStartTime,
+ 			helper_end_time as helperEndTime,
+ 			helper_ride as helperRide,
+ 			helper_status as helperStatus,
+ 			helper_filepath as helperFilepath,
+ 			helper_intro as helperIntro,
+ 			helper_credit as helperCredit,
+ 			helper_refuse as helperRefuse
+ 		from helper where helper_name=#{helperName}
+ 	</select>
 </mapper>

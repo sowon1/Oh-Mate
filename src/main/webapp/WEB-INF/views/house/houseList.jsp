@@ -45,61 +45,61 @@
 								<!--보증금조정 끝-->
 								<div class="genderFilter">
 									<p class="filterTitle">
-										<strong>성별 타입</strong>&nbsp;&nbsp;중복 선택 가능
+										<strong>성별 타입</strong>
 									</p>
 									<div class="filter_cont">
 										<div>
-											<input type="checkbox" id="house-filter_gender_division_f" name="gender" value="2">
+											<input type="radio" id="house-filter_gender_division_f" name="houseGender" value="2">
 											<label for="house-filter_gender_division_f"><span class="select_icon02"></span>여성전용</label>
 										</div>
 										<div>
-											<input type="checkbox" id="house-filter_gender_division_m" name="gender" value="1">
+											<input type="radio" id="house-filter_gender_division_m" name="houseGender" value="1">
 											<label for="house-filter_gender_division_m"><span class="select_icon04"></span>남성전용</label>
 										</div>
 										<div>
-											<input type="checkbox" id="house-filter_gender_division_mf" name="gender" value="3">
+											<input type="radio" id="house-filter_gender_division_mf" name="houseGender" value="3">
 											<label for="house-filter_gender_division_mf"><span class="select_icon03"></span>남녀공용</label>
 										</div>
 									</div>
 								</div>
 								<div class="houseTypeWrap">
 									<p class="filterTitle">
-										<strong>주거 유형</strong>&nbsp;&nbsp;중복 선택 가능
+										<strong>주거 유형</strong>
 									</p>
 									<div class="filter_cont">
 										<div>
-											<input type="checkbox" id="house-filter_house_type_0" name="housetype" value="아파트">
+											<input type="radio" id="house-filter_house_type_0" name="houseForm" value="아파트">
 											<label for="house-filter_house_type_0"><span class="select_icon02"></span>아파트</label>
 										</div>
 										<div>
-											<input type="checkbox" id="house-filter_house_type_1" name="housetype" value="단독주택">
+											<input type="radio" id="house-filter_house_type_1" name="houseForm" value="단독주택">
 											<label for="house-filter_house_type_1"><span class="select_icon04"></span>단독주택</label>
 										</div>
 										<div>
-											<input type="checkbox" id="house-filter_house_type_2" name="housetype" value="빌라">
+											<input type="radio" id="house-filter_house_type_2" name="houseForm" value="빌라">
 											<label for="house-filter_house_type_2"><span class="select_icon03"></span>빌라</label>
 										</div>
 										<div>
-											<input type="checkbox" id="house-filter_house_type_3" name="housetype" value="기타">
+											<input type="radio" id="house-filter_house_type_3" name="houseForm" value="기타">
 											<label for="house-filter_house_type_3"><span class="select_icon03"></span>기타</label>
 										</div>
 									</div>
 								</div>
 								<div class="houseTypeWrap">
 									<p class="filterTitle">
-										<strong>룸 형태</strong>&nbsp;&nbsp;중복 선택 가능
+										<strong>룸 형태</strong>
 									</p>
 									<div class="filter_cont">
 										<div>
-											<input type="checkbox" id="house-filter_max_resident_1" name="room" value="1인실">
+											<input type="radio" id="house-filter_max_resident_1" name="roomPersonnel" value="1인실">
 											<label for="house-filter_max_resident_1"><span class="select_icon02"></span>1인실</label>
 										</div>
 										<div>
-											<input type="checkbox" id="house-filter_max_resident_2" name="room" value="2인실">
+											<input type="radio" id="house-filter_max_resident_2" name="roomPersonnel" value="2인실">
 											<label for="house-filter_max_resident_2"><span class="select_icon04"></span>2인실</label>
 										</div>
 										<div>
-											<input type="checkbox" id="house-filter_max_resident_3" name="room" value="다인실">
+											<input type="radio" id="house-filter_max_resident_3" name="roomPersonnel" value="다인실">
 											<label for="house-filter_max_resident_3"><span class="select_icon03"></span>다인실</label>
 										</div>
 									</div>
@@ -132,11 +132,32 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
-		
+		//---------------체크박스 1개만 선택하도록-----------------------//
+		function checkOnlyOne(target) {
+		    document.querySelectorAll('input[type=checkbox]')
+		    .forEach(el => el.checked = false);			
+		    target.checked = true;
+		}			
 		//----------------------------------------스크롤 페이징---------------------------------//
 		var currentPage = 1;
 		var isLoading=false;
-		var totalCount = '${totalPageCount}';
+		var login = '${sessionScope.m}';
+		var totalCount;
+		var keyword = '${keyword}';
+		var houseGender = '${houseGender}';
+		var houseForm = '${houseForm}';
+		var roomPersonnel = '${roomPersonnel}';
+		var roomCharge1 = $("#rent-lower").val();
+		var roomCharge2 = $("#rent-upper").val();
+		
+		console.log(keyword);
+		console.log(houseGender);
+		console.log(houseForm);
+		console.log(roomPersonnel);
+		console.log(roomCharge1);
+		console.log(roomCharge2);
+
+		//var start = '${startPageNum}';
 		//웹 브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
 		$(window).on("scroll",function(){
 			//위로 스크롤된 길이
@@ -157,22 +178,62 @@
 				$(".loading").show();
 				//요청페이지 1증가
 				currentPage++;
-				console.log("확인용 : inscroll"+currentPage);
 				GetList(currentPage);
 			}
 		})
 		function GetList(currentPage){
 			$.ajax({
 				type : "GET",
-				data : {"pageNum" : currentPage},
+				data : {
+					"pageNum" : currentPage,
+					keyword : keyword,
+					houseGender : houseGender,
+					houseForm : houseForm,
+					roomPersonnel : roomPersonnel,
+					roomCharge1 : roomCharge1,
+					roomCharge2 : roomCharge2
+				},
 				url : "/ajax_page.do",
 				success : function(data){
-					$(".list_container").append(data);
+					var html = "";
+					var list = data.list;
+					totalCount = data.totalCount;
+					for(var i=0;i<list.length;i++){
+						html += '<li><div class="house_list_photo"><div class="like_house">';
+						if(login == ''){
+							html += '<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>';
+						}else if(list[i].likedCheck == '좋아요'){
+							html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_on.png"></a>';
+						}else {
+							html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_off.png"></a>'
+						}
+						if(list[i].photoList.length == 0){
+							html += ' </div><img src="/resources/img/icon/heart_off.png"></div>';
+						}else{
+							html += ' </div><img src="/resources/upload/house/'+list[i].photoList[0].photoPath+'"></div>';
+						}
+						
+						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].houseTitle+'</span></div>';
+						html += '<div class="list_line_02"><span class="list_tag">';
+						if(list[i].houseGender == '1'){
+							html += '남성전용';
+						}else if(list[i].houseGender == '2'){
+							html += '여성전용';
+						}else{
+							html += '남여공용';
+						}					
+						html += '</span><span class="house_form">'+list[i].houseForm+'</span></div></div>';
+						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'" class="house_more_btn">입주 가능한 방 '+list[i].roomCount+'개</a>';
+						html += '<input type="hidden" value="'+list[i].addressRoad+'" name="address">';
+						html += '<input type="hidden" value="'+list[i].houseTitle+'" name="houseTitle">';
+						html += '</li></a>';
+						getHouseMap(list[i].addressRoad,list[i].houseTitle,"/resources/img/icon/heart_off.png",list[i].houseForm,list[i].roomCount,list[i].houseNo);
+						//getHouseMap(list[i].addressRoad,list[i].houseTitle,list[i].photoList[0].photoPath,list[i].houseForm,list[i].roomCount,list[i].houseNo);
+					}
+					$(".list_container").append(html);
 					$(".loading").hide();
 					isLoading = false;
 					
-				
-
 				}
 			});
 		}
@@ -206,18 +267,14 @@
 	      var selectedMarker = null;
 	      var coay = null;
 	      var cselectedMarker = null;
-	      function getHouseMap() {
-		      <c:forEach items="${list}" var="h">
-		         // 주소-좌표 변환 객체를 생성합니다
+	      function getHouseMap(addr,title,photo,housef,count,houseno) {
+	    	  // 주소-좌표 변환 객체를 생성합니다
 		         var geocoder = new kakao.maps.services.Geocoder();
-		         
 		         // 주소로 좌표를 검색합니다
-		         geocoder.addressSearch('${h.houseAddressView[0].addressRoad}', function(result, status) {
+		         geocoder.addressSearch(addr, function(result, status) {
 		             // 정상적으로 검색이 완료됐으면 
-		             console.log('${h.houseAddressView[0].addressRoad}');
 		              if (status === kakao.maps.services.Status.OK) {
-		                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		                 
+		                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x); 
 		               var imageSrc = '/resources/img/icon/marker.png', 
 		               imageSize = new kakao.maps.Size(40, 44), // 마커이미지의 크기입니다
 		               imageOption = {
@@ -242,20 +299,21 @@
 			           var content = '<div class="map_wrap">' +  
 			                       '    <div class="info">' + 
 			                       '        <div class="title">' + 
-			                       '            ${h.houseTitle}' + 
+			                       '            ' +title+
 			                       '            <div class="house_map_close" onclick="closeOverlay(this)" title="닫기"></div>' + 
 			                       '        </div>' + 
 			                       '        <div class="body">' +
 			                       '			<div class="img">' +
-			                       '                <img src="/resources/upload/house/${h.photoList[0].photoPath}">' +
+			                       //'                <img src="/resources/upload/house/'+photo+'">' +
+			                       '                <img src="'+photo+'">' +
 			                       '           </div>' + 
 			                       '            <div class="desc">' + 
 					               '       			<div class="title_tag">' +
-					               '           			#${h.houseForm}' + 
+					               '           			' +housef+
 					               '        		</div>' + 
-			                       '                <div class="ellipsis">${h.houseAddressView[0].addressRoad}</div>' + 
-			                       '                <div class="jibun ellipsis">입주 가능한 방 ${h.roomCount}개</div>' + 
-			                       '                <div><a href="houseView.do?houseNo=${h.houseNo}" target="_blank" class="house_view_more">자세히보기</a></div>' + 
+			                       '                <div class="ellipsis">'+addr+'</div>' + 
+			                       '                <div class="jibun ellipsis">입주 가능한 방 '+count+'개</div>' + 
+			                       '                <div><a href="houseView.do?houseNo='+houseno+'" target="_blank" class="house_view_more">자세히보기</a></div>' + 
 			                       '            </div>' + 
 			                       '        </div>' + 
 			                       '    </div>' +    
@@ -296,7 +354,6 @@
 			           });
 		             } 
 		            });
-		      </c:forEach>
 	      }
 	   	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 	      function closeOverlay(a) {

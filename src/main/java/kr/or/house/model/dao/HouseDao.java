@@ -37,8 +37,8 @@ public class HouseDao {
 		return result;
 	}
 	//하우스 리스트 출력 - sowon
-	public ArrayList<House> selectAllHouse(House h) {
-		List<House> list = session.selectList("house.selectAllHouse",h);
+	public ArrayList<House> selectAllHouse(HashMap<String, Object> map) {
+		List<House> list = session.selectList("house.selectAllHouse",map);
 		return (ArrayList<House>)list;
 	}
 	//하우스 리스트 출력 - ajax - sowon
@@ -198,6 +198,10 @@ public class HouseDao {
 		// TODO Auto-generated method stub
 		List<House> list = session.selectList("house.selectBookmarkHouse", memberNo);
 		return (ArrayList<House>)list;
+	}
+
+	public int deletePhoto(Photo p) {
+		return session.delete("house.deletePhoto",p);
 	}
 
 }
