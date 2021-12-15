@@ -38,7 +38,7 @@
 		where rnum between 1 and 10
   </select>
 	<!-- 하우스 사진 조회 테이블 -->
-	<select id="selectFileList" resultType="f">
+	<select id="selectFileList" parameterType="_int" resultType="f">
 		select
 			photo_no as photoNo,
 			photo_category as photoCategory, 
@@ -340,7 +340,7 @@
 	</select>
 	
 	<!-- 찜목록 불러오기 -->
-	<select id="selectBookmarkHouse" parameterType="h" resultMap="house">
+	<select id="selectBookmarkHouse" parameterType="_int" resultMap="house">
   		select * from 
   			(select rownum as rnum, 
   			b.bookmark_no, 
