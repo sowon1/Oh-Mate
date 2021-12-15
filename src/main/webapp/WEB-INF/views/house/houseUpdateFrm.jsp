@@ -798,7 +798,7 @@
 		}
 		$(".delBtn").click(function () {
 			var idx = $(".delBtn").index(this);
-			console.log($("input[name=delPhotoPath]").eq(idx).val());
+			console.log($("input	[name=delPhotoPath]").eq(idx).val());
 			console.log($("input[name=delPhotoNo]").eq(idx).val());
 			$(this).hide();
 			$(this).prev().hide();
