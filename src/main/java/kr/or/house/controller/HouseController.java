@@ -47,30 +47,37 @@ public class HouseController {
 	public String houseWriteFrm() {
 		return "house/houseWriteFrm";
 	}
-	//하우스 리스트 출력-jisung
+	//메인에서 검색해서 하우스 리스트 출력- sowon
 	@RequestMapping(value="/houseList.do")
-	public String houseList(House h, Model model) {
-		ArrayList<House> list = service.selectAllHouse(h);
-		model.addAttribute("list",list);
-		model.addAttribute("loc","/");
+	public String houseList(String keyword, String houseGender, String houseForm, String roomPersonnel, Model model) {
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("houseGender",houseGender);
+		model.addAttribute("houseForm",houseForm);
+		model.addAttribute("roomPersonnel",roomPersonnel);
+		
 		return "house/houseList";
 	}
 	//ajax 하우스 리스트 - sowon
-	@RequestMapping(value="/ajax_page.do")
+	@ResponseBody
+	@RequestMapping(value="/ajax_page.do", produces = "application/json;charset=utf-8")
 	public String ajax_page(int pageNum, Model model, HttpSession session) {
+		int memberNo = 0;
 		if(session != null) {
 			Member m = (Member)session.getAttribute("m");
-			int memberNo = 0;
+			
 			if(m != null)
 			{
 				memberNo = m.getMemberNo();
-			}	
-			HashMap<String, Object> data = service.selectAjaxHouse(pageNum,memberNo);
-			model.addAttribute("list",data.get("list"));
-			model.addAttribute("totalPageCount",data.get("totalPageCount"));
-			model.addAttribute("startPageNum",data.get("startPageNum"));
+			}
 		}
-		return "house/ajax_page";
+		HashMap<String, Object> data = service.selectAjaxHouse(pageNum,memberNo);
+		/*
+		model.addAttribute("list",data.get("list"));
+		*/
+		model.addAttribute("totalPageCount",data.get("totalPageCount"));
+		model.addAttribute("startPageNum",data.get("startPageNum"));
+		
+		return new Gson().toJson(data);
 	}
 
 	//하우스 등록-jisung

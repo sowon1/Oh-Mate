@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>             
-                <a id="search_date" class="search_main_btn">적용하기 <img src="/resources/img/icon/search_wh.png"></a>
+                <a id="search_data" class="search_main_btn">적용하기 <img src="/resources/img/icon/search_wh.png"></a>
             </div>
         </div>
     </div>
@@ -219,11 +219,47 @@
 			})
 		}
 		//검색 
+		$("#search_data").click(function(){
+			var keyword = $("input[name='keyword']").val();
+			var genderValue = $("div[data-type='gender']").prev().children("span").text();
+			var roomValue = $("div[data-type='room']").prev().children("span").text();
+			var housetypeValue = $("div[data-type='house_type']").prev().children("span").text();
+			var gender;
+			if(genderValue == "남성전용"){
+				houseGender="1";
+			}else if(genderValue == "여성전용"){
+				houseGender="2";
+			}else if(genderValue == "남녀공용"){
+				houseGender="3";
+			}else{
+				houseGender="0";
+			}
+			if(roomValue == "1인실"){
+				roomPersonnel = "1인실";
+			}else if(roomValue == "2인실"){
+				roomPersonnel = "2인실";
+			}else if(roomValue == "다인실"){
+				roomPersonnel = "다인실";
+			}else{
+				roomPersonnel = "";
+			}
+			if(housetypeValue == "아파트"){
+				houseForm="아파트";
+			}else if(housetypeValue == "단독주택"){
+				houseForm="단독주택";
+			}else if(housetypeValue == "빌라"){
+				houseForm = "빌라";
+			}else{
+				houseForm="";
+			}
+			location.href="/houseList.do?keyword="+keyword+"&houseGender="+houseGender+"&houseForm="+houseForm+"&roomPersonnel="+roomPersonnel;		
+		});
+		/*
 		$("#search_date").click(function(){
 			var keyword = $("input[name='keyword']").val();
 			var genderValue = $("div[data-type='gender']").prev().children("span").text();
-			var room = $("div[data-type='room']").prev().children("span").text();
-			var housetype = $("div[data-type='house_type']").prev().children("span").text();
+			var roomValue = $("div[data-type='room']").prev().children("span").text();
+			var housetypeValue = $("div[data-type='house_type']").prev().children("span").text();
 			var gender;
 			if(genderValue == "남성전용"){
 				gender="1";
@@ -234,12 +270,45 @@
 			}else{
 				gender="";
 			}
+			if(roomValue == "1인실"){
+				room = "1인실";
+			}else if(roomValue == "2인실"){
+				room = "2인실";
+			}else if(roomValue == "다인실"){
+				room = "다인실";
+			}else{
+				room = "";
+			}
+			if(housetypeValue == "아파트"){
+				housetype="아파트";
+			}else if(housetypeValue == "단독주택"){
+				housetype="단독주택";
+			}else if(housetypeValue == "빌라"){
+				housetype = "빌라";
+			}else{
+				housetype="";
+			}
+			$.ajax({
+				type : "POST",
+				data : {
+					keyword : keyword,
+					houseGender : gender,
+					houseForm : housetype,
+					roomPersonnel : room
+				},
+				url : "/houseList.do",
+				success : function(data){
+					
+				}
+			})
 			console.log(gender);
 			console.log(room);
 			console.log(housetype);
 			console.log(keyword);
-			location.href="/houseList.do?gender="+gender+"&room="+room+"&housetype="+housetype+"&keyword="+keyword;
+			//location.href="/houseList.do?gender="+gender+"&room="+room+"&housetype="+housetype+"&keyword="+keyword;
 		});
+		*/
+		
 		//모달
 	    $("#house_modal").click(function(){
 	    	msgpopupopen();

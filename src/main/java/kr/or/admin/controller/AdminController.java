@@ -181,4 +181,12 @@ public class AdminController {
 			return "0";
 		}
 	}
+	@RequestMapping(value="/houseMgr.do")
+	public String houseMgr(int reqPage, Model model) {
+		HashMap<String, Object> data = service.selectAllHouse(reqPage);
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		return "admin/houseMgr";
+	}
 }

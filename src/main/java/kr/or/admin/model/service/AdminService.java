@@ -12,6 +12,7 @@ import kr.or.admin.model.vo.SearchMember;
 import kr.or.admin.model.vo.SearchReport;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Report;
+import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -285,5 +286,47 @@ public class AdminService {
 	@Transactional
 	public int updateReport(Report rp) {
 		return dao.updateReport(rp);
+	}
+
+	public HashMap<String, Object> selectAllHouse(int reqPage) {
+		int numPerPage = 10;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage +1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		ArrayList<House> list = dao.selectAllHouse(map);
+		int totalCnt = dao.totalHouseCount();
+		int totalPage = (totalCnt % numPerPage == 0) ? (totalCnt / numPerPage) : (totalCnt / numPerPage + 1);
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/houseMgr.do?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "&lt;</a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/houseMgr.do?reqPage="+pageNo+"'>";
+				pageNavi += pageNo+"</a></li>";
+			}else {
+				pageNavi += "<li class='page-item-mate-mate'><a href='/houseMgr.do?reqPage="+pageNo+"'>";
+				pageNavi += pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/houseMgr.do?reqPage="+pageNo+"'>";
+			pageNavi += "&gt;</a></li>";
+		}
+		pageNavi += "</ul>";
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("pageNavi", pageNavi);
+		data.put("list", list);
+		data.put("start", start);
+		return data;
 	}
 }

@@ -9,17 +9,22 @@
 <link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
 </head>
 <body>
-	<c:import url="/WEB-INF/views/common/header.jsp"/>
+<c:import url="/WEB-INF/views/common/header.jsp"/>
+	<div class="container_mate">
 		<div class="container_mate">
 		<h1>오늘부터 메이트</h1>
 		<br><hr><br>
 		<form action="/boardWrite.do" method="post" enctype="multipart/form-data">
+
 		<table class="table table-hover">
   			<thead>
 				<tr class="table-primary">
 					<th>제목</th>
-					<td class="tdStyle"><input type="text" name="boardTitle"></td>
-				    <td colspan="2"></td>
+					<td colspan="2" class="tdStyle"></td>
+				    <td>
+				    	<button type="button" class="btn btn-primary btn-sm" id="postBtn">쪽지보내기</button>
+				    	<a href="/loginFrm" class="bell" ><i class="far fa-bell"></i> 신고하기</a>
+				    </td>
 			    </tr>
 			    <tr>
 				    <th>작성자</th>
@@ -31,7 +36,7 @@
 			    <tr>
 				    <th>첨부파일</th>
 				    <td colspan="3" class="tdStyle">
-						<input type="file" name="uploadFile" accept=".jpg,.jpeg,.png,.gif">
+						
 					</td>
 			    </tr>
 			    <tr>
@@ -51,24 +56,7 @@
 		</table>
 		</form>
 		</div>
-	<c:import url="/WEB-INF/views/common/footer.jsp"/>
-<script>
-	$(function(){
-		$("#boardInsert").click(function(){
-	        if($('[name=boardTitle]').val() == ""){
-	          alert('제목을 입력하세요.');
-	          return false;
-	        }else if($('[name=uploadFile]').val() == ""){
-	          alert('파일을 첨부해주세요.');
-	          return false;
-	        }else if($('[name=boardContent]').val() == ""){
-	          alert('내용을 입력해주세요.');
-	          return false;
-	        }else{
-	          return true;
-	        }
-		});
-	});
-</script>
+	</div>
+<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

@@ -170,7 +170,7 @@
                         </td>
                     </tr>
                     <tr class="table-active_mate">
-                        <th>콘텐츠 번호</th>
+                        <th id="reportCateNum"></th>
                         <td>
                         	<input type="text" id="reportNum" class="input_03" readonly>
                         </td>

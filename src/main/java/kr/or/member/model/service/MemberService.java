@@ -1,6 +1,5 @@
 package kr.or.member.model.service;
 
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +66,11 @@ public class MemberService {
 	@Transactional
 	public int deleteMember(int memberNo) {
 		return dao.deleteMember(memberNo);
+	}
+
+	//프로필조회
+	public Profile selectProfile(String memberId) {
+		return dao.selectProfile(memberId);
 	}
 
 }

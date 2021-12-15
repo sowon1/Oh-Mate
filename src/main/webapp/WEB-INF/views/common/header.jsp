@@ -34,7 +34,7 @@
                 <a href="/helperList.do">도와줘요</a>
             </li>
             <li>
-                <a href="/communityFrm.do?">커뮤니티</a>
+                <a href="/communityFrm.do?memberNo=${sessionScope.m.memberNo }">커뮤니티</a>
             </li>
             <li>
                 <a href="/noticeList.do?reqPage=1">공지사항</a>
@@ -157,11 +157,12 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="#">메뉴1</a></li>
-		      <li><a href="/memberMgr.do?reqPage=1">회원관리</a></li>
-		      <li><a href="#">메뉴3</a></li>
-		      <li><a href="#">메뉴4</a></li>
-		      <li><a href="/reportMgr.do?reqPage=1">신고관리</a></li>
+		      <li><a href="#">대시보드</a></li>
+		      <li><a href="/memberMgr.do?reqPage=1">회원 관리</a></li>
+		      <li><a href="#">헬퍼 신청 관리</a></li>
+		      <li><a href="/houseMgr.do?reqPage=1">하우스 관리</a></li>
+		      <li><a href="/reportMgr.do?reqPage=1">신고 관리</a></li>
+		      <li><a href="#">매출 정산</a></li>
 		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>
@@ -188,7 +189,7 @@
 		      <li><a href="/bookmarkHouseList.do">하우스 찜목록 확인</a></li>
 		      <li><a href="#">하우스 입주 내역 확인</a></li>
 		      <li><a href="#">투어 신청 내역 확인</a></li>
-		      <li><a href="#">커뮤니티 게시글 확인/댓글 확인</a></li>
+		      <li><a href="/communityConfirm.do">커뮤니티 게시글 확인/댓글 확인</a></li>
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
 		      	<li><a href="/helperRequestFrm.do">헬퍼 신청하기</a></li>
 		      	</c:if>

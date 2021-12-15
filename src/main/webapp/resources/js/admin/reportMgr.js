@@ -57,15 +57,19 @@ $(".reportModal").click(function(){
 			switch(data.reportCategory){
 				case 1:
 					$("#cate").val("헬퍼");
+					$("#reportCateNum").html("헬퍼 회원 번호");
 					break;
 				case 2:
 					$("#cate").val("채팅");
+					$("#reportCateNum").html("채팅 메세지 번호");
 					break;
 				case 3:
 					$("#cate").val("게시글");
+					$("#reportCateNum").html("게시글 번호");
 					break;
 				case 4:
 					$("#cate").val("댓글");
+					$("#reportCateNum").html("댓글 번호");
 					break;
 			}
 			$("#reportNum").val(data.reportNum);

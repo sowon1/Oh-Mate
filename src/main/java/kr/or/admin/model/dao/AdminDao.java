@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Report;
+import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -84,5 +85,14 @@ public class AdminDao {
 
 	public int updateReport(Report rp) {
 		return session.update("admin.updateReport", rp);
+	}
+
+	public ArrayList<House> selectAllHouse(HashMap<String, Object> map) {
+		List<House> list = session.selectList("admin.selectAllHouse", map);
+		return (ArrayList<House>)list;
+	}
+
+	public int totalHouseCount() {
+		return session.selectOne("admin.houseTotal");
 	}
 }

@@ -27,6 +27,7 @@ import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
+import kr.or.profile.model.vo.Profile;
 
 @Controller
 public class MemberController {
@@ -340,7 +341,7 @@ public class MemberController {
 	
 	//마이페이지_수정
 	@RequestMapping(value="/myPageUpdate.do")
-	public String myPageUpdate(Member member, MultipartFile uploadFile, HttpServletRequest request, Model model, HttpSession session) {
+	public String myPageUpdate(Member member, String memberId, Profile p, MultipartFile uploadFile, HttpServletRequest request, Model model, HttpSession session) {
 		if(uploadFile.isEmpty()) { //첨부파일이 없는경우
 			
 		}else { //첨부파일이 있는경우
@@ -390,7 +391,9 @@ public class MemberController {
 		if(result>0) {   // 성공 (정보변경했을 때 변경된게 반영안됨, 회원정보 다시 조회해서 세션에 다시 넣어줌)
 			model.addAttribute("msg","회원정보 수정 완료~");
 			Member m = service.selectOneMember(member);
+			Profile pr = service.selectProfile(memberId);
 			session.setAttribute("m", m);
+			model.addAttribute("pr",pr);
 		}else {    
 			model.addAttribute("msg","회원정보 수정 실패");
 		}
@@ -410,21 +413,33 @@ public class MemberController {
 		}
 		model.addAttribute("loc","/");
 		return "common/msg";
-	}
+	}	
 	
 	//찜목록 불러오기-jjh
-		@RequestMapping(value = "/bookmarkHouseList.do")
-		public String bookmarkHouseList(Model model, HttpSession session) {
-			if(session != null) {
-				Member m = (Member)session.getAttribute("m");
-				int memberNo = 0;
-				if(m != null)
-				{
-					memberNo = m.getMemberNo();
-				}	
-				ArrayList<House> list = houseService.selectBookmarkHouse(memberNo);
-				model.addAttribute("list", list);
-			}
-			return "member/bookmarkHouseList";
+	@RequestMapping(value = "/bookmarkHouseList.do")
+	public String bookmarkHouseList(Model model, HttpSession session) {
+		if(session != null) {
+			Member m = (Member)session.getAttribute("m");
+			int memberNo = 0;
+			if(m != null)
+			{
+				memberNo = m.getMemberNo();
+			}	
+			ArrayList<House> list = houseService.selectBookmarkHouse(memberNo);
+			model.addAttribute("list", list);
 		}
+		return "member/bookmarkHouseList";
+	}
+	
+	//마이페이지_커뮤니티 작성글 보기 이동
+	@RequestMapping(value="/communityConfirm.do")
+	public String communityConfirm() {
+		return "member/communityConfirm";
+	}
+	
+	//마이페이지_커뮤니티 댓글 보기 이동
+	@RequestMapping(value="/commentConfirm.do")
+	public String commentConfirm() {
+		return "member/commentConfirm";
+	}
 }

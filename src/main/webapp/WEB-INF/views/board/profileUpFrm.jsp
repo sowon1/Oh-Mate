@@ -25,7 +25,7 @@
 						<br>
 						나와 비슷한 성향의 메이트를 구할 수 있어요
 					</p><br>
-					<form action="/updateProfile.do?memberId=${sessionScope.m.memberId }" method="post">	
+					<form action="/updateProfile.do?memberId=${sessionScope.m.memberId}" method="post">	
 					<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo}">
 				    <input type="hidden" name="pWriter" value="${sessionScope.m.memberId}">
 				    <input type="hidden" name="pLocalVal" value="${local}">
