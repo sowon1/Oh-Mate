@@ -131,7 +131,6 @@ public class HouseService {
 			ArrayList<Room> roomArray = dao.selectHouseRoomList(houseNo);
 			for(int j = 0; j<roomArray.size();j++) {
 				int roomNo = roomArray.get(j).getRoomNo();
-				System.out.println(roomNo);
 				ArrayList<Tour> tourArray = dao.selectTourList(roomNo);
 				ArrayList<Move> moveArray = dao.selectMoveList(roomNo);
 				int tourCount = dao.tourCount(roomNo);
@@ -225,10 +224,10 @@ public class HouseService {
 		int length = delPhotoNo.length;
 		// 포토 삭제부분(for문이용)
 		for (int i = 0; i < length; i++) {
-			int result = dao.deletePhoto(delPhotoNo);
-			if (result == 0) {
-				return 0;
-			}
+			Photo p = new Photo();
+			p.setPhotoPath(delPhotoPath[i]);
+			p.setPhotoNo(delPhotoNo[i]);
+			int result2 = dao.deletePhoto(p);
 		}
 		return 1;
 	}

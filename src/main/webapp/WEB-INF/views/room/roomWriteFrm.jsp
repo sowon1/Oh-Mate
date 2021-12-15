@@ -123,7 +123,7 @@
 						<select class="control-group" id="roomPersonnel" name="roomPersonnel">
 							<option value="">선택</option>
 							<option value="1인실">1인실</option>
-							<option value="3인실">3인실</option>
+							<option value="2인실">2인실</option>
 							<option value="다인실">다인실</option>
 						</select>
 					</div>

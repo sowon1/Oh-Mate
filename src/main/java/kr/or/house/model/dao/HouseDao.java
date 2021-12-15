@@ -200,4 +200,8 @@ public class HouseDao {
 		return (ArrayList<House>)list;
 	}
 
+	public int deletePhoto(Photo p) {
+		return session.delete("house.deletePhoto",p);
+	}
+
 }

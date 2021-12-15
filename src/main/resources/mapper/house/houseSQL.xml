@@ -348,4 +348,8 @@
   			where BOOKMARKER=#{memberNo} )
   		order by 2 desc
 	</select>
+	<!-- 하우스 수정시 사진삭제 -->
+	<delete id="deletePhoto" parameterType="f">
+		delete from photo where photo_no =#{photoNo} and photo_path=#{photoPath} and photo_category =1
+	</delete>
 </mapper>

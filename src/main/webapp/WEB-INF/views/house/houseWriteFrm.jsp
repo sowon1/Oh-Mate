@@ -11,10 +11,11 @@
 	width: 600px;
 	margin: 150px auto;
 	box-sizing: border-box;
-	padding:30px;
+	padding: 30px;
 	border-radius: 5px;
 	background-color: #fff;
 }
+
 .note-modal-content {
 	height: auto;
 	position: fixed;
@@ -47,9 +48,11 @@
 	color: ##9F9F9F;
 	outline: none;
 }
-.content{
+
+.content {
 	background-color: #fff;
 }
+
 .content div {
 	text-align: center;
 }
@@ -89,14 +92,15 @@
 <!-- jQuery라이브러리 -->
 <script type="text/javascript" src="/resources/js/jquery-3.3.1.js"></script>
 <!--  JSTL 확장 c 태그 선언문 -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 폰트어썸(아이콘) -->
 <link rel="stylesheet" href="/resources/fontawesome/css/all.css">
 <script type="text/javascript" src="/resources/fontawesome/js/all.js"></script>
 <!-- 부트스트랩 CSS -->
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <!-- 부트스트랩용 jQuery -->
-<script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+	src="/resources/js/bootstrap.bundle.min.js"></script>
 <!-- 기본 CSS -->
 <link rel="stylesheet" href="/resources/css/default.css">
 <!-- 폰트 CSS -->
@@ -196,7 +200,7 @@
 					<h4 class="form-title point_title">집정보 입력</h4>
 					<div class="content-place" style="height: 600px;">
 						<p class="ac-title">하우스 이름</p>
-						<input type="text" name="houseTitle" id="houseName"
+						<input type="text" name="houseTitle" id="houseTitle"
 							class="input_03" placeholder="하우스이름">
 						<p class="ac-title">보증금(대표)</p>
 						<input type="text" name="houseCharge" id="houseCharge"
@@ -226,7 +230,7 @@
 					</div>
 					<div class="imageForm">
 						<div class="input_wrap">
-							<p class="ac-title">이미지업로드</p>
+							<p class="ac-title">하우스 이미지 업로드(필수)</p>
 							<input type="file" id="input_imgs" name="photoPath" multiple />
 						</div>
 						<div class="img_wrap"></div>
@@ -351,7 +355,7 @@
 											id="fun_16" value="0"><label for="fun_16">옷장</label>
 									</div>
 								</td>
-								
+
 								<td class="find">
 									<div class="check_ent displayflex" style="text-align: left;">
 										<input type="checkbox" class="chk" name="funderCategory"
@@ -394,15 +398,15 @@
 						<p class="ac-title" style="margin-top: 15px;">지정성별</p>
 						<table>
 							<tr style="text-align: center;">
-								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
-									id="gender1" value="1"><label for="gender1">남성전용</label>
-								</td >
-								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
-									id="gender2" value="2"><label for="gender2">여성전용</label>
-								</td>
-								<td style="width: 100px"><input type="radio" class="chk" name="houseGender"
-									id="gender3" value="3"><label for="gender3">남녀공용</label>
-								</td>
+								<td style="width: 100px"><input type="radio" class="chk"
+									name="houseGender" id="gender1" value="1"><label
+									for="gender1">남성전용</label></td>
+								<td style="width: 100px"><input type="radio" class="chk"
+									name="houseGender" id="gender2" value="2"><label
+									for="gender2">여성전용</label></td>
+								<td style="width: 100px"><input type="radio" class="chk"
+									name="houseGender" id="gender3" value="3"><label
+									for="gender3">남녀공용</label></td>
 							</tr>
 						</table>
 
@@ -574,15 +578,25 @@
 			var HSF = $("#HSF").val();
 			var houseCharge = $("#houseCharge").val();
 			var houseChargeChk = /^[0-9]/;
-			if (HSF != "" && houseName != ""&&houseChargeChk.test(houseCharge) ) {
-				next(4);
+			var houseTitle = $("#houseTitle").val();
+			console.log(houseTitle);
+			var houseTitleChk = /.{4,30}$/;
+			if (HSF != "" && houseName != ""
+					&& houseChargeChk.test(houseCharge)) {
+				if (houseTitleChk.test(houseTitle)) {
+					next(4);
+				} else {
+					alert("제목은 4글자 이상 30자이내로 작성해주세요!");
+				}
 			} else {
 				alert("제목 및 주거형태를 확인해주세요");
 			}
 		}
+
 		function backIntro() {
 			next(3);
 		}
+
 		function backCondition() {
 			next(4);
 		}
@@ -640,7 +654,13 @@
 			});
 		}
 		function ruleChk() {
-			next(5);
+			var length = $(".img_wrap>span").length;
+			console.log(length);
+			if(length==0){
+				alert("이미지는 필수입니다. 등록해 주세요");
+			}else{
+			next(5);				
+			}
 		}
 		//하우스 전체적 이미지
 		var sel_files = [];
@@ -668,6 +688,7 @@
 					});
 		}
 	</script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

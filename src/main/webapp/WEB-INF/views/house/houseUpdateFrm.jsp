@@ -89,9 +89,26 @@
 	height: 100px;
 }
 </style>
+<!-- jQuery라이브러리 -->
+<script type="text/javascript" src="/resources/js/jquery-3.3.1.js"></script>
+<!--  JSTL 확장 c 태그 선언문 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- 폰트어썸(아이콘) -->
+<link rel="stylesheet" href="/resources/fontawesome/css/all.css">
+<script type="text/javascript" src="/resources/fontawesome/js/all.js"></script>
+<!-- 부트스트랩 CSS -->
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
+<!-- 부트스트랩용 jQuery -->
+<script type="text/javascript"
+	src="/resources/js/bootstrap.bundle.min.js"></script>
+<!-- 기본 CSS -->
+<link rel="stylesheet" href="/resources/css/default.css">
+<!-- 폰트 CSS -->
+<link rel="stylesheet" href="/resources/css/font.css">
+<!-- 채팅방 css -->
+<link rel="stylesheet" href="/resources/css/main/mate_talk.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 	<!-- 달력 -->
 	<script type="text/javascript"
@@ -219,7 +236,7 @@
 					<h4 class="form-title point_title">집정보 입력</h4>
 					<div class="content-place" style="height: 600px;">
 						<p class="ac-title">하우스 이름</p>
-						<input type="text" name="houseTitle" id="houseName"
+						<input type="text" name="houseTitle" id="houseTitle"
 							class="input_03" placeholder="하우스이름" value="${h.houseTitle }">
 						<p class="ac-title">보증금(대표)</p>
 						<input type="text" name="houseCharge" id="houseCharge"
@@ -275,7 +292,7 @@
 					</div>
 					<div class="imageForm">
 						<div class="input_wrap">
-							<p class="ac-title">이미지업로드</p>
+							<p class="ac-title">이미지업로드 (필수)</p>
 							<c:choose>
 								<c:when test="${not empty h.photoList }">
 									<div style="height: 150px; border: 1px solid #ededed; padding: 15px;">
@@ -668,8 +685,18 @@
 		function introChk() {
 			var houseName = $("#houseName").val();
 			var HSF = $("#HSF").val();
-			if (HSF != "" && houseName != "") {
-				next(3);
+			var houseCharge = $("#houseCharge").val();
+			var houseChargeChk = /^[0-9]/;
+			var houseTitle = $("#houseTitle").val();
+			console.log(houseTitle);
+			var houseTitleChk = /.{4,30}$/;
+			if (HSF != "" && houseName != ""
+					&& houseChargeChk.test(houseCharge)) {
+				if (houseTitleChk.test(houseTitle)) {
+					next(3);
+				} else {
+					alert("제목은 4글자 이상 30자이내로 작성해주세요!");
+				}
 			} else {
 				alert("제목 및 주거형태를 확인해주세요");
 			}
@@ -734,7 +761,15 @@
 			});
 		}
 		function ruleChk() {
-			next(4);
+			var length = $(".img_wrap>span").length;
+			var delLen =$(".delFile").length;
+			console.log(length);
+			console.log(delLen);
+			if(length==0 && delLen==0){
+				alert("이미지는 필수입니다. 등록해 주세요");
+			}else{
+			next(4);				
+			}
 		}
 		//하우스 전체적 이미지
 		var sel_files = [];
@@ -762,8 +797,9 @@
 					});
 		}
 		$(".delBtn").click(function () {
-			var idx = $(this).index(this);
-			console.log(idx);
+			var idx = $(".delBtn").index(this);
+			console.log($("input[name=delPhotoPath]").eq(idx).val());
+			console.log($("input[name=delPhotoNo]").eq(idx).val());
 			$(this).hide();
 			$(this).prev().hide();
 			$(".oldPhotoPath").eq(idx).removeAttr("name");

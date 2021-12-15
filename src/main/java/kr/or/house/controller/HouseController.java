@@ -156,7 +156,8 @@ public class HouseController {
 	@RequestMapping(value = "/houseUpdate.do")
 	public String houseUpdate(House h,Income i,Photo p,String[] delPhotoPath,int[] delPhotoNo,MultipartFile[] photoPath,HttpServletRequest request,Model model) {
 		//삭제 이미지 삭제하기
-		System.out.println(delPhotoNo);
+		System.out.println(h);
+		System.out.println(photoPath);
 		int result = service.deletePhoto(delPhotoPath,delPhotoNo);
 		int house = service.updateHouse(h,i);
 		int houseRoom = h.getHouseRoom();
