@@ -95,6 +95,19 @@
             decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
 			(select * from house where house_allow=1 order by 1 desc)h) 
 		where rnum between #{start} and #{end}
+		<if test="houseGender != 0">
+			and house_gender=#{h.houseGender}
+		</if>
+		<if test="houseForm != null and !''.equals(houseForm)">
+			and house_Form=#{h.houseForm}
+		</if>
+		<if test="keyword != null and !''.equals(keyword)">
+			 and ((house_title || house_content || HOUSE_FORM) like '%' ||  #{keyword} || '%')    
+		    or house_no in (select address_number from address where ADDRESS_CATEGORY='1' and (address_name || address_road || address_legal) like '%' ||  #{keyword} || '%')
+		</if>
+		<if test="roomPersonnel != null and !''.equals(roomPersonnel)">
+			and house_no in (select house_no from room where ROOM_PERSONNEL=#{r.roomPersonnel})
+		</if>
 	</select>
 	<!-- total -->
 	<select id="houseTotal" resultType="_int">
