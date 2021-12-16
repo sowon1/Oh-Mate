@@ -70,6 +70,7 @@
                     <input type="text" class="input_03" name="keyword">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </div>
+                <a class="resetSearch">※ 검색 조건 초기화</a>
                 <div id="textBox">
                 	<p>※ 처리 완료 : 헬퍼 - 헬퍼 자격 박탈 / 게시글 및 댓글 - 비공개</p>
                 </div>

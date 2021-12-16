@@ -95,4 +95,13 @@ public class AdminDao {
 	public int totalHouseCount() {
 		return session.selectOne("admin.houseTotal");
 	}
+
+	public ArrayList<House> houseSearch(HashMap<String, Object> map) {
+		List<House> list = session.selectList("admin.searchHouse", map);
+		return (ArrayList<House>)list;
+	}
+
+	public int totalSearchHouseCnt(HashMap<String, Object> map) {
+		return session.selectOne("admin.totalSearchHouse", map);
+	}
 }

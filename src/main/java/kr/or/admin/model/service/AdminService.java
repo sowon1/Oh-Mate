@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.admin.model.dao.AdminDao;
+import kr.or.admin.model.vo.SearchHouse;
 import kr.or.admin.model.vo.SearchMember;
 import kr.or.admin.model.vo.SearchReport;
 import kr.or.admin.model.vo.UpdateMember;
@@ -321,6 +322,72 @@ public class AdminService {
 		if(pageNo <= totalPage) {
 			pageNavi += "<li class='page-item-mate-mate'><a href='/houseMgr.do?reqPage="+pageNo+"'>";
 			pageNavi += "&gt;</a></li>";
+		}
+		pageNavi += "</ul>";
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("pageNavi", pageNavi);
+		data.put("list", list);
+		data.put("start", start);
+		return data;
+	}
+
+	public HashMap<String, Object> houseSearch(int reqPage, SearchHouse sh) {
+		int numPerPage = 10;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage +1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("status", sh.getStatus());
+		map.put("addrName", sh.getAddrName());
+		map.put("type", sh.getType());
+		map.put("keyword", sh.getKeyword());
+		ArrayList<House> list = dao.houseSearch(map);
+		int totalCnt = dao.totalSearchHouseCnt(map);
+		int totalPage = (totalCnt % numPerPage == 0) ? (totalCnt / numPerPage) : (totalCnt / numPerPage + 1);
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminHouseSearch.do?reqPage="+(pageNo-1)+"&type="+sh.getType()+"&keyword="+sh.getKeyword()+"&addrName="+sh.getAddrName();
+			if(sh.getStatus() != null) {
+				for(int i=0;i<sh.getStatus().length;i++) {
+					pageNavi += "&status="+sh.getStatus()[i];
+				}
+			}
+			pageNavi += "'>&lt;</a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/adminHouseSearch.do?reqPage="+pageNo+"&type="+sh.getType()+"&keyword="+sh.getKeyword()+"&addrName="+sh.getAddrName();
+				if(sh.getStatus() != null) {
+					for(int j=0;j<sh.getStatus().length;j++) {
+						pageNavi += "&status="+sh.getStatus()[j];
+					}
+				}
+				pageNavi += "'>"+pageNo+"</a></li>";
+			}else {
+				pageNavi += "<li class='page-item-mate-mate'><a href='/adminHouseSearch.do?reqPage="+pageNo+"&type="+sh.getType()+"&keyword="+sh.getKeyword()+"&addrName="+sh.getAddrName();
+				if(sh.getStatus() != null) {
+					for(int j=0;j<sh.getStatus().length;j++) {
+						pageNavi += "&status="+sh.getStatus()[j];				
+					}
+				}
+				pageNavi += "'>"+pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminHouseSearch.do?reqPage="+pageNo+"&type="+sh.getType()+"&keyword="+sh.getKeyword()+"&addrName="+sh.getAddrName();
+			if(sh.getStatus() != null) {
+				for(int i=0;i<sh.getStatus().length;i++) {
+					pageNavi += "&status="+sh.getStatus()[i];				
+				}
+			}
+			pageNavi += "'>&gt;</a></li>";
 		}
 		pageNavi += "</ul>";
 		HashMap<String, Object> data = new HashMap<String, Object>();

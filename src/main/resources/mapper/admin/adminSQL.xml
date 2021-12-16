@@ -9,7 +9,7 @@
 			member_name as memberName,
 			phone,
 			enroll_date as enrollDate
-		from (select rownum as rnum, m.* from (SELECT * FROM MEMBER order by 1 desc)m)mm
+		from (select rownum as rnum, m.* from (SELECT * FROM MEMBER order by 1 desc)m)
 		where rnum between #{start} and #{end}
 	</select>
 	<select id="memberTotal" resultType="_int">
@@ -51,7 +51,7 @@
 				</choose>
 			</foreach>
 		</if>
-		order by 1 desc)m)mm
+		order by 1 desc)m)
 		where rnum between #{start} and #{end}
 	</select>
 	<select id="totalSearch" parameterType="map" resultType="_int">
@@ -172,7 +172,7 @@
 			report_content as reportContent,
 			report_date as reportDate,
 			report_status as reportStatus
-		from (select rownum as rnum, r.* from (SELECT * FROM report order by 1 desc)r)rr
+		from (select rownum as rnum, r.* from (SELECT * FROM report order by 1 desc)r)
 		where rnum between #{start} and #{end}
 	</select>
 	<select id="reportTotal" resultType="_int">
@@ -214,7 +214,7 @@
 				#{c}
 			</foreach>
 		</if>
-		order by 1 desc)r)rr
+		order by 1 desc)r)
 		where rnum between #{start} and #{end}
 	</select>
 	<select id="totalSearchReport" parameterType="map" resultType="_int">
@@ -266,9 +266,9 @@
 		    member_no as memberNo,
 		    (select member_id from member where member_no = hh.member_no) memberId,
 		    house_title as houseTitle,
-            (select address_name from address where address_category = 1 and address_number = hh.house_no) as addressName,
-            (select address_road from address where address_category = 1 and address_number = hh.house_no) as addressRoad,
-            (select address_detail from address where address_category = 1 and address_number = hh.house_no) as addressDetail,
+            (select address_name from address where address_category = 1 and address_number = house_no) as addressName,
+            (select address_road from address where address_category = 1 and address_number = house_no) as addressRoad,
+            (select address_detail from address where address_category = 1 and address_number = house_no) as addressDetail,
 		    houseowner_deadline as houseownerDeadline,
 		    house_selling as houseSelling,
 		    house_allow as houseAllow
@@ -276,5 +276,58 @@
 	</select>
 	<select id="houseTotal" resultType="_int">
 		select count(*) from house
+	</select>
+	<select id="searchHouse" parameterType="map" resultType="h">
+		select
+		    house_no as houseNo,
+		    member_no as memberNo,
+		    (select member_id from member where member_no = hhh.member_no) memberId,
+		    house_title as houseTitle,
+            (select address_name from address where address_category = 1 and address_number = house_no) as addressName,
+            (select address_road from address where address_category = 1 and address_number = house_no) as addressRoad,
+            (select address_detail from address where address_category = 1 and address_number = house_no) as addressDetail,
+		    houseowner_deadline as houseownerDeadline,
+		    house_selling as houseSelling,
+		    house_allow as houseAllow
+		from (select rownum as rnum, hh.* from (select h.*, address_name from house h left join address on (house_no = address_number)
+		<choose>
+			<when test="type != null and type.equals('houseTitle')">
+				where house_title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type != null and type.equals('memberId')">
+				where member_no in (select member_no from member where member_id like '%'||#{keyword}||'%')
+			</when>
+		</choose>
+		<if test="status != null">
+			and house_allow in
+			<foreach collection="status" item="s" open="(" close=")" separator=",">
+				#{s}
+			</foreach>
+		</if>
+		<if test="!addrName.equals('지역구 선택')">
+			and address_name = #{addrName}
+		</if>
+		order by 1 desc)hh)hhh where rnum between #{start} and #{end}
+	</select>
+	<select id="totalSearchHouse" parameterType="map" resultType="_int">
+		select count(*) from (select h.*, address_name from house h left join address on (house_no = address_number)
+		<choose>
+			<when test="type != null and type.equals('houseTitle')">
+				where house_title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type != null and type.equals('memberId')">
+				where member_no in (select member_no from member where member_id like '%'||#{keyword}||'%')
+			</when>
+		</choose>
+		<if test="status != null">
+			and house_allow in
+			<foreach collection="status" item="s" open="(" close=")" separator=",">
+				#{s}
+			</foreach>
+		</if>
+		<if test="!addrName.equals('지역구 선택')">
+			and address_name = #{addrName}
+		</if>
+		)
 	</select>
 </mapper>

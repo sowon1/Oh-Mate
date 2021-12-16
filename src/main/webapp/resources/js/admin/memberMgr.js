@@ -24,3 +24,9 @@ $("[name=keyword]").keyup(function(){
 		$(this).attr("placeholder", "010-0000-0000");
 	}
 });
+$(".resetSearch").click(function(){
+	$(".searchBox [type=checkbox]").prop("checked",false);
+	$("[name=type]>option:first").prop("selected",true);
+	$("[name=keyword]").val("");
+	$("[name=keyword]").removeAttr("placeholder");
+});

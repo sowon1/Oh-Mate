@@ -81,12 +81,12 @@ public class HouseService {
 		map.put("end", end);
 		map.put("memberNo", memberNo);
 		map.put("keyword", keyword);
-		h.setHouseRoomView(new ArrayList<Room>());
-		h.getHouseRoomView().add(r);
-		map.put("h", h);
+		map.put("roomPersonnel", r.getRoomPersonnel());
+		map.put("houseForm", h.getHouseForm());
+		map.put("houseGender",h.getHouseGender());
 		map.put("roomCharge1", roomCharge1);
 		map.put("roomCharge2", roomCharge2);
-		ArrayList<House> list = dao.selectAjaxHouse(map);		
+		ArrayList<House> list = dao.selectAjaxHouse(map);
 		int totalRow = dao.selectAjaxTotal();
 		// 전체 페이지의 갯수 구하기
 		int totalPageCount = (totalRow % numPerPage == 0) ? (totalRow / numPerPage) : (totalRow / numPerPage + 1);
@@ -244,7 +244,9 @@ public class HouseService {
 		int result = dao.updateHouse(h);
 		if (result > 0) {
 			int houseNo = h.getHouseNo();
+			i.setIncomeNum(houseNo);
 			int result2 = dao.updateIncome(i);
+			System.out.println(result2);
 			if (result2 > 0) {
 				return result2;
 			} else {

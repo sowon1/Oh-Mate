@@ -38,7 +38,7 @@
                 			<th>지역구</th>
                 			<td colspan="4">
 	                			<select class="form-select" name="addrName">
-	                				<option value="0" class="n">지역구 선택</option>
+	                				<option class="n">지역구 선택</option>
 	                			</select>
                         	</td>
                 		</tr>
@@ -46,8 +46,8 @@
                 </div>
                 <div class="keywordBox">
                     <select class="form-select" name="type">
-                        <option value="memberId">오너 아이디</option>
                         <option value="houseTitle">하우스 이름</option>
+                        <option value="memberId">오너 아이디</option>
                     </select>
                     <input type="text" class="input_03" name="keyword">
                     <input type="submit" class="btn btn-primary" value="검색">

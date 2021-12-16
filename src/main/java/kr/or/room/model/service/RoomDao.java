@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.house.model.vo.House;
 import kr.or.room.model.vo.Room;
 
 @Repository
@@ -50,5 +51,20 @@ public class RoomDao {
 	// 결제정보 - sowon
 	public int insertMovePay(HashMap<String, Object> map) {
 		return session.insert("room.insertMovePay",map);
+	}
+
+	public House selectOneHouse(int houseNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("room.houseOneSelect", houseNo);
+	}
+
+	public int selectCountRoom(int houseNo) {
+		
+		return session.selectOne("room.selectRoomCount",houseNo);
+	}
+
+	public int updatehouseSelling(int houseNo) {
+		
+		return session.update("room.updateHouseSelling", houseNo);
 	}
 }

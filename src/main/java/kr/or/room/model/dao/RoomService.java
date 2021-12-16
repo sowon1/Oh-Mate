@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.common.Move;
 import kr.or.common.Pay;
+import kr.or.house.model.vo.House;
 import kr.or.room.model.service.RoomDao;
 import kr.or.room.model.vo.Room;
 
@@ -56,17 +57,41 @@ public class RoomService {
 			map.put("houseNo",r.getHouseNo());
 			// 하우스 - 방 업데이트 
 			int house = dao.updateHouseRoom(map);
-			if(house > 0) {
-				map.put("p", p);
-				// 결제 테이블 
-				int pay = dao.insertMovePay(map);
-				if(pay > 0) {
-					System.out.println("결제테이블 등록 성공");
+			House h =new House();
+			int houseNo= r.getHouseNo();
+			//하우스 정보조회
+			h=dao.selectOneHouse(houseNo);
+			int houseRoom = h.getHouseRoom();
+			int houseSelling=h.getHouseSelling();
+			int roomCount = dao.selectCountRoom(houseNo);
+			if(houseRoom==roomCount && houseSelling==2) {
+				int updateHouseSelling = dao.updatehouseSelling(houseNo);
+				if(updateHouseSelling > 0) {
+					map.put("p", p);
+					// 결제 테이블 
+					int pay = dao.insertMovePay(map);
+					if(pay > 0) {
+						System.out.println("결제테이블 등록 성공");
+					}else {
+						System.out.println("결제테이블 등록 실패");
+					}
 				}else {
-					System.out.println("결제테이블 등록 실패");
+					System.out.println("룸 업데이트 오류");
 				}
 			}else {
-				System.out.println("룸 업데이트 오류");
+				
+				if(house > 0) {
+					map.put("p", p);
+					// 결제 테이블 
+					int pay = dao.insertMovePay(map);
+					if(pay > 0) {
+						System.out.println("결제테이블 등록 성공");
+					}else {
+						System.out.println("결제테이블 등록 실패");
+					}
+				}else {
+					System.out.println("룸 업데이트 오류");
+				}
 			}
 		}else {
 			System.out.println("입주신청 오류..");
