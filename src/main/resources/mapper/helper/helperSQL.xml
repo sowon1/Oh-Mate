@@ -8,7 +8,7 @@
  		</selectKey>
  	</insert>
  	<insert id="insertAddress" parameterType="addr">
- 		insert into address values(address_seq.nextval,2,#{addressCode},#{addressName},#{addressRoad},#{addressLegal},#{addressCategory},'헬퍼번호')
+ 		insert into address values(address_seq.nextval,#{addressNumber},#{addressCode},#{addressName},#{addressRoad},#{addressLegal},2,'헬퍼번호')
  	</insert>
  	<insert id="insertHelperAndImg" parameterType="hp">
  		
@@ -32,6 +32,38 @@
  			helper_intro as helperIntro,
  			helper_credit as helperCredit,
  			helper_refuse as helperRefuse
- 		from helper where helper_name=#{helperName}
+ 		from helper where helper_name=#{helperName} and helper_status = 2
+ 	</select>
+ 	<!-- 헬퍼 중복 등록 방지 -->
+ 	<select id="selectOneHelperMemberNo" parameterType="_int" resultType="hp">
+ 		select
+ 			helper_no as helperNo,
+ 			member_no as memberNo,
+ 			helper_name as helperName,
+ 			helper_category as helperCategory,
+ 			helper_start_time as helperStartTime,
+ 			helper_end_time as helperEndTime,
+ 			helper_ride as helperRide,
+ 			helper_status as helperStatus,
+ 			helper_filepath as helperFilepath,
+ 			helper_intro as helperIntro,
+ 			helper_credit as helperCredit,
+ 			helper_refuse as helperRefuse
+ 		from helper where member_no=#{memberNo}
+ 	</select>
+ 	<!-- 헬퍼 등록시 계좌등록 -->
+ 	<insert id="insertIncomeHelper">
+ 		insert into income values(
+ 			income_seq.nextval,#{incomeBank},#{incomeAccount},#{incomeName},1,#{incomeNum}
+ 		)
+ 	</insert>
+ 	<select id="selectOneIncome" parameterType="_int" resultType="i">
+ 		select
+			income_no as incomeNo,
+			income_bank as incomeBank,
+			income_account as incomeAccount,
+			income_name as incomeName,
+			income_category as incomeCategory
+		from income where income_num=#{houseNo} and income_category=1
  	</select>
 </mapper>

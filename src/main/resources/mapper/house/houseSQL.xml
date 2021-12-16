@@ -4,7 +4,7 @@
 	<!-- 하우스등록 -->
   <insert id="insertHouse" parameterType="h">
   insert into house
-  values(house_seq.nextval,#{memberNo},#{houseTitle},#{houseownerDeadline},2,null,#{houseContent},#{houseRoom},#{houseCharge},
+  values(house_seq.nextval,#{memberNo},#{houseTitle},#{houseownerDeadline},1,null,#{houseContent},#{houseRoom},#{houseCharge},
   #{houseRule},#{houseForm},#{houseGender},#{houseConvenience},1)
   	<selectKey resultType="_int" order="AFTER" keyProperty="houseNo">
   	<!-- 하우스 번호 넘기기위한 selectkey 발동 -->

@@ -48,9 +48,9 @@
 
 	<div class="container_mate">
 		<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼요청서</h4>
-		<form action="/helpRequest.do" method="post"
+		<form action="/helpRequestUpdate.do" method="post"
 			enctype="multipart/form-data" id="funder_add">
-			<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
+			<input type="hidden" name="memberNo" value="${h.memberNo }">
 			<div class="add_right border_a">
 				<table class="table" style="padding: 15px;">
 					<tr class="table-active_mate center_list">
@@ -79,7 +79,7 @@
 								<input type="checkbox" class="chk" name="funderCategory"
 									id="fun_07" value="0"><label for="fun_07"
 									style="width: 140px">동행·돌봄</label>
-							</div> <input type="hidden" id="helperCategory" name="helperCategory">
+							</div> <input type="hidden" id="helperCategory" name="helperCategory" value="${h.helperCategory }">
 						</td>
 					</tr>
 					<tr class="table-active_mate">
@@ -91,13 +91,13 @@
 							style="line-height: 18px">사진첨부</label> <input type="file"
 							id="profile" name="upfile"
 							onchange="loadImg(this);" accept=".jpg,.jpeg,.png,.gif"
-							style="display: none;">
+							style="display: none;" value="${h.helperFilepath }">
 						</td>
 					</tr>
 					<tr class="table-active_mate">
 						<th>3.활동닉네임</th>
 						<td><input type="text" name="helperName" class="input_03"
-							placeholder="닉네임 입력" " style="width: 300px;"></td>
+							placeholder="닉네임을 다시 입력 해주세요"  style="width: 300px;"></td>
 							<td id="idChk"></td>
 						
 					</tr>
@@ -105,14 +105,14 @@
 						<th>4.선호 시작 시간 선택</th>
 						<td><span class="time"> <input type="text" class="timeform"
 								name="helperStartTime"
-								class="input_date input_04">
+								class="input_date input_04" value="${h.helperStartTime }">
 						</span></td>
 					</tr>
 					<tr class="table-active_mate">
 						<th>5.선호 마감 시간 선택</th>
 						<td><span class="time"> <input class="timeform" type="text"
 								name="helperEndTime"
-								class="input_date input_04">
+								class="input_date input_04" value="${h.helperEndTime }">
 						</span></td>
 
 					</tr>
@@ -136,9 +136,9 @@
 						<td><textarea name="helperIntro" class="summernote"></textarea></td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>8.활동가능한 지역)</th>
+						<th>8.활동가능한 지역()</th>
 						<td>
-							<p>※꼭 주소 등록후 엔터 칠것 (최대3개지점만 등록할것)</p>
+							<p>※꼭 주소 등록후 엔터 칠것 (최대3개지점만 등록할것) ※전에 저장되었던 주소는 사라집니다.</p>
 							<div class="address">
 
 							</div>
@@ -164,7 +164,8 @@
 					<tr class="table-active_mate">
 						<th>10.계좌 입력</th>
 						<td>
-							<select id="bank" class="control-group" name="incomeBank">
+						c:
+						<select id="bank" class="control-group" name="incomeBank">
 							<option value="">선택</option>
 							<option value="신한">신한</option>
 							<option value="국민">국민</option>
@@ -190,6 +191,16 @@
 	</div>
 	<script>
 	var count =0;
+	$(function () {
+		var conval = $("#helperCategory").val();
+		console.log(conval.length);
+		for(var i=0;i<conval.length;i++){
+			console.log($(".chk").eq(i));
+			if(conval.charAt(i)==1){
+				$(".chk").eq(i).attr("checked",true);
+				$(".chk").eq(i).val(1);
+			}
+		}
 	//카테고리 설정(00000000);
 	$(".chk").change(function () {
 		if($(this).is(":checked")){

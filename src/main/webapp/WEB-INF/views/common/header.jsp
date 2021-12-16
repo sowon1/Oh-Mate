@@ -191,7 +191,9 @@
 		      <li><a href="#">투어 신청 내역 확인</a></li>
 		      <li><a href="/communityConfirm.do">커뮤니티 게시글 확인/댓글 확인</a></li>
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
-		      	<li><a href="/helperRequestFrm.do">헬퍼 신청하기</a></li>
+		      	<li>
+		      	<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
+		      	<a href="javascript:void(0);" id="requestChk">헬퍼 신청하기</a></li>
 		      	</c:if>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
 		      <c:if test="${sessionScope.m.memberLevel eq 4 }">
@@ -502,5 +504,25 @@
        return false;
        });
    }); */
-
+	$("#requestChk").click(function() {
+		var memberNo = $("#memberNo").val();
+		$.ajax({
+			url : "/listCheck.do",
+			data: {memberNo:memberNo},
+			success:function(data){
+				console.log(data);
+				if(data ==2){
+					location.href = "/helperRequestFrm.do";	
+				}else if(data == 1){
+					if(confirm("헬퍼 등록 요청을 이미 하셨습니다. 수정하시겠습니까?" )){
+					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}";
+					}
+				}else if(data ==3){
+					if(confirm("헬퍼등록이 거절 되었습니다. 다시 수정하시겠습니까?")){
+					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}}";
+					}
+				}
+			}
+		});
+	});
  </script>
