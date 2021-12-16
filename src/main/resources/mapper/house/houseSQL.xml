@@ -271,13 +271,13 @@
 			house_gender = #{houseGender},
 			house_convenience = #{houseConvenience},
 			house_allow = 1
-		where house_no = #{houseNo} and #{memberNo}
+		where house_no = #{houseNo} and member_no = #{memberNo}
 	</update>
 	<update id="incomeupdate" parameterType="i">
 		update income set
 			income_bank = #{incomeBank},
 			income_account = #{incomeAccount},
-			income_name =#{incomeName},
+			income_name =#{incomeName}
 			where income_no = #{incomeNo} and income_category =2
 	</update>
 	

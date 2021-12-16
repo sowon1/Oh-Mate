@@ -244,7 +244,9 @@ public class HouseService {
 		int result = dao.updateHouse(h);
 		if (result > 0) {
 			int houseNo = h.getHouseNo();
+			i.setIncomeNum(houseNo);
 			int result2 = dao.updateIncome(i);
+			System.out.println(result2);
 			if (result2 > 0) {
 				return result2;
 			} else {

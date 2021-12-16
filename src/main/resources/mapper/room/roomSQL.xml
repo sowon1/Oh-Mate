@@ -101,4 +101,34 @@
 	  		null
 	  	)	
  	</insert>
+ 	<!-- 입주 등록시 하우스 내용가져오기 -->
+ 	<select id="houseOneSelect" parameterType="_int" resultType="h">
+ 		select
+			house_no as houseNo,
+			member_no as memberNo,
+			house_title as houseTitle,
+			houseowner_deadline as houseownerDeadline,
+			house_selling as houseSelling,
+			refuse_reason as refuseReason,
+			house_content as houseContent,
+			house_room as houseRoom,
+			house_charge as houseCharge,
+			house_rule as houseRule,
+			house_form as houseForm,
+			house_gender as houseGender,
+			house_convenience as houseConvenience,
+			house_allow as houseAllow
+            from house
+		 where house_no = #{houseNo}
+ 	</select>
+ 	<!-- 잔여방 갯수 -->
+ 	<select id="selectRoomCount" parameterType="_int" resultType="_int">
+ 		select count(*)from room where house_no=#{houseNo} and room_status=2
+ 	</select>
+ 	<!-- 입주신청시 방이 꽉차면 하우스 셀링 번호 2로.. -->
+ 	<update id="updateHouseSelling" parameterType="_int">
+ 		update house set 
+ 			house_selling=2
+ 		where house_no = #{houseNo}
+ 	</update>
 </mapper>

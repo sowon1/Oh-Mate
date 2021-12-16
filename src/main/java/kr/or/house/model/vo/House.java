@@ -16,7 +16,7 @@ public class House {
 	private int memberNo;					//하우스관련 회원번호
 	private String houseTitle;				//제목
 	private String houseownerDeadline;		//yyyy-mm-dd
-	private String houseSelling;			//1. 판매중 / 2. 판매완료
+	private int houseSelling;			//1. 판매중 / 2. 판매완료
 	private String refuseReason;			//관리자가 미승인 처리시 마이페이지에서 사유 확인가능
 	private String houseContent;			//하우스 시설소개 (집구조 사진까지 포함 summernote 사용)
 	private int houseRoom;					//방갯수
