@@ -64,7 +64,7 @@
 	
 	<!-- 메이트 회원가입 -->
 	<insert id="join" parameterType="m">
-		insert into member values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{phone},#{email},to_char(sysdate,'yyyy-mm-dd HH:MM'),
+		insert into member values(member_seq.nextval,#{memberId},#{memberPw},#{memberName},#{phone},#{email},to_char(sysdate,'yyyy-mm-dd'),
 		#{filepath},#{memberLevel},#{gender},#{age},#{profileStatus})
 	</insert>
 	

@@ -34,7 +34,7 @@
                 <a href="/helperList.do">도와줘요</a>
             </li>
             <li>
-                <a href="/communityFrm.do?memberNo=${sessionScope.m.memberNo }">커뮤니티</a>
+                <a href="/communityFrm.do">커뮤니티</a>
             </li>
             <li>
                 <a href="/noticeList.do?reqPage=1">공지사항</a>
@@ -185,7 +185,6 @@
 		    </header>
 		    <ul>
 		      <li><a href="/myPage.do?memberId=${sessionScope.m.memberId }">나의 정보</a></li>
-		      <li><a href="#">쪽지함</a></li>
 		      <li><a href="/bookmarkHouseList.do">하우스 찜목록 확인</a></li>
 		      <li><a href="#">하우스 입주 내역 확인</a></li>
 		      <li><a href="#">투어 신청 내역 확인</a></li>
@@ -364,50 +363,6 @@
     <a href="#" class="top"><img src="/resources/img/icon/top.png"></a>
 </div>
 
-<!-- 챗봇 -->
-<!-- Channel Plugin Scripts -->
-<script>
-  (function() {
-    var w = window;
-    if (w.ChannelIO) {
-      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
-    }
-    var ch = function() {
-      ch.c(arguments);
-    };
-    ch.q = [];
-    ch.c = function(args) {
-      ch.q.push(args);
-    };
-    w.ChannelIO = ch;
-    function l() {
-      if (w.ChannelIOInitialized) {
-        return;
-      }
-      w.ChannelIOInitialized = true;
-      var s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.async = true;
-      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-      s.charset = 'UTF-8';
-      var x = document.getElementsByTagName('script')[0];
-      x.parentNode.insertBefore(s, x);
-    }
-    if (document.readyState === 'complete') {
-      l();
-    } else if (window.attachEvent) {
-      window.attachEvent('onload', l);
-    } else {
-      window.addEventListener('DOMContentLoaded', l, false);
-      window.addEventListener('load', l, false);
-    }
-  })();
-  ChannelIO('boot', {
-    "pluginKey": "f469f15c-2ce8-4955-93b3-62a6beb7ee5f"
-  });
-</script>
-<!-- End Channel Plugin -->
-
 <script>
 	//비 로그인 시 메신저 버튼누를경우 
 	$("#mate_talk_login").click(function(){
@@ -503,4 +458,45 @@
        });
    }); */
 
+   <!-- 챗봇 -->
+   <!-- Channel Plugin Scripts -->
+     (function() {
+       var w = window;
+       if (w.ChannelIO) {
+         return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+       }
+       var ch = function() {
+         ch.c(arguments);
+       };
+       ch.q = [];
+       ch.c = function(args) {
+         ch.q.push(args);
+       };
+       w.ChannelIO = ch;
+       function l() {
+         if (w.ChannelIOInitialized) {
+           return;
+         }
+         w.ChannelIOInitialized = true;
+         var s = document.createElement('script');
+         s.type = 'text/javascript';
+         s.async = true;
+         s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+         s.charset = 'UTF-8';
+         var x = document.getElementsByTagName('script')[0];
+         x.parentNode.insertBefore(s, x);
+       }
+       if (document.readyState === 'complete') {
+         l();
+       } else if (window.attachEvent) {
+         window.attachEvent('onload', l);
+       } else {
+         window.addEventListener('DOMContentLoaded', l, false);
+         window.addEventListener('load', l, false);
+       }
+     })();
+     ChannelIO('boot', {
+       "pluginKey": "f469f15c-2ce8-4955-93b3-62a6beb7ee5f"
+     });
+   <!-- End Channel Plugin -->
  </script>

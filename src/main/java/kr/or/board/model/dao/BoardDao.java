@@ -49,7 +49,7 @@ public class BoardDao {
 
 	//게시글 목록조회
 	public ArrayList<Board> selectBoard() {
-		List<Board>	list = sqlSession.selectList("board.boardList");
+		List<Board>	list = sqlSession.selectList("board.bdList");
 		return (ArrayList<Board>)list;
 	}
 
@@ -78,6 +78,11 @@ public class BoardDao {
 	//게시글 삭제
 	public int boardDelete(int boardNo) {
 		return sqlSession.delete("board.boardDelete",boardNo);
+	}
+
+	//게시글_회원 파일경로
+	public String selectBoardMember(Board b) {
+		return sqlSession.selectOne("board.selectBoardMember",b);
 	}
 
 }
