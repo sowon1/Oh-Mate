@@ -1,0 +1,24 @@
+.container_mate>h1{
+	padding-left: 35px;
+	margin-bottom: 50px;
+}
+.container_mate>div{
+	width:1000px;
+	margin: 0 auto;	
+}
+.table > :not(caption) > * > *{
+	border-bottom: none;	
+}
+.table{
+	table-layout: fixed;
+}
+.table-active_mate{
+	display: flex;
+	align-items: center;
+}
+.table-active_mate th{
+	width: 130px;
+}
+.table-active_mate td{
+	width: 100px;
+}

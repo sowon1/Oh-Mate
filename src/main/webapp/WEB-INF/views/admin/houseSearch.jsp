@@ -119,7 +119,7 @@
 			                    	<a href="/adminMemberView.do?memberNo=${h.memberNo }">${h.memberId }</a>
 			                    </td>
 			                    <td class="titleTd">
-			                    	<a class="houseModal">${h.houseTitle }</a>
+			                    	<a href="/adminHouseView.do?houseNo=${h.houseNo }" class="houseModal">${h.houseTitle }</a>
 			                    </td>
 			                    <td class="addrTd">${h.addressName } ${h.addressRoad } ${h.addressDetail }</td>
 			                    <td>${h.houseownerDeadline }</td>

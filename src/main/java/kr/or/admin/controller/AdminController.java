@@ -25,6 +25,7 @@ import kr.or.admin.model.vo.SearchMember;
 import kr.or.admin.model.vo.SearchReport;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Report;
+import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -201,11 +202,15 @@ public class AdminController {
 	}
 	
 	//하우스 상세 조회 및 승인/미승인 update 처리
-	
+	@RequestMapping(value="/adminHouseView.do")
+	public String houseView(int houseNo, Model model) {
+		House h = service.selectOneHouse(houseNo);
+		model.addAttribute("h", h);
+		return "admin/adminHouseView";
+	}
 	//대시보드
 	@RequestMapping(value="/dashboard.do")
 	public String dashboard(Model model) {
-		
 		return "admin/dashboard";
 	}
 }

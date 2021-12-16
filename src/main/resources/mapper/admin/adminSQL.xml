@@ -330,4 +330,47 @@
 		</if>
 		)
 	</select>
+	<select id="selectOneHouse" parameterType="_int" resultType="h">
+		select
+		    house_no as houseNo,
+		    member_no as memberNo,
+		    house_title as houseTitle,
+		    (select member_id from member where member_no = h.member_no) memberId,
+		    (select income_bank||' '||income_account||' '||income_name from income where income_num = h.house_no) accountInfo,
+            house_charge as houseCharge,
+            house_gender as houseGender,
+            house_form as houseForm,
+            house_room as houseRoom,
+		    houseowner_deadline as houseownerDeadline,
+		    refuse_reason as refuseReason,
+            (select address_name from address where address_category = 1 and address_number = house_no) as addressName,
+            (select address_road from address where address_category = 1 and address_number = house_no) as addressRoad,
+            (select address_detail from address where address_category = 1 and address_number = house_no) as addressDetail,
+            house_convenience as houseConvenience,
+            house_content as houseContent,
+            house_rule as houseRule,
+            house_allow as houseAllow,
+		    house_selling as houseSelling
+		from house h where house_no = #{houseNo}
+	</select>
+	<select id="selectHouseRoom" parameterType="_int" resultType="r">
+		select 
+			room_no as roomNo,
+			house_no as houseNo,
+			room_title as roomTitle,
+			room_size as roomSize,
+			room_phone as roomPhone,
+			room_status as roomStatus,
+			room_charge as roomCharge,
+			room_content as roomContent,
+			room_personnel as roomPersonnel,
+			room_month as roomMonth
+		from room where house_no = #{houseNo}
+	</select>
+	<select id="selectHousePhoto" parameterType="_int" resultType="p">
+		select
+			photo_no as photoNo,
+			photo_path as photoPath
+		from photo where photo_category = 1 and photo_num = #{houseNo}
+	</select>
 </mapper>
