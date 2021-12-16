@@ -521,6 +521,4 @@
      ChannelIO('boot', {
        "pluginKey": "f469f15c-2ce8-4955-93b3-62a6beb7ee5f"
      });
-   <!-- End Channel Plugin -->
->>>>>>> refs/heads/master
  </script>
