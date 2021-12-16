@@ -10,7 +10,7 @@ public class Member {
 	private String memberName;	// 회원이름
 	private String phone;		// 전화번호 010-0000-0000
 	private String email;		// 이메일
-	private String enrollDate;	// 가입일 YYYY-MM-DD
+	private String enrollDate;	// 가입일 YYYY-MM-DD 
 	private String filepath;	// 파일경로
 
 	//계정 정지 기준 - 게시글 및 채팅에서 피신고 3번 / 허위신고 5번 || 헬퍼 자격 박탈 기준 - 헬퍼 피신고 1번 (5. 헬퍼 박탈된 경우 헬퍼 신청 불가)

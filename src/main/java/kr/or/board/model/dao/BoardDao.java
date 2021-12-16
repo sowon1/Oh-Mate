@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.board.model.vo.Board;
+import kr.or.board.model.vo.BoardMember;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -78,6 +79,11 @@ public class BoardDao {
 	//게시글 삭제
 	public int boardDelete(int boardNo) {
 		return sqlSession.delete("board.boardDelete",boardNo);
+	}
+
+	//게시글_회원 파일경로
+	public String selectBoardMember(Board b) {
+		return sqlSession.selectOne("board.selectBoardMember",b);
 	}
 
 }

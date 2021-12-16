@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.board.model.service.BoardService;
 import kr.or.board.model.vo.Board;
+import kr.or.board.model.vo.BoardMember;
+import kr.or.board.model.vo.BoardMemberData;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -88,9 +90,10 @@ public class BoardController {
 	
 	//게시판
 	@RequestMapping(value="/communityFrm.do")
-	public String coummunityFrm(Model model) {
-		ArrayList<Board> list = service.selectBoard();
-		model.addAttribute("list",list);
+	public String coummunityFrm(Model model, Board b) {
+		BoardMemberData bmd = service.selectBoard(b);
+		model.addAttribute("list",bmd.getB());
+		model.addAttribute("bm",bmd.getFilepath());
 		//System.out.println(list.size());
 		//System.out.println(list);
 		return "board/communityFrm";

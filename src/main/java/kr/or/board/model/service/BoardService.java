@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.board.model.dao.BoardDao;
 import kr.or.board.model.vo.Board;
+import kr.or.board.model.vo.BoardMember;
+import kr.or.board.model.vo.BoardMemberData;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 import kr.or.profile.model.vo.ProfileData;
@@ -52,9 +54,11 @@ public class BoardService {
 	}
 		
 	//게시글목록조회
-	public ArrayList<Board> selectBoard() {
+	public BoardMemberData selectBoard(Board b) {
 		ArrayList<Board> list = dao.selectBoard();
-		return list;
+		String filepath = dao.selectBoardMember(b);
+		BoardMemberData bmd = new BoardMemberData(list,filepath);
+		return bmd;
 	}
 
 	//게시글작성

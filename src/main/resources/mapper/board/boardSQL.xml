@@ -123,6 +123,11 @@
 	<delete id="boardDelete" parameterType="b">
 		delete from board where board_no=#{boardNo}
 	</delete>
+	
+	<!-- 회원 파일경로 -->
+	<select id="selectBoardMember" parameterType="b" resultType="string">
+		select member_filepath from member where member_id=(select board_writer from board where board_no=#{boardNo})
+	</select>
 </mapper>
 
 
