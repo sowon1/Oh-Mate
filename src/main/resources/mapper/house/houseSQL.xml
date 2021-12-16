@@ -87,27 +87,38 @@
 	</resultMap>
 	
 	<select id="selectAjaxHouse" parameterType="map" resultMap="house">
-	 	select 
-			*
-		from  
-			(select rownum as rnum, h.*, (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount,
-			(select address_road from address where address_number=h.house_no) as addressRoad,
-            decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
-			(select * from house where house_allow=1 order by 1 desc)h) 
-		where rnum between #{start} and #{end}
-		<if test="houseGender != 0">
-			and house_gender=#{h.houseGender}
-		</if>
-		<if test="houseForm != null and !''.equals(houseForm)">
-			and house_Form=#{h.houseForm}
-		</if>
-		<if test="keyword != null and !''.equals(keyword)">
-			 and ((house_title || house_content || HOUSE_FORM) like '%' ||  #{keyword} || '%')    
-		    or house_no in (select address_number from address where ADDRESS_CATEGORY='1' and (address_name || address_road || address_legal) like '%' ||  #{keyword} || '%')
-		</if>
-		<if test="roomPersonnel != null and !''.equals(roomPersonnel)">
-			and house_no in (select house_no from room where ROOM_PERSONNEL=#{r.roomPersonnel})
-		</if>
+	 	select hh.* from
+        (select 
+            rownum as rnum,
+            
+            h.*,
+            (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount,
+            (select address_road from address where address_number=h.house_no) as addressRoad,
+            decode((select count(*) from bookmark where bookmarker=1 and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck            
+        from 
+        (select house.*
+        from house 
+        join address on(house.house_no = address.address_number)
+        where 
+            house_allow=1
+            and address_category = 1
+            <if test="houseForm != null and !''.equals(houseForm)">
+				and house_Form=#{houseForm}
+			</if>
+			<if test="houseGender != 0">
+				and house_gender=#{houseGender}
+			</if>
+	        <if test="roomPersonnel != null and !''.equals(roomPersonnel)">
+	        	and house.house_no in (select house_no from room where room_personnel=#{roomPersonnel})
+			</if>
+			<if test="roomCharge1 != 0 and roomCharge2 != 100">			
+	            and (house_charge between #{roomCharge1} and #{roomCharge2})
+			</if>
+            <if test="keyword != null and !''.equals(keyword)">
+            	and (house_title || house_content || house_form || address_name || address_road || address_legal) like '%' ||  #{keyword} || '%'     
+			</if>
+            order by 1 desc
+        )h)hh where rnum between #{start} and #{end}
 	</select>
 	<!-- total -->
 	<select id="houseTotal" resultType="_int">

@@ -58,12 +58,11 @@ public class HouseController {
 
 		return "house/houseList";
 	}
-
+	
 	// ajax 하우스 리스트 - sowon
 	@ResponseBody
-	@RequestMapping(value = "/ajax_page.do", produces = "application/json;charset=utf-8")
-	public String ajax_page(int pageNum, Model model, HttpSession session, String keyword, Room r, String roomCharge1,
-			String roomCharge2, House h) {
+	@RequestMapping(value="/ajax_page.do", produces = "application/json;charset=utf-8")
+	public String ajax_page(int pageNum, Model model, HttpSession session, String keyword, Room r, String roomCharge1,String roomCharge2, House h) {
 		int memberNo = 0;
 		if (session != null) {
 			Member m = (Member) session.getAttribute("m");

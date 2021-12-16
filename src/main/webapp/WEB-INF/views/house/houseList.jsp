@@ -182,6 +182,15 @@
 			}
 		})
 		function GetList(currentPage){
+			console.log("1 : "+keyword);
+			console.log("2 : "+houseGender);
+			if(houseGender == ""){
+				houseGender = 0;
+			}
+			console.log("3 : "+houseForm);
+			console.log("4 : "+roomPersonnel);
+			console.log("5 : "+roomCharge1);
+			console.log("6 : "+roomCharge2);
 			$.ajax({
 				type : "GET",
 				data : {
@@ -198,37 +207,43 @@
 					var html = "";
 					var list = data.list;
 					totalCount = data.totalCount;
+					console.log(data);
+					console.log(list);
 					for(var i=0;i<list.length;i++){
-						html += '<li><div class="house_list_photo"><div class="like_house">';
-						if(login == ''){
-							html += '<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>';
-						}else if(list[i].likedCheck == '좋아요'){
-							html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_on.png"></a>';
-						}else {
-							html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_off.png"></a>'
+						if(list.length == 0){
+							html += '검색결과없음';
+						}else{		
+							html += '<li><div class="house_list_photo"><div class="like_house">';
+							if(login == ''){
+								html += '<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>';
+							}else if(list[i].likedCheck == '좋아요'){
+								html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_on.png"></a>';
+							}else {
+								html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_off.png"></a>'
+							}
+							if(list[i].photoList.length == 0){
+								html += ' </div><img src="/resources/img/icon/heart_off.png"></div>';
+							}else{
+								html += ' </div><img src="/resources/upload/house/'+list[i].photoList[0].photoPath+'"></div>';
+							}
+							
+							html += '<a href="houseView.do?houseNo='+list[i].houseNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].houseTitle+'</span></div>';
+							html += '<div class="list_line_02"><span class="list_tag">';
+							if(list[i].houseGender == '1'){
+								html += '남성전용';
+							}else if(list[i].houseGender == '2'){
+								html += '여성전용';
+							}else{
+								html += '남여공용';
+							}					
+							html += '</span><span class="house_form">'+list[i].houseForm+'</span></div></div>';
+							html += '<a href="houseView.do?houseNo='+list[i].houseNo+'" class="house_more_btn">입주 가능한 방 '+list[i].roomCount+'개</a>';
+							html += '<input type="hidden" value="'+list[i].addressRoad+'" name="address">';
+							html += '<input type="hidden" value="'+list[i].houseTitle+'" name="houseTitle">';
+							html += '</li></a>';
+							getHouseMap(list[i].addressRoad,list[i].houseTitle,"/resources/img/icon/heart_off.png",list[i].houseForm,list[i].roomCount,list[i].houseNo);
+							//getHouseMap(list[i].addressRoad,list[i].houseTitle,list[i].photoList[0].photoPath,list[i].houseForm,list[i].roomCount,list[i].houseNo);
 						}
-						if(list[i].photoList.length == 0){
-							html += ' </div><img src="/resources/img/icon/heart_off.png"></div>';
-						}else{
-							html += ' </div><img src="/resources/upload/house/'+list[i].photoList[0].photoPath+'"></div>';
-						}
-						
-						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].houseTitle+'</span></div>';
-						html += '<div class="list_line_02"><span class="list_tag">';
-						if(list[i].houseGender == '1'){
-							html += '남성전용';
-						}else if(list[i].houseGender == '2'){
-							html += '여성전용';
-						}else{
-							html += '남여공용';
-						}					
-						html += '</span><span class="house_form">'+list[i].houseForm+'</span></div></div>';
-						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'" class="house_more_btn">입주 가능한 방 '+list[i].roomCount+'개</a>';
-						html += '<input type="hidden" value="'+list[i].addressRoad+'" name="address">';
-						html += '<input type="hidden" value="'+list[i].houseTitle+'" name="houseTitle">';
-						html += '</li></a>';
-						getHouseMap(list[i].addressRoad,list[i].houseTitle,"/resources/img/icon/heart_off.png",list[i].houseForm,list[i].roomCount,list[i].houseNo);
-						//getHouseMap(list[i].addressRoad,list[i].houseTitle,list[i].photoList[0].photoPath,list[i].houseForm,list[i].roomCount,list[i].houseNo);
 					}
 					$(".list_container").append(html);
 					$(".loading").hide();
