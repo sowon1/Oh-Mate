@@ -11,6 +11,7 @@ import kr.or.board.model.dao.BoardDao;
 import kr.or.board.model.vo.Board;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
+import kr.or.profile.model.vo.ProfileData;
 
 @Service
 public class BoardService {
@@ -62,7 +63,22 @@ public class BoardService {
 		return dao.insertBoard(b);
 	}
 
+	//게시판 상세보기 이동
+	@Transactional
+	public ArrayList<Board> selectBoardList(int boardNo) {
+		dao.updateCount(boardNo);
+		ArrayList<Board> list = dao.selectBoardList(boardNo);
+		return list;
+	}
 
+	//게시글 수정
+	public int boardUpdate(Board b) {
+		return dao.boardUpdate(b);
+	}
 
-	
+	//게시글 삭제
+	public int boardDelete(int boardNo) {
+		return dao.boardDelete(boardNo);
+	}
+
 }

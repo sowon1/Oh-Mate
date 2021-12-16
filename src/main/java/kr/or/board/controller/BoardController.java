@@ -156,12 +156,86 @@ public class BoardController {
 	
 	//게시판 상세보기 이동
 	@RequestMapping(value="/boardView.do")
-	public String boardView(Model model) {
-		ArrayList<Board> b = service.selectBoard();
-		model.addAttribute(b);
+	public String boardView(int boardNo, Model model) {
+		//System.out.println(boardNo);
+		ArrayList<Board> list = service.selectBoardList(boardNo);
+		model.addAttribute("list",list);
+		//System.out.println(list);
 		return "board/boardView";
 	}
-
+	
+	//게시판 수정 이동
+	@RequestMapping(value="/boardUpdateFrm.do")
+	public String boardUpdateFrm(int boardNo, Model model) {
+		ArrayList<Board> list = service.selectBoardList(boardNo);
+		model.addAttribute("list",list);
+		return "board/boardUpdateFrm";
+	}
+	
+	//게시판 수정
+	@RequestMapping(value="/boardUpdate.do")
+	public String boardUpdate(Board b, MultipartFile uploadFile, HttpServletRequest request, Model model) {
+		if(uploadFile.isEmpty()) {
+					
+		}else {
+			String savePath =  request.getServletContext().getRealPath("/resources/upload/board/");
+			
+			String filename = uploadFile.getOriginalFilename();
+			String onlyFilename = filename.substring(0,filename.indexOf("."));
+			String extention = filename.substring(filename.indexOf("."));
+			
+			String filepath = null;
+			
+			int count = 0;
+			while(true) {    
+				if(count == 0) {
+					filepath = onlyFilename + extention;  
+				}else {
+					filepath = onlyFilename + "_" + count + extention;  
+				}
+				File checkFile = new File(savePath+filepath);  
+				if(!checkFile.exists()) { 
+					break;
+				}
+				count++;    
+			}  
+			try {
+				FileOutputStream fos = new FileOutputStream(new File(savePath+filepath));
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				byte[] bytes = uploadFile.getBytes();
+				bos.write(bytes);
+				bos.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			b.setFilePath(filepath);
+		}
+		int result = service.boardUpdate(b);
+		if(result>0) {
+			model.addAttribute("msg","게시글 수정 완료~!");
+		}else {
+			model.addAttribute("msg","게시글 수정 실패");
+		}
+		model.addAttribute("loc","/boardView.do?boardNo="+b.getBoardNo());
+		return "common/msg";
+	}
+	
+	//게시글 삭제
+	@RequestMapping(value="/boardDelete.do")
+	public String boardDelete(int boardNo, Model model) {
+		int result = service.boardDelete(boardNo);
+		if(result>0) {
+			model.addAttribute("msg","게시글 삭제 완료");
+		}else {
+			model.addAttribute("msg","게시글 삭제 실패");
+		}
+		model.addAttribute("loc","/communityFrm.do?boardNo="+boardNo);
+		return "common/msg";
+	}
 }
 
 

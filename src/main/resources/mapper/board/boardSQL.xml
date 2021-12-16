@@ -95,9 +95,34 @@
 	<!-- 게시글 작성 -->
 	<insert id="insertBoard" parameterType="b">
 		insert into board values(board_seq.nextval,#{boardWriter},#{boardTitle},#{boardContent},
-		0,to_char(sysdate,'yyyy-dd-mm HH:MM'),#{filePath},(select p_gender||p_age||p_local||p_smoke||p_pet||p_cleaning||p_pattern from profile where p_writer='user03'),1)
+		0,to_char(sysdate,'yyyy-mm-dd HH:MM'),#{filePath},(select p_gender||p_age||p_local||p_smoke||p_pet||p_cleaning||p_pattern from profile where p_writer=#{boardWriter}),1)
 	</insert>
+	
+	<!-- 게시글 조회수 -->
+	<update id="updateCount" parameterType="b">
+		update board set
+			read_count = read_count+1
+		where board_no=#{boardNo}
+	</update>
 
+	<!-- 게시글 목록 -->
+	<select id="selectBoardList" parameterType="int" resultType="b">
+		select * from board where board_no=#{boardNo}		
+	</select>
+
+	<!-- 게시물 수정 -->
+	<update id="boardUpdate" parameterType="b">
+		update board set
+			filepath=#{filePath},
+			board_title=#{boardTitle},
+			board_content=#{boardContent}
+		where board_no=#{boardNo}
+	</update>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="boardDelete" parameterType="b">
+		delete from board where board_no=#{boardNo}
+	</delete>
 </mapper>
 
 

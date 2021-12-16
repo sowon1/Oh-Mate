@@ -47,7 +47,7 @@ public class BoardDao {
 		return sqlSession.selectOne("board.selectMember",memberId);
 	}
 
-	//게시글목록조회
+	//게시글 목록조회
 	public ArrayList<Board> selectBoard() {
 		List<Board>	list = sqlSession.selectList("board.boardList");
 		return (ArrayList<Board>)list;
@@ -58,7 +58,27 @@ public class BoardDao {
 		return sqlSession.insert("board.insertBoard",b);
 	}
 
+	//게시글 조회수
+	public int updateCount(int boardNo) {
+		return sqlSession.update("board.updateCount",boardNo);
+	}
 
+	//게시판 상세보기 이동
+	public ArrayList<Board> selectBoardList(int boardNo) {
+		List<Board>	list = sqlSession.selectList("board.boardList",boardNo);
+		return (ArrayList<Board>)list;
+	}
+
+	//게시글 수정
+	public int boardUpdate(Board b) {
+		System.out.println("dao : " + sqlSession.update("board.boardUpdate",b));
+		return sqlSession.update("board.boardUpdate",b);
+	}
+
+	//게시글 삭제
+	public int boardDelete(int boardNo) {
+		return sqlSession.delete("board.boardDelete",boardNo);
+	}
 
 }
 
