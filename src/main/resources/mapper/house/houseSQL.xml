@@ -384,7 +384,7 @@
   		select * from 
   			(select rownum as rnum, 
   			b.bookmark_no, 
-  			h.* from BOOKMARK b left join house h ON (bookmark_num = house_no) 
+  			h.* from BOOKMARK b join house h ON (bookmark_num = house_no) 
   			where BOOKMARKER=#{memberNo} )
   		order by 2 desc
 	</select>

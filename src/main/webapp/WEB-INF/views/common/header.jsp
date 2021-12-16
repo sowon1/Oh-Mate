@@ -187,7 +187,7 @@
 		      <li><a href="/myPage.do?memberId=${sessionScope.m.memberId }">나의 정보</a></li>
 		      <li><a href="/bookmarkHouseList.do">하우스 찜목록 확인</a></li>
 		      <li><a href="#">하우스 입주 내역 확인</a></li>
-		      <li><a href="#">투어 신청 내역 확인</a></li>
+		      <li><a href="/tourRequestList.do?reqPage=1">투어 신청 내역 확인</a></li>
 		      <li><a href="/communityConfirm.do">커뮤니티 게시글 확인/댓글 확인</a></li>
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
 		      	<li>
