@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.common.Tour;
 import kr.or.room.model.vo.Room;
 
 @Repository
@@ -50,5 +51,16 @@ public class RoomDao {
 	// 결제정보 - sowon
 	public int insertMovePay(HashMap<String, Object> map) {
 		return session.insert("room.insertMovePay",map);
+	}
+
+	public ArrayList<Tour> selectTourRequest(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<Tour> list = session.selectList("room.selectTourRequest", map);	
+		return (ArrayList<Tour>)list;
+	}
+
+	public int tourRequestCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("room.tourRequestCount", memberNo);
 	}
 }

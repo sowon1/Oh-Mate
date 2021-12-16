@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.common.Move;
 import kr.or.common.Pay;
+import kr.or.common.Tour;
 import kr.or.room.model.service.RoomDao;
 import kr.or.room.model.vo.Room;
 
@@ -73,4 +74,62 @@ public class RoomService {
 		}
 		return result;
 	}
+
+	public HashMap<String, Object> tourRequestList(int memberNo, int reqPage) {
+		// TODO Auto-generated method stub
+		int numPerPage=3;
+		int end = reqPage*numPerPage;
+		int start = end-numPerPage+1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo",memberNo);
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Tour> list = dao.selectTourRequest(map);
+		int totalCount = dao.tourRequestCount(memberNo);
+		int totalPage = 0;
+		
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage;
+		}else {
+			totalPage = totalCount/numPerPage + 1;
+		}
+		
+		int pageNaviSize=5;
+		int pageNo=1;
+		if(reqPage>4) {
+			pageNo=reqPage-2;
+			if(totalPage - reqPage < (pageNaviSize-1)) {
+				pageNo = totalPage-(pageNaviSize-1);
+			}
+		}
+		
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/tourRequestList.do?reqPage="+(reqPage-1)+"'>&lt;</a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/tourRequestList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+			}else {
+				pageNavi += "<li class='page-item-mate-mate'><a href='/tourRequestList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/tourRequestList.do?reqPage="+(reqPage+1)+"'>&gt;</a><li>";
+		}
+		pageNavi += "</ul>";
+		
+		map.put("pageNavi", pageNavi);
+		map.put("list",	list);
+		
+		return map;
+	}
+
+	
 }

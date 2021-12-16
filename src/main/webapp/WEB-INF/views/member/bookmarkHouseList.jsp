@@ -11,9 +11,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container_mate">
-		<div>
-			<h1>내가 찜한 하우스</h1>
-		</div>
+		<h1 class="point_title">내가 찜한 하우스</h1>
 		<br>
 		<hr>
 		<br>

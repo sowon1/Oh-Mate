@@ -101,4 +101,21 @@
 	  		null
 	  	)	
  	</insert>
+ 	<select id="selectTourRequest" parameterType="map" resultType="t">
+ 		select
+ 			tour_no as tourNo,
+ 			room_no as roomNo,
+ 			member_no as memberNo,
+ 			tour_phone as tourPhone,
+ 			tour_email as tourEmail,
+ 			house_name as houseName,
+ 			tour_qna as tourQna,
+ 			tour_visit as tourVisit,
+ 			tour_status as tourStatus
+ 		from (select rownum as rnum, t.* from (SELECT * FROM tour where member_no=#{memberNo} order by 1 desc)t) 
+		where rnum between #{start} and #{end}
+ 	</select>
+ 	<select id="tourRequestCount" parameterType="_int" resultType="_int">
+ 		select count(*) from tour where member_no = #{memberNo}
+ 	</select>
 </mapper>
