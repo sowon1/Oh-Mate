@@ -61,6 +61,13 @@ public class HouseController {
 	@ResponseBody
 	@RequestMapping(value="/ajax_page.do", produces = "application/json;charset=utf-8")
 	public String ajax_page(int pageNum, Model model, HttpSession session,String keyword, Room r, String roomCharge1, String roomCharge2, House h) {
+		System.out.println("1 : " + keyword);
+		System.out.println("2 : " + pageNum);
+		System.out.println("3 : " + roomCharge1);
+		System.out.println("4 : " + roomCharge2);
+		System.out.println("5 : " + r);
+		System.out.println("6 : " + h);
+
 		int memberNo = 0;
 		if(session != null) {
 			Member m = (Member)session.getAttribute("m");
