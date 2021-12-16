@@ -35,6 +35,9 @@ input[name="boardTitle"]{
 .submitBtn{
 	text-align:center;
 }
-#boardInsert{
+#boardBack{
 	line-height:0px;
+}
+#boardUpdate, #deleteBtn, #boardInsert{
+	padding: 0px;
 }

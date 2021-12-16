@@ -77,18 +77,22 @@
 				    			<option value="0" id="sel" selected disabled>지역구 선택</option>
 				    		</select>
 				    	</div><br>
-						<h6>선호 성별</h6>
-	                 	<div class="select">
+				    	<div style="float:left; display:inline;">
+						<h6 style="display:inline;">선호 성별</h6>
+	                 	<div class="select" style="display:inline;">
 			                <input type="radio" id="pGender1" name="pGender" value="1"><label for="pGender1" style="width:130px;">여성전용</label>
 			                <input type="radio" id="pGender2" name="pGender" value="2"><label for="pGender2" style="width:130px;">남성전용</label>
 			                <input type="radio" id="pGender3" name="pGender" value="3"><label for="pGender3" style="width:130px;">남녀공용</label>
+		           		</div>
 		           		</div><br>
-						<h6>선호 나이</h6>
-	                 	<div class="select">
+		           		<div style="float:left; display:inline;">
+						<h6 style="display:inline;">선호 나이</h6>
+	                 	<div class="select" style="display:inline;">
 			                <input type="radio" id="pAge1" name="pAge" value="1"><label for="pAge1" style="width:130px;">20대</label>
 			                <input type="radio" id="pAge2" name="pAge" value="2"><label for="pAge2" style="width:130px;">30대</label>
 			                <input type="radio" id="pAge3" name="pAge" value="3"><label for="pAge3" style="width:130px;">40대이상</label>
-		           		</div><br>
+		           		</div>
+		           		</div><br><br>
 		           		<h6>흡연 여부</h6>
 	                 	<div class="select">
 			                <input type="radio" id="pSmoke1" name="pSmoke" value="1"><label for="pSmoke1" style="width:130px;">흡연</label>

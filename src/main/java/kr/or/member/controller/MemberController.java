@@ -154,7 +154,7 @@ public class MemberController {
 			member.setFilepath(filepath);
 	}// else	
 		
-		System.out.println("join1 " +member.toString());
+		//System.out.println("join1 " +member.toString());
 		int result = service.join(member);  
 		
 		if(result > 0) {   // 성공 
