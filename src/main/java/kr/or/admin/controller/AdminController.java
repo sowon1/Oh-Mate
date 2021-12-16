@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import kr.or.admin.model.service.AdminService;
+import kr.or.admin.model.vo.SearchHouse;
 import kr.or.admin.model.vo.SearchMember;
 import kr.or.admin.model.vo.SearchReport;
 import kr.or.admin.model.vo.UpdateMember;
@@ -188,5 +189,15 @@ public class AdminController {
 		model.addAttribute("list", data.get("list"));
 		model.addAttribute("start", data.get("start"));
 		return "admin/houseMgr";
+	}
+	@RequestMapping(value="/adminHouseSearch.do")
+	public String houseSearch(int reqPage, SearchHouse sh, Model model) {
+		System.out.println(sh.toString());
+		HashMap<String, Object> data = service.houseSearch(reqPage, sh);
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		model.addAttribute("sh", sh);
+		return "admin/houseSearch";
 	}
 }

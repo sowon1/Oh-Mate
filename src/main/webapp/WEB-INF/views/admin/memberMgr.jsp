@@ -47,6 +47,7 @@
                     <input type="text" class="input_03" name="keyword">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </div>
+                <a class="resetSearch">※ 검색 조건 초기화</a>
             </div>
         </form>
         <div>

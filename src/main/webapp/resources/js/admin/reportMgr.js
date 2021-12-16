@@ -106,3 +106,8 @@ $(".modal_report_content [type=button]").click(function(){
 		});			
 	}
 });
+$(".resetSearch").click(function(){
+	$(".searchBox [type=checkbox]").prop("checked",false);
+	$("[name=type]>option:first").prop("selected",true);
+	$("[name=keyword]").val("");
+});
