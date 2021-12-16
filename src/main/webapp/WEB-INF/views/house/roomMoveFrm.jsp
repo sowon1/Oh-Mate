@@ -273,8 +273,8 @@
                		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
                 </div>
                 <div class="msg_modal_content">
-                	<h3 class="modal_msg_timetitle">${r.roomTitle} 계약이 완료되었습니다.</h3>
-                	<h2 class="modal_msg_timetext"><em id="countdown">5</em>초 후 자동으로 마이페이지로 이동됩니다.</h2>                
+                	<h3 class="modal_msg_timetitle"><em id="title_name" class="title_name"></em><em class="title_and_text"></em></h3>
+                	<h2 class="modal_msg_timetext">해당 창은 <em id="countdown">3</em>초 후 자동으로 닫힙니다.</h2>                
                 </div>
         	</div> 
         </div>
@@ -294,55 +294,58 @@
 			var moveEnd = $("input[name='moveEnd']").val();
 			var payId = '${sessionScope.m.memberId}';
 			var houseNo = '${house[0].houseNo}';
-			
-			var d = new Date();
-			//고유식별번호 문자열로 쓰려고 +""+ 붙여줌 - 월은 0~11이라 +1해줌
-			var date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
-			//결제 API 사용을 위해 아임포트 가맹점 식별코드 입력
-			IMP.init("imp41554995");
-			IMP.request_pay({ //결제할때 필요한 정보(가격 등)를 객체형태로 넣어줌
-				pay_method: 'card',
-				merchant_uid : date, //거래 아이디
-				name : "㈜오늘부터메이트",		// 결제 이름 설정
-				amount : price,				// 결제 금액
-				buyer_email : email, 		//구매자 이메일
-				buyer_name : memberName,	//구매자 이름
-				buyer_phone : phone			//구매자 전하번호		
-			},function(rsp){ //결제를 하고나면 결제 이후의 작업을 처리할 함수
-				if(rsp.success){
-					console.log("오나");
-					console.log(roomNo);
-					console.log(memberNo);
-					console.log(moveStart);
-					$.ajax({
-						url : "/movePayment.do",
-						method : "POST",
-						data : {
-							roomNo : roomNo,
-							memberNo : memberNo,
-							houseNo : houseNo,
-							moveStart : moveStart,
-							moveEnd : moveEnd,
-							movePhone : phone,
-							payId : payId,
-							payName : memberName,
-							payNum : rsp.merchant_uid,
-							payPrice : totalprice,
-							payWay : rsp.pay_method
-						},
-						success : function(data){
-
-						}
-					});
-					alert("결제성공");
-				}else{
-					//결제 실패 시 로직 구현 (ex. 장바구니에 저장 -> 사용자 화면처리)
-					alert("결제가 취소되었습니다.");
-					
-				}
-			});
-		});
-		
+			if(moveStart == ""){
+				$(".title_name").text("계약일을");
+				$(".title_and_text").text("입력해주세요.");
+				countmsgopen(autoClose());	
+			}else{								
+				var d = new Date();
+				//고유식별번호 문자열로 쓰려고 +""+ 붙여줌 - 월은 0~11이라 +1해줌
+				var date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
+				//결제 API 사용을 위해 아임포트 가맹점 식별코드 입력
+				IMP.init("imp41554995");
+				IMP.request_pay({ //결제할때 필요한 정보(가격 등)를 객체형태로 넣어줌
+					pay_method: 'card',
+					merchant_uid : date, //거래 아이디
+					name : "㈜오늘부터메이트",		// 결제 이름 설정
+					amount : price,				// 결제 금액
+					buyer_email : email, 		//구매자 이메일
+					buyer_name : memberName,	//구매자 이름
+					buyer_phone : phone			//구매자 전하번호		
+				},function(rsp){ //결제를 하고나면 결제 이후의 작업을 처리할 함수
+					if(rsp.success){
+						$.ajax({
+							url : "/movePayment.do",
+							method : "POST",
+							data : {
+								roomNo : roomNo,
+								memberNo : memberNo,
+								houseNo : houseNo,
+								moveStart : moveStart,
+								moveEnd : moveEnd,
+								movePhone : phone,
+								payId : payId,
+								payName : memberName,
+								payNum : rsp.merchant_uid,
+								payPrice : totalprice,
+								payWay : rsp.pay_method
+							},
+							success : function(data){
+	
+							}
+						});
+						$(".title_name").text("계약이 ");
+						$(".title_and_text").text("성사되었습니다.");
+						$(".modal_msg_timetext").html("<em id='countdown'>3</em>초 후 자동으로 마이페이지로 이동됩니다.");
+						countmsgopen(autoClose());
+					}else{
+						$(".title_name").text("결제가 ");
+						$(".title_and_text").text("취소되었습니다.");
+						countmsgopen(autoClose());
+					}
+				});
+			}
+		});	
 		// msg
 		function countmsgopen(){
 			$(".form_popup_modal").css("display","flex");
@@ -356,12 +359,11 @@
 		}
 		//자동닫기
        function autoClose(){
-    	   setTimeout('closed()',5000);
+    	   setTimeout('closed()',3000);
        }
        function closed(){
     	   countmsgclose();
-       }
-      
+       }    
 		//편의시설
 		$(function(){
 			var options = $(".room_move_option_view").attr("value");
