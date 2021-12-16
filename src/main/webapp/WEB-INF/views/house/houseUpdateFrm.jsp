@@ -292,7 +292,7 @@
 					</div>
 					<div class="imageForm">
 						<div class="input_wrap">
-							<p class="ac-title">이미지업로드 (필수)</p>
+							<p class="ac-title">이미지업로드 (삭제하고싶은 이미지를 선택해주시고 이미지가 없는 경우 추가해주세요(이미지 추가 필수!))</p>
 							<c:choose>
 								<c:when test="${not empty h.photoList }">
 									<div style="height: 150px; border: 1px solid #ededed; padding: 15px;">

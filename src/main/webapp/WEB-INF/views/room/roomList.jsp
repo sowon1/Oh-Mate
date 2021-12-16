@@ -26,9 +26,11 @@
 .note-modal-footer {
 	margin-bottom: 40px
 }
-.content{
+
+.content {
 	background-color: #fff;
 }
+
 .content-place>select {
 	width: 100%;
 	height: 45px;
@@ -77,35 +79,39 @@
 	font-size: 18px;
 	color: #956bfc;
 }
-.room-title{
+
+.room-title {
 	overflow: hidden;
 	border-bottom: 1px solid #9F9F9F;
 }
-.roomTL{
+
+.roomTL {
 	float: left;
 	margin-left: 5px;
 }
-.roomBtn{
+
+.roomBtn {
 	float: right;
 	margin-right: 5px;
 }
-.room-list{
+
+.room-list {
 	border: 1px solid #9F9F9F;
 	border-radius: 5px;
-	
 }
 </style>
 <!-- jQuery라이브러리 -->
 <script type="text/javascript" src="/resources/js/jquery-3.3.1.js"></script>
 <!--  JSTL 확장 c 태그 선언문 -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 폰트어썸(아이콘) -->
 <link rel="stylesheet" href="/resources/fontawesome/css/all.css">
 <script type="text/javascript" src="/resources/fontawesome/js/all.js"></script>
 <!-- 부트스트랩 CSS -->
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <!-- 부트스트랩용 jQuery -->
-<script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+	src="/resources/js/bootstrap.bundle.min.js"></script>
 <!-- 기본 CSS -->
 <link rel="stylesheet" href="/resources/css/default.css">
 <!-- 폰트 CSS -->
@@ -114,14 +120,15 @@
 <link rel="stylesheet" href="/resources/css/main/mate_talk.css">
 </head>
 <body>
-	<div style="margin: 0; padding-top: 200px; background-color: #f8f8fa; height: 100%;">
+	<div
+		style="margin: 0; padding-top: 200px; background-color: #f8f8fa; height: 100%;">
 		<div class="content">
-			<div class="houseForm" >
+			<div class="houseForm">
 				<h4 class="form-title point_title">방 리스트</h4>
 				<div class="content-place">
 					<div class="room-status">
 						<div class="room-counting" style="text-align: left;">
-						<p class="ac-title">현재 방갯수 ※등록하신 방갯수 채워야함</p>
+							<p class="ac-title">현재 방갯수 ※등록하신 방갯수 채워야함</p>
 							<span id="nowRoom"></span>/<span id="endRoom">${houseRoom }</span>
 						</div>
 					</div>
@@ -131,22 +138,33 @@
 							<input type="hidden" name="houseNo" value="${houseNo }">
 							<input type="hidden" name="houseRoom" value="${houseRoom }">
 							<button class="btn btn_w" type="submit"
-								style="height: 40px; line-height: 25px" onclick="return chkNum()">방 등록하기</button>
+								style="height: 40px; line-height: 25px"
+								onclick="return chkNum()">방 등록하기</button>
 						</form>
 					</div>
 					<br>
 					<c:forEach items="${list }" var="r" varStatus="i">
 						<div class="room-list" style="margin-top: 15px;">
-							<ul >
+							<ul>
 								<li class="room_li">
 									<div class="room-title">
-									<div class="roomTL">
-										<p style="font-size: 25px; font-weight: bold; color: #956bfc; margin-left: 5px">${r.roomTitle }</p>
-									</div>
+										<div class="roomTL">
+											<p
+												style="font-size: 25px; font-weight: bold; color: #956bfc; margin-left: 5px">${r.roomTitle }</p>
+										</div>
 										<div class="roomBtn">
-											<a href="/roomMod.do?roomNo=${r.roomNo }&houseNo=${r.houseNo}&houseRoom=${houseRoom}"> <i class="fas fa-pen far-2x"></i>
-											</a> <a href="/roomDel.do?houseNo=${r.houseNo }&roomNo=${r.roomNo }&houseRoom=${houseRoom}"> <i class="fas fa-times far-2x"></i>
-											</a>
+											<c:choose>
+												<c:when test="${r.roomStatus==1 }">
+													<a
+														href="/roomMod.do?roomNo=${r.roomNo }&houseNo=${r.houseNo}&houseRoom=${houseRoom}">
+														<i class="fas fa-pen far-2x"></i>
+													</a>
+													<a
+														href="/roomDel.do?houseNo=${r.houseNo }&roomNo=${r.roomNo }&houseRoom=${houseRoom}">
+														<i class="fas fa-times far-2x"></i>
+													</a>
+												</c:when>
+											</c:choose>
 										</div>
 									</div>
 									<div class="room-detail">
@@ -161,7 +179,9 @@
 													<div class="font-mid">${r.roomMonth }원</div>
 												</td>
 												<td>
-													<p class="ac-title" style="margin-top: 40px;margin-left: 30px;">${r.roomSize }·${r.roomPersonnel }/전화번호 : ${r.roomPhone }</p>
+													<p class="ac-title"
+														style="margin-top: 40px; margin-left: 30px;">${r.roomSize }·${r.roomPersonnel }/전화번호
+														: ${r.roomPhone }</p>
 												</td>
 											</tr>
 										</table>
@@ -180,26 +200,26 @@
 	</div>
 	<script>
 		$(function() {
-			
-			var length= $(".room-list").length;
+
+			var length = $(".room-list").length;
 			$("#nowRoom").html(length);
 		});
 		function chkRoom() {
 			var now = $("#nowRoom").html();
 			var end = $("#endRoom").html();
-			if(now==end){
-				location.href="/main.do";
-			}else{
+			if (now == end) {
+				location.href = "/main.do";
+			} else {
 				alert("등록하신 최대 방갯수를 채워주세요~");
 			}
 		}
 		function chkNum() {
 			var start = $("#nowRoom").html();
 			var co = $("#endRoom").html();
-			if(start==co){
+			if (start == co) {
 				alert("최대 방갯수가 초과됬습니다.")
 				return false;
-			}else{
+			} else {
 				return true;
 			}
 		}

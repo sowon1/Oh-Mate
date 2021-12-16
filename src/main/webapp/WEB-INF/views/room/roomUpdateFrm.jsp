@@ -96,7 +96,7 @@
 	<div
 		style="margin: 0; padding-top: 50px; background-color: #f8f8fa; height: 100%;">
 		<div class="content">
-			<form action="/roomUpdate.do" method="post">
+			<form action="/roomUpdate.do" method="post" id="frm">
 				<h4 class="form-title point_title">방 리스트</h4>
 				<input type="hidden" name="houseNo" value="${r.houseNo }"> <input
 					type="hidden" name="houseRoom" value="${houseRoom }">
@@ -129,19 +129,19 @@
 							<c:when test="${r.roomPersonnel eq '1인실'}">
 								<option value="">선택</option>
 								<option value="1인실" selected="selected">1인실</option>
-								<option value="3인실">3인실</option>
+								<option value="2인실">3인실</option>
 								<option value="다인실">다인실</option>
 							</c:when>
-							<c:when test="${r.roomPersonnel eq '3인실'}">
+							<c:when test="${r.roomPersonnel eq '2인실'}">
 								<option value="">선택</option>
 								<option value="1인실">1인실</option>
-								<option value="3인실" selected="selected">3인실</option>
+								<option value="2인실" selected="selected">2인실</option>
 								<option value="다인실">다인실</option>
 							</c:when>
 							<c:when test="${r.roomPersonnel eq '다인실'}">
 								<option value="">선택</option>
 								<option value="1인실">1인실</option>
-								<option value="3인실">3인실</option>
+								<option value="2인실">3인실</option>
 								<option value="다인실" selected="selected">다인실</option>
 							</c:when>
 						</c:choose>
@@ -159,7 +159,7 @@
 				</div>
 				<div class="button-place">
 					 <a class="btn" 
-							style="line-height: 30px;width: 300px;" onclick="accountChk()">방만들기</a>
+							style="line-height: 30px;width: 300px;" onclick="accountChk()">방 수정하기</a>
 				</div>
 			</form>
 		</div>
@@ -174,7 +174,7 @@
 		{
 			$("#frm").submit();
 		}else{
-			alert("방등록 내용을 확인해주세요!!")
+			alert("방등록 내용을 확인해주세요!!");
 		}
 
 	}
