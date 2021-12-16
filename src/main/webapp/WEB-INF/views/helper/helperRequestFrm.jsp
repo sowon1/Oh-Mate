@@ -7,6 +7,19 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<style>
+	.note-modal-content {
+	height: auto;
+	position: fixed;
+	top: 40%;
+	left: 20%;
+	transform: translate(-50%, -50%);
+}
+
+.note-modal-footer {
+	margin-bottom: 40px
+}
+	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -69,7 +82,7 @@
 								<img id="img-view" src="">
 							</div> <label class="btn btn_sm btn_out" for="profile"
 							style="line-height: 18px">사진첨부</label> <input type="file"
-							name="profileFilepath" id="profile" name="helperFilepath"
+							id="profile" name="upfile"
 							onchange="loadImg(this);" accept=".jpg,.jpeg,.png,.gif"
 							style="display: none;">
 						</td>
@@ -77,33 +90,39 @@
 					<tr class="table-active_mate">
 						<th>3.활동닉네임</th>
 						<td><input type="text" name="helperName" class="input_03"
-							placeholder="닉네임 입력"></td>
+							placeholder="닉네임 입력" " style="width: 300px;"></td>
+							<td id="idChk"></td>
+						
 					</tr>
 					<tr class="table-active_mate">
 						<th>4.선호 시작 시간 선택</th>
-						<td><span class="time"> <input type="text"
-								name="datefilter" placeholder="선호시작시간"
+						<td><span class="time"> <input type="text" class="timeform"
+								name="helperStartTime"
 								class="input_date input_04">
 						</span></td>
 					</tr>
 					<tr class="table-active_mate">
 						<th>5.선호 마감 시간 선택</th>
-						<td><span class="time"> <input type="text"
-								name="datefilter" placeholder="선호마감시간"
+						<td><span class="time"> <input class="timeform" type="text"
+								name="helperEndTime"
 								class="input_date input_04">
 						</span></td>
 
 					</tr>
 					<tr class="table-active_mate">
 						<th>6.이동수단</th>
-						<td><input type="radio" name="helperRide" id="ride01"
-							value="1"><label for="ride01">자동차</label> <input
+						<td>
+							<input type="radio" name="helperRide" id="ride01"
+							value="1"><label for="ride01" >자동차</label> 
+							<input
 							type="radio" name="helperRide" id="ride02" value="2"><label
-							for="ride02">오토바이</label> <input type="radio" name="helperRide"
-							id="ride03" value="3"><label for="ride03">전동퀵보드</label> <input
+							for="ride02">오토바이</label> 
+							<input type="radio" name="helperRide"
+							id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
+							<input
 							type="radio" name="helperRide" id="ride04" value="4"><label
 							for="ride04">자전거</label> <input type="radio" name="helperRide"
-							id="ride05" value="5"><label for="ride05">없음</label></td>
+							id="ride05" value="5" checked="checked"><label for="ride05">없음</label></td>
 					</tr>
 					<tr class="table-active_mate">
 						<th>7.자기소개</th>
@@ -137,12 +156,13 @@
 					</tr>
 				</table>
 				<div class="next_btn">
-					<button class="btn btn_100" type="submit" style="line-height: 15px">작성하기</button>
+					<button class="btn btn_100" type="submit" style="line-height: 15px" id="subbtn"onclick="return chkForm();">작성하기</button>
 				</div>
 			</div>
 		</form>
 	</div>
 	<script>
+	var count =0;
 	//카테고리 설정(00000000);
 	$(".chk").change(function () {
 		if($(this).is(":checked")){
@@ -172,7 +192,7 @@
 		});
 		$(function() {
 			// 시간
-			$('input[name="datefilter"]').daterangepicker({
+			$('.timeform').daterangepicker({
 				timePicker : true,
 				singleDatePicker : true,
 				timePicker24Hour : true,
@@ -215,7 +235,11 @@
 	                    addTag(tagValue);
 	                    self.val("");
 	                    } else {
-	                        $("#tag").val("중복된 태그입니다.");
+	                    	alert("중복된 주소입니다.");
+	                        $(".addresswrap").last().remove();
+	                        count--;
+	                        console.log(count);
+	                        $("#tag").val("");
 	                    }
 	                }
 	                e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
@@ -334,6 +358,7 @@
 				});
 			}
 			$("#addressBtn").click(function () {
+				if($("#tag").val()==""){
 				if($("input[name='addressCode']").length == 3){
 					alert("선호 주소가 3개 초과입니다. ")
 				}else{
@@ -343,19 +368,77 @@
 					var addressRoad = "<input type='hidden' name='addressRoad'>"
 					var addressLegal = "<input type='hidden' name='addressLegal'>"
 					 var addressDetail = "<input type='hidden' name='addressDetail' value='헬퍼주소등록'>"
+					 var addresswrap= "<div class='addresswrap'>"+addressCode+addressName+addressRoad+addressLegal+addressDetail+"</div>";
 					new daum.Postcode(
 							{
 								oncomplete : function(data) {
-									address.append("<div class='addresswrap'>"+addressCode+addressName+addressRoad+addressLegal+addressDetail+"</div>")	
-									document.querySelector("input[name='addressCode']").value = data.zonecode;
-									document.querySelector("input[name='addressName']").value = data.sigungu;
-									document.querySelector("input[name='addressRoad']").value = data.roadname;
-									document.querySelector("input[name='addressLegal']").value = data.bname2;
-					$("#tag").val($("input[name='addressName']").val()+" "+$("input[name='addressRoad']").val()+" "+$("input[name='addressLegal']").val());
+									address.append(addresswrap);	
+									document.querySelectorAll("input[name='addressCode']")[count].value = data.zonecode;
+									document.querySelectorAll("input[name='addressName']")[count].value = data.sigungu;
+									document.querySelectorAll("input[name='addressRoad']")[count].value = data.roadname;
+									document.querySelectorAll("input[name='addressLegal']")[count].value = data.bname2;
+					$("#tag").val($("input[name='addressCode']").eq(count).val()+" "+$("input[name='addressName']").eq(count).val()+" "+$("input[name='addressRoad']").eq(count).val()+" "+$("input[name='addressLegal']").eq(count).val());
+								count++;
+								console.log(count);
 								}
 							}).open();
 				}
+				}else{
+					alert("엔터를 쳐주세요!!");
+				}
 			});
+			//아이디 중복확인
+			$("input[name=helperName]").keyup(function () {
+				var helperName = $(this).val();
+				$.ajax({
+					url : "/idCheck.do",
+					data: {helperName:helperName},
+					success:function(data){
+						if(data ==1){
+							$("#idChk").html("사용가능한 닉네임 입니다.");
+							$("#idChk").css("color","blue");
+							$("#subbtn").css("display","block");
+						}else{
+							$("#idChk").html("이미 사용중인 닉네임입니다.");
+							$("#idChk").css("color","red");
+							$("#subbtn").css("display","none");
+						}
+					}
+				});
+			})
+		 	function chkForm() {
+				if($("#helperCategory").val()==00000000){
+					alert("분야를 하나라도 선택하셔야합니다.");
+					return false;
+				}else{
+					if($("input[name='helperName']").val()==""){
+						alert("닉네임을 적어주세요");
+						return false;
+					}else{
+						if($("input[name='helperStartTime']").val()>=$("input[name='helperEndTime']").val()){
+							alert("시작날짜와 마감날짜를 다르게 적용해주세요");
+							return false;
+						}else{
+							if($("input[name='helperRide']").val()==0){
+								alert("이동수단을 적용해주세요");
+								return false;
+							}else{
+								if($("textarea[name='helperIntro']").val()==""){
+									alert("자기소개를 적어주세요");
+									return false;
+								}else{
+									if($(".tag-item").length==0){
+										alert("활동가능한 지역에서 엔터를 쳐서 관리해주세요");
+										return false;
+									}else{
+										return true;
+									}
+								}
+							}
+						}
+					}
+				}
+			} 
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

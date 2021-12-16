@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Oh-Mate! 회원정보</title>
+<title>Oh-Mate! 회원 정보</title>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>

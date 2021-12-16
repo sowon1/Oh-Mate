@@ -31,9 +31,11 @@ public class House {
 	private String likeCount;				//좋아요 카운트
 	private String addressName;				//무슨 구
 	private String addressRoad; 			//무슨 로
+	private String addressDetail;			//상세주소
 	private ArrayList<Room> houseRoomView;	//방정보 조회..
 	private ArrayList<Address> houseAddressView; // 하우스 주소
 	private ArrayList<Income> houseIncome;
 	private int roomCount;					//잔여방확인
+	private String memberId;
 	
 }

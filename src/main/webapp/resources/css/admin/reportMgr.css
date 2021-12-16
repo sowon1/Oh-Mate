@@ -35,6 +35,9 @@
 .chkBox>table tr>td:first-of-type{
 	width:15%;
 }
+.chkBox>table tr>td:nth-of-type(3){
+	width:19%;
+}
 input[type="checkbox"]{
     margin-right: 5px;
 }
@@ -81,7 +84,6 @@ table p{
 }
 .table > :not(caption) > * > *{
     box-shadow: none;
-    border-bottom: none;
 }
 .container_mate>h1{
 	padding-left: 35px;
@@ -132,6 +134,7 @@ table p{
 }
 .modal_report_content .table-active_mate th{
 	width: 150px;
+    border-bottom: none;
 }
 .modal_report_content .table-active_mate td{
 	width:250px;

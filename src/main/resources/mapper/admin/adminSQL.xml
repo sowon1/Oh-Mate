@@ -260,4 +260,21 @@
 	<update id="updateReport" parameterType="rp">
 		update report set report_status = #{reportStatus} where report_no = #{reportNo} 
 	</update>
+	<select id="selectAllHouse" parameterType="map" resultType="h">
+		select
+		    house_no as houseNo,
+		    member_no as memberNo,
+		    (select member_id from member where member_no = hh.member_no) memberId,
+		    house_title as houseTitle,
+            (select address_name from address where address_category = 1 and address_number = hh.house_no) as addressName,
+            (select address_road from address where address_category = 1 and address_number = hh.house_no) as addressRoad,
+            (select address_detail from address where address_category = 1 and address_number = hh.house_no) as addressDetail,
+		    houseowner_deadline as houseownerDeadline,
+		    house_selling as houseSelling,
+		    house_allow as houseAllow
+		from (select rownum as rnum, h.* from (select * from house order by 1 desc)h)hh where rnum between #{start} and #{end}
+	</select>
+	<select id="houseTotal" resultType="_int">
+		select count(*) from house
+	</select>
 </mapper>

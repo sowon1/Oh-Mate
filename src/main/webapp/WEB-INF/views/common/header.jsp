@@ -157,11 +157,12 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="#">메뉴1</a></li>
-		      <li><a href="/memberMgr.do?reqPage=1">회원관리</a></li>
-		      <li><a href="#">메뉴3</a></li>
-		      <li><a href="#">메뉴4</a></li>
-		      <li><a href="/reportMgr.do?reqPage=1">신고관리</a></li>
+		      <li><a href="#">대시보드</a></li>
+		      <li><a href="/memberMgr.do?reqPage=1">회원 관리</a></li>
+		      <li><a href="#">헬퍼 신청 관리</a></li>
+		      <li><a href="/houseMgr.do?reqPage=1">하우스 관리</a></li>
+		      <li><a href="/reportMgr.do?reqPage=1">신고 관리</a></li>
+		      <li><a href="#">매출 정산</a></li>
 		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>

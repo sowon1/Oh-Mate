@@ -1,0 +1,107 @@
+.searchBox{
+    display: flex;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    margin: 50px 0 50px 0;
+    padding: 30px 20px 30px 20px;
+    justify-content: space-between;
+    position: relative;
+}
+.resetSearch{
+	position: absolute;
+	bottom: 10px;
+	right: 25px;
+}
+.searchBox>div{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+.searchBox p{
+	font-family: "ns_700";
+    margin: 0;
+}
+.chkBox{
+    justify-content: space-around;
+    align-items: center;
+}
+.chkBox>table{
+	width:100%;
+}
+.chkBox>table tr{
+	height:40px;
+}
+.chkBox>table th{
+	width:21%;
+	text-align: left;
+	padding-left: 10px;
+}
+.chkBox>table tr:first-child>td{
+	width:80px;
+	text-align: left;
+}
+.chkBox>table tr:first-child>td:nth-of-type(2){
+	width:115px;
+}
+.chkBox>table select{
+	width:130px;
+	height: 35px;
+	display: inline-block;
+}
+.keywordBox{
+    justify-content: flex-end;
+}
+input[type="checkbox"]{
+    margin-right: 5px;
+}
+.keywordBox input[type="submit"]{
+    line-height: 0;
+    width: 100px;
+}
+.searchBox select:focus{
+    box-shadow: none;
+    border-color: #956bfc;
+}
+.keywordBox>select{
+    width: auto;
+    height: 45px;
+}
+.keywordBox input[name="keyword"]{
+    height: 45px;
+    width: 250px;
+}
+.keywordBox input[name="keyword"]::placeholder{
+	color:#ddd;
+}
+.container_mate a{
+	color: #333;
+}
+.container_mate a:hover{
+	color:#8500ff;
+	text-decoration: underline;	
+}
+.container_mate>h1{
+	padding-left: 35px;
+}
+.form-check-input:focus{
+	box-shadow: none;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+}
+.container_mate>div>table .titleTd{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding: 0.5rem 1.5rem;
+}
+.container_mate>div>table .addrTd{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.container_mate>div>table{
+	text-align:center;
+	table-layout: fixed;	
+}
+.houseModal, .resetSearch{
+	cursor: pointer;
+}

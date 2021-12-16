@@ -81,15 +81,23 @@ public class HelperController {
 			
 			return jsonObject.toString();
 		}
-		//헬퍼 요청 등록
+		//헬퍼 요청 등록1
 		@RequestMapping(value = "/helpRequest.do")
-		public String helpRequest(Helper h, String[] addressCode,String[] addressName,String[] addressRoad,String addressLegal,MultipartFile helperFilepath,HttpServletRequest request) {
-			if(helperFilepath.isEmpty()) {
+		public String helpRequest(Helper h, String[] addressCode,String[] addressName,String[] addressRoad,String[] addressLegal,MultipartFile upfile,HttpServletRequest request,Model model) {
+			
+			if(upfile.isEmpty()) {
 				int result = service.helperRequestNoImg(h,addressCode,addressName,addressRoad,addressLegal);
-				return"";
+				if(result>0) {
+					model.addAttribute("msg", "헬퍼요청등록성공!");
+					return"redirect:/main.do";
+					
+				}else {
+					model.addAttribute("msg", "헬퍼요청 등록 실패!");
+					return"redirect:/main.do";
+				}
 			}else {
 				String helperfile = request.getSession().getServletContext().getRealPath("/resources/upload/helper/");
-				String filename= helperFilepath.getOriginalFilename();
+				String filename= upfile.getOriginalFilename();
 				String onlyFilename = filename.substring(0,filename.indexOf("."));//test
 				String extention = filename.substring(filename.indexOf("."));
 				String filepath=null;
@@ -109,7 +117,7 @@ public class HelperController {
 				try {
 					FileOutputStream fos = new FileOutputStream(new File(helperfile+filepath));
 					BufferedOutputStream bos = new BufferedOutputStream(fos);
-					byte[] bytes=helperFilepath.getBytes();
+					byte[] bytes=upfile.getBytes();
 					bos.write(bytes);
 					bos.close();
 				} catch (FileNotFoundException e) {
@@ -119,8 +127,28 @@ public class HelperController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				return "";
+				h.setHelperFilepath(filepath);
+				
+				int result = service.insertHouseAndImg(h,addressCode,addressName,addressRoad,addressLegal);
+				if(result>0) {
+					model.addAttribute("msg", "헬퍼요청등록성공!");
+					return"redirect:/main.do";
+				}else {
+					model.addAttribute("msg", "헬퍼요청 등록 실패!");
+					return"redirect:/main.do";
+				}
 			}
 		}
-		
+		//중복닉네임 체크
+		@ResponseBody // 리턴값을 데이터 자체로 리턴
+		@RequestMapping(value = "/idCheck.do")
+		public String idCheck(String helperName, Model model) {
+			Helper h = service.selectOneHelper(helperName);
+			if (h == null) {
+				return "1"; /// WEB-INF/views/1.jsp;
+			} else {
+				
+				return "0"; /// WEB-INF/views/0.jsp;
+			}
+		}
 }
