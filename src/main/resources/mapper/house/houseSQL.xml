@@ -111,8 +111,10 @@
 	        <if test="roomPersonnel != null and !''.equals(roomPersonnel)">
 	        	and house.house_no in (select house_no from room where room_personnel=#{roomPersonnel})
 			</if>
-			<if test='roomCharge1 != 0 and roomCharge2 != 100'>
-				and house.house_no in (select house_no from room where room_month between #{roomCharge1} and #{roomCharge2})
+			<if test="roomCharge1 != null and !''.equals(roomCharge1)">
+				<if test='roomCharge1 != 0 and roomCharge2 != 100'>
+					and house.house_no in (select house_no from room where room_month between #{roomCharge1} and #{roomCharge2})
+				</if>
 			</if>
             <if test="keyword != null and !''.equals(keyword)">
             	and (house_title || house_content || house_form || address_name || address_road || address_legal) like '%' ||  #{keyword} || '%'     
