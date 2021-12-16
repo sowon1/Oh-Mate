@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.board.model.vo.Board;
-import kr.or.board.model.vo.BoardMember;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -50,7 +49,7 @@ public class BoardDao {
 
 	//게시글 목록조회
 	public ArrayList<Board> selectBoard() {
-		List<Board>	list = sqlSession.selectList("board.boardList");
+		List<Board>	list = sqlSession.selectList("board.bdList");
 		return (ArrayList<Board>)list;
 	}
 

@@ -9,11 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.board.model.dao.BoardDao;
 import kr.or.board.model.vo.Board;
-import kr.or.board.model.vo.BoardMember;
 import kr.or.board.model.vo.BoardMemberData;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
-import kr.or.profile.model.vo.ProfileData;
 
 @Service
 public class BoardService {
