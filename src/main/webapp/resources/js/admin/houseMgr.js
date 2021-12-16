@@ -24,6 +24,9 @@ $(function(){
 		option.attr("value", local[i]);
 		option.html(local[i]);
 		$(".chkBox select").append(option);
+		if($("#addr").val() == local[i]){
+			option.prop("selected",true);
+		}
 	}
 });
 $(".resetSearch").click(function(){

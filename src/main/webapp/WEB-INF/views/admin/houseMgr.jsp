@@ -8,7 +8,7 @@
 <title>Oh-Mate! 하우스 관리</title>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
+	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
 		<h1 class="point_title">하우스 관리</h1>
 		<form action="/adminHouseSearch.do?reqPage=1" method="post">
@@ -38,7 +38,7 @@
                 			<th>지역구</th>
                 			<td colspan="4">
 	                			<select class="form-select" name="addrName">
-	                				<option value="0" class="n">지역구 선택</option>
+	                				<option class="n">지역구 선택</option>
 	                			</select>
                         	</td>
                 		</tr>
@@ -46,8 +46,8 @@
                 </div>
                 <div class="keywordBox">
                     <select class="form-select" name="type">
-                        <option value="memberId">오너 아이디</option>
                         <option value="houseTitle">하우스 이름</option>
+                        <option value="memberId">오너 아이디</option>
                     </select>
                     <input type="text" class="input_03" name="keyword">
                     <input type="submit" class="btn btn-primary" value="검색">
@@ -73,7 +73,7 @@
 	                    	<a href="/adminMemberView.do?memberNo=${h.memberNo }">${h.memberId }</a>
 	                    </td>
 	                    <td class="titleTd">
-	                    	<a class="houseModal">${h.houseTitle }</a>
+	                    	<a href="/houseView.do?houseNo=${h.houseNo }" class="houseModal">${h.houseTitle }</a>
 	                    </td>
 	                    <td class="addrTd">${h.addressName } ${h.addressRoad } ${h.addressDetail }</td>
 	                    <td>${h.houseownerDeadline }</td>
@@ -106,7 +106,7 @@
         </div>
         <div id="pageNavi">${pageNavi }</div>
 	</div>
-	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 <link rel="stylesheet" href="/resources/css/admin/houseMgr.css">
 <script type="text/javascript" src="/resources/js/admin/houseMgr.js"></script>

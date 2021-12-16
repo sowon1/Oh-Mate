@@ -45,8 +45,13 @@
 }
 .chkBox>table select{
 	width:130px;
-	height: 35px;
+	height: 30px;
 	display: inline-block;
+	line-height: 1;
+}
+.searchBox select:focus{
+    box-shadow: none;
+    border-color: #956bfc;
 }
 .keywordBox{
     justify-content: flex-end;
@@ -57,10 +62,6 @@ input[type="checkbox"]{
 .keywordBox input[type="submit"]{
     line-height: 0;
     width: 100px;
-}
-.searchBox select:focus{
-    box-shadow: none;
-    border-color: #956bfc;
 }
 .keywordBox>select{
     width: auto;
@@ -76,9 +77,10 @@ input[type="checkbox"]{
 .container_mate a{
 	color: #333;
 }
-.container_mate a:hover{
+.container_mate table a:hover, .searchBox a:hover{
 	color:#8500ff;
-	text-decoration: underline;	
+	text-decoration: underline;
+	cursor: pointer;
 }
 .container_mate>h1{
 	padding-left: 35px;
@@ -102,6 +104,6 @@ input[type="checkbox"]{
 	text-align:center;
 	table-layout: fixed;	
 }
-.houseModal, .resetSearch{
-	cursor: pointer;
+table p{
+	margin: 50px 0;
 }

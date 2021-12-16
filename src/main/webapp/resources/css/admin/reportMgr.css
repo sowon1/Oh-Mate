@@ -7,6 +7,11 @@
     align-items: center;
     position: relative;
 }
+.resetSearch{
+	position: absolute;
+	bottom: 10px;
+	right: 25px;
+}
 .searchBox>div{
     width: 50%;
 }
@@ -67,10 +72,10 @@ input[type="checkbox"]{
 .container_mate table *{
     text-align: center;
 }
-table a{
+.container_mate a{
 	color: #333;
 }
-table a:hover{
+.container_mate table a:hover, .searchBox a:hover{
 	color:#8500ff;
 	text-decoration: underline;
 	cursor: pointer;
@@ -200,5 +205,5 @@ table p{
 #textBox{
 	position: absolute;
 	bottom: -40px;
-	right:20px;
+	right:25px;
 }

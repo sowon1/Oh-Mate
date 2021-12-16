@@ -25,7 +25,7 @@
 					</div>
 					<div class="search_line">
 						<input class="search_input" name="keyword" placeholder="지역, 지하철역, 대학 주변 검색">
-						<a href="" class="search_icon">
+						<a id="searchHouse" class="search_icon">
 							<img src="/resources/img/icon/search_on.png">
 						</a>
 					</div>
@@ -34,9 +34,9 @@
 					<div class="h_filter_open">
 						<fieldset>
 							<div id="select_container">
-								<!--보증금조정-->
+								<!--월세 조정-->
 								<div class="mFeeWrap">
-		           	              <h2 class="filterTitle"><strong>보증금 범위</strong>&nbsp;&nbsp;<span id="rent-lower">0</span>~<span id="rent-upper">100</span>만원</h2>
+		           	              <h2 class="filterTitle"><strong>월세 범위</strong>&nbsp;&nbsp;<span id="rent-lower">0</span>~<span id="rent-upper">100</span>만원</h2>
 		       	    		      <input name="roomCharge1" id="house-filter_rent_lower" type="hidden" value="0">
 		       	    		      <input name="roomCharge2" id="house-filter_rent_upper" type="hidden" value="100">
 		           	              <div id="rent-slider" class="noUi-target noUi-ltr noUi-horizontal"></div>
@@ -108,8 +108,8 @@
 						</fieldset>
 						<!--적용하기-->
 						<div class="applyWrap">
-							<span class="btnBorder" id="reset-house">초기화</span>
-							<span class="btnBackground" id="filter-apply-btn">적용하기</span>
+							<span class="btnBorder" id="resethouse">초기화</span>
+							<span class="btnBackground" id="filter_apply_btn">적용하기</span>
 							<span class="filterHeader">
 								<div class="closeBtn" id="filter-close-btn">
 									<img src="/resources/img/icon/close_p.png">
@@ -131,31 +131,18 @@
 		</div>
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
-	<script>
-		//---------------체크박스 1개만 선택하도록-----------------------//
-		function checkOnlyOne(target) {
-		    document.querySelectorAll('input[type=checkbox]')
-		    .forEach(el => el.checked = false);			
-		    target.checked = true;
-		}			
+	<script>		
 		//----------------------------------------스크롤 페이징---------------------------------//
 		var currentPage = 1;
 		var isLoading=false;
 		var login = '${sessionScope.m}';
-		var totalCount;
+		var totalCount = '${totalCount}';
 		var keyword = '${keyword}';
 		var houseGender = '${houseGender}';
 		var houseForm = '${houseForm}';
 		var roomPersonnel = '${roomPersonnel}';
-		var roomCharge1 = $("#rent-lower").val();
-		var roomCharge2 = $("#rent-upper").val();
-		
-		console.log(keyword);
-		console.log(houseGender);
-		console.log(houseForm);
-		console.log(roomPersonnel);
-		console.log(roomCharge1);
-		console.log(roomCharge2);
+		var roomCharge1 = '${roomCharge1}';
+		var roomCharge2 = '${roomCharge2}';
 
 		//var start = '${startPageNum}';
 		//웹 브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
@@ -182,6 +169,11 @@
 			}
 		})
 		function GetList(currentPage){
+			console.log("1 : "+keyword);
+			console.log("2 : "+houseGender);
+			if(houseGender == ""){
+				houseGender = 0;
+			}
 			$.ajax({
 				type : "GET",
 				data : {
@@ -197,8 +189,16 @@
 				success : function(data){
 					var html = "";
 					var list = data.list;
-					totalCount = data.totalCount;
-					for(var i=0;i<list.length;i++){
+					totalCount = data.totalPageCount;
+					//console.log(data);
+					//console.log(list);
+					//console.log(totalCount);
+					if(list == 0){
+						html += '<div class="search_none"><img src="/resources/img/icon/search_img.png"></div>';
+						html += '<div class="search_none_text">검색 결과가 없습니다.</div>';
+	
+					}
+					for(var i=0;i<list.length;i++){								
 						html += '<li><div class="house_list_photo"><div class="like_house">';
 						if(login == ''){
 							html += '<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>';
@@ -232,8 +232,7 @@
 					}
 					$(".list_container").append(html);
 					$(".loading").hide();
-					isLoading = false;
-					
+					isLoading = false;					
 				}
 			});
 		}
@@ -384,6 +383,58 @@
 		$(".closeBtn").click(function(){
 			$(".h_filter_open").slideToggle();
 		});
+		// 초기화
+		$("#resethouse").click(function(){
+			$(".h_filter_open").find("input").prop("checked",false);
+		});
+		//적용하기
+		$("#filter_apply_btn").click(function(){
+			var genderValue = $("input[name='houseGender']:checked").val();
+			var housetypeValue = $("input[name='houseForm']:checked").val();
+			var roomValue = $("input[name='roomPersonnel']:checked").val();
+			var roomCharge11 = $(".noUi-handle-lower").children().text();
+			var roomCharge22 = $(".noUi-handle-upper").children().text();
+			if(genderValue == "남성전용"){
+				houseGender="1";
+			}else if(genderValue == "여성전용"){
+				houseGender="2";
+			}else if(genderValue == "남녀공용"){
+				houseGender="3";
+			}else{
+				houseGender="0";
+			}
+			if(roomValue == "1인실"){
+				roomPersonnel = "1인실";
+			}else if(roomValue == "2인실"){
+				roomPersonnel = "2인실";
+			}else if(roomValue == "다인실"){
+				roomPersonnel = "다인실";
+			}else{
+				roomPersonnel = "";
+			}
+			if(housetypeValue == "아파트"){
+				houseForm="아파트";
+			}else if(housetypeValue == "단독주택"){
+				houseForm="단독주택";
+			}else if(housetypeValue == "빌라"){
+				houseForm = "빌라";
+			}else{
+				houseForm="";
+			}
+			if(roomCharge11 == "0"){
+				roomCharge1 = "0";
+			}else{				
+				roomCharge1 = roomCharge11+"0000";
+			}
+			roomCharge2 = roomCharge22+"0000";
+			$(".h_filter_open").slideToggle();
+		});
+		//서치
+		$("#searchHouse").click(function(){
+			var keyword = $("input[name='keyword']").val();
+			location.href="/houseList.do?keyword="+keyword+"&houseGender="+houseGender+"&houseForm="+houseForm+"&roomPersonnel="+roomPersonnel+"&roomCharge1="+roomCharge1+"&roomCharge2="+roomCharge2;
+		});
+		
 		//----------------------------------검색바 금액설정-------------------------------------//
 		var connectSlider = document.getElementById('rent-slider');
         var maxAmount = 100

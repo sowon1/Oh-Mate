@@ -138,17 +138,17 @@
 						      <h5 class="card-title">${b.boardTitle }</h5>
 								<div class="profile">
 									<c:choose>
-										<c:when test="${empty b.filePath}">
+										<c:when test="${bm.filepath eq null}">
 										<div class="prof">
 											<img src="resources/img/icon/profile.png" class="memberImg">
 										</div>
 										</c:when>
 										<c:otherwise>
 										<div class="prof">
-											<img src="resources/upload/member/${b.filePath}" class="memberImg">
+											<img src="resources/upload/member/${bm.filepath}" class="memberImg">
 										</div>
 										</c:otherwise>
-									</c:choose>
+									 </c:choose>
 								</div>	
 								<div class="cardTC">
 							      <p class="card-text">${b.boardWriter }</p>

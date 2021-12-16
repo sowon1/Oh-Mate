@@ -9,7 +9,7 @@
 <title>Oh-Mate! 회원 관리</title>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
+	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
 		<h1 class="point_title">회원 관리</h1>
 		<form action="/adminMemberSearch.do?reqPage=1" method="post">
@@ -106,6 +106,7 @@
                     <input type="text" class="input_03" name="keyword" value="${sm.keyword }">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </div>
+                <a class="resetSearch">※ 검색 조건 초기화</a>
             </div>
         </form>
         <div>
@@ -161,7 +162,7 @@
         </div>
         <div id="pageNavi">${pageNavi }</div>
 	</div>
-	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 <link rel="stylesheet" href="/resources/css/admin/memberMgr.css">
 <script type="text/javascript" src="/resources/js/admin/memberMgr.js"></script>

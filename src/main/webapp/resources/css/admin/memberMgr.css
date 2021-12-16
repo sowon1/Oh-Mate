@@ -4,6 +4,17 @@
     border-bottom: 1px solid #e7e7e7;
     margin: 50px 0 50px 0;
     padding: 40px 20px 40px 20px;
+    position: relative;
+}
+.resetSearch{
+	position: absolute;
+	bottom: 9px;
+	right: 25px;
+}
+.resetSearch:hover{
+	color:#8500ff;
+	text-decoration: underline;
+	cursor: pointer;	
 }
 .searchBox>div{
     width: 50%;
@@ -28,6 +39,9 @@
 input[type="checkbox"]{
     margin-right: 5px;
 }
+.keywordBox{
+	justify-content: flex-end;
+}
 .keywordBox input[type="submit"]{
     line-height: 0;
     width: 100px;
@@ -49,7 +63,7 @@ input[type="checkbox"]{
 table *{
     text-align: center;
 }
-table a{
+.container_mate a{
 	color: #333;
 }
 table a:hover{

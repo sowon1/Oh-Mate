@@ -50,20 +50,21 @@ public class HouseController {
 
 	// 메인에서 검색해서 하우스 리스트 출력- sowon
 	@RequestMapping(value = "/houseList.do")
-	public String houseList(String keyword, String houseGender, String houseForm, String roomPersonnel, Model model) {
+	public String houseList(String keyword, String houseGender, String houseForm, String roomPersonnel, Model model,String roomCharge1,String roomCharge2) {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("houseGender", houseGender);
 		model.addAttribute("houseForm", houseForm);
 		model.addAttribute("roomPersonnel", roomPersonnel);
+		model.addAttribute("roomCharge1",roomCharge1);
+		model.addAttribute("roomCharge2",roomCharge2);
 
 		return "house/houseList";
 	}
-
+	
 	// ajax 하우스 리스트 - sowon
 	@ResponseBody
-	@RequestMapping(value = "/ajax_page.do", produces = "application/json;charset=utf-8")
-	public String ajax_page(int pageNum, Model model, HttpSession session, String keyword, Room r, String roomCharge1,
-			String roomCharge2, House h) {
+	@RequestMapping(value="/ajax_page.do", produces = "application/json;charset=utf-8")
+	public String ajax_page(int pageNum, Model model, HttpSession session, String keyword, Room r, String roomCharge1,String roomCharge2, House h) {
 		int memberNo = 0;
 		if (session != null) {
 			Member m = (Member) session.getAttribute("m");
@@ -72,8 +73,7 @@ public class HouseController {
 				memberNo = m.getMemberNo();
 			}
 		}
-		HashMap<String, Object> data = service.selectAjaxHouse(pageNum, memberNo, keyword, r, roomCharge1, roomCharge2,
-				h);
+		HashMap<String, Object> data = service.selectAjaxHouse(pageNum, memberNo, keyword, r, roomCharge1, roomCharge2,h);
 		/*
 		 * model.addAttribute("list",data.get("list"));
 		 */
