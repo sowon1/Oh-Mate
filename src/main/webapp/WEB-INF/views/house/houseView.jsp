@@ -288,8 +288,8 @@
 	                		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
 	                 </div>
 	                 <div class="msg_modal_content">
-	                 	<h3 class="modal_msg_timetitle"><em id="title_name"></em> 정보를 입력해주세요.</h3>
-	                 	<h2 class="modal_msg_timetext">해당 창은 <em id="countdown">5</em>초 후 자동으로 닫힙니다.</h2>                
+	                 	<h3 class="modal_msg_timetitle"><em id="title_name" class="title_name"></em> 입력해주세요.</h3>
+	                 	<h2 class="modal_msg_timetext">해당 창은 <em id="countdown">3</em>초 후 자동으로 닫힙니다.</h2>
 	                 </div>
 	         	</div> 
 	         </div>
@@ -458,10 +458,10 @@
 		});
 		//투어 신청
 		function touropen(){
-			$(".room_popup_modal").css("display","flex");
-		    $("body").css("overflow", "hidden");
-		    $(".tour_back_dark").show();
-		}
+   			$(".room_popup_modal").css("display","flex");
+   		    $("body").css("overflow", "hidden");
+   		    $(".tour_back_dark").show();
+   		}
 		function tourclose(){
 			$(".room_popup_modal").css("display","none");
 			$("body").css("overflow", "auto");
@@ -523,15 +523,58 @@
        });
        //자동닫기
        function autoClose(){
-    	   setTimeout('closed()',5000);
+    	   setTimeout('closed()',3000);
        }
        function closed(){
     	   countmsgclose();
        }
        //form 입력값 검사
+       var resultArr = [false,false];
+       $(function(){
+    	   $("input[name='tourPhone']").change(function(){
+               var phoneReg = /^\d{2,3}-\d{3,4}-\d{4}$/;
+               var phoneValue = $(this).val();
+               if(!(phoneReg.test(phoneValue))){
+                  $(this).focus();
+                  $(".title_name").text("000-0000-0000 형식으로");
+                  countmsgopen(autoClose());
+                   resultArr[0] = false;
+               }else{
+                   resultArr[0] = true;
+               } 
+           });
+    	   $("input[name='tourEmail']").change(function(){
+               var emailReg =  /^[a-z][a-z0-9_-]{3,11}@[a-z\d\.-]+\.[a-z]{2,6}$/;
+               var emailValue = $(this).val();
+               if(!(emailReg.test(emailValue))){
+            	   $(this).focus();
+                   $(".title_name").text("email 형식에 맞춰");
+                   countmsgopen(autoClose());
+                    resultArr[1] = false;
+               }else{
+                   resultArr[1] = true;
+               } 
+           });
+       });
        function checkVal(){
-
-    		   $("form").submit();
+			if(!(resultArr[0] && resultArr[1])){
+				if($("input[name='tourPhone']").val() == ""){					
+					 $(".title_name").text("연락처를");
+					 $("input[name='tourPhone']").focus();
+					countmsgopen(autoClose());
+				}else if($("input[name='tourEmail']").val() == ""){
+					 $(".title_name").text("이메일을");					
+					 $("input[name='tourEmail']").focus();
+					countmsgopen(autoClose());
+				}
+			}else{
+				if($("input[name='tourVisit']").val() == ""){
+					 $(".title_name").text("방문 희망일을");
+					countmsgopen(autoClose());					
+				}else{					
+	    		   $("form").submit();
+				}
+			}
        }
 		//편의시설
 		$(function(){
