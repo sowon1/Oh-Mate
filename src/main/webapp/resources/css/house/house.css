@@ -1112,7 +1112,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
     background: #f9f9f9;
     height: auto;
     overflow: hidden;
-    padding: 20px;
+    padding: 20px 0px 10px 20px;
     border-radius: 8px;
     float:left;
     clear:both;
@@ -1134,12 +1134,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .option_view li,.house_option_img{
 	float:left;
 }
-.option_view li:nth-child(9),.option_view li:nth-child(18){
-	margin-right:0;
-}
-.option_view li:nth-child(10){
-	clear:both;
-}
+
 .house_option_img{
 	margin:0 auto;
 	width:100%;
@@ -1340,4 +1335,21 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	margin-top:10px;
 	font-size:14px;
 	color:#666;
+}
+
+/* 검색 결과가 없을때 */
+.search_none{
+	padding: 30px;
+}
+.search_none img{
+	width:700px;
+	margin:0 auto;
+	display:block;
+}
+.search_none_text{
+	text-align: center;
+    font-size: 38px;
+    font-family: "ns_700";
+    padding: 30px;
+    color: #956bfc;
 }

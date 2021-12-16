@@ -84,8 +84,10 @@ public class HouseService {
 		map.put("roomPersonnel", r.getRoomPersonnel());
 		map.put("houseForm", h.getHouseForm());
 		map.put("houseGender",h.getHouseGender());
-		map.put("roomCharge1", roomCharge1);
-		map.put("roomCharge2", roomCharge2);
+		if(roomCharge1 != null && !roomCharge1.equals("")) {			
+			map.put("roomCharge1", Integer.parseInt(roomCharge1));
+			map.put("roomCharge2", Integer.parseInt(roomCharge2));
+		}
 		ArrayList<House> list = dao.selectAjaxHouse(map);
 		int totalRow = dao.selectAjaxTotal();
 		// 전체 페이지의 갯수 구하기

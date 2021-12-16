@@ -1,5 +1,9 @@
 package kr.or.helper.model.vo;
 
+import java.util.ArrayList;
+
+import kr.or.common.Address;
+import kr.or.common.Income;
 import lombok.Data;
 
 @Data
@@ -16,5 +20,5 @@ public class Helper {
 	private String helperIntro;			//자기소개
 	private String helperCredit;		//헬퍼 자격증 사진
 	private String helperRefuse;		//헬퍼 미승인 사유
-	private String helperAddress;		//선호 구
+	private Income income;
 }
