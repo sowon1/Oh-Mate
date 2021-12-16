@@ -192,12 +192,20 @@ public class AdminController {
 	}
 	@RequestMapping(value="/adminHouseSearch.do")
 	public String houseSearch(int reqPage, SearchHouse sh, Model model) {
-		System.out.println(sh.toString());
 		HashMap<String, Object> data = service.houseSearch(reqPage, sh);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
 		model.addAttribute("start", data.get("start"));
 		model.addAttribute("sh", sh);
 		return "admin/houseSearch";
+	}
+	
+	//하우스 상세 조회 및 승인/미승인 update 처리
+	
+	//대시보드
+	@RequestMapping(value="/dashboard.do")
+	public String dashboard(Model model) {
+		
+		return "admin/dashboard";
 	}
 }

@@ -157,7 +157,7 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="#">대시보드</a></li>
+		      <li><a href="/dashboard.do">대시보드</a></li>
 		      <li><a href="/memberMgr.do?reqPage=1">회원 관리</a></li>
 		      <li><a href="#">헬퍼 신청 관리</a></li>
 		      <li><a href="/houseMgr.do?reqPage=1">하우스 관리</a></li>

@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.board.model.service.BoardService;
 import kr.or.board.model.vo.Board;
-import kr.or.board.model.vo.BoardMember;
 import kr.or.board.model.vo.BoardMemberData;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;

@@ -77,6 +77,21 @@
  		from member where member_Id=#{memberId}
 	</select>
 	
+	<!-- 게시글 목록 조외 -->
+	<select id="bdList" resultType="b">
+		select 
+			BOARD_NO as boardNo,
+			BOARD_WRITER as boardWriter,
+			BOARD_TITLE as boardTitle,
+			BOARD_CONTENT as boardContent,
+			READ_COUNT as readCount,
+			REG_DATE as regDate,
+			FILEPATH,
+			PROFILE_OPTION as profileOption,
+			STATUS
+		from board			
+	</select>
+	
 	<!-- 게시글 목록 -->
 	<select id="boardList" resultType="b">
 		select 
@@ -89,7 +104,7 @@
 			FILEPATH,
 			PROFILE_OPTION as profileOption,
 			STATUS
-		from board  			
+		from board where board_no=#{boardNo}			
 	</select>
 	
 	<!-- 게시글 작성 -->

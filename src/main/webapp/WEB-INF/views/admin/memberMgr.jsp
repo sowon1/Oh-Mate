@@ -8,7 +8,7 @@
 <title>Oh-Mate! 회원 관리</title>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
+	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
 		<h1 class="point_title">회원 관리</h1>
 		<form action="/adminMemberSearch.do?reqPage=1" method="post">
@@ -94,7 +94,7 @@
         </div>
         <div id="pageNavi">${pageNavi }</div>
 	</div>
-	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 <link rel="stylesheet" href="/resources/css/admin/memberMgr.css">
 <script type="text/javascript" src="/resources/js/admin/memberMgr.js"></script>
