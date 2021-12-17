@@ -47,51 +47,49 @@
 	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 
 	<div class="container_mate">
-		<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼요청서</h4>
+		<c:choose>
+			<c:when test="${h.helperStatus eq 1}">	
+				<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 등록 요청서 수정</h4>
+			</c:when>
+			<c:when test="${h.helperStatus eq 3 }">
+				<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 재등록 요청서</h4>
+			</c:when>
+		</c:choose>
 		<form action="/helpRequestUpdate.do" method="post"
 			enctype="multipart/form-data" id="funder_add">
 			<input type="hidden" name="memberNo" value="${h.memberNo }">
+			<input type="hidden" name="helperNo" value="${h.helperNo }">
 			<div class="add_right border_a">
 				<table class="table" style="padding: 15px;">
 					<tr class="table-active_mate center_list">
 						<th>1. 자신이 자신 있는 분야</th>
 						<td>
 							<div class="check_ent displayflex" style="text-align: left;">
-								<input type="checkbox" class="chk" name="funderCategory"
-									id="fun_00" value="0"><label for="fun_00"
-									style="width: 140px">배달·장보기</label> <input type="checkbox"
-									class="chk" name="funderCategory" id="fun_01" value="0"><label
-									for="fun_01" style="width: 140px">청소·집안일</label> <input
-									type="checkbox" class="chk" name="funderCategory" id="fun_02"
-									value="0"><label for="fun_02" style="width: 140px">설치·조립·운반</label>
-								<input type="checkbox" class="chk" name="funderCategory"
-									id="fun_03" value="0"><label for="fun_03"
-									style="width: 140px">동행·돌봄</label>
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_00" value="0"><label for="fun_00" style="width: 140px">배달·장보기</label> 
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_01" value="0"><label for="fun_01" style="width: 140px">청소·집안일</label> 
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_02" value="0"><label for="fun_02" style="width: 140px">설치·조립·운반</label>
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_03" value="0"><label for="fun_03" style="width: 140px">동행·돌봄</label>
 							</div>
 							<div class="check_ent displayflex" style="text-align: left;">
-								<input type="checkbox" class="chk" name="funderCategory"
-									id="fun_04" value="0"><label for="fun_04"
-									style="width: 140px">벌레·쥐</label> <input type="checkbox"
-									class="chk" name="funderCategory" id="fun_05" value="0"><label
-									for="fun_05" style="width: 140px">역할대행</label> <input
-									type="checkbox" class="chk" name="funderCategory" id="fun_06"
-									value="0"><label for="fun_06" style="width: 140px">과외·알바</label>
-								<input type="checkbox" class="chk" name="funderCategory"
-									id="fun_07" value="0"><label for="fun_07"
-									style="width: 140px">동행·돌봄</label>
-							</div> <input type="hidden" id="helperCategory" name="helperCategory" value="${h.helperCategory }">
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_04" value="0"><label for="fun_04" style="width: 140px">벌레·쥐</label> 
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_05" value="0"><label for="fun_05" style="width: 140px">역할대행</label> 
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_06" value="0"><label for="fun_06" style="width: 140px">과외·알바</label>
+								<input type="checkbox" class="chk" name="funderCategory" id="fun_07" value="0"><label for="fun_07" style="width: 140px">기타·원격</label>
+							</div> 
+							<input type="hidden" id="helperCategory" name="helperCategory" value="${h.helperCategory }">
 						</td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>2.선호분야 사진첨부</th>
+						<th>2.자신있는 분야 사진첨부</th>
 						<td>
+							<p class="ac-title">가장 자신있는 분야나 어필할 사진 한장만 다시 올려주세요!!</p>
 							<div class="img-viewr">
 								<img id="img-view" src="">
 							</div> <label class="btn btn_sm btn_out" for="profile"
 							style="line-height: 18px">사진첨부</label> <input type="file"
 							id="profile" name="upfile"
 							onchange="loadImg(this);" accept=".jpg,.jpeg,.png,.gif"
-							style="display: none;" value="${h.helperFilepath }">
+							style="display: none;">
 						</td>
 					</tr>
 					<tr class="table-active_mate">
@@ -118,22 +116,57 @@
 					</tr>
 					<tr class="table-active_mate">
 						<th>6.이동수단</th>
-						<td>
-							<input type="radio" name="helperRide" id="ride01"
-							value="1"><label for="ride01" >자동차</label> 
-							<input
-							type="radio" name="helperRide" id="ride02" value="2"><label
-							for="ride02">오토바이</label> 
-							<input type="radio" name="helperRide"
-							id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
-							<input
-							type="radio" name="helperRide" id="ride04" value="4"><label
-							for="ride04">자전거</label> <input type="radio" name="helperRide"
-							id="ride05" value="5" checked="checked"><label for="ride05">없음</label></td>
+						<c:choose>
+							<c:when test="${h.helperRide eq  1}">
+								<td>
+									<input type="radio" name="helperRide" id="ride01" value="1" checked="checked"><label for="ride01" >자동차</label> 
+									<input type="radio" name="helperRide" id="ride02" value="2"><label for="ride02">오토바이</label> 
+									<input type="radio" name="helperRide" id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
+									<input type="radio" name="helperRide" id="ride04" value="4"><label for="ride04">자전거</label> 
+									<input type="radio" name="helperRide" id="ride05" value="5"><label for="ride05">없음</label>
+								</td>
+							</c:when>
+							<c:when test="${h.helperRide eq  2}">
+								<td>
+									<input type="radio" name="helperRide" id="ride01" value="1"><label for="ride01" >자동차</label> 
+									<input type="radio" name="helperRide" id="ride02" value="2" checked="checked"><label for="ride02">오토바이</label> 
+									<input type="radio" name="helperRide" id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
+									<input type="radio" name="helperRide" id="ride04" value="4"><label for="ride04">자전거</label> 
+									<input type="radio" name="helperRide" id="ride05" value="5"><label for="ride05">없음</label>
+								</td>
+							</c:when>
+							<c:when test="${h.helperRide eq  3}">
+								<td>
+									<input type="radio" name="helperRide" id="ride01" value="1"><label for="ride01" >자동차</label> 
+									<input type="radio" name="helperRide" id="ride02" value="2"><label for="ride02">오토바이</label> 
+									<input type="radio" name="helperRide" id="ride03" value="3" checked="checked"><label for="ride03">전동퀵보드</label> 
+									<input type="radio" name="helperRide" id="ride04" value="4"><label for="ride04">자전거</label> 
+									<input type="radio" name="helperRide" id="ride05" value="5"><label for="ride05">없음</label>
+								</td>
+							</c:when>
+							<c:when test="${h.helperRide eq  4}">
+								<td>
+									<input type="radio" name="helperRide" id="ride01" value="1"><label for="ride01" >자동차</label> 
+									<input type="radio" name="helperRide" id="ride02" value="2"><label for="ride02">오토바이</label> 
+									<input type="radio" name="helperRide" id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
+									<input type="radio" name="helperRide" id="ride04" value="4" checked="checked"><label for="ride04">자전거</label> 
+									<input type="radio" name="helperRide" id="ride05" value="5"><label for="ride05">없음</label>
+								</td>
+							</c:when>
+							<c:when test="${h.helperRide eq  5}">
+								<td>
+									<input type="radio" name="helperRide" id="ride01" value="1"><label for="ride01" >자동차</label> 
+									<input type="radio" name="helperRide" id="ride02" value="2"><label for="ride02">오토바이</label> 
+									<input type="radio" name="helperRide" id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
+									<input type="radio" name="helperRide" id="ride04" value="4"><label for="ride04">자전거</label> 
+									<input type="radio" name="helperRide" id="ride05" value="5" checked="checked"><label for="ride05">없음</label>
+								</td>
+							</c:when>
+						</c:choose>
 					</tr>
 					<tr class="table-active_mate">
 						<th>7.자기소개</th>
-						<td><textarea name="helperIntro" class="summernote"></textarea></td>
+						<td><textarea name="helperIntro" class="summernote">${h.helperIntro }</textarea></td>
 					</tr>
 					<tr class="table-active_mate">
 						<th>8.활동가능한 지역()</th>
@@ -148,7 +181,7 @@
 								</ul>
 								<input type="text" name="searchTag" id="tag"
 									onfocus="this.placeholder=''"
-									onblur="this.placeholder='등록후 엔터'" read> <input
+									onblur="this.placeholder='등록후 엔터'" > <input
 									type="hidden" name="tagadd">
 							</div>
 							<div class="postcode">
@@ -159,27 +192,84 @@
 					</tr>
 					<tr class="table-active_mate">
 						<th>9.자격증 기재</th>
-						<td><textarea name="helperCredit" class="summernote"></textarea></td>
+						<td><textarea name="helperCredit" class="summernote">${h.helperCredit }</textarea></td>
 					</tr>
 					<tr class="table-active_mate">
 						<th>10.계좌 입력</th>
 						<td>
-						c:
 						<select id="bank" class="control-group" name="incomeBank">
-							<option value="">선택</option>
-							<option value="신한">신한</option>
-							<option value="국민">국민</option>
-							<option value="IBK">IBK</option>
-							<option value="농협">농협</option>
-							<option value="수협">수협</option>
-							<option value="우리">우리</option>
-							<option value="카카오뱅크">카카오뱅크</option>
+							<c:choose>
+								<c:when test="${h.income.incomeBank eq '신한' }">
+									<option value="신한" selected="selected">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.income.incomeBank eq '국민' }">
+									<option value="신한">신한</option>
+									<option value="국민" selected="selected">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.income.incomeBank eq 'IBK' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK" selected="selected">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.income.incomeBank eq '농협' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협" selected="selected">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.income.incomeBank eq '수협' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협" selected="selected">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.income.incomeBank eq '우리' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리" selected="selected">우리</option>
+									<option value="카카오뱅크">카카오뱅크</option>
+								</c:when>
+								<c:when test="${h.income.incomeBank eq '카카오뱅크' }">
+									<option value="신한">신한</option>
+									<option value="국민">국민</option>
+									<option value="IBK">IBK</option>
+									<option value="농협">농협</option>
+									<option value="수협">수협</option>
+									<option value="우리">우리</option>
+									<option value="카카오뱅크" selected="selected">카카오뱅크</option>
+								</c:when>
+							</c:choose>
 						</select>
 						<p class="ac-title">계좌번호</p>
+						<input type="hidden" name="incomeNo" value="${h.income.incomeNo }">
 						<input type="text" id="number" name="incomeAccount"
-							class="input_03" placeholder="하이달(-)과 같이 기제해주세요">
+							class="input_03" placeholder="하이달(-)과 같이 기제해주세요" value="${h.income.incomeAccount }">
 						<p class="ac-title">예금주</p>
-						<input type="text" id="name" name="incomeName" class="input_03">
+						<input type="text" id="name" name="incomeName" class="input_03" value="${h.income.incomeName }">
 						</td>
 					</tr>
 				</table>
@@ -191,29 +281,7 @@
 	</div>
 	<script>
 	var count =0;
-	$(function () {
-		var conval = $("#helperCategory").val();
-		console.log(conval.length);
-		for(var i=0;i<conval.length;i++){
-			console.log($(".chk").eq(i));
-			if(conval.charAt(i)==1){
-				$(".chk").eq(i).attr("checked",true);
-				$(".chk").eq(i).val(1);
-			}
-		}
-	//카테고리 설정(00000000);
-	$(".chk").change(function () {
-		if($(this).is(":checked")){
-			$(this).val(1);
-			$("#helperCategory").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()
-				+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+$("#fun_07").val()	);
-		}else{
-			$(this).val(0);
-			$("#helperCategory").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()
-					+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+$("#fun_07").val()	);
-		}
-
-	});
+	
 	$("form input").keydown(function(event){
 		if(event.keyCode === 13){
 			event.preventDefault();
@@ -443,6 +511,9 @@
 						}
 					}
 				});
+				if(helperName ==""){
+					$("#idChk").html("");
+				}
 			})
 		 	function chkForm() {
 				if($("#helperCategory").val()==00000000){
@@ -488,7 +559,31 @@
 						}
 					}
 				}
-			} 
+			}
+			$(function () {
+				var conval = $("#helperCategory").val();
+				console.log(conval.length);
+				for(var i=0;i<conval.length;i++){
+					console.log($(".chk").eq(i));
+					if(conval.charAt(i)==1){
+						$(".chk").eq(i).attr("checked",true);
+						$(".chk").eq(i).val(1);
+					}
+				}
+			//카테고리 설정(00000000);
+			$(".chk").change(function () {
+				if($(this).is(":checked")){
+					$(this).val(1);
+					$("#helperCategory").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()
+						+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+$("#fun_07").val()	);
+				}else{
+					$(this).val(0);
+					$("#helperCategory").val($("#fun_00").val()+$("#fun_01").val()+$("#fun_02").val()
+							+$("#fun_03").val()+$("#fun_04").val()+$("#fun_05").val()+$("#fun_06").val()+$("#fun_07").val()	);
+				}
+
+			});
+		});
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
