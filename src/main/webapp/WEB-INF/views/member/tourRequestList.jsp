@@ -18,7 +18,8 @@
 			<div>
 				<ul>
 					<c:forEach items="${list }" var="t">
-						<li>${t.houseName }</li>	
+						<li>${t.houseName }</li>
+						<li>${t.memberNo }</li>	
 					</c:forEach>
 					<li>${pageNavi }</li>
 				</ul>
