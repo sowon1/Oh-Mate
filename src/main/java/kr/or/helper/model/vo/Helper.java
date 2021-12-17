@@ -24,5 +24,4 @@ public class Helper {
 	private Income income;
 	private String likedCheck;				//좋아요 체크용
 	private String likeCount;				//좋아요 카운트
-	private ArrayList<Photo> photoList; 	//사진테이블
 }

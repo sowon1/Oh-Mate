@@ -43,11 +43,11 @@
 								<div class="filter_cont">
 									<div>
 										<input type="radio" id="house-filter_gender_division_f" name="gender" value="2">
-										<label for="house-filter_gender_division_f"><span class="select_icon02"></span>여성전용</label>
+										<label for="house-filter_gender_division_f"><span class="select_icon02"></span>여성헬퍼</label>
 									</div>
 									<div>
 										<input type="radio" id="house-filter_gender_division_m" name="gender" value="1">
-										<label for="house-filter_gender_division_m"><span class="select_icon04"></span>남성전용</label>
+										<label for="house-filter_gender_division_m"><span class="select_icon04"></span>남성헬퍼</label>
 									</div>
 									<div>
 										<input type="radio" id="house-filter_gender_division_mf" name="gender" value="3">
@@ -213,7 +213,7 @@
 						if(list[i].photoList.length == 0){
 							html += ' </div><img src="/resources/img/icon/heart_off.png"></div>';
 						}else{
-							html += ' </div><img src="/resources/upload/helper/'+list[i].photoList[0].photoPath+'"></div>';
+							html += ' </div><img src="/resources/upload/helper/'+list[i].helperFilepath+'"></div>';
 						}
 						
 						html += '<a href="houseView.do?houseNo='+list[i].helperNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].helperName+'</span></div>';

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.common.Address;
-import kr.or.common.Housesearch;
 import kr.or.common.Income;
 import kr.or.common.Move;
 import kr.or.common.Photo;

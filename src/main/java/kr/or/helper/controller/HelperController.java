@@ -22,13 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import kr.or.common.Address;
+
 import kr.or.common.Income;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
-import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
-import kr.or.room.model.vo.Room;
 
 @Controller
 public class HelperController {

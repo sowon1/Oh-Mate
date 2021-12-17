@@ -106,7 +106,7 @@
  	<!-- 헬퍼 리스트 출력 부분 - sowon 
  		주소 2개의 행이라서 그부분 처리 어떻게 ?
  	-->
- 	<select id="selectAjaxHelper" parameterType="map" resultMap="helper">
+ 	<select id="selectAjaxHelper" parameterType="map" resultType="hp">
  		select hh.* from
         (select 
             rownum as rnum,
@@ -139,39 +139,7 @@
         order by 1 desc
         )h)hh where rnum between 1 and 10;
  	</select>
- 	<resultMap type="hp" id="helper">
-		<result column="helper_no" property="helperNo"/>
-		<result column="member_no" property="memberNo"/>
-		<result column="helper_name" property="helperName"/>
-		<result column="helper_category" property="helperCategory"/>
-		<result column="helper_start_time" property="helperStartTime"/>
-		<result column="helper_end_time" property="helperEndTime"/>
-		<result column="helper_ride" property="helperRide"/>
-		<result column="helper_status" property="helperStatus"/>
-		<result column="helper_filepath" property="helperFilepath"/>
-		<result column="helper_intro" property="helperIntro"/>
-		<result column="helper_credit" property="helperCredit"/>
-		<result column="helper_refuse" property="helperRefuse"/>
-		<collection property="photoList"
-					column="helper_no"
-					javaType="java.util.ArrayList"
-					ofType="f"
-					select="selectHelperList"	
-		/>
-	</resultMap>
-	<!-- 헬퍼 사진 조회 테이블 -->
-	<select id="selectHelperList" parameterType="_int" resultType="f">
-		select
-			photo_no as photoNo,
-			photo_category as photoCategory, 
-			photo_path as photoPath, 
-			photo_num as photoNum 
-		from 
-			(select rownum as rnum, hp.* from
-			(select * from photo where photo_category=1 and photo_num = #{helperNo} order by 1 )h) 
-		where rnum = 1
-	</select>
-	
+
 	<!-- 헬퍼  좋아요 부분 -->
 	<select id="helperLike" parameterType="map" resultType="_int">
 		select 
