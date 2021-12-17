@@ -189,8 +189,8 @@ public class HouseDao {
 		return (ArrayList<Move>)list;
 	}
 
-	public int tourCount(int roomNo) {
-		int result = session.selectOne("house.tourCount", roomNo);
+	public int tourCount(int houseNo) {
+		int result = session.selectOne("house.tourCount", houseNo);
 		return result;
 	}
 

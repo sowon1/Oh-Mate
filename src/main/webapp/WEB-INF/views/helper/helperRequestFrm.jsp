@@ -224,7 +224,7 @@
 				timePicker : true,
 				singleDatePicker : true,
 				timePicker24Hour : true,
-				timePickerIncrement : 1,
+				timePickerIncrement : 30,
 				locale : {
 					"format" : 'HH:mm',
 					"applyLabel" : "확인",

@@ -375,8 +375,8 @@
 		from move
 		where room_no = #{roomNo}
 	</select>
-	<select id="tourCount" parameterType="_int" resultType="_int">
-		select count(*) from tour where room_no = #{roomNo}
+	<select id="tourCount" parameterType="map" resultType="_int">
+		select count(*) from tour where house_no = #{houseNo} and tour_status=2
 	</select>
 	
 	<!-- 찜목록 불러오기 -->

@@ -143,11 +143,11 @@ public class HouseService {
 				int roomNo = roomArray.get(j).getRoomNo();
 				ArrayList<Tour> tourArray = dao.selectTourList(roomNo);
 				ArrayList<Move> moveArray = dao.selectMoveList(roomNo);
-				int tourCount = dao.tourCount(roomNo);
+				
 				roomArray.get(j).setHouseTour(tourArray);
 				roomArray.get(j).setHouseMove(moveArray);
-				roomArray.get(j).setTourCount(tourCount);
 			}
+			int tourCount = dao.tourCount(houseNo);
 			ArrayList<Income> incomeArray = dao.selectIncome(houseNo);
 			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
 			
@@ -165,6 +165,7 @@ public class HouseService {
 			list.get(i).setHouseIncome(incomeArray);
 			list.get(i).setHouseAddressView(addressArray);
 			list.get(i).setRoomCount(roomCount);
+			list.get(i).setAllTourList(tourCount);
 
 		}
 		int totalCount = dao.houseTotalCount(memberNo);

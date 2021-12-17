@@ -203,7 +203,9 @@ margin-left: 500px;
 								<div class="btn-group">
 									<a href="/houseUpdateFrm.do?houseNo=${h.houseNo}&memberNo=${h.memberNo}">수정하기</a> <a href="/houseDelete.do?houseNo=${h.houseNo} &memberNo=${h.memberNo}">삭제하기</a>
 									<a href="javascript:void(0);">입주자 내역</a>
-									<a href="javascript:void(0);">투어리스트 내역</a>
+									<a href="javascript:void(0);">투어리스트 내역
+									<strong>${h.tourAllCount }</strong>									
+									</a>
 								</div>
 								<div class="move-list"></div>
 								<div class="tour-list"></div>
