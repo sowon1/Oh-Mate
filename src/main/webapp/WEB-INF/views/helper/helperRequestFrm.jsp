@@ -47,7 +47,7 @@
 	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 
 	<div class="container_mate">
-		<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼요청서</h4>
+		<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 등록 요청서</h4>
 		<form action="/helpRequest.do" method="post"
 			enctype="multipart/form-data" id="funder_add">
 			<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
@@ -78,13 +78,15 @@
 									value="0"><label for="fun_06" style="width: 140px">과외·알바</label>
 								<input type="checkbox" class="chk" name="funderCategory"
 									id="fun_07" value="0"><label for="fun_07"
-									style="width: 140px">동행·돌봄</label>
+									style="width: 140px">기타·원격</label>
 							</div> <input type="hidden" id="helperCategory" name="helperCategory">
+							
 						</td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>2.선호분야 사진첨부</th>
+						<th>2.자신있는 분야 사진첨부</th>
 						<td>
+							<p class="ac-title">가장 자신있는 분야나 어필할 사진 한장  올려주세요!!</p>
 							<div class="img-viewr">
 								<img id="img-view" src="">
 							</div> <label class="btn btn_sm btn_out" for="profile"
@@ -223,7 +225,7 @@
 				timePicker : true,
 				singleDatePicker : true,
 				timePicker24Hour : true,
-				timePickerIncrement : 1,
+				timePickerIncrement : 30,
 				locale : {
 					"format" : 'HH:mm',
 					"applyLabel" : "확인",
@@ -432,6 +434,9 @@
 						}
 					}
 				});
+				if(helperName ==""){
+					$("#idChk").html("");
+				}
 			})
 		 	function chkForm() {
 				if($("#helperCategory").val()==00000000){

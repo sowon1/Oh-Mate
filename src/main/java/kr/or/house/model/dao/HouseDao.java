@@ -176,7 +176,7 @@ public class HouseDao {
 	//하우스오너 하우스 상세보기 출력
 	public House selectHouseownerOneHouse(HashMap<String, Object> map) {
 		House h = session.selectOne("house.selectHouseownerOneHouse",map);
-		return null;
+		return h;
 	}
 	//하우스오너 투어리스트
 	public ArrayList<Tour> selectTourList(int roomNo) {
@@ -189,8 +189,8 @@ public class HouseDao {
 		return (ArrayList<Move>)list;
 	}
 
-	public int tourCount(int roomNo) {
-		int result = session.selectOne("house.tourCount", roomNo);
+	public int tourCount(int houseNo) {
+		int result = session.selectOne("house.tourCount", houseNo);
 		return result;
 	}
 

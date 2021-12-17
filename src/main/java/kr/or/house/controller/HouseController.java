@@ -392,6 +392,10 @@ public class HouseController {
 	@RequestMapping(value = "/houseOwnerRoom.do")
 	public String houseOwnerRoom(int houseNo, int memberNo, Model model) {
 		House h = service.selectHouseownerOneHouse(houseNo, memberNo);
-		return "";
+		model.addAttribute("h", h);
+		model.addAttribute("photo", h.getPhotoList());
+		model.addAttribute("room", h.getHouseRoomView());
+		return "house/houseownerView";
 	}
+	
 }

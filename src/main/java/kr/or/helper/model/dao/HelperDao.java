@@ -48,5 +48,25 @@ public class HelperDao {
 		
 		return session.selectOne("helper.selectOneIncome", helperNo);
 	}
+
+	public int updateHelperReqNoImg(Helper h) {
+		
+		return session.update("helper.updateHelperReqNoImg",h);
+	}
+
+	public int deleteAddresss(int addressNumber) {
+		
+		return session.delete("helper.deleteAddressUpdate", addressNumber);
+	}
+
+	public int insertIncomeHelperUpdate(Income i2) {
+		// TODO Auto-generated method stub
+		return session.update("helper.insertIncomeHelperUpdate", i2);
+	}
+
+	public int insertHouseAndImgUpdate(Helper h) {
+		// TODO Auto-generated method stub
+		return session.update("helper.updateHelperReqImg", h);
+	}
 	
 }

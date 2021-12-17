@@ -46,7 +46,7 @@ public class HelperService {
 		}
 	}
 
-	// 사진 있을때
+	// 사진 있을때 헬퍼 요청등록
 	public int insertHouseAndImg(Helper h, Income i2, String[] addressCode, String[] addressName, String[] addressRoad,
 			String[] addressLegal) {
 		int result = dao.insertHouseAndImg(h);
@@ -88,6 +88,66 @@ public class HelperService {
 		Income i = dao.selectOneIncome(h.getHelperNo());
 		h.setIncome(i);
 		return h;
+	}
+	//헬퍼 등록 요청 사진x 수정
+	public int helperRequestNoImgUpdate(Helper h, Income i2, String[] addressCode, String[] addressName,
+			String[] addressRoad, String[] addressLegal) {
+		int result = dao.updateHelperReqNoImg(h);
+		int helperNo = h.getHelperNo();
+		if(result>0) {
+			//미리 있던 헬퍼관련 선호 주소삭제
+			System.out.println(helperNo);
+			int addressNumber= helperNo;
+			int result2 = dao.deleteAddresss(addressNumber);
+			if(result2>0) {
+				for (int i = 0; i < addressCode.length; i++) {
+					Address addr = new Address();
+					addr.setAddressCode(addressCode[i]);
+					addr.setAddressName(addressName[i]);
+					addr.setAddressLegal(addressLegal[i]);
+					addr.setAddressRoad(addressRoad[i]);
+					addr.setAddressNumber(helperNo);
+					int resultAddr = dao.insertAddress(addr);
+				}
+				i2.setIncomeNum(helperNo);
+				int result3 = dao.insertIncomeHelperUpdate(i2);
+				return result3;
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
+	}
+	//이미지 있는 헬퍼 등록 요청 수정
+	public int insertHouseAndImgUpdate(Helper h, Income i2, String[] addressCode, String[] addressName,
+			String[] addressRoad, String[] addressLegal) {
+			int result = dao.insertHouseAndImgUpdate(h);
+			int helperNo = h.getHelperNo();
+			if(result>0) {
+				//미리 있던 헬퍼관련 선호 주소삭제
+				int addressNumber= helperNo;
+				int result2 = dao.deleteAddresss(addressNumber);
+				if(result2>0) {
+					for (int i = 0; i < addressCode.length; i++) {
+						Address addr = new Address();
+						addr.setAddressCode(addressCode[i]);
+						addr.setAddressName(addressName[i]);
+						addr.setAddressLegal(addressLegal[i]);
+						addr.setAddressRoad(addressRoad[i]);
+						addr.setAddressNumber(helperNo);
+						int resultAddr = dao.insertAddress(addr);
+					}
+					i2.setIncomeNum(helperNo);
+					int result3 = dao.insertIncomeHelperUpdate(i2);
+					return result3;
+				}else {
+					return 0;
+				}
+			}else {
+				return 0;
+			}
+	
 	}
 
 }

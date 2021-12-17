@@ -375,10 +375,10 @@
 		from move
 		where room_no = #{roomNo}
 	</select>
-	<select id="tourCount" parameterType="_int" resultType="_int">
-		select count(*) from tour where room_no = #{roomNo}
+	<select id="tourCount" parameterType="map" resultType="_int">
+		select count(*) from tour where room_no = #{roomNo} and tour_status=2
 	</select>
-	
+
 	<!-- 찜목록 불러오기 -->
 	<select id="selectBookmarkHouse" parameterType="_int" resultMap="house">
   		select * from 
@@ -392,4 +392,23 @@
 	<delete id="deletePhoto" parameterType="f">
 		delete from photo where photo_no =#{photoNo} and photo_path=#{photoPath} and photo_category =1
 	</delete>
+	<!-- 하우스 상세보기 (하우스 테이블) -->
+	<select id="selectHouseownerOneHouse" parameterType="map" resultType="h">
+		select
+			house_no as houseNo,
+			member_no as memberNo,
+			house_title as houseTitle,
+			houseowner_deadline as houseownerDeadline,
+			house_selling as houseSelling,
+			refuse_reason as refuseReason,
+			house_content as houseContent,
+			house_room as houseRoom,
+			house_charge as houseCharge,
+			house_rule as houseRule,
+			house_form as houseForm,
+			house_gender as houseGender,
+			house_convenience as houseConvenience,
+			house_allow as houseAllow
+		from where house_no=#{houseNo} and member_no = #{memberNo}
+	</select>
 </mapper>

@@ -66,4 +66,40 @@
 			income_category as incomeCategory
 		from income where income_num=#{houseNo} and income_category=1
  	</select>
+ 	<update id="updateHelperReqNoImg" parameterType="hp">
+ 		update helper set 
+ 			helper_name = #{helperName},
+ 			helper_category = #{helperCategory},
+ 			helper_start_time = #{helperStartTime},
+ 			helper_end_time = #{helperEndTime},
+ 			helper_ride = #{helperRide},
+ 			helper_status = 1,
+ 			helper_intro = #{helperIntro},
+ 			helper_credit = #{helperCredit}
+ 		where helper_no = #{helperNo} and member_no=#{memberNo}
+ 	</update>
+ 	<delete id="deleteAddressUpdate" parameterType="_int">
+ 		delete from address
+ 		where address_number = #{addressNumber} and address_category=2
+ 	</delete>
+ 	<update id="insertIncomeHelperUpdate" parameterType="i">
+ 		update income set
+ 			income_bank = #{incomeBank},
+ 			income_account = #{incomeAccount},
+ 			income_name = #{incomeName}
+ 		where income_no=#{incomeNo} and income_category=1 and income_num=#{incomeNum}
+ 	</update>
+ 	<update id="updateHelperReqImg" parameterType="hp">
+ 		update helper set 
+ 			helper_name = #{helperName},
+ 			helper_category = #{helperCategory},
+ 			helper_start_time = #{helperStartTime},
+ 			helper_end_time = #{helperEndTime},
+ 			helper_ride = #{helperRide},
+ 			helper_status = 1,
+ 			helper_filepath = #{helperFilepath},
+ 			helper_intro = #{helperIntro},
+ 			helper_credit = #{helperCredit}
+ 		where helper_no = #{helperNo} and member_no=#{memberNo}
+ 	</update>
 </mapper>

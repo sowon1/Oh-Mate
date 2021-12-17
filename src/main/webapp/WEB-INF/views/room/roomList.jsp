@@ -180,7 +180,7 @@
 												</td>
 												<td>
 													<p class="ac-title"
-														style="margin-top: 40px; margin-left: 30px;">${r.roomSize }·${r.roomPersonnel }/전화번호
+														style="margin-top: 40px; margin-left: 30px;">${r.roomSize }평·${r.roomPersonnel }/전화번호
 														: ${r.roomPhone }</p>
 												</td>
 											</tr>
