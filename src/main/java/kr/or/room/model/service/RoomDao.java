@@ -79,4 +79,9 @@ public class RoomDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("room.tourRequestCount", memberNo);
 	}
+
+	public Room selectOneRoomTM(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
