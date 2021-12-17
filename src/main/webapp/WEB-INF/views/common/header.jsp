@@ -53,7 +53,7 @@
            		</c:when>
            		<%-- 로그인 시 --%>
            		<c:otherwise>
-           			<c:choose>
+		           	<c:choose>
            				<%-- 관리자인 경우 대시보드 포인트 메뉴로 표시 --%>
            				<c:when test="${sessionScope.m.memberLevel eq 0 }">
            					<li>
@@ -436,6 +436,7 @@
        return false;
        });
    }); */
+   
 	$("#requestChk").click(function() {
 		var memberNo = $("#memberNo").val();
 		$.ajax({
@@ -457,9 +458,9 @@
 			}
 		});
 	});
-
+	
    <!-- 챗봇 -->
-     (function() {
+     $(function() {
        var w = window;
        if (w.ChannelIO) {
          return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');

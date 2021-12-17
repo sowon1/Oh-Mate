@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.or.board.model.dao.BoardDao;
 import kr.or.board.model.vo.Board;
 import kr.or.board.model.vo.BoardMemberData;
+import kr.or.board.model.vo.MateComment;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -51,12 +52,10 @@ public class BoardService {
 		return dao.selectMember(memberId);
 	}
 		
-	//게시글목록조회
-	public BoardMemberData selectBoard(Board b) {
+	//게시글 목록 조회
+	public ArrayList<Board> selectBoard() {
 		ArrayList<Board> list = dao.selectBoard();
-		String filepath = dao.selectBoardMember(b);
-		BoardMemberData bmd = new BoardMemberData(list,filepath);
-		return bmd;
+		return list;
 	}
 
 	//게시글작성
@@ -66,21 +65,37 @@ public class BoardService {
 	}
 
 	//게시판 상세보기 이동
-	@Transactional
-	public ArrayList<Board> selectBoardList(int boardNo) {
+	public BoardMemberData selectBoardList(int boardNo) {
 		dao.updateCount(boardNo);
-		ArrayList<Board> list = dao.selectBoardList(boardNo);
-		return list;
+		Board b = dao.selectBoardList(boardNo);
+		ArrayList<MateComment> list = dao.selectComment(boardNo);
+		BoardMemberData bmd = new BoardMemberData(b,list);
+		return bmd;
+	}
+	
+	//게시판 수정 이동
+	public Board selectBoard(int boardNo) {
+		dao.updateCount(boardNo);
+		Board b = dao.selectBoardList(boardNo);
+		return b;
 	}
 
 	//게시글 수정
+	@Transactional
 	public int boardUpdate(Board b) {
 		return dao.boardUpdate(b);
 	}
 
 	//게시글 삭제
+	@Transactional
 	public int boardDelete(int boardNo) {
 		return dao.boardDelete(boardNo);
+	}
+
+	//댓글
+	@Transactional
+	public int insertComment(MateComment mc) {
+		return dao.insertComment(mc);
 	}
 
 }

@@ -14,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.board.model.service.BoardService;
 import kr.or.board.model.vo.Board;
 import kr.or.board.model.vo.BoardMemberData;
+import kr.or.board.model.vo.MateComment;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -89,10 +91,9 @@ public class BoardController {
 	
 	//게시판
 	@RequestMapping(value="/communityFrm.do")
-	public String coummunityFrm(Model model, Board b) {
-		BoardMemberData bmd = service.selectBoard(b);
-		model.addAttribute("list",bmd.getB());
-		model.addAttribute("bm",bmd.getFilepath());
+	public String coummunityFrm(Model model) {
+		ArrayList<Board> list = service.selectBoard();
+		model.addAttribute("list",list);
 		//System.out.println(list.size());
 		//System.out.println(list);
 		return "board/communityFrm";
@@ -160,8 +161,9 @@ public class BoardController {
 	@RequestMapping(value="/boardView.do")
 	public String boardView(int boardNo, Model model) {
 		//System.out.println(boardNo);
-		ArrayList<Board> list = service.selectBoardList(boardNo);
-		model.addAttribute("list",list);
+		BoardMemberData bmd = service.selectBoardList(boardNo);
+		model.addAttribute("b",bmd.getB());
+		model.addAttribute("list",bmd.getList());
 		//System.out.println(list);
 		return "board/boardView";
 	}
@@ -169,8 +171,8 @@ public class BoardController {
 	//게시판 수정 이동
 	@RequestMapping(value="/boardUpdateFrm.do")
 	public String boardUpdateFrm(int boardNo, Model model) {
-		ArrayList<Board> list = service.selectBoardList(boardNo);
-		model.addAttribute("list",list);
+		Board b = service.selectBoard(boardNo);
+		model.addAttribute("b",b);
 		return "board/boardUpdateFrm";
 	}
 	
@@ -236,6 +238,20 @@ public class BoardController {
 			model.addAttribute("msg","게시글 삭제 실패");
 		}
 		model.addAttribute("loc","/communityFrm.do?boardNo="+boardNo);
+		return "common/msg";
+	}
+	
+	//댓글
+	@RequestMapping(value="/insertComment.do", method=RequestMethod.POST)
+	public String insertComment(MateComment mc, Model model) {
+		int result = service.insertComment(mc);
+		System.out.println(result);
+		if(result>0) {
+			model.addAttribute("msg","댓글성공");
+		}else {
+			model.addAttribute("msg","댓글실패");
+		}
+		model.addAttribute("loc","/boardView.do?boardNo="+mc.getBoardNo());
 		return "common/msg";
 	}
 }

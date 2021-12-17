@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.board.model.vo.Board;
+import kr.or.board.model.vo.MateComment;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
 
@@ -64,14 +65,12 @@ public class BoardDao {
 	}
 
 	//게시판 상세보기 이동
-	public ArrayList<Board> selectBoardList(int boardNo) {
-		List<Board>	list = sqlSession.selectList("board.boardList",boardNo);
-		return (ArrayList<Board>)list;
+	public Board selectBoardList(int boardNo) {
+		return sqlSession.selectOne("board.boardList",boardNo);
 	}
 
 	//게시글 수정
 	public int boardUpdate(Board b) {
-		System.out.println("dao : " + sqlSession.update("board.boardUpdate",b));
 		return sqlSession.update("board.boardUpdate",b);
 	}
 
@@ -81,8 +80,19 @@ public class BoardDao {
 	}
 
 	//게시글_회원 파일경로
-	public String selectBoardMember(Board b) {
-		return sqlSession.selectOne("board.selectBoardMember",b);
+	public String selectBoardMember(int boardNo) {
+		return sqlSession.selectOne("board.selectBoardMember",boardNo);
+	}
+
+	//댓글
+	public int insertComment(MateComment mc) {
+		return sqlSession.insert("board.insertComment",mc);
+	}
+
+	//댓글조회
+	public ArrayList<MateComment> selectComment(int boardNo) {
+		List<MateComment> list = sqlSession.selectList("board.selectComment",boardNo);
+		return (ArrayList<MateComment>)list;
 	}
 
 }

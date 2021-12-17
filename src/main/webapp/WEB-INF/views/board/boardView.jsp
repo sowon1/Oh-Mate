@@ -15,14 +15,12 @@
 		<h1>오늘부터 메이트</h1>
 		<br><hr><br>
 		<table class="table table-hover">
-		<c:forEach items="${list }" var="b">
-		<input type="hidden" name="pWriter" value="${sessionScope.m.memberId }">
+		<!-- <input type="hidden" name="pWriter" value="${sessionScope.m.memberId }"> -->
 			<tr class="table-primary">
 				<th>제목</th>
 				<td colspan="2" class="tdStyle" style="padding-top:11px;">${b.boardTitle }</td>
 			    <td>
-			    	<button type="button" class="btn btn-primary btn-sm" id="postBtn">쪽지보내기</button>
-			    	<a href="/reportFrm" class="bell" ><i class="far fa-bell"></i> 신고하기</a>
+			    	<a href="/reportFrm" class="bell"><i class="far fa-bell"></i> 신고하기</a>
 			    </td>
 		    </tr>
 		    <tr>
@@ -60,16 +58,49 @@
 			    	</c:when>
 			    	<c:otherwise>
 			    	<div class="submitBtn">
-			    		<button onclick="history.back()" class="btn" id="boardBack">이전화면</button>
+			    		<button class="btn" id="boardBack" onclick="history.back()" >이전화면</button>
 			    	</div>
 			    	</c:otherwise>
 		    	</c:choose>
 		    	</td>
 		    </tr>
-		</c:forEach>	
 		</table>
 		</div>
+		
+		<!-- 댓글 작성 -->
+		<c:choose>
+		<c:when test="${m != null && (m.memberLevel ne 3)}">
+		<div>
+			<form action="/insertComment.do" method="post">
+				<ul style="padding-left:100px;">
+					<li>
+						<div style="float:left; padding-right:15px;">
+						<i class="far fa-user fa-4x"></i>
+						</div>
+					</li>
+					<li><div style="float:left;">
+						<input type="hidden" name="CommentLevel" value="1">
+						<input type="hidden" name="commentWriter" value="${m.memberId }">
+						<input type="hidden" name="boardNo" value="${b.boardNo }">
+						<input type="hidden" name="boardRef" value="0">
+						<input type="hidden" name="status" value="1">
+						<textarea name="commentContent" class="form-control" style="width:800px;"></textarea>
+						</div>
+					</li>	
+					<li>
+						<button type="submit" class="btn subBtn">등록</button>
+					</li>
+				</ul>	
+			</form>
+		</div>
+		</c:when>
+		</c:choose>
+		
+
 	</div>
+	
+	
+
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
