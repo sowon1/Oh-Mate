@@ -14,10 +14,8 @@
 		<div class="container_mate">
 		<h1>오늘부터 메이트_글수정</h1>
 		<br><hr><br>
+		<form action="/boardUpdate.do" method="post" enctype="multipart/form-data">
 		<table class="table table-hover">
-		<c:forEach items="${list }" var="b">
-		<input type="hidden" name="pWriter" value="${sessionScope.m.memberId }">
-		<input type="hidden" name="boardNo" id="boardNo">
 			<tr class="table-primary">
 				<th>제목</th>
 				<td colspan="3" class="tdStyle">
@@ -66,8 +64,8 @@
 		    	</c:choose>
 		    	</td>
 		    </tr>
-		</c:forEach>	
 		</table>
+		</form>
 		</div>
 	</div>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>

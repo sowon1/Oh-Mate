@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티</title>
-<link rel="stylesheet" href="/resources/css/community/communityFrm.css">
+<link rel="stylesheet" href="/resources/css/board/communityFrm.css">
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
@@ -130,7 +130,7 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="b" varStatus="i">
-				 	<div class="cardImg" onclick="location.href='/boardView.do?boardNo=${b.boardNo}';">
+				 	<div class="cardImg" onclick="location.href='/boardView.do?boardNo=${b.boardNo}'">
 					  <div class="col mb-4">
 					    <div class="card">
 					      <img src="/resources/upload/board/${b.filePath }" class="card-img-top">
@@ -138,14 +138,14 @@
 						      <h5 class="card-title">${b.boardTitle }</h5>
 								<div class="profile">
 									<c:choose>
-										<c:when test="${bm.filepath eq null}">
+										<c:when test="${empty b.fileImg}">
 										<div class="prof">
 											<img src="resources/img/icon/profile.png" class="memberImg">
 										</div>
 										</c:when>
 										<c:otherwise>
 										<div class="prof">
-											<img src="resources/upload/member/${bm.filepath}" class="memberImg">
+											<img src="resources/upload/member/${b.fileImg}" class="memberImg">
 										</div>
 										</c:otherwise>
 									 </c:choose>

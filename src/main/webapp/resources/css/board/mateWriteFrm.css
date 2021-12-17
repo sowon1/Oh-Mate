@@ -41,3 +41,6 @@ input[name="boardTitle"]{
 #boardUpdate, #deleteBtn, #boardInsert{
 	padding: 0px;
 }
+li>.subBtn{
+	padding:0px; margin-top:7px; margin-left:5px; width:100px;
+}

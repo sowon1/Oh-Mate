@@ -458,9 +458,9 @@
        });
    }); */
 
-   <!-- 챗봇 -->
-   <!-- Channel Plugin Scripts -->
-     (function() {
+   <!-- 챗봇
+   Channel Plugin Scripts -->
+     $(function() {
        var w = window;
        if (w.ChannelIO) {
          return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
