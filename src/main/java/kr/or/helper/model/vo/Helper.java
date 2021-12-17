@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kr.or.common.Address;
 import kr.or.common.Income;
+import kr.or.common.Photo;
 import lombok.Data;
 
 @Data
@@ -21,4 +22,7 @@ public class Helper {
 	private String helperCredit;		//헬퍼 자격증 사진
 	private String helperRefuse;		//헬퍼 미승인 사유
 	private Income income;
+	private String likedCheck;				//좋아요 체크용
+	private String likeCount;				//좋아요 카운트
+	private ArrayList<Photo> photoList; 	//사진테이블
 }

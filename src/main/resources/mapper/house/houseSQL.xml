@@ -94,7 +94,7 @@
             h.*,
             (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount,
             (select address_road from address where address_number=h.house_no) as addressRoad,
-            decode((select count(*) from bookmark where bookmarker=1 and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck            
+            decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck            
         from 
         (select house.*
         from house 

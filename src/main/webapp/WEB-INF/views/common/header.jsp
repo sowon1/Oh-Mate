@@ -460,7 +460,7 @@
 	});
 	
    <!-- 챗봇 -->
-     $(function() {
+     (function() {
        var w = window;
        if (w.ChannelIO) {
          return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import kr.or.common.Address;
 import kr.or.common.Income;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
+import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
+import kr.or.room.model.vo.Room;
 
 @Controller
 public class HelperController {
@@ -37,7 +41,12 @@ public class HelperController {
 	}
 	//헬퍼 리스트 출력
 	@RequestMapping(value="/helperList.do")
-	public String helperList() {
+	public String helperList(String keyword, String gender, String helperStartTime, String helperEndTime, Model model,String helperCategory) {
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("gender", gender);
+		model.addAttribute("helperStartTime", helperStartTime);
+		model.addAttribute("helperEndTime", helperEndTime);
+		model.addAttribute("helperCategory",helperCategory);
 		return "helper/helperList";
 	}
 	//헬퍼 썸머노트 이미지 업로드-jisung
@@ -237,8 +246,22 @@ public class HelperController {
 		}
 		
 		// 헬퍼 리스트 출력 부분 - sowon
-		
-		
-		
-		
+		@ResponseBody
+		@RequestMapping(value="/ajax_helper_page.do", produces = "application/json;charset=utf-8")
+		public String ajax_helper_page(int pageNum, Model model, HttpSession session, String keyword, Helper h, Member mem) {
+			int memberNo = 0;
+			if (session != null) {
+				Member m = (Member) session.getAttribute("m");
+
+				if (m != null) {
+					memberNo = m.getMemberNo();
+				}
+			}
+			HashMap<String, Object> data = service.selectAjaxHelper(pageNum, memberNo, keyword, h, mem);
+			model.addAttribute("totalPageCount", data.get("totalPageCount"));
+			model.addAttribute("startPageNum", data.get("startPageNum"));
+
+			return new Gson().toJson(data);
+		}
+	
 }

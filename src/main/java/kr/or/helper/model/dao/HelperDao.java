@@ -1,5 +1,9 @@
 package kr.or.helper.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -7,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.common.Address;
 import kr.or.common.Income;
 import kr.or.helper.model.vo.Helper;
+
 
 @Repository
 public class HelperDao {
@@ -67,6 +72,11 @@ public class HelperDao {
 	public int insertHouseAndImgUpdate(Helper h) {
 		// TODO Auto-generated method stub
 		return session.update("helper.updateHelperReqImg", h);
+	}
+	//헬퍼 리스트 출력 부분 - sowon
+	public ArrayList<Helper> selectAjaxHelper(HashMap<String, Object> map) {
+		List<Helper> list = session.selectList("helper.selectAjaxHelper",map);
+		return (ArrayList<Helper>)list;
 	}
 	
 }

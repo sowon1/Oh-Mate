@@ -163,6 +163,9 @@
        							<span class="house_view_room_title">
        								${r.roomTitle}
        							</span>
+       							<span class="house_view_room_sub">
+       								${r.roomContent}
+       							</span>
        							<div class="house_view_room_text">
        								<span class="house_view_room_text_title">
        									평수

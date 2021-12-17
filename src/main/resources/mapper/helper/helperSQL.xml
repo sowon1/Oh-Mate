@@ -102,4 +102,73 @@
  			helper_credit = #{helperCredit}
  		where helper_no = #{helperNo} and member_no=#{memberNo}
  	</update>
+ 	
+ 	<!-- 헬퍼 리스트 출력 부분 - sowon 
+ 		주소 2개의 행이라서 그부분 처리 어떻게 ?
+ 	-->
+ 	<select id="selectAjaxHelper" parameterType="map" resultMap="helper">
+ 		select hh.* from
+        (select 
+            rownum as rnum,
+            h.*,
+            
+            decode((select count(*) from bookmark where bookmarker=1 and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=h.helper_no),'1','좋아요','좋아요취소') as likedCheck            
+        from 
+        (select helper.*
+        from helper 
+        join address on(helper.helper_no = address.address_number)
+        join member on (helper.member_no = member.member_no)
+        where 
+            helper_status=1
+            and address_category = 2
+            <if test="gender != 0 and gender != 3">
+				and gender=#{gender}
+			</if>
+            <if test="keyword != null and !''.equals(keyword)">
+            	and (helper_intro || address_name || address_road || address_legal) like '%' ||  #{keyword} || '%'     
+			</if>
+			<if test='!"00:00".equals(helperStartTime)'>
+				and helper_start_time=#{helperStartTime}
+			</if>
+			<if test='!"00:00".equals(helperEndTime)'>
+				and helper_end_time=#{helperEndTime}
+			</if>
+			<if test='!"00000000".equals(helperCategory) and helperCategory != null'>
+				and helper_category = #{helperCategory}
+			</if>
+        order by 1 desc
+        )h)hh where rnum between 1 and 10;
+ 	</select>
+ 	<resultMap type="h" id="helper">
+		<result column="helper_no" property="helperNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="helper_name" property="helperName"/>
+		<result column="helper_category" property="helperCategory"/>
+		<result column="helper_start_time" property="helperStartTime"/>
+		<result column="helper_end_time" property="helperEndTime"/>
+		<result column="helper_ride" property="helperRide"/>
+		<result column="helper_status" property="helperStatus"/>
+		<result column="helper_filepath" property="helperFilepath"/>
+		<result column="helper_intro" property="helperIntro"/>
+		<result column="helper_credit" property="helperCredit"/>
+		<result column="helper_refuse" property="helperRefuse"/>
+		<collection property="photoList"
+					column="helper_no"
+					javaType="java.util.ArrayList"
+					ofType="f"
+					select="selectHelperList"	
+		/>
+	</resultMap>
+	<!-- 헬퍼 사진 조회 테이블 -->
+	<select id="selectHelperList" parameterType="_int" resultType="f">
+		select
+			photo_no as photoNo,
+			photo_category as photoCategory, 
+			photo_path as photoPath, 
+			photo_num as photoNum 
+		from 
+			(select rownum as rnum, h.* from
+			(select * from photo where photo_category=1 and photo_num = #{helperNo} order by 1 )h) 
+		where rnum = 1
+	</select>
 </mapper>

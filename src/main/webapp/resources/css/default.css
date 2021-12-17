@@ -882,7 +882,7 @@ input[name="funderCategory"]:checked+label:after{
     border: 1px solid #9f9f9f;
     color: #292929;
 }
-.input_03:focus, .textarea_pro:focus{
+.input_03:focus, .textarea_pro:focus, .input_05:focus{
 	border:1px solid #956bfc;
 }
 .input_04{
@@ -898,6 +898,20 @@ input[name="funderCategory"]:checked+label:after{
     -webkit-appearance: none;
     border: 1px solid #9f9f9f;
     color: #292929;
+}
+.input_05{
+	outline: none;
+	border: none;
+	border-radius: 3px;
+	display: inline-block;
+    width: 200px;
+    height: 40px;
+    box-shadow: none;
+    background-color: #fff;
+    padding: 0 12px;
+    -webkit-appearance: none;
+    border: 1px solid #9f9f9f;
+    color: #9b9b9b;
 }
 .postcode{
     float: left;
