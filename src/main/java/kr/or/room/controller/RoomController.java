@@ -97,5 +97,10 @@ public class RoomController {
 			return "/";
 		}
 	}
-	
+	//하우스 오너 입주신청 & 투어신청 >> 결제내역까지 가져와야함
+	@RequestMapping(value = "/roomTourMoveChk.do")
+	public String roomTourMoveChk(int roomNo,int houseNo) {
+		Room r = service.selectOneRoomTM(roomNo,houseNo);
+		return"";
+	}
 }

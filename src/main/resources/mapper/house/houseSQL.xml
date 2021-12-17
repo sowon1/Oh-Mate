@@ -394,21 +394,24 @@
 	</delete>
 	<!-- 하우스 상세보기 (하우스 테이블) -->
 	<select id="selectHouseownerOneHouse" parameterType="map" resultType="h">
-		select
-			house_no as houseNo,
-			member_no as memberNo,
-			house_title as houseTitle,
-			houseowner_deadline as houseownerDeadline,
-			house_selling as houseSelling,
-			refuse_reason as refuseReason,
-			house_content as houseContent,
-			house_room as houseRoom,
-			house_charge as houseCharge,
-			house_rule as houseRule,
-			house_form as houseForm,
-			house_gender as houseGender,
-			house_convenience as houseConvenience,
-			house_allow as houseAllow
-		from where house_no=#{houseNo} and member_no = #{memberNo}
+		select 
+             h.house_no as houseNo,
+             h.member_no as memberNo,
+             h.house_title as houseTitle,
+             h.houseowner_deadline as houseownerDeadline,
+             h.house_selling as houseSelling,
+             h.refuse_reason as refuseReason,
+             h.house_content as houseContent,
+             h.house_room as houseRoom,
+             h.house_charge as houseCharge,
+             h.house_rule as houseRule,
+             h.house_form as houseForm,
+             h.house_gender as houseGender,
+             h.house_convenience as houseConvenience,
+             h.house_allow as houseAllow,
+             (select address_name from address where address_category=1 and address_number=h.house_no) as addressName,
+             (select address_road from address where address_category=1 and address_number=h.house_no) as addressRoad,
+             (select count(*)from room where house_no=#{houseNo} and room_status=1) as roomCount
+        from house h where house_no=#{houseNo}
 	</select>
 </mapper>

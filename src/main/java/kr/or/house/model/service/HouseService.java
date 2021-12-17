@@ -139,14 +139,6 @@ public class HouseService {
 
 			ArrayList<Photo> photoArray = dao.selectPhoto(houseNo);
 			ArrayList<Room> roomArray = dao.selectHouseRoomList(houseNo);
-			for(int j = 0; j<roomArray.size();j++) {
-				int roomNo = roomArray.get(j).getRoomNo();
-				ArrayList<Tour> tourArray = dao.selectTourList(roomNo);
-				ArrayList<Move> moveArray = dao.selectMoveList(roomNo);
-				
-				roomArray.get(j).setHouseTour(tourArray);
-				roomArray.get(j).setHouseMove(moveArray);
-			}
 			ArrayList<Income> incomeArray = dao.selectIncome(houseNo);
 			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
 			

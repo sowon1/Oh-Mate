@@ -119,7 +119,7 @@
 }
 .btn-group a{
 	display: inline-block;
-	width: 25%;
+	width: 50%;
 	font-size: 14px;
 	color: #333;
 	border-right: 1px #f1f1f1 solid;
@@ -202,10 +202,6 @@ margin-left: 500px;
 								</div>
 								<div class="btn-group">
 									<a href="/houseUpdateFrm.do?houseNo=${h.houseNo}&memberNo=${h.memberNo}">수정하기</a> <a href="/houseDelete.do?houseNo=${h.houseNo} &memberNo=${h.memberNo}">삭제하기</a>
-									<a href="javascript:void(0);">입주자 내역</a>
-									<a href="javascript:void(0);">투어리스트 내역	
-									
-									</a>
 								</div>
 							</div>
 						</li>
@@ -215,9 +211,6 @@ margin-left: 500px;
 			<div class="house-navi">${pageNavi }</div>
 		</div>
 	</div>
-	<script>
-	
-	</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

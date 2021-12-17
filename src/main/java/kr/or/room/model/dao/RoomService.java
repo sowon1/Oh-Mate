@@ -155,4 +155,12 @@ public class RoomService {
 		
 		return map;
 	}
+
+	public Room selectOneRoomTM(int roomNo, int houseNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("roomNo", roomNo);
+		map.put("houseNo", houseNo);
+		Room r = dao.selectOneRoomTM(map);
+		return null;
+	}
 }
