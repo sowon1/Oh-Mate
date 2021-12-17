@@ -12,6 +12,11 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
+	<!-- 달력 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<div class="container_mate_filter">
 		<div class="house_list">
 			<div class="house_left">
@@ -50,64 +55,59 @@
 									</div>
 								</div>
 							</div>
-							<div class="houseTypeWrap">
-								<p class="filterTitle">
-									<strong>도움 유형</strong>
-								</p>
-								<div class="filter_cont help_cont">
-									<div>
-										<input type="checkbox" id="help_type_0" name="houseForm" value="0">
-										<label for="help_type_0"><span class="select_icon02"></span>배달·장보기</label>
-									</div>
-									<div>
-										<input type="checkbox" id="help_type_1" name="houseForm" value="0">
-										<label for="help_type_1"><span class="select_icon04"></span>청소·집안일</label>
-									</div>
-									<div>
-										<input type="checkbox" id="help_type_2" name="houseForm" value="0">
-										<label for="help_type_2"><span class="select_icon03"></span>설치·조립·운반</label>
-									</div>
-									<div>
-										<input type="checkbox" id="help_type_3" name="houseForm" value="0">
-										<label for="help_type_3"><span class="select_icon03"></span>동행·돌봄</label>
-									</div>
-									<div class="clear">
-										<input type="checkbox" id="help_type_4" name="houseForm" value="0">
-										<label for="help_type_4"><span class="select_icon03"></span>벌레·쥐</label>
-									</div>
-									<div>
-										<input type="checkbox" id="help_type_5" name="houseForm" value="0">
-										<label for="help_type_5"><span class="select_icon03"></span>역할대행</label>
-									</div>
-									<div>
-										<input type="checkbox" id="help_type_6" name="houseForm" value="0">
-										<label for="help_type_6"><span class="select_icon03"></span>과외·알바</label>
-									</div>
-									<div>
-										<input type="checkbox" id="help_type_7" name="houseForm" value="0">
-										<label for="help_type_7"><span class="select_icon03"></span>기타·원격</label>
-									</div>
-								</div>
-							</div>
-							<div class="houseTypeWrap">
+							<div class="timeWrap">
 								<p class="filterTitle">
 									<strong>선호 시간</strong>
 								</p>
-								<div class="filter_cont">
+								<div class="filter_cont time_filter_cont">
 									<div>
-										<input type="radio" id="house-filter_max_resident_1" name="roomPersonnel" value="1인실">
-										<label for="house-filter_max_resident_1"><span class="select_icon02"></span>1인실</label>
-									</div>
+										<input type="text" class="timeform input_05" name="helperStartTime">
+									</div>									
 									<div>
-										<input type="radio" id="house-filter_max_resident_2" name="roomPersonnel" value="2인실">
-										<label for="house-filter_max_resident_2"><span class="select_icon04"></span>2인실</label>
-									</div>
-									<div>
-										<input type="radio" id="house-filter_max_resident_3" name="roomPersonnel" value="다인실">
-										<label for="house-filter_max_resident_3"><span class="select_icon03"></span>다인실</label>
+										<input class="timeform input_05" type="text" name="helperEndTime">
 									</div>
 								</div>
 							</div>
+							<div class="houseTypeWrap">
+								<p class="filterTitle">
+									<strong>도움 유형</strong>&nbsp;&nbsp;중복 선택 가능
+								</p>
+								<div class="filter_cont help_cont">
+									<div>
+										<input type="checkbox" id="help_type_0" name="houseForm" value="0" class="chk">
+										<label for="help_type_0"><span class="select_icon02"></span>배달·장보기</label>
+									</div>
+									<div>
+										<input type="checkbox" id="help_type_1" name="houseForm" value="0" class="chk">
+										<label for="help_type_1"><span class="select_icon02"></span>청소·집안일</label>
+									</div>
+									<div>
+										<input type="checkbox" id="help_type_2" name="houseForm" value="0" class="chk">
+										<label for="help_type_2"><span class="select_icon02"></span>설치·조립·운반</label>
+									</div>
+									<div>
+										<input type="checkbox" id="help_type_3" name="houseForm" value="0" class="chk">
+										<label for="help_type_3"><span class="select_icon02"></span>동행·돌봄</label>
+									</div>
+									<div class="clear">
+										<input type="checkbox" id="help_type_4" name="houseForm" value="0" class="chk">
+										<label for="help_type_4"><span class="select_icon02"></span>벌레·쥐</label>
+									</div>
+									<div>
+										<input type="checkbox" id="help_type_5" name="houseForm" value="0" class="chk">
+										<label for="help_type_5"><span class="select_icon02"></span>역할대행</label>
+									</div>
+									<div>
+										<input type="checkbox" id="help_type_6" name="houseForm" value="0" class="chk">
+										<label for="help_type_6"><span class="select_icon02"></span>과외·알바</label>
+									</div>
+									<div>
+										<input type="checkbox" id="help_type_7" name="houseForm" value="0" class="chk">
+										<label for="help_type_7"><span class="select_icon02"></span>기타·원격</label>
+									</div>
+									<input type="hidden" id="helperCategory" name="helperCategory">
+								</div>
+							</div>							
 						</div>
 					</fieldset>
 					<!--적용하기-->
@@ -142,12 +142,17 @@
 		var login = '${sessionScope.m}';
 		var totalCount = '${totalCount}';
 		var keyword = '${keyword}';
-		var houseGender = '${houseGender}';
-		var houseForm = '${houseForm}';
-		var roomPersonnel = '${roomPersonnel}';
-		var roomCharge1 = '${roomCharge1}';
-		var roomCharge2 = '${roomCharge2}';
+		var gender = '${gender}';
+		var helperStartTime = '${helperStartTime}';
+		var helperEndTime = '${helperEndTime}';
+		var helperCategory = '${helperCategory}';
 	
+		console.log(keyword);
+		console.log(gender);
+		console.log(helperStartTime);
+		console.log(helperEndTime);
+		console.log(helperCategory);
+		
 		//var start = '${startPageNum}';
 		//웹 브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
 		$(window).on("scroll",function(){
@@ -173,23 +178,17 @@
 			}
 		})
 		function GetList(currentPage){
-			console.log("1 : "+keyword);
-			console.log("2 : "+houseGender);
-			if(houseGender == ""){
-				houseGender = 0;
-			}
 			$.ajax({
 				type : "GET",
 				data : {
 					"pageNum" : currentPage,
 					keyword : keyword,
-					houseGender : houseGender,
-					houseForm : houseForm,
-					roomPersonnel : roomPersonnel,
-					roomCharge1 : roomCharge1,
-					roomCharge2 : roomCharge2
+					gender : gender,
+					helperStartTime : helperStartTime,
+					helperEndTime : helperEndTime,
+					helperCategory : helperCategory
 				},
-				url : "/ajax_page.do",
+				url : "/ajax_helper_page.do",
 				success : function(data){
 					var html = "";
 					var list = data.list;
@@ -207,31 +206,24 @@
 						if(login == ''){
 							html += '<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>';
 						}else if(list[i].likedCheck == '좋아요'){
-							html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_on.png"></a>';
+							html += '<a idx="'+list[i].helperNo+'" class="heart"><img src="/resources/img/icon/heart_on.png"></a>';
 						}else {
-							html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_off.png"></a>'
+							html += '<a idx="'+list[i].helperNo+'" class="heart"><img src="/resources/img/icon/heart_off.png"></a>'
 						}
 						if(list[i].photoList.length == 0){
 							html += ' </div><img src="/resources/img/icon/heart_off.png"></div>';
 						}else{
-							html += ' </div><img src="/resources/upload/house/'+list[i].photoList[0].photoPath+'"></div>';
+							html += ' </div><img src="/resources/upload/helper/'+list[i].photoList[0].photoPath+'"></div>';
 						}
 						
-						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].houseTitle+'</span></div>';
-						html += '<div class="list_line_02"><span class="list_tag">';
-						if(list[i].houseGender == '1'){
-							html += '남성전용';
-						}else if(list[i].houseGender == '2'){
-							html += '여성전용';
-						}else{
-							html += '남여공용';
-						}					
-						html += '</span><span class="house_form">'+list[i].houseForm+'</span></div></div>';
-						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'" class="house_more_btn">입주 가능한 방 '+list[i].roomCount+'개</a>';
+						html += '<a href="houseView.do?houseNo='+list[i].helperNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].helperName+'</span></div>';
+						html += '<div class="list_line_02"><span class="list_tag">';					
+						html += '</span><span class="house_form">'+list[i].helperRide+'</span></div></div>';
+						html += '<a href="helperView.do?helperNo='+list[i].helperNo+'" class="house_more_btn">입주 가능한 방 '+list[i].helperName+'개</a>';
 						html += '<input type="hidden" value="'+list[i].addressRoad+'" name="address">';
-						html += '<input type="hidden" value="'+list[i].houseTitle+'" name="houseTitle">';
+						html += '<input type="hidden" value="'+list[i].helperName+'" name="houseTitle">';
 						html += '</li></a>';
-						getHouseMap(list[i].addressRoad,list[i].houseTitle,"/resources/img/icon/heart_off.png",list[i].houseForm,list[i].roomCount,list[i].houseNo);
+						//getHouseMap(list[i].addressRoad,list[i].houseTitle,"/resources/img/icon/heart_off.png",list[i].houseForm,list[i].roomCount,list[i].houseNo);
 						//getHouseMap(list[i].addressRoad,list[i].houseTitle,list[i].photoList[0].photoPath,list[i].houseForm,list[i].roomCount,list[i].houseNo);
 					}
 					$(".list_container").append(html);
@@ -392,55 +384,70 @@
 			$(".h_filter_open").find("input").prop("checked",false);
 		});
 		//적용하기
+		$(".chk").change(function () {
+			if($(this).is(":checked")){
+				$(this).val(1);
+				$("#helperCategory").val($("#help_type_0").val()+$("#help_type_1").val()+$("#help_type_2").val()
+					+$("#help_type_3").val()+$("#help_type_4").val()+$("#help_type_5").val()+$("#help_type_6").val()+$("#help_type_7").val());
+			}else{
+				$(this).val(0);
+				$("#helperCategory").val($("#help_type_0").val()+$("#help_type_1").val()+$("#help_type_2").val()
+					+$("#help_type_3").val()+$("#help_type_4").val()+$("#help_type_5").val()+$("#help_type_6").val()+$("#help_type_7").val());
+			}
+	
+		});
 		$("#filter_apply_btn").click(function(){
-			var genderValue = $("input[name='houseGender']:checked").val();
-			var housetypeValue = $("input[name='houseForm']:checked").val();
-			var roomValue = $("input[name='roomPersonnel']:checked").val();
-			var roomCharge11 = $(".noUi-handle-lower").children().text();
-			var roomCharge22 = $(".noUi-handle-upper").children().text();
-			if(genderValue == "남성전용"){
-				houseGender="1";
-			}else if(genderValue == "여성전용"){
-				houseGender="2";
-			}else if(genderValue == "남녀공용"){
-				houseGender="3";
+			var genderValue = $("input[name='gender']:checked").val();
+			var helperStartTime = $("input[name='helperStartTime']").val();
+			var helperEndTime = $("input[name='helperEndTime']").val();
+			var helperCategory = $("#helperCategory").val();
+			if(genderValue == ""){
+				gender = 0;
+			}else if(genderValue == "1"){
+				gender = 1;
+			}else if (genderValue == "2"){
+				gender = 2;
 			}else{
-				houseGender="0";
+				gender=0;
 			}
-			if(roomValue == "1인실"){
-				roomPersonnel = "1인실";
-			}else if(roomValue == "2인실"){
-				roomPersonnel = "2인실";
-			}else if(roomValue == "다인실"){
-				roomPersonnel = "다인실";
-			}else{
-				roomPersonnel = "";
-			}
-			if(housetypeValue == "아파트"){
-				houseForm="아파트";
-			}else if(housetypeValue == "단독주택"){
-				houseForm="단독주택";
-			}else if(housetypeValue == "빌라"){
-				houseForm = "빌라";
-			}else{
-				houseForm="";
-			}
-			if(roomCharge11 == "0"){
-				roomCharge1 = "0";
-			}else{				
-				roomCharge1 = roomCharge11+"0000";
-			}
-			roomCharge2 = roomCharge22+"0000";
+			console.log(gender);
+			console.log(helperStartTime);
+			console.log(helperEndTime);
+			console.log(helperCategory);
 			$(".h_filter_open").slideToggle();
 		});
 		//서치
 		$("#searchHouse").click(function(){
 			var keyword = $("input[name='keyword']").val();
-			location.href="/houseList.do?keyword="+keyword+"&houseGender="+houseGender+"&houseForm="+houseForm+"&roomPersonnel="+roomPersonnel+"&roomCharge1="+roomCharge1+"&roomCharge2="+roomCharge2;
+			location.href="/helperList.do?keyword="+keyword+"&gender="+gender+"&helperStartTime="+helperStartTime+"&helperEndTime="+helperEndTime+"&helperCategory="+helperCategory;
 		});
+		$(function() {
+			// 시간
+			$('.timeform').daterangepicker({
+				timePicker : true,
+				singleDatePicker : true,
+				timePicker24Hour : true,
+				timePickerIncrement : 30,
+				locale : {
+					"format" : 'HH:mm',
+					"applyLabel" : "확인",
+					"cancelLabel" : "취소"
+				}
+			}).on('show.daterangepicker', function(ev, picker) {
+				picker.container.find(".calendar-table").hide();
+			});
+			$("input[name='helperStartTime']").on('apply.daterangepicker', function(ev, picker) {
+				$("input[name='helperStartTime']").css("color","#956bfc");       
+		   });
+			$("input[name='helperEndTime']").on('apply.daterangepicker', function(ev, picker) {
+				$("input[name='helperEndTime']").css("color","#956bfc");	       
+		   });
+		});	
 		//초기화 버튼 누를 경우
 	    $(".btnBorder").click(function(){
 	    	$("input[type='checkbox']").prop('checked', false);
+	    	$("input[name='helperStartTime']").val("");
+	    	$("input[name='helperEndTime']").val("");
 	    });
 	</script>
 </body>
