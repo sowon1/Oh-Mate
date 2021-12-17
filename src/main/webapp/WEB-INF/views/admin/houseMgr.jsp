@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Oh-Mate! 하우스 관리</title>
+<title>Oh-Mate!</title>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
@@ -70,12 +70,18 @@
                 	<tr>
 	                    <td>${start+i.index }</td>
 	                    <td>
-	                    	<a href="/adminMemberView.do?memberNo=${h.memberNo }">${h.memberId }</a>
+	                    	<a href="/adminMemberView.do?memberNo=${h.memberNo }">
+	                    		${h.memberId }
+	                    	</a>
 	                    </td>
 	                    <td class="titleTd">
-	                    	<a href="/adminHouseView.do?houseNo=${h.houseNo }" class="houseModal">${h.houseTitle }</a>
+	                    	<a href="/adminHouseView.do?houseNo=${h.houseNo }" class="houseModal">
+	                    		${h.houseTitle }
+	                    	</a>
 	                    </td>
-	                    <td class="addrTd">${h.addressName } ${h.addressRoad } ${h.addressDetail }</td>
+	                    <td class="addrTd">
+	                    	${h.addressName } ${h.addressRoad } ${h.addressDetail }
+	                    </td>
 	                    <td>${h.houseownerDeadline }</td>
 	                    <td>
 	                    	<c:choose>
