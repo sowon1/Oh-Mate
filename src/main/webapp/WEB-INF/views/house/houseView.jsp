@@ -646,7 +646,7 @@
 		    // 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {	
 		        var coords = new kakao.maps.LatLng(result[0].y,result[0].x);
-		        var imageSrc = '/resources/img/icon/marker.png',//마커 이미지 경로
+		        var imageSrc = '/resources/img/icon/markerHouse.png',//마커 이미지 경로
 		        imageSize = new kakao.maps.Size(62, 69),
 		        imgOptions = {
 		        		spriteSize : new kakao.maps.Size(62, 69),

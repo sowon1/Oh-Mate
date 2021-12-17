@@ -227,8 +227,7 @@
 						html += '<input type="hidden" value="'+list[i].addressRoad+'" name="address">';
 						html += '<input type="hidden" value="'+list[i].houseTitle+'" name="houseTitle">';
 						html += '</li></a>';
-						getHouseMap(list[i].addressRoad,list[i].houseTitle,"/resources/img/icon/heart_off.png",list[i].houseForm,list[i].roomCount,list[i].houseNo);
-						//getHouseMap(list[i].addressRoad,list[i].houseTitle,list[i].photoList[0].photoPath,list[i].houseForm,list[i].roomCount,list[i].houseNo);
+						getHouseMap(list[i].addressRoad,list[i].houseTitle,list[i].photoList[0].photoPath,list[i].houseForm,list[i].roomCount,list[i].houseNo);
 					}
 					$(".list_container").append(html);
 					$(".loading").hide();
@@ -303,8 +302,7 @@
 			                       '        </div>' + 
 			                       '        <div class="body">' +
 			                       '			<div class="img">' +
-			                       //'                <img src="/resources/upload/house/'+photo+'">' +
-			                       '                <img src="'+photo+'">' +
+			                       '                <img src="/resources/upload/house/'+photo+'">' +
 			                       '           </div>' + 
 			                       '            <div class="desc">' + 
 					               '       			<div class="title_tag">' +

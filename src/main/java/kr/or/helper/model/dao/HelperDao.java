@@ -78,5 +78,21 @@ public class HelperDao {
 		List<Helper> list = session.selectList("helper.selectAjaxHelper",map);
 		return (ArrayList<Helper>)list;
 	}
+	//helper like select
+	public int helperLike(HashMap<String, Object> map) {
+		return session.selectOne("helper.helperLike",map);
+	}
+	//helper like total
+	public int helperLikeCount(int helperNo) {
+		return session.selectOne("helper.helperLikeCount",helperNo);
+	}
+	//helper like insert
+	public int insertHelperLike(HashMap<String, Object> map) {
+		return session.update("helper.insertHelperLike",map);
+	}
+	//helper like delete
+	public int deleteHelperLike(HashMap<String, Object> map) {
+		return session.delete("helper.deleteHelperLike",map);
+	}
 	
 }

@@ -181,5 +181,30 @@ public class HelperService {
 		data.put("startPageNum", start);
 		return data;
 	}
+	//helper like select
+	public int helperLike(int memberNo, int helperNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("helperNo", helperNo);
+		return dao.helperLike(map);
+	}
+	//helper like total
+	public int helperLikeCount(int helperNo) {
+		return dao.helperLikeCount(helperNo);
+	}
+	//helper like insert
+	public int insertHelperLike(int memberNo, int helperNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("helperNo", helperNo);
+		return dao.insertHelperLike(map);
+	}
+	//helper like delete
+	public int deleteHelperLike(int memberNo, int helperNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("helperNo", helperNo);
+		return dao.deleteHelperLike(map);
+	}
 
 }

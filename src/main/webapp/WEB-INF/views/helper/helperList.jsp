@@ -357,11 +357,11 @@
 		//------------------------------스크롤 안에 리스트에서의 좋아요 부분 --------------------------------//
 		$(document).on("click",".heart",function(){
 			var memberNo = "${sessionScope.m.memberNo}";
-			var houseNo = $(this).attr('idx');		
+			var helperNo = $(this).attr('idx');		
 			var heart = $(this);
 			$.ajax({
-				url : "/houseListLike.do",
-				data : {memberNo:memberNo, houseNo:houseNo},
+				url : "/HelperListLike.do",
+				data : {memberNo:memberNo, helperNo:helperNo},
 				type: "POST",
 				success : function(data){
 					if(data.likeCheck == 0){
@@ -402,13 +402,13 @@
 			var helperEndTime = $("input[name='helperEndTime']").val();
 			var helperCategory = $("#helperCategory").val();
 			if(genderValue == ""){
-				gender = 0;
+				gender = "0";
 			}else if(genderValue == "1"){
-				gender = 1;
+				gender = "1";
 			}else if (genderValue == "2"){
-				gender = 2;
+				gender = "2";
 			}else{
-				gender=0;
+				gender="0";
 			}
 			console.log(gender);
 			console.log(helperStartTime);

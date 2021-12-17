@@ -121,25 +121,25 @@
         where 
             helper_status=1
             and address_category = 2
-            <if test="gender != 0 and gender != 3">
+            <if test="gender != 0 and gender != 3 and gender != null and !''.equals(gender)">
 				and gender=#{gender}
 			</if>
             <if test="keyword != null and !''.equals(keyword)">
             	and (helper_intro || address_name || address_road || address_legal) like '%' ||  #{keyword} || '%'     
 			</if>
-			<if test='!"00:00".equals(helperStartTime)'>
+			<if test="!'00:00'.equals(helperStartTime) and helperStartTime != null and !''.equals(helperStartTime)">
 				and helper_start_time=#{helperStartTime}
 			</if>
-			<if test='!"00:00".equals(helperEndTime)'>
+			<if test="!'00:00'.equals(helperEndTime) and helperEndTime != null and !''.equals(helperEndTime)">
 				and helper_end_time=#{helperEndTime}
 			</if>
-			<if test='!"00000000".equals(helperCategory) and helperCategory != null'>
+			<if test="!'00000000'.equals(helperCategory) and helperCategory != null and !''.equals(helperCategory)">
 				and helper_category = #{helperCategory}
 			</if>
         order by 1 desc
         )h)hh where rnum between 1 and 10;
  	</select>
- 	<resultMap type="h" id="helper">
+ 	<resultMap type="hp" id="helper">
 		<result column="helper_no" property="helperNo"/>
 		<result column="member_no" property="memberNo"/>
 		<result column="helper_name" property="helperName"/>
@@ -167,8 +167,31 @@
 			photo_path as photoPath, 
 			photo_num as photoNum 
 		from 
-			(select rownum as rnum, h.* from
+			(select rownum as rnum, hp.* from
 			(select * from photo where photo_category=1 and photo_num = #{helperNo} order by 1 )h) 
 		where rnum = 1
 	</select>
+	
+	<!-- 헬퍼  좋아요 부분 -->
+	<select id="helperLike" parameterType="map" resultType="_int">
+		select 
+			 count(*)
+		from bookmark
+		where bookmark_category=1 and bookmarker=#{memberNo} and bookmark_num=#{helperNo}
+	</select>
+	<!-- helper like total -->
+	<select id="helperLikeCount" parameterType="_int" resultType="_int">
+		select count(*)
+		from bookmark
+		where bookmark_category=1 and bookmark_num=#{helperNo}
+	</select>
+	<!-- helper like insert -->
+	<insert id="insertHelperLike" parameterType="map">
+		insert into bookmark 
+  		values(bookmark_seq.nextval,#{memberNo},#{helperNo},1,to_char(sysdate,'yyyy-mm-dd'))
+	</insert>
+	<!-- helper like delete -->
+	<delete id="deleteHelperLike" parameterType="map">
+		delete from bookmark where bookmark_category=1 and bookmarker=#{memberNo} and bookmark_num=#{helperNo}
+	</delete>
 </mapper>

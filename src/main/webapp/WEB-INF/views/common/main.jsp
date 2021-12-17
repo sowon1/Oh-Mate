@@ -69,13 +69,17 @@
 	                        <div class="like_house">
 	                        	<c:choose>
 	                        		<c:when test="${empty sessionScope.m}">
-	                        			<button onclick="msgpopupopen();" class="heart"></button>
+	                        			<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>
 	                        		</c:when>
 	                        		<c:when test="${h.likedCheck == '좋아요'}">
-				                		<button onclick="likehouse(this,${h.houseNo});" class="heart _click"></button>
+				                		<a idx="${h.houseNo}" class="heart">
+				                			<img src="/resources/img/icon/heart_on.png">
+				                		</a>
 				                	</c:when>
 				                	<c:otherwise>                							              
-										<button onclick="likehouse(this,${h.houseNo});" class="heart"></button>
+										<a idx="${h.houseNo}" class="heart">
+											<img src="/resources/img/icon/heart_off.png">
+										</a>
 				                	</c:otherwise>
 	                        	</c:choose>
 	                        </div>
@@ -127,7 +131,7 @@
     <div class="container_mate main_section04">
         <h1 class="point_title">Oh, Help me!</h1>
         <h3 class="sub_text">살다가 혼자서 처리하지 못하는 일이 생긴다면!? 오메, 도와줘요!</h3>
-        <ul class="main_house_list">
+        <ul class="main_helper_list">
            <c:forEach items="${hplist}" var="hp">
 	        	<a href="<c:url value='/helper/helperView?helperNo=${hp.helperNo}'/>">
 		            <li>
@@ -135,11 +139,31 @@
 	                        <div class="like_house">
 	                            <img src="/resources/img/icon/heart_off.png">
 	                        </div>
-	                        <img src="/upload/helper/${hp.helperFilepath}">
+	                        <img src="/resources/upload/helper/${hp.helperFilepath}">
 	                    </div>
 		            </li>           
 	        	</a>
-	        </c:forEach> 
+	        </c:forEach>
+	        <li>
+	        	<div class="helper_list_photo">
+	        		<div class="like_helper">
+	        			<c:choose>
+                       		<c:when test="${empty sessionScope.m}">
+                       			<button onclick="msgpopupopen();" class="heart"></button>
+                       		</c:when>
+                       		<c:when test="${h.likedCheck == '좋아요'}">
+		                		<button onclick="likehelper(this,${hp.helperNo});" class="heart _click"></button>
+		                	</c:when>
+		                	<c:otherwise>                							              
+								<button onclick="likehelper(this,${hp.helperNo});" class="heart"></button>
+		                	</c:otherwise>
+                       	</c:choose>
+	        		</div>
+	        		<div class="helper_list_profile">
+	                    <img src="/resources/img/icon/profile.png" class="profile_view">
+	        		</div>
+	        	</div>
+	        </li>
         </ul>
     </div>
     <div class="main_section05">
@@ -201,19 +225,39 @@
 		$(".main_modal_login").click(function(){
 	    	msgpopupclose();
 	    });
-		//좋아요
-		function likehouse(c,obj){
+		//House - 좋아요
+		$(document).on("click",".heart",function(){
 			var memberNo = "${sessionScope.m.memberNo}";
-			var houseNo = obj;
+			var houseNo = $(this).attr('idx');		
+			var heart = $(this);
 			$.ajax({
 				url : "/houseLike.do",
 				data : {memberNo:memberNo, houseNo:houseNo},
 				type: "POST",
+				success : function(data){
+					if(data.likeCheck == 0){
+						heart.children().attr("src","/resources/img/icon/heart_off.png");
+					}else{
+						console.log(data.likeCnt);
+						heart.children().attr("src","/resources/img/icon/heart_on.png");
+					}
+				}
+			});
+		});
+		
+		//Helper - 좋아요
+		function likehouse(c,obj){
+			var memberNo = "${sessionScope.m.memberNo}";
+			var helperNo = obj;
+			$.ajax({
+				url : "/HelperListLike.do",
+				data : {memberNo:memberNo, helperNo:helperNo},
+				type: "POST",
 				success : function(data){					
 					if(data.likeCheck == 0){						
-						 $(c).attr("class","heart is_animating");						
+						 $(c).attr("src","/resources/img/icon/heart_off.png");
 					}else{
-						$(c).attr("class","heart is_animating _click");					
+						$(c).attr("src","/resources/img/icon/heart_on.png");
 					}
 				}
 			})

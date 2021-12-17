@@ -346,32 +346,46 @@
 /* 좋아요 버튼 부분 */
 .like_house{
     position: absolute;
-    right: -20px;
-    top: -20px;   
+    right: 15px;
+    top: 15px;   
 }
 .heart{
 	cursor: pointer;
-    height: 120px;
-    width: 120px;
     outline:none;
     border:none;
     background:none;
-    background-image:url("/resources/img/icon/web_heart_animation.png");
-    background-position: left;
-    background-repeat:no-repeat;
-    background-size:2900%;
+    width:35px;
 }
-.heart:hover {
-    background-position:right;
-  }
-  
-  .is_animating {
-    animation: heart-burst .8s steps(28) 1;
-  }
-  ._click{
-    background-position:right;
-  }
-  @keyframes heart-burst {
-    from {background-position:left;}
-    to { background-position:right;}
-  }
+.heart img{
+	-webkit-animation: scaleUpCenter .4s ease-out both;
+	animation: scaleUpCenter .4s ease-out both;
+}
+.like_house img {
+    width: 30px;
+}
+@-webkit-keyframes scaleUp {
+from { opacity: 0; -webkit-transform: scale(.8); }
+}
+
+
+/* helper */
+.main_helper_list{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+.main_helper_list li{
+    width: 250px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    float: left;
+    border-radius: 20px;
+    margin-right:10px;
+    box-sizing: border-box;
+}
+.helper_list_profile{
+	width:100%;
+}
+.helper_list_profile img{
+	display: block;
+}

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,6 +48,7 @@ public class HelperController {
 		model.addAttribute("helperStartTime", helperStartTime);
 		model.addAttribute("helperEndTime", helperEndTime);
 		model.addAttribute("helperCategory",helperCategory);
+	
 		return "helper/helperList";
 	}
 	//헬퍼 썸머노트 이미지 업로드-jisung
@@ -258,10 +260,34 @@ public class HelperController {
 				}
 			}
 			HashMap<String, Object> data = service.selectAjaxHelper(pageNum, memberNo, keyword, h, mem);
+			System.out.println("아작스"+keyword);
+			System.out.println("아작스"+data.get("list"));
 			model.addAttribute("totalPageCount", data.get("totalPageCount"));
 			model.addAttribute("startPageNum", data.get("startPageNum"));
 
 			return new Gson().toJson(data);
+		}
+		
+		//헬퍼 좋아요 부분 - sowon
+		@ResponseBody
+		@RequestMapping(value="/HelperListLike.do", method = {RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+		public String HelperListLike(int memberNo, int helperNo) {
+			int like_check = 0;
+			like_check = service.helperLike(memberNo, helperNo);
+			int like_cnt = service.helperLikeCount(helperNo);
+			if(like_check == 0) {
+				int like_up = service.insertHelperLike(memberNo, helperNo);
+				like_check++;
+				like_cnt++;
+			}else {
+				int like_down = service.deleteHelperLike(memberNo, helperNo);
+				like_check --;
+				like_cnt --;
+			}
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("likeCheck", like_check);
+			map.put("likeCnt", like_cnt);
+			return new Gson().toJson(map);
 		}
 	
 }
