@@ -6,14 +6,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Oh-Mate! 하우스 정보</title>
+<title>Oh-Mate!</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
 		<h1 class="point_title">하우스 정보</h1>
 		<div>
-			<form action="#">
+			<form action="/adminHouseAllow.do" method="post">
+			<input type="hidden" name="houseNo" value="${h.houseNo }">
 				<div id="tbl1">
 					<table class="table">
 						<tr>
@@ -46,7 +50,11 @@
 						</tr>
 						<tr>
 							<th>하우스오너</th>
-							<td>${h.memberId }</td>
+							<td>
+								<a href="/adminMemberView.do?memberNo=${h.memberNo }">
+									${h.memberId }
+								</a>
+							</td>
 							<th>매매 상태</th>
 							<td>
 								<c:choose>
@@ -67,15 +75,15 @@
 					<table class="table">
 						<tr>
 							<th style="width:131px;">하우스 이름</th>
-							<td>${h.houseTitle }</td>
+							<td colspan="3">${h.houseTitle }</td>
 						</tr>
 						<tr>
 							<th>방 정보</th>
-							<td></td>
+							<td colspan="3"></td>
 						</tr>
 						<tr>
 							<th>제공 시설</th>
-							<td>
+							<td colspan="3">
 								<input type="hidden" value="${h.houseConvenience }" id="houseOption">
 								<table class="chkTbl table">
 									<tbody></tbody>
@@ -84,19 +92,63 @@
 						</tr>
 						<tr>
 							<th>하우스 이미지</th>
-							<td></td>
+							<td colspan="3">
+								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+									<!-- Indicators -->
+								    <ol class="carousel-indicators">
+								  		<c:forEach items="${h.photoList }" var="p" varStatus="i">
+									  		<c:choose>
+									  			<c:when test="${i.index eq 0 }">
+												    <li data-target="#carousel-example-generic" data-slide-to="${0+i.index }" class="active"></li>								  		
+									  			</c:when>
+									  			<c:otherwise>
+									  				<li data-target="#carousel-example-generic" data-slide-to="${0+i.index }"></li>
+									  			</c:otherwise>								  		
+									  		</c:choose>
+									  	</c:forEach>
+								    </ol>
+								    <!-- Wrapper for slides -->
+								    <div class="carousel-inner" role="listbox">
+									 	<c:forEach items="${h.photoList }" var="p" varStatus="i">
+									  		<c:choose>
+									  			<c:when test="${i.index eq 0 }">
+												    <div class="item active">
+												      <img src="/resources/upload/house/${p.photoPath}">
+												      <div class="carousel-caption"></div>
+												    </div>
+									  			</c:when>
+									  			<c:otherwise>
+												    <div class="item">
+												      <img src="/resources/upload/house/${p.photoPath}">
+												      <div class="carousel-caption"></div>
+												    </div>
+									  			</c:otherwise>								  		
+									  		</c:choose>
+									  	</c:forEach>
+								    </div>
+								    <!-- Controls -->
+								    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+								        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								    	<span class="sr-only">Previous</span>
+								    </a>
+								    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+								    	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								    	<span class="sr-only">Next</span>
+								    </a>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th>하우스 소개</th>
-							<td>${h.houseContent }</td>
+							<td colspan="3">${h.houseContent }</td>
 						</tr>
 						<tr>
 							<th>이용 규칙</th>
-							<td>${h.houseRule }</td>
+							<td colspan="3">${h.houseRule }</td>
 						</tr>
 						<tr>
 							<th>승인 상태</th>
-							<td>
+							<td style="width:260px;" colspan="3">
 								<input type="hidden" value="${h.houseAllow }" id="houseAllow">
 								<select class="form-select" name="houseAllow">
 									<option value="1">승인 대기</option>
@@ -104,12 +156,16 @@
 									<option value="3">미승인</option>
 								</select>
 							</td>
+							<th style="width:131px;" class="noAllow">미승인 사유</th>
+							<td id="noAllow" class="noAllow">
+								<textarea rows="3" class="form-control" name="refuseReason" maxlength="50">${h.refuseReason }</textarea>
+							</td>
 						</tr>
 					</table>
 				</div>
 				<div class="btnBox">
 					<button type="button" class="btn btn_out">목록</button>
-                    <input type="submit" class="btn" value="수정">
+                    <input type="submit" class="btn" value="처리">
 				</div>
 			</form>
 		</div>
@@ -117,7 +173,7 @@
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 <script>
-	var houseOption = ['TV', '냉장고', '밥솥', '책상', '토스트기', '쇼파', '가스레인지', '전자레인지', '세탁기', '정수기', '청소기',
+	var houseOption = ['TV', '냉장고', '밥솥', '책상', '토스트기', '소파', '가스레인지', '전자레인지', '세탁기', '정수기', '청소기',
 						'커피포트', '에어컨', '건조 시설', '침대', '서랍', '옷장', '의자', '인터넷 시설', '엘리베이터', '보안'];
 	$(function(){
 		for(var i=0;i<houseOption.length/7;i++){
@@ -139,13 +195,41 @@
 			}
 		}
 		$("#tbl2 .form-select>option").eq($("#houseAllow").val()-1).prop("selected",true);
+		$(".noAllow").hide();
 		if($("#tbl2 .form-select").val() != 1){
-			$("#tbl2 .form-select").prop("disabled",true);
+			$("#tbl2 .form-select, .btnBox>input").prop("disabled",true);
+			if($("#tbl2 .form-select").val() == 3){
+				noAllow();
+				$("[name=refuseReason]").prop("disabled",true);
+			}
 		}
 	});
 	$(".btnBox>button").click(function(){
 		history.go(-1);
 	});
+	$("#tbl2 .form-select").change(function(){
+		$(".noAllow").hide();
+		$(this).parent().attr("colspan",3);
+		if($(this).val() == 3){
+			noAllow();
+			$("[name=refuseReason]").focus();
+		}
+	});
+	$(".btnBox [type=submit]").click(function(){
+		console.log("d");
+		if($("#tbl2 option:selected").val() == 1){
+			alert("승인 또는 미승인으로 처리하세요.");
+			return false;
+		}else if($("#tbl2 option:selected").val() == 3 && $("[name=refuseReason]").val() == ""){
+			alert("미승인 사유를 입력하세요.");
+			$("[name=refuseReason]").focus();
+			return false;
+		}
+	});
+	function noAllow(){
+		$(".noAllow").show();
+		$("#tbl2 .form-select").parent().removeAttr("colspan");
+	}
 </script>
 <link rel="stylesheet" href="/resources/css/admin/adminHouseView.css">
 </html>

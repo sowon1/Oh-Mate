@@ -164,7 +164,8 @@ public class BoardController {
 		BoardMemberData bmd = service.selectBoardList(boardNo);
 		model.addAttribute("b",bmd.getB());
 		model.addAttribute("list",bmd.getList());
-		//System.out.println(list);
+		//System.out.println(bmd.getB());
+		System.out.println(bmd.getList());
 		return "board/boardView";
 	}
 	
@@ -245,7 +246,6 @@ public class BoardController {
 	@RequestMapping(value="/insertComment.do", method=RequestMethod.POST)
 	public String insertComment(MateComment mc, Model model) {
 		int result = service.insertComment(mc);
-		System.out.println(result);
 		if(result>0) {
 			model.addAttribute("msg","댓글성공");
 		}else {

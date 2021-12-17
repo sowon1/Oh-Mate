@@ -208,6 +208,17 @@ public class AdminController {
 		model.addAttribute("h", h);
 		return "admin/adminHouseView";
 	}
+	@RequestMapping(value="/adminHouseAllow.do")
+	public String updateHouse(House h, Model model) {
+		int result = service.updateHouse(h);
+		if(result>0) {
+			model.addAttribute("msg", "처리 완료");
+		}else {
+			model.addAttribute("msg", "처리 실패");
+		}
+		model.addAttribute("loc", "/adminHouseView.do?houseNo="+h.getHouseNo());
+		return "common/msg";
+	}
 	//대시보드
 	@RequestMapping(value="/dashboard.do")
 	public String dashboard(Model model) {
