@@ -37,45 +37,61 @@
 								</p>
 								<div class="filter_cont">
 									<div>
-										<input type="radio" id="house-filter_gender_division_f" name="houseGender" value="2">
+										<input type="radio" id="house-filter_gender_division_f" name="gender" value="2">
 										<label for="house-filter_gender_division_f"><span class="select_icon02"></span>여성전용</label>
 									</div>
 									<div>
-										<input type="radio" id="house-filter_gender_division_m" name="houseGender" value="1">
+										<input type="radio" id="house-filter_gender_division_m" name="gender" value="1">
 										<label for="house-filter_gender_division_m"><span class="select_icon04"></span>남성전용</label>
 									</div>
 									<div>
-										<input type="radio" id="house-filter_gender_division_mf" name="houseGender" value="3">
-										<label for="house-filter_gender_division_mf"><span class="select_icon03"></span>남녀공용</label>
+										<input type="radio" id="house-filter_gender_division_mf" name="gender" value="3">
+										<label for="house-filter_gender_division_mf"><span class="select_icon03"></span>남녀모두</label>
 									</div>
 								</div>
 							</div>
 							<div class="houseTypeWrap">
 								<p class="filterTitle">
-									<strong>주거 유형</strong>
+									<strong>도움 유형</strong>
 								</p>
-								<div class="filter_cont">
+								<div class="filter_cont help_cont">
 									<div>
-										<input type="radio" id="house-filter_house_type_0" name="houseForm" value="아파트">
-										<label for="house-filter_house_type_0"><span class="select_icon02"></span>아파트</label>
+										<input type="checkbox" id="help_type_0" name="houseForm" value="0">
+										<label for="help_type_0"><span class="select_icon02"></span>배달·장보기</label>
 									</div>
 									<div>
-										<input type="radio" id="house-filter_house_type_1" name="houseForm" value="단독주택">
-										<label for="house-filter_house_type_1"><span class="select_icon04"></span>단독주택</label>
+										<input type="checkbox" id="help_type_1" name="houseForm" value="0">
+										<label for="help_type_1"><span class="select_icon04"></span>청소·집안일</label>
 									</div>
 									<div>
-										<input type="radio" id="house-filter_house_type_2" name="houseForm" value="빌라">
-										<label for="house-filter_house_type_2"><span class="select_icon03"></span>빌라</label>
+										<input type="checkbox" id="help_type_2" name="houseForm" value="0">
+										<label for="help_type_2"><span class="select_icon03"></span>설치·조립·운반</label>
 									</div>
 									<div>
-										<input type="radio" id="house-filter_house_type_3" name="houseForm" value="기타">
-										<label for="house-filter_house_type_3"><span class="select_icon03"></span>기타</label>
+										<input type="checkbox" id="help_type_3" name="houseForm" value="0">
+										<label for="help_type_3"><span class="select_icon03"></span>동행·돌봄</label>
+									</div>
+									<div class="clear">
+										<input type="checkbox" id="help_type_4" name="houseForm" value="0">
+										<label for="help_type_4"><span class="select_icon03"></span>벌레·쥐</label>
+									</div>
+									<div>
+										<input type="checkbox" id="help_type_5" name="houseForm" value="0">
+										<label for="help_type_5"><span class="select_icon03"></span>역할대행</label>
+									</div>
+									<div>
+										<input type="checkbox" id="help_type_6" name="houseForm" value="0">
+										<label for="help_type_6"><span class="select_icon03"></span>과외·알바</label>
+									</div>
+									<div>
+										<input type="checkbox" id="help_type_7" name="houseForm" value="0">
+										<label for="help_type_7"><span class="select_icon03"></span>기타·원격</label>
 									</div>
 								</div>
 							</div>
 							<div class="houseTypeWrap">
 								<p class="filterTitle">
-									<strong>룸 형태</strong>
+									<strong>선호 시간</strong>
 								</p>
 								<div class="filter_cont">
 									<div>
