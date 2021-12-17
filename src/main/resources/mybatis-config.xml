@@ -22,6 +22,7 @@
 		<typeAlias type="kr.or.notice.model.vo.FileVO" alias="fi"/>
 		<typeAlias type="kr.or.common.Report" alias="rp"/>
 		<typeAlias type="kr.or.board.model.vo.Board" alias="b"/>
+		<typeAlias type="kr.or.board.model.vo.BoardMemberData" alias="bmd"/>
 		<typeAlias type="kr.or.board.model.vo.MateComment" alias="mc"/>
 		<typeAlias type="kr.or.common.Move" alias="move"/>
 		<typeAlias type="kr.or.helper.model.vo.Helper" alias="hp"/>

@@ -65,6 +65,7 @@ public class BoardService {
 	}
 
 	//게시판 상세보기 이동
+	@Transactional
 	public BoardMemberData selectBoardList(int boardNo) {
 		dao.updateCount(boardNo);
 		Board b = dao.selectBoardList(boardNo);

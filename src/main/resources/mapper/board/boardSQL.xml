@@ -162,7 +162,7 @@
 	
 	
 	<!-- 댓글조회 -->
-	<select id="selectComment" parameterType="int" resultType="mc">
+	<select id="selectComment" parameterType="int" resultType="bmd">
 		select
 			COMMENT_NO as commentNo,
 			COMMENT_LEVEL as commentLevel,
@@ -172,7 +172,7 @@
 			BOARD_NO as boardNo,
 			BOARDREF as boardRef,
 			STATUS as status
-		from Mate_Comment where boardref=#{boardRef} order by 1
+		from Mate_comment where boardref=#{boardRef} order by 1
 	</select>
 </mapper>
 

@@ -96,6 +96,46 @@
 		</c:when>
 		</c:choose>
 		
+		<!-- 댓글 출력 -->
+		<div class="commentBox">
+			<c:forEach items="${list }" var="c">
+				<c:if test="${c.commentLevel eq 1}">
+					<li>
+						<i class="far fa-user fa-4x"></i>
+						<p>${c.commentWriter }</p>
+						<p>${c.regDate }</p>
+					</li>
+					<li>
+						<p>${c.commentContent }</p>
+					</li>
+					<c:choose>
+						<c:when test="${m.memberId eq c.commentWriter}">
+							<a href="javascript:void(0)">수정</a>
+							<a href="javascript:void(0)">삭제</a>
+						</c:when>
+						<c:otherwise>
+							<a href="javascript:void(0)">답글달기</a>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${m != null }">
+							<form action="/insertComment.do">	
+								<input type="hidden" name="CommentLevel" value="2">
+								<input type="hidden" name="commentWriter" value="${m.memberId }">
+								<input type="hidden" name="boardNo" value="${b.boardNo }">
+								<input type="hidden" name="boardRef" value="${c.commentNo }">
+								<input type="hidden" name="status" value="1">
+								<textarea name="commentContent" class="form-control" style="width:800px;"></textarea>
+								<div>
+									<button type="submit" class="btn">등록</button>
+									<button type="reset" class="btn Cancel">취소</button>
+								</div>
+							</form>
+						</c:when>
+					</c:choose>
+				</c:if> <!-- 일반댓글 if문 -->
+			</c:forEach> <!-- 일반댓글 foreach문 -->
+		</div>
 
 	</div>
 	
