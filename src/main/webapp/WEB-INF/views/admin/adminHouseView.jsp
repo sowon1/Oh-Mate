@@ -69,6 +69,15 @@
 							<th>정산 계좌</th>
 							<td>${h.accountInfo }</td>
 						</tr>
+						<tr>
+							<th>제공 시설</th>
+							<td colspan="5">
+								<input type="hidden" value="${h.houseConvenience }" id="houseOption">
+								<table class="chkTbl table">
+									<tbody></tbody>
+								</table>
+							</td>
+						</tr>
 					</table>
 				</div>
 				<div id="tbl2">
@@ -76,19 +85,6 @@
 						<tr>
 							<th style="width:131px;">하우스 이름</th>
 							<td colspan="3">${h.houseTitle }</td>
-						</tr>
-						<tr>
-							<th>방 정보</th>
-							<td colspan="3"></td>
-						</tr>
-						<tr>
-							<th>제공 시설</th>
-							<td colspan="3">
-								<input type="hidden" value="${h.houseConvenience }" id="houseOption">
-								<table class="chkTbl table">
-									<tbody></tbody>
-								</table>
-							</td>
 						</tr>
 						<tr>
 							<th>하우스 이미지</th>
@@ -113,14 +109,14 @@
 									  		<c:choose>
 									  			<c:when test="${i.index eq 0 }">
 												    <div class="item active">
-												      <img src="/resources/upload/house/${p.photoPath}">
-												      <div class="carousel-caption"></div>
+												    	<img src="/resources/upload/house/${p.photoPath}">
+												        <div class="carousel-caption"></div>
 												    </div>
 									  			</c:when>
 									  			<c:otherwise>
 												    <div class="item">
-												      <img src="/resources/upload/house/${p.photoPath}">
-												      <div class="carousel-caption"></div>
+												        <img src="/resources/upload/house/${p.photoPath}">
+												        <div class="carousel-caption"></div>
 												    </div>
 									  			</c:otherwise>								  		
 									  		</c:choose>
@@ -136,6 +132,60 @@
 								    	<span class="sr-only">Next</span>
 								    </a>
 								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>방 정보</th>
+							<td colspan="3" id="roomInfo">
+								<ul>
+									<c:forEach items="${h.houseRoomView }" var="r" varStatus="i">
+										<li>
+											<table class="roomTbl">
+												<tr>
+													<th style="width:90px;">이름</th>
+													<td>${r.roomTitle }</td>
+												</tr>
+												<tr>
+													<th>연락처</th>
+													<td>${r.roomPhone }</td>
+												</tr>
+												<tr>
+													<th>타입</th>
+													<td>${r.roomPersonnel }</td>
+												</tr>
+												<tr>
+													<th>평수</th>
+													<td>${r.roomSize } 평</td>
+												</tr>
+												<tr>
+													<th>보증금</th>
+													<td><fmt:formatNumber value="${r.roomCharge }" pattern="#,###"/>원</td>
+												</tr>
+												<tr>
+													<th>월세</th>
+													<td><fmt:formatNumber value="${r.roomMonth }" pattern="#,###"/>원</td>
+												</tr>
+												<tr>
+													<th>설명</th>
+													<td>${r.roomContent }</td>
+												</tr>
+												<tr>
+													<th>상태</th>
+													<td>
+														<c:choose>
+															<c:when test="${r.roomStatus eq 1 }">
+																입주 가능
+															</c:when>
+															<c:otherwise>
+																입주 불가
+															</c:otherwise>
+														</c:choose>
+													</td>
+												</tr>
+											</table>
+										</li>
+									</c:forEach>
+								</ul>
 							</td>
 						</tr>
 						<tr>
@@ -164,7 +214,7 @@
 					</table>
 				</div>
 				<div class="btnBox">
-					<button type="button" class="btn btn_out">목록</button>
+					<button type="button" class="btn btn_out">이전</button>
                     <input type="submit" class="btn" value="처리">
 				</div>
 			</form>
@@ -172,64 +222,6 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
-<script>
-	var houseOption = ['TV', '냉장고', '밥솥', '책상', '토스트기', '소파', '가스레인지', '전자레인지', '세탁기', '정수기', '청소기',
-						'커피포트', '에어컨', '건조 시설', '침대', '서랍', '옷장', '의자', '인터넷 시설', '엘리베이터', '보안'];
-	$(function(){
-		for(var i=0;i<houseOption.length/7;i++){
-			var tr = $("<tr>");
-			for(var j=0;j<houseOption.length/3;j++){
-				var td = $("<td>");
-				var input = $("<input class='form-check-input' type='checkbox' disabled>");
-				var label = $("<label class='form-check-label'>");
-				td.append(input);
-				td.append(label);
-				tr.append(td);
-				$(".chkTbl>tbody").append(tr);
-			}
-		}
-		for(var i=0;i<houseOption.length;i++){
-			$(".chkTbl label").eq(i).html(houseOption[i]);
-			if($("#houseOption").val().charAt(i) == 1){
-				$(".chkTbl [type=checkbox]").eq(i).prop("checked",true);
-			}
-		}
-		$("#tbl2 .form-select>option").eq($("#houseAllow").val()-1).prop("selected",true);
-		$(".noAllow").hide();
-		if($("#tbl2 .form-select").val() != 1){
-			$("#tbl2 .form-select, .btnBox>input").prop("disabled",true);
-			if($("#tbl2 .form-select").val() == 3){
-				noAllow();
-				$("[name=refuseReason]").prop("disabled",true);
-			}
-		}
-	});
-	$(".btnBox>button").click(function(){
-		history.go(-1);
-	});
-	$("#tbl2 .form-select").change(function(){
-		$(".noAllow").hide();
-		$(this).parent().attr("colspan",3);
-		if($(this).val() == 3){
-			noAllow();
-			$("[name=refuseReason]").focus();
-		}
-	});
-	$(".btnBox [type=submit]").click(function(){
-		console.log("d");
-		if($("#tbl2 option:selected").val() == 1){
-			alert("승인 또는 미승인으로 처리하세요.");
-			return false;
-		}else if($("#tbl2 option:selected").val() == 3 && $("[name=refuseReason]").val() == ""){
-			alert("미승인 사유를 입력하세요.");
-			$("[name=refuseReason]").focus();
-			return false;
-		}
-	});
-	function noAllow(){
-		$(".noAllow").show();
-		$("#tbl2 .form-select").parent().removeAttr("colspan");
-	}
-</script>
 <link rel="stylesheet" href="/resources/css/admin/adminHouseView.css">
+<script type="text/javascript" src="/resources/js/admin/adminHouseView.js"></script>
 </html>
