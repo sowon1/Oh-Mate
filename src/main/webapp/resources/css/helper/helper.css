@@ -13,15 +13,17 @@
     width: 50%;
     float: left;
     height: 100%;
+    
 }
 .house_left{
 	position: relative;
+	overflow: scroll;
 }
 .list_filter{
     display: flex;
     align-items: center;
     width:100%;
-    padding:20px;
+    padding:30px;
 }
 .filter_icon{
     width: 80px;
@@ -60,18 +62,20 @@
     right: 20px;
     top: 9px;
     width: 30px;
+    cursor: pointer;
 }
 
 /* 조건 검색 누를경우 */
 .h_filter_open{
 	width: 100%;
-	height: auto;
+	height: 100%;
 	overflow: hidden;
 	display: none;
-	padding: 20px;
+	padding: 30px;
 	position: absolute;
 	top: 100px;
 	background: #fff;
+	z-index:10;
 }
 
 /* 그래프 바*/
@@ -506,4 +510,306 @@
 	float:right;
 	cursor: pointer;
 }
+
+/* 리스트 css */
+.list_container{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 0px 30px;
+}
+.list_container li{
+    width: 266px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    float: left;
+    border-radius: 20px;
+    margin-right:10px;
+    box-sizing: border-box;
+    margin-bottom:10px;
+}
+
+.house_list_photo{
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+.house_list_photo>img:last-child{
+    height: 100%;
+    width: 100%;
+}
+
+/* 좋아요 버튼 부분 */
+.like_house{
+    position: absolute;
+    right: 15px;
+    top: 15px;   
+}
+.like_house img{
+    width: 30px;
+}
+.house_list_text{
+    padding: 20px;
+}
+.list_line_01{
+    overflow: hidden;
+}
+.list_tag{
+    border: 2px solid #956bfc;
+    border-radius: 50px;
+    padding: 3px 8px;
+    float: left;
+    margin-right: 10px;
+   /*  width: 81px; */
+    font-family: 'ns_500';
+    color: #956bfc;
+}
+.list_house_title{
+    font-size: 18px;
+    font-family: "ns_700";
+}
+.list_house_title, .house_content{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;	
+}
+.list_line_02{
+    margin-top:10px;
+    display:flex;
+	align-items: center;
+}
+
+.house_content{
+	color:#666;
+}
+.house_form{
+    color:#ff0071;
+    margin-right: 10px;
+}
+.house_sum{
+    position: relative;
+    padding-left: 10px;
+    color: #666;
+}
+.house_sum:before {
+    content: "";
+    left: -1px;
+    height: 0.8em;
+    top: 50%;
+    margin-top: -0.4em;
+    position: absolute;
+    border-left: 1px solid #aaa;
+}
+.house_more_btn{
+    background: #956bfc;
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    color: #fff;
+    display: block;
+    font-size: 20px;
+    line-height: 50px;
+}
+.loading{
+    width: 100%;
+    text-align: center;
+    background: #956bfc;
+    padding: 20px 0px;
+    color: #fff;
+}
+@media all and (min-width:300px) and (max-width:1200px) {
+  .list_container li {
+    width:100%;
+	}
+	.house_list_photo{
+	height: 300px;
+	}
+}
+@media all and (min-width:1200px) and (max-width:1774px) {
+  .list_container li {
+    width:403px;
+	}
+	.house_list_photo{
+	height: 250px;
+	}
+}
+/* 좋아유 */
+/* 좋아요 버튼 부분 */
+.like_house{
+    position: absolute;
+    right: 15px;
+    top: 15px;   
+}
+.heart{
+	cursor: pointer;
+    outline:none;
+    border:none;
+    background:none;
+    width:35px;
+}
+.heart img{
+	-webkit-animation: scaleUpCenter .4s ease-out both;
+	animation: scaleUpCenter .4s ease-out both;
+}
+@-webkit-keyframes scaleUp {
+from { opacity: 0; -webkit-transform: scale(.8); }
+}
 /* 오른쪽 맵 */
+.map_wrap{
+	width: 315px;
+    background: #fff;   
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.map_wrap .img{
+	width:100px;
+	height: 100px;
+	overflow: hidden;
+	float:left;
+}
+.map_wrap .title{
+	padding:5px 12px;
+	background: #956bfc;
+	color:#fff;
+}
+.map_wrap .body{
+	padding: 10px 12px;
+    overflow: hidden;
+}
+.map_wrap .img img{
+	height: 100%;
+}
+.map_wrap .desc{
+	float:left;
+	margin-left:10px;
+	width:180px;
+}
+.ellipsis{
+	color:#956bfc;
+	font-size:16px;
+	font-family: "ns_700";
+	clear:both;
+}
+.jibun {
+	color:#666;
+	font-size:14px;
+	font-family: "ns_300";
+}
+.house_view_more{
+	border: 2px solid #956bfc;
+    border-radius: 50px;
+    padding: 3px 8px;
+	font-size:14px;
+	color:#956bfc;
+	float:right;
+}
+.house_map_close{
+	background-image: url("/resources/img/icon/close_wh.png");
+	position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 17px;
+    height: 17px;
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.title_tag{
+    float: left;
+    color: #956bfc;
+    font-size:14px;
+}
+/* 검색 결과가 없을때 */
+.search_none{
+	padding: 30px;
+}
+.search_none img{
+	width:700px;
+	margin:0 auto;
+	display:block;
+}
+.search_none_text{
+	text-align: center;
+    font-size: 38px;
+    font-family: "ns_700";
+    padding: 30px;
+    color: #956bfc;
+}
+/* 메세지 팝업 */
+.room_popup_modal{
+    /* 현재 화면 중앙에 모달 뜰수있게 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9993;
+}
+.form_popup_modal{
+    /* 현재 화면 중앙에 모달 뜰수있게 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9995;
+}
+.room_tour_popup_modal{
+    width: 50vw;
+    min-width: 650px;
+    max-width: 550px;
+    height: 50vh;
+    min-height: 664px;
+    max-height: 664px;
+    text-align: left;
+    z-index: 10;
+    overflow-y: auto;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.room_modal_top{
+    display: block;
+    align-items: center;
+    width: 100%;
+    padding: 0px 20px;
+    /* justify-content: center; */
+    align-items: center;
+    background: #956bfc;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+}
+.room_modal_text{
+	font-size: 24px;
+    color: #fff;
+}
+.logo_point{
+	font-family: "logo";
+	color: rgba(255, 255, 255, 0.397);
+}
+.room_modal_top img{
+	width:25px;
+}
+.room_modal_top span:last-child{
+	float:right;	
+}
+.room_modal_content{
+	background: #fff;
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    height: auto;
+}

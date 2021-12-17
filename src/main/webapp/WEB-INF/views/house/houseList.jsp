@@ -274,8 +274,8 @@
 		             // 정상적으로 검색이 완료됐으면 
 		              if (status === kakao.maps.services.Status.OK) {
 		                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x); 
-		               var imageSrc = '/resources/img/icon/marker.png', 
-		               imageSize = new kakao.maps.Size(40, 44), // 마커이미지의 크기입니다
+		               var imageSrc = '/resources/img/icon/markerHouse.png', 
+		               imageSize = new kakao.maps.Size(50, 54), // 마커이미지의 크기입니다
 		               imageOption = {
 		                  offset : new kakao.maps.Point(10, -80)
 		               }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.

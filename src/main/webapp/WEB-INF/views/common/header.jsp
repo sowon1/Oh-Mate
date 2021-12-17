@@ -39,9 +39,6 @@
             <li>
                 <a href="/noticeList.do?reqPage=1">공지사항</a>
             </li>
-            <li>
-                <a href="#" class="nav_point"><span>포인트메뉴</span></a>
-            </li>
         </ul>
         <ul class="nav_right">
            	<c:choose>
@@ -55,43 +52,7 @@
            			</li>
            		</c:when>
            		<%-- 로그인 시 --%>
-           		<c:otherwise>
-		            <li>
-		                <a href="#"><img src="/resources/img/icon/message.png" class="message_icon"></a>
-		            </li>
-		            <li>
-		                <a href="#"><img src="/resources/img/icon/message.png" class="message_icon"><spsn class="msg_on">3</spsn></a>
-		                <ul class="submenu">
-		                    <h1>읽지않은 쪽지 <em class="point_pk">3</em><em class="msg_count">개</em></h1>
-		                    <li class="msg_li">
-		                        <a href="">
-		                            <span class="msg_from">관리자</span>
-		                            <span class="msg_title">여기는 쪽지 타이틀입니다 1줄만 나오게할거에요</span>
-		                            <span class="msg_date">2021.11.25</span>
-		                            <span class="msg_read">읽음</span>
-		                        </a>
-		                    </li>
-		                    <li class="msg_li">
-		                        <a href="">
-		                            <span class="msg_from">보낸이</span>
-		                            <span class="msg_title">쪽지타이틀</span>
-		                            <span class="msg_date">2021.11.25</span>
-		                            <span class="msg_read">읽지않음</span>
-		                        </a>
-		                    </li>
-		                    <li class="msg_li">
-		                        <a href="">
-		                            <span class="msg_from">보낸이</span>
-		                            <span class="msg_title">쪽지타이틀</span>
-		                            <span class="msg_date">2021.11.25</span>
-		                            <span class="msg_read">읽지않음</span>
-		                        </a>
-		                    </li>
-		                </ul>
-		            </li>
-		            <li>
-		                <a href="#"><img src="/resources/img/icon/message.png" class="message_icon"><spsn class="msg_on">100</spsn></a>
-		            </li>
+           		<c:otherwise>		            
 		            <li>
 		                 <!-- 마이페이지 버튼  -->
 		                <a id="nav_mypage_wrapper">
