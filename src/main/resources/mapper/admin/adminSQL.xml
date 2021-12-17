@@ -367,10 +367,16 @@
 			room_month as roomMonth
 		from room where house_no = #{houseNo}
 	</select>
-	<select id="selectHousePhoto" parameterType="_int" resultType="p">
+	<select id="selectHousePhoto" parameterType="_int" resultType="f">
 		select
 			photo_no as photoNo,
 			photo_path as photoPath
 		from photo where photo_category = 1 and photo_num = #{houseNo}
 	</select>
+	<update id="updateHouse" parameterType="h">
+		update house set
+			house_allow = #{houseAllow},
+			refuse_reason = #{refuseReason}
+		where house_no = #{houseNo}
+	</update>
 </mapper>

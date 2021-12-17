@@ -120,4 +120,8 @@ public class AdminDao {
 		List<Photo> list = session.selectList("admin.selectHousePhoto", houseNo);
 		return (ArrayList<Photo>)list;
 	}
+
+	public int updateHouse(House h) {
+		return session.update("admin.updateHouse", h);
+	}
 }

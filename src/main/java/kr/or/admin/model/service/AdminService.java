@@ -403,4 +403,8 @@ public class AdminService {
 		h.setPhotoList(dao.selectHousePhoto(houseNo));
 		return h;
 	}
+	@Transactional
+	public int updateHouse(House h) {
+		return dao.updateHouse(h);
+	}
 }

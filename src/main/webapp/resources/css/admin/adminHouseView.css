@@ -23,6 +23,13 @@
 	padding: 15px;
 	vertical-align: middle;
 }
+#tbl1 a{
+	color:#333;
+}
+#tbl1 a:hover{
+	color:#8500ff;
+	text-decoration: underline;
+}
 #tbl2 .table{
 	border-top: none;
 }
@@ -36,6 +43,12 @@
 	box-shadow: none;
 	border: 1px solid rgba(0, 0, 0, 0.25);
 }
+.form-check-input:disabled, .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label{
+	opacity: 1;
+}
+.form-check-label{
+	font-weight: 400;
+}
 #tbl2 .form-select{
 	width: 150px;
 }
@@ -43,8 +56,26 @@
     box-shadow: none;
     border-color: #956bfc;
 }
-.form-check-input:disabled, .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label{
-	opacity: 1;
+#tbl2 textarea{
+	resize: none;
+}
+#tbl2 .form-control{
+	border:none;
+	box-shadow:none;
+	-webkit-box-shadow:none;
+}
+#tbl2 .form-control:focus{
+	box-shadow: none;
+}
+#tbl2 .form-control:disabled{
+	background-color: #fff;
+	cursor: default;
+}
+#tbl2 table tr:last-of-type{
+	height:85px;
+}
+#noAllow{
+	padding:0;
 }
 .btnBox{
 	display: flex;
@@ -54,4 +85,39 @@
 }
 .btnBox>*{
 	line-height: 0;
+}
+.btn:focus{
+	box-shadow: none;
+}
+.btnBox>input:focus{
+	color:#fff;
+}
+.btnBox>input:hover{
+	color:#956bfc;
+}
+/* carousel 부트스트랩 css 관련 */
+html, body{
+	font-size: 16px;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	border-top: none;
+}
+.item>img{
+	margin:0 auto;
+}
+.carousel-control.right, .carousel-control.left{
+	background-image: none;
+}
+.carousel-indicators{
+	width:100%;
+	margin:0;
+}
+.glyphicon-chevron-right:before, .glyphicon-chevron-left:before{
+	color: #723df5;
+}
+.carousel-indicators li{
+	border: 1px solid #593196;
+}
+.carousel-indicators .active{
+	background-color: #593196;
 }
