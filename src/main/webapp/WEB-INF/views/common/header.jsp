@@ -39,9 +39,6 @@
             <li>
                 <a href="/noticeList.do?reqPage=1">공지사항</a>
             </li>
-            <li>
-                <a href="#" class="nav_point"><span>포인트메뉴</span></a>
-            </li>
         </ul>
         <ul class="nav_right">
            	<c:choose>
@@ -56,48 +53,29 @@
            		</c:when>
            		<%-- 로그인 시 --%>
            		<c:otherwise>
-		            <li>
-		                <a href="#"><img src="/resources/img/icon/message.png" class="message_icon"></a>
-		            </li>
-		            <li>
-		                <a href="#"><img src="/resources/img/icon/message.png" class="message_icon"><spsn class="msg_on">3</spsn></a>
-		                <ul class="submenu">
-		                    <h1>읽지않은 쪽지 <em class="point_pk">3</em><em class="msg_count">개</em></h1>
-		                    <li class="msg_li">
-		                        <a href="">
-		                            <span class="msg_from">관리자</span>
-		                            <span class="msg_title">여기는 쪽지 타이틀입니다 1줄만 나오게할거에요</span>
-		                            <span class="msg_date">2021.11.25</span>
-		                            <span class="msg_read">읽음</span>
-		                        </a>
-		                    </li>
-		                    <li class="msg_li">
-		                        <a href="">
-		                            <span class="msg_from">보낸이</span>
-		                            <span class="msg_title">쪽지타이틀</span>
-		                            <span class="msg_date">2021.11.25</span>
-		                            <span class="msg_read">읽지않음</span>
-		                        </a>
-		                    </li>
-		                    <li class="msg_li">
-		                        <a href="">
-		                            <span class="msg_from">보낸이</span>
-		                            <span class="msg_title">쪽지타이틀</span>
-		                            <span class="msg_date">2021.11.25</span>
-		                            <span class="msg_read">읽지않음</span>
-		                        </a>
-		                    </li>
-		                </ul>
-		            </li>
-		            <li>
-		                <a href="#"><img src="/resources/img/icon/message.png" class="message_icon"><spsn class="msg_on">100</spsn></a>
-		            </li>
-		            <li>
-		                 <!-- 마이페이지 버튼  -->
-		                <a id="nav_mypage_wrapper">
-		                    <span id="nav_mypage">마이페이지</span>
-		                </a>    
-		            </li>          		
+		           	<c:choose>
+           				<%-- 관리자인 경우 대시보드 포인트 메뉴로 표시 --%>
+           				<c:when test="${sessionScope.m.memberLevel eq 0 }">
+           					<li>
+				                <a href="/dashboard.do" class="nav_point"><span>관리자 대시보드</span></a>
+				            </li>          		
+           					<li>
+				                 <!-- 마이페이지 버튼  -->
+				                <a id="nav_mypage_wrapper">
+				                    <span id="nav_mypage">관리 메뉴</span>
+				                </a>    
+				            </li>          		
+           				</c:when>
+           				<%-- 관리자 이외 회원은 마이페이지 버튼만 표시 --%>
+           				<c:otherwise>
+				            <li>
+				                 <!-- 마이페이지 버튼  -->
+				                <a id="nav_mypage_wrapper">
+				                    <span id="nav_mypage">마이페이지</span>
+				                </a>    
+				            </li>          		
+           				</c:otherwise>
+           			</c:choose>
            		</c:otherwise>
            	</c:choose>
         </ul>
@@ -157,7 +135,6 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="#">대시보드</a></li>
 		      <li><a href="/memberMgr.do?reqPage=1">회원 관리</a></li>
 		      <li><a href="#">헬퍼 신청 관리</a></li>
 		      <li><a href="/houseMgr.do?reqPage=1">하우스 관리</a></li>
@@ -185,12 +162,14 @@
 		    </header>
 		    <ul>
 		      <li><a href="/myPage.do?memberId=${sessionScope.m.memberId }">나의 정보</a></li>
-		      <li><a href="/bookmarkHouseList.do">하우스 찜목록 확인</a></li>
-		      <li><a href="#">하우스 입주 내역 확인</a></li>
-		      <li><a href="#">투어 신청 내역 확인</a></li>
-		      <li><a href="/communityConfirm.do">커뮤니티 게시글 확인/댓글 확인</a></li>
+		      <li><a href="/bookmarkHouseList.do">하우스 찜목록</a></li>
+		      <li><a href="#">하우스 입주 내역</a></li>
+		      <li><a href="/tourRequestList.do?reqPage=1">투어 신청 내역</a></li>
+		      <li><a href="/communityConfirm.do">커뮤니티 게시글/댓글</a></li>
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
-		      	<li><a href="/helperRequestFrm.do">헬퍼 신청하기</a></li>
+		      	<li>
+		      	<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
+		      	<a href="javascript:void(0);" id="requestChk">헬퍼 신청하기</a></li>
 		      	</c:if>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
 		      <c:if test="${sessionScope.m.memberLevel eq 4 }">
@@ -218,8 +197,8 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="/houseWriteFrm.do">하우스등록</a></li>
-		      <li><a href="/houseOwnerList.do?memberNo=${sessionScope.m.memberNo }&reqPage=1">내 하우스리스트</a></li>
+		      <li><a href="/houseWriteFrm.do">하우스 등록</a></li>
+		      <li><a href="/houseOwnerList.do?memberNo=${sessionScope.m.memberNo }&reqPage=1">내 하우스 리스트</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <li><a href="#">메뉴4</a></li>
 		      <li><a href="#">메뉴5</a></li>
@@ -457,9 +436,30 @@
        return false;
        });
    }); */
-
-   <!-- 챗봇
-   Channel Plugin Scripts -->
+   
+	$("#requestChk").click(function() {
+		var memberNo = $("#memberNo").val();
+		$.ajax({
+			url : "/listCheck.do",
+			data: {memberNo:memberNo},
+			success:function(data){
+				console.log(data);
+				if(data ==2){
+					location.href = "/helperRequestFrm.do";	
+				}else if(data == 1){
+					if(confirm("헬퍼 등록 요청을 이미 하셨습니다. 수정하시겠습니까?" )){
+					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}";
+					}
+				}else if(data ==3){
+					if(confirm("헬퍼등록이 거절 되었습니다. 다시 수정하시겠습니까?")){
+					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}}";
+					}
+				}
+			}
+		});
+	});
+	
+   <!-- 챗봇 -->
      $(function() {
        var w = window;
        if (w.ChannelIO) {
@@ -498,5 +498,4 @@
      ChannelIO('boot', {
        "pluginKey": "f469f15c-2ce8-4955-93b3-62a6beb7ee5f"
      });
-   <!-- End Channel Plugin -->
  </script>

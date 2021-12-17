@@ -11,7 +11,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<link rel="stylesheet" href="/resources/css/notice/noticeList.css">
 	<div class="container_mate">
-		<h1>공지사항</h1>
+		<h1 class="point_title">공지사항</h1>
 		<br>
 		<hr>
 		<br>

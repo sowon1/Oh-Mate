@@ -396,4 +396,11 @@ public class AdminService {
 		data.put("start", start);
 		return data;
 	}
+
+	public House selectOneHouse(int houseNo) {
+		House h = dao.selectOneHouse(houseNo);
+		h.setHouseRoomView(dao.selectHouseRoom(houseNo));
+		h.setPhotoList(dao.selectHousePhoto(houseNo));
+		return h;
+	}
 }

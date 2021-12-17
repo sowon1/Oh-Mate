@@ -84,8 +84,10 @@ public class HouseService {
 		map.put("roomPersonnel", r.getRoomPersonnel());
 		map.put("houseForm", h.getHouseForm());
 		map.put("houseGender",h.getHouseGender());
-		map.put("roomCharge1", roomCharge1);
-		map.put("roomCharge2", roomCharge2);
+		if(roomCharge1 != null && !roomCharge1.equals("")) {			
+			map.put("roomCharge1", Integer.parseInt(roomCharge1));
+			map.put("roomCharge2", Integer.parseInt(roomCharge2));
+		}
 		ArrayList<House> list = dao.selectAjaxHouse(map);
 		int totalRow = dao.selectAjaxTotal();
 		// 전체 페이지의 갯수 구하기
@@ -137,15 +139,6 @@ public class HouseService {
 
 			ArrayList<Photo> photoArray = dao.selectPhoto(houseNo);
 			ArrayList<Room> roomArray = dao.selectHouseRoomList(houseNo);
-			for(int j = 0; j<roomArray.size();j++) {
-				int roomNo = roomArray.get(j).getRoomNo();
-				ArrayList<Tour> tourArray = dao.selectTourList(roomNo);
-				ArrayList<Move> moveArray = dao.selectMoveList(roomNo);
-				int tourCount = dao.tourCount(roomNo);
-				roomArray.get(j).setHouseTour(tourArray);
-				roomArray.get(j).setHouseMove(moveArray);
-				roomArray.get(j).setTourCount(tourCount);
-			}
 			ArrayList<Income> incomeArray = dao.selectIncome(houseNo);
 			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
 			
@@ -300,13 +293,17 @@ public class HouseService {
 			return 0;
 		}
 	}
-	//하우스오너 하우스상세보기
+	//하우스오너 하우스상세보기- 하우스 및 룸
 	public House selectHouseownerOneHouse(int houseNo, int memberNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("houseNo", houseNo);
 		map.put("memberNo", memberNo);
 		House h = dao.selectHouseownerOneHouse(map);
-		return null;
+		ArrayList<Room> houseRoomView = dao.selectHouseRoomView(houseNo);
+		ArrayList<Photo> photoList = dao.selectHousePhotoView(houseNo);
+		h.setPhotoList(photoList);
+		h.setHouseRoomView(houseRoomView);
+		return h;
 	}
 
 	//찜목록 불러오기-jjh

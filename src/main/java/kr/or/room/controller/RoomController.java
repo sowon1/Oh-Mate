@@ -90,20 +90,17 @@ public class RoomController {
 	// 입주신청 - sowon
 	@RequestMapping(value="/movePayment.do")
 	public String movePayment(Pay p, Room r, Move m, int memberNo, Model model) {
-		System.out.println(m.getMoveStart());
 		int result = service.insertMove(p,r,m,memberNo);
-		System.out.println(result);
-		System.out.println(p);
-		System.out.println(r);
-		System.out.println(m);
-		System.out.println(memberNo);
 		if(result > 0) {
-			model.addAttribute("msg", "결제 완료");
 			return "/";
 		}else {
-			model.addAttribute("msg", "결제가 실패되었습니다.");
-			return "";
+			return "/";
 		}
 	}
-	
+	//하우스 오너 입주신청 & 투어신청 >> 결제내역까지 가져와야함
+	@RequestMapping(value = "/roomTourMoveChk.do")
+	public String roomTourMoveChk(int roomNo,int houseNo) {
+		Room r = service.selectOneRoomTM(roomNo,houseNo);
+		return"";
+	}
 }

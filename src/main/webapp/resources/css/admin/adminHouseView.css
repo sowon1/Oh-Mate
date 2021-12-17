@@ -1,0 +1,57 @@
+.container_mate>h1{
+	padding-left: 35px;
+	margin-bottom: 50px;
+}
+.container_mate>div{
+	width:1130px;
+	margin: 0 auto;	
+}
+.container_mate .table{
+	margin-bottom: 0;
+}
+.container_mate .table:not(.chkTbl){
+	border-top: 1px solid rgba(0, 0, 0, 0.05);
+	border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+.container_mate .table th{
+	padding: 15px;
+	background-color: #eee9f6;
+	vertical-align: middle;
+	text-align: center;
+}
+.container_mate .table td:not(.chkTbl td){
+	padding: 15px;
+	vertical-align: middle;
+}
+#tbl2 .table{
+	border-top: none;
+}
+.chkTbl, .chkTbl *:not(input){
+	border:none;
+}
+.chkTbl input[type="checkbox"]{
+    margin-right: 5px;
+}
+.form-check-input:focus{
+	box-shadow: none;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+}
+#tbl2 .form-select{
+	width: 150px;
+}
+#tbl2 .form-select:focus{
+    box-shadow: none;
+    border-color: #956bfc;
+}
+.form-check-input:disabled, .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label{
+	opacity: 1;
+}
+.btnBox{
+	display: flex;
+	width: 350px;
+	justify-content:space-between;
+	margin: 40px auto 0 auto;
+}
+.btnBox>*{
+	line-height: 0;
+}

@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.common.Tour;
 import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
+import kr.or.room.model.dao.RoomService;
 
 @Controller
 public class MemberController {
@@ -37,6 +39,8 @@ public class MemberController {
 	private JavaMailSender mailSender;
 	@Autowired
 	private HouseService houseService;
+	@Autowired
+	private RoomService roomService;
 	
 	//로그인1
 	@RequestMapping(value="/login.do")
@@ -441,5 +445,22 @@ public class MemberController {
 	@RequestMapping(value="/commentConfirm.do")
 	public String commentConfirm() {
 		return "member/commentConfirm";
+	}
+	
+	//투어신청 리스트
+	@RequestMapping(value = "/tourRequestList.do")
+	public String tourRequestList(Model model, HttpSession session, int reqPage) {
+		if(session != null) {
+			Member m = (Member)session.getAttribute("m");
+			int memberNo = 0;
+			if(m != null)
+			{
+				memberNo = m.getMemberNo();
+			}	
+			HashMap<String, Object> data = roomService.tourRequestList(memberNo, reqPage);
+			model.addAttribute("list", data.get("list"));
+			model.addAttribute("pageNavi", data.get("pageNavi"));
+		}
+		return "member/tourRequestList";
 	}
 }

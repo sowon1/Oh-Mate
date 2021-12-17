@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.admin.model.vo.UpdateMember;
+import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
+import kr.or.room.model.vo.Room;
 
 @Repository
 public class AdminDao {
@@ -103,5 +105,19 @@ public class AdminDao {
 
 	public int totalSearchHouseCnt(HashMap<String, Object> map) {
 		return session.selectOne("admin.totalSearchHouse", map);
+	}
+
+	public House selectOneHouse(int houseNo) {
+		return session.selectOne("admin.selectOneHouse", houseNo);
+	}
+
+	public ArrayList<Room> selectHouseRoom(int houseNo) {
+		List<Room> list = session.selectList("admin.selectHouseRoom", houseNo);
+		return (ArrayList<Room>)list;
+	}
+
+	public ArrayList<Photo> selectHousePhoto(int houseNo) {
+		List<Photo> list = session.selectList("admin.selectHousePhoto", houseNo);
+		return (ArrayList<Photo>)list;
 	}
 }

@@ -224,6 +224,8 @@
 			var genderValue = $("div[data-type='gender']").prev().children("span").text();
 			var roomValue = $("div[data-type='room']").prev().children("span").text();
 			var housetypeValue = $("div[data-type='house_type']").prev().children("span").text();
+			var roomCharge1 = "0";
+			var roomCharge2 = "100";
 			var gender;
 			if(genderValue == "남성전용"){
 				houseGender="1";
@@ -252,7 +254,7 @@
 			}else{
 				houseForm="";
 			}
-			location.href="/houseList.do?keyword="+keyword+"&houseGender="+houseGender+"&houseForm="+houseForm+"&roomPersonnel="+roomPersonnel;		
+			location.href="/houseList.do?keyword="+keyword+"&houseGender="+houseGender+"&houseForm="+houseForm+"&roomPersonnel="+roomPersonnel+"&roomCharge1="+roomCharge1+"&roomCharge2="+roomCharge2;		
 		});
 		/*
 		$("#search_date").click(function(){

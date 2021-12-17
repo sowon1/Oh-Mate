@@ -37,5 +37,5 @@ public class House {
 	private ArrayList<Income> houseIncome;
 	private int roomCount;					//잔여방확인
 	private String memberId;
-	
+	private String accountInfo;				//정산 계좌 정보
 }

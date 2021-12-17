@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.common.Address;
+import kr.or.common.Income;
 import kr.or.helper.model.vo.Helper;
 
 @Repository
@@ -30,6 +31,42 @@ public class HelperDao {
 
 	public Helper selectOneHelper(String helperName) {
 		return session.selectOne("helper.selectOneHelper",helperName);
+	}
+
+	public int insertIncomeHelper(Income i2) {
+		// TODO Auto-generated method stub
+		return session.insert("helper.insertIncomeHelper",i2);
+		
+	}
+
+	public Helper selectOneHelperMemberNo(int memberNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("helper.selectOneHelperMemberNo",memberNo);
+	}
+
+	public Income selectOneIncome(int helperNo) {
+		
+		return session.selectOne("helper.selectOneIncome", helperNo);
+	}
+
+	public int updateHelperReqNoImg(Helper h) {
+		
+		return session.update("helper.updateHelperReqNoImg",h);
+	}
+
+	public int deleteAddresss(int addressNumber) {
+		
+		return session.delete("helper.deleteAddressUpdate", addressNumber);
+	}
+
+	public int insertIncomeHelperUpdate(Income i2) {
+		// TODO Auto-generated method stub
+		return session.update("helper.insertIncomeHelperUpdate", i2);
+	}
+
+	public int insertHouseAndImgUpdate(Helper h) {
+		// TODO Auto-generated method stub
+		return session.update("helper.updateHelperReqImg", h);
 	}
 	
 }

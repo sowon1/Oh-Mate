@@ -4,7 +4,7 @@
 	<!-- 하우스등록 -->
   <insert id="insertHouse" parameterType="h">
   insert into house
-  values(house_seq.nextval,#{memberNo},#{houseTitle},#{houseownerDeadline},2,null,#{houseContent},#{houseRoom},#{houseCharge},
+  values(house_seq.nextval,#{memberNo},#{houseTitle},#{houseownerDeadline},1,null,#{houseContent},#{houseRoom},#{houseCharge},
   #{houseRule},#{houseForm},#{houseGender},#{houseConvenience},1)
   	<selectKey resultType="_int" order="AFTER" keyProperty="houseNo">
   	<!-- 하우스 번호 넘기기위한 selectkey 발동 -->
@@ -111,8 +111,10 @@
 	        <if test="roomPersonnel != null and !''.equals(roomPersonnel)">
 	        	and house.house_no in (select house_no from room where room_personnel=#{roomPersonnel})
 			</if>
-			<if test="roomCharge1 != 0 and roomCharge2 != 100">			
-	            and (house_charge between #{roomCharge1} and #{roomCharge2})
+			<if test="roomCharge1 != null and !''.equals(roomCharge1)">
+				<if test='roomCharge1 != 0 and roomCharge2 != 100'>
+					and house.house_no in (select house_no from room where room_month between #{roomCharge1} and #{roomCharge2})
+				</if>
 			</if>
             <if test="keyword != null and !''.equals(keyword)">
             	and (house_title || house_content || house_form || address_name || address_road || address_legal) like '%' ||  #{keyword} || '%'     
@@ -373,16 +375,16 @@
 		from move
 		where room_no = #{roomNo}
 	</select>
-	<select id="tourCount" parameterType="_int" resultType="_int">
-		select count(*) from tour where room_no = #{roomNo}
+	<select id="tourCount" parameterType="map" resultType="_int">
+		select count(*) from tour where room_no = #{roomNo} and tour_status=2
 	</select>
-	
+
 	<!-- 찜목록 불러오기 -->
 	<select id="selectBookmarkHouse" parameterType="_int" resultMap="house">
   		select * from 
   			(select rownum as rnum, 
   			b.bookmark_no, 
-  			h.* from BOOKMARK b left join house h ON (bookmark_num = house_no) 
+  			h.* from BOOKMARK b join house h ON (bookmark_num = house_no) 
   			where BOOKMARKER=#{memberNo} )
   		order by 2 desc
 	</select>
@@ -390,4 +392,26 @@
 	<delete id="deletePhoto" parameterType="f">
 		delete from photo where photo_no =#{photoNo} and photo_path=#{photoPath} and photo_category =1
 	</delete>
+	<!-- 하우스 상세보기 (하우스 테이블) -->
+	<select id="selectHouseownerOneHouse" parameterType="map" resultType="h">
+		select 
+             h.house_no as houseNo,
+             h.member_no as memberNo,
+             h.house_title as houseTitle,
+             h.houseowner_deadline as houseownerDeadline,
+             h.house_selling as houseSelling,
+             h.refuse_reason as refuseReason,
+             h.house_content as houseContent,
+             h.house_room as houseRoom,
+             h.house_charge as houseCharge,
+             h.house_rule as houseRule,
+             h.house_form as houseForm,
+             h.house_gender as houseGender,
+             h.house_convenience as houseConvenience,
+             h.house_allow as houseAllow,
+             (select address_name from address where address_category=1 and address_number=h.house_no) as addressName,
+             (select address_road from address where address_category=1 and address_number=h.house_no) as addressRoad,
+             (select count(*)from room where house_no=#{houseNo} and room_status=1) as roomCount
+        from house h where house_no=#{houseNo}
+	</select>
 </mapper>

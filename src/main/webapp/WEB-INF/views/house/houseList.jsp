@@ -25,7 +25,7 @@
 					</div>
 					<div class="search_line">
 						<input class="search_input" name="keyword" placeholder="지역, 지하철역, 대학 주변 검색">
-						<a href="" class="search_icon">
+						<a id="searchHouse" class="search_icon">
 							<img src="/resources/img/icon/search_on.png">
 						</a>
 					</div>
@@ -34,9 +34,9 @@
 					<div class="h_filter_open">
 						<fieldset>
 							<div id="select_container">
-								<!--보증금조정-->
+								<!--월세 조정-->
 								<div class="mFeeWrap">
-		           	              <h2 class="filterTitle"><strong>보증금 범위</strong>&nbsp;&nbsp;<span id="rent-lower">0</span>~<span id="rent-upper">100</span>만원</h2>
+		           	              <h2 class="filterTitle"><strong>월세 범위</strong>&nbsp;&nbsp;<span id="rent-lower">0</span>~<span id="rent-upper">100</span>만원</h2>
 		       	    		      <input name="roomCharge1" id="house-filter_rent_lower" type="hidden" value="0">
 		       	    		      <input name="roomCharge2" id="house-filter_rent_upper" type="hidden" value="100">
 		           	              <div id="rent-slider" class="noUi-target noUi-ltr noUi-horizontal"></div>
@@ -108,8 +108,8 @@
 						</fieldset>
 						<!--적용하기-->
 						<div class="applyWrap">
-							<span class="btnBorder" id="reset-house">초기화</span>
-							<span class="btnBackground" id="filter-apply-btn">적용하기</span>
+							<span class="btnBorder" id="resethouse">초기화</span>
+							<span class="btnBackground" id="filter_apply_btn">적용하기</span>
 							<span class="filterHeader">
 								<div class="closeBtn" id="filter-close-btn">
 									<img src="/resources/img/icon/close_p.png">
@@ -131,31 +131,18 @@
 		</div>
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
-	<script>
-		//---------------체크박스 1개만 선택하도록-----------------------//
-		function checkOnlyOne(target) {
-		    document.querySelectorAll('input[type=checkbox]')
-		    .forEach(el => el.checked = false);			
-		    target.checked = true;
-		}			
+	<script>		
 		//----------------------------------------스크롤 페이징---------------------------------//
 		var currentPage = 1;
 		var isLoading=false;
 		var login = '${sessionScope.m}';
-		var totalCount;
+		var totalCount = '${totalCount}';
 		var keyword = '${keyword}';
 		var houseGender = '${houseGender}';
 		var houseForm = '${houseForm}';
 		var roomPersonnel = '${roomPersonnel}';
-		var roomCharge1 = $("#rent-lower").val();
-		var roomCharge2 = $("#rent-upper").val();
-		
-		console.log(keyword);
-		console.log(houseGender);
-		console.log(houseForm);
-		console.log(roomPersonnel);
-		console.log(roomCharge1);
-		console.log(roomCharge2);
+		var roomCharge1 = '${roomCharge1}';
+		var roomCharge2 = '${roomCharge2}';
 
 		//var start = '${startPageNum}';
 		//웹 브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
@@ -187,10 +174,6 @@
 			if(houseGender == ""){
 				houseGender = 0;
 			}
-			console.log("3 : "+houseForm);
-			console.log("4 : "+roomPersonnel);
-			console.log("5 : "+roomCharge1);
-			console.log("6 : "+roomCharge2);
 			$.ajax({
 				type : "GET",
 				data : {
@@ -206,49 +189,50 @@
 				success : function(data){
 					var html = "";
 					var list = data.list;
-					totalCount = data.totalCount;
-					console.log(data);
-					console.log(list);
-					for(var i=0;i<list.length;i++){
-						if(list.length == 0){
-							html += '검색결과없음';
-						}else{		
-							html += '<li><div class="house_list_photo"><div class="like_house">';
-							if(login == ''){
-								html += '<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>';
-							}else if(list[i].likedCheck == '좋아요'){
-								html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_on.png"></a>';
-							}else {
-								html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_off.png"></a>'
-							}
-							if(list[i].photoList.length == 0){
-								html += ' </div><img src="/resources/img/icon/heart_off.png"></div>';
-							}else{
-								html += ' </div><img src="/resources/upload/house/'+list[i].photoList[0].photoPath+'"></div>';
-							}
-							
-							html += '<a href="houseView.do?houseNo='+list[i].houseNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].houseTitle+'</span></div>';
-							html += '<div class="list_line_02"><span class="list_tag">';
-							if(list[i].houseGender == '1'){
-								html += '남성전용';
-							}else if(list[i].houseGender == '2'){
-								html += '여성전용';
-							}else{
-								html += '남여공용';
-							}					
-							html += '</span><span class="house_form">'+list[i].houseForm+'</span></div></div>';
-							html += '<a href="houseView.do?houseNo='+list[i].houseNo+'" class="house_more_btn">입주 가능한 방 '+list[i].roomCount+'개</a>';
-							html += '<input type="hidden" value="'+list[i].addressRoad+'" name="address">';
-							html += '<input type="hidden" value="'+list[i].houseTitle+'" name="houseTitle">';
-							html += '</li></a>';
-							getHouseMap(list[i].addressRoad,list[i].houseTitle,"/resources/img/icon/heart_off.png",list[i].houseForm,list[i].roomCount,list[i].houseNo);
-							//getHouseMap(list[i].addressRoad,list[i].houseTitle,list[i].photoList[0].photoPath,list[i].houseForm,list[i].roomCount,list[i].houseNo);
+					totalCount = data.totalPageCount;
+					//console.log(data);
+					//console.log(list);
+					//console.log(totalCount);
+					if(list == 0){
+						html += '<div class="search_none"><img src="/resources/img/icon/search_img.png"></div>';
+						html += '<div class="search_none_text">검색 결과가 없습니다.</div>';
+	
+					}
+					for(var i=0;i<list.length;i++){								
+						html += '<li><div class="house_list_photo"><div class="like_house">';
+						if(login == ''){
+							html += '<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>';
+						}else if(list[i].likedCheck == '좋아요'){
+							html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_on.png"></a>';
+						}else {
+							html += '<a idx="'+list[i].houseNo+'" class="heart"><img src="/resources/img/icon/heart_off.png"></a>'
 						}
+						if(list[i].photoList.length == 0){
+							html += ' </div><img src="/resources/img/icon/heart_off.png"></div>';
+						}else{
+							html += ' </div><img src="/resources/upload/house/'+list[i].photoList[0].photoPath+'"></div>';
+						}
+						
+						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].houseTitle+'</span></div>';
+						html += '<div class="list_line_02"><span class="list_tag">';
+						if(list[i].houseGender == '1'){
+							html += '남성전용';
+						}else if(list[i].houseGender == '2'){
+							html += '여성전용';
+						}else{
+							html += '남여공용';
+						}					
+						html += '</span><span class="house_form">'+list[i].houseForm+'</span></div></div>';
+						html += '<a href="houseView.do?houseNo='+list[i].houseNo+'" class="house_more_btn">입주 가능한 방 '+list[i].roomCount+'개</a>';
+						html += '<input type="hidden" value="'+list[i].addressRoad+'" name="address">';
+						html += '<input type="hidden" value="'+list[i].houseTitle+'" name="houseTitle">';
+						html += '</li></a>';
+						getHouseMap(list[i].addressRoad,list[i].houseTitle,"/resources/img/icon/heart_off.png",list[i].houseForm,list[i].roomCount,list[i].houseNo);
+						//getHouseMap(list[i].addressRoad,list[i].houseTitle,list[i].photoList[0].photoPath,list[i].houseForm,list[i].roomCount,list[i].houseNo);
 					}
 					$(".list_container").append(html);
 					$(".loading").hide();
-					isLoading = false;
-					
+					isLoading = false;					
 				}
 			});
 		}
@@ -290,8 +274,8 @@
 		             // 정상적으로 검색이 완료됐으면 
 		              if (status === kakao.maps.services.Status.OK) {
 		                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x); 
-		               var imageSrc = '/resources/img/icon/marker.png', 
-		               imageSize = new kakao.maps.Size(40, 44), // 마커이미지의 크기입니다
+		               var imageSrc = '/resources/img/icon/markerHouse.png', 
+		               imageSize = new kakao.maps.Size(50, 54), // 마커이미지의 크기입니다
 		               imageOption = {
 		                  offset : new kakao.maps.Point(10, -80)
 		               }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
@@ -399,6 +383,58 @@
 		$(".closeBtn").click(function(){
 			$(".h_filter_open").slideToggle();
 		});
+		// 초기화
+		$("#resethouse").click(function(){
+			$(".h_filter_open").find("input").prop("checked",false);
+		});
+		//적용하기
+		$("#filter_apply_btn").click(function(){
+			var genderValue = $("input[name='houseGender']:checked").val();
+			var housetypeValue = $("input[name='houseForm']:checked").val();
+			var roomValue = $("input[name='roomPersonnel']:checked").val();
+			var roomCharge11 = $(".noUi-handle-lower").children().text();
+			var roomCharge22 = $(".noUi-handle-upper").children().text();
+			if(genderValue == "남성전용"){
+				houseGender="1";
+			}else if(genderValue == "여성전용"){
+				houseGender="2";
+			}else if(genderValue == "남녀공용"){
+				houseGender="3";
+			}else{
+				houseGender="0";
+			}
+			if(roomValue == "1인실"){
+				roomPersonnel = "1인실";
+			}else if(roomValue == "2인실"){
+				roomPersonnel = "2인실";
+			}else if(roomValue == "다인실"){
+				roomPersonnel = "다인실";
+			}else{
+				roomPersonnel = "";
+			}
+			if(housetypeValue == "아파트"){
+				houseForm="아파트";
+			}else if(housetypeValue == "단독주택"){
+				houseForm="단독주택";
+			}else if(housetypeValue == "빌라"){
+				houseForm = "빌라";
+			}else{
+				houseForm="";
+			}
+			if(roomCharge11 == "0"){
+				roomCharge1 = "0";
+			}else{				
+				roomCharge1 = roomCharge11+"0000";
+			}
+			roomCharge2 = roomCharge22+"0000";
+			$(".h_filter_open").slideToggle();
+		});
+		//서치
+		$("#searchHouse").click(function(){
+			var keyword = $("input[name='keyword']").val();
+			location.href="/houseList.do?keyword="+keyword+"&houseGender="+houseGender+"&houseForm="+houseForm+"&roomPersonnel="+roomPersonnel+"&roomCharge1="+roomCharge1+"&roomCharge2="+roomCharge2;
+		});
+		
 		//----------------------------------검색바 금액설정-------------------------------------//
 		var connectSlider = document.getElementById('rent-slider');
         var maxAmount = 100
