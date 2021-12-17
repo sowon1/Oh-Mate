@@ -52,13 +52,30 @@
            			</li>
            		</c:when>
            		<%-- 로그인 시 --%>
-           		<c:otherwise>		            
-		            <li>
-		                 <!-- 마이페이지 버튼  -->
-		                <a id="nav_mypage_wrapper">
-		                    <span id="nav_mypage">마이페이지</span>
-		                </a>    
-		            </li>          		
+           		<c:otherwise>
+           			<c:choose>
+           				<%-- 관리자인 경우 대시보드 포인트 메뉴로 표시 --%>
+           				<c:when test="${sessionScope.m.memberLevel eq 0 }">
+           					<li>
+				                <a href="/dashboard.do" class="nav_point"><span>관리자 대시보드</span></a>
+				            </li>          		
+           					<li>
+				                 <!-- 마이페이지 버튼  -->
+				                <a id="nav_mypage_wrapper">
+				                    <span id="nav_mypage">관리 메뉴</span>
+				                </a>    
+				            </li>          		
+           				</c:when>
+           				<%-- 관리자 이외 회원은 마이페이지 버튼만 표시 --%>
+           				<c:otherwise>
+				            <li>
+				                 <!-- 마이페이지 버튼  -->
+				                <a id="nav_mypage_wrapper">
+				                    <span id="nav_mypage">마이페이지</span>
+				                </a>    
+				            </li>          		
+           				</c:otherwise>
+           			</c:choose>
            		</c:otherwise>
            	</c:choose>
         </ul>
@@ -118,7 +135,6 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="/dashboard.do">대시보드</a></li>
 		      <li><a href="/memberMgr.do?reqPage=1">회원 관리</a></li>
 		      <li><a href="#">헬퍼 신청 관리</a></li>
 		      <li><a href="/houseMgr.do?reqPage=1">하우스 관리</a></li>
@@ -146,10 +162,10 @@
 		    </header>
 		    <ul>
 		      <li><a href="/myPage.do?memberId=${sessionScope.m.memberId }">나의 정보</a></li>
-		      <li><a href="/bookmarkHouseList.do">하우스 찜목록 확인</a></li>
-		      <li><a href="#">하우스 입주 내역 확인</a></li>
-		      <li><a href="/tourRequestList.do?reqPage=1">투어 신청 내역 확인</a></li>
-		      <li><a href="/communityConfirm.do">커뮤니티 게시글 확인/댓글 확인</a></li>
+		      <li><a href="/bookmarkHouseList.do">하우스 찜목록</a></li>
+		      <li><a href="#">하우스 입주 내역</a></li>
+		      <li><a href="/tourRequestList.do?reqPage=1">투어 신청 내역</a></li>
+		      <li><a href="/communityConfirm.do">커뮤니티 게시글/댓글</a></li>
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
 		      	<li>
 		      	<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
@@ -181,8 +197,8 @@
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
 		    <ul>
-		      <li><a href="/houseWriteFrm.do">하우스등록</a></li>
-		      <li><a href="/houseOwnerList.do?memberNo=${sessionScope.m.memberNo }&reqPage=1">내 하우스리스트</a></li>
+		      <li><a href="/houseWriteFrm.do">하우스 등록</a></li>
+		      <li><a href="/houseOwnerList.do?memberNo=${sessionScope.m.memberNo }&reqPage=1">내 하우스 리스트</a></li>
 		      <li><a href="#">메뉴3</a></li>
 		      <li><a href="#">메뉴4</a></li>
 		      <li><a href="#">메뉴5</a></li>
