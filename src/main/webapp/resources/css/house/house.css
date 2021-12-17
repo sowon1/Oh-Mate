@@ -61,6 +61,7 @@
     right: 20px;
     top: 9px;
     width: 30px;
+    cursor: pointer;
 }
 
 /* 조건 검색 누를경우 */
