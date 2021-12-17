@@ -155,7 +155,7 @@ public class RoomService {
 		
 		return map;
 	}
-
+	//룸선택시 해당룸에 대한 
 	public Room selectOneRoomTM(int roomNo, int houseNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("roomNo", roomNo);
