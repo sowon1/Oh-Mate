@@ -38,5 +38,4 @@ public class House {
 	private int roomCount;					//잔여방확인
 	private String memberId;
 	private String accountInfo;				//정산 계좌 정보
-	private int allTourList;                //하우스 내 방 전체 신규 리스트갯수
 }

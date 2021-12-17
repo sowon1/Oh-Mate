@@ -77,6 +77,7 @@
 								<input type="checkbox" class="chk" name="funderCategory" id="fun_07" value="0"><label for="fun_07" style="width: 140px">기타·원격</label>
 							</div> 
 							<input type="hidden" id="helperCategory" name="helperCategory" value="${h.helperCategory }">
+							
 						</td>
 					</tr>
 					<tr class="table-active_mate">

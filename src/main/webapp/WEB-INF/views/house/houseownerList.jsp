@@ -174,7 +174,7 @@ margin-left: 500px;
 												<c:when test="${h.houseSelling eq 1 }">
 													<span class="allow-agree" style="color: green; border: 1px solid green;">판매중</span>
 												</c:when>
-												<c:when test="${h.houseSeeling eq 2 }">
+												<c:when test="${h.houseSelling eq 2 }">
 													<span class="allow-refuse" style="color: blue; border: 1px solid blue;">판매완료</span>												
 												</c:when>
 											</c:choose>
@@ -195,7 +195,7 @@ margin-left: 500px;
 									</div>
 									<div class="summary-status">
 										<span>입주현황: <strong>${h.roomCount }/${h.houseRoom }</strong></span>·
-										<span>투어 신청건<strong></strong></span>
+										<span>소개종료일:<strong> ${h.houseownerDeadline }</strong></span>
 									</div>
 									<a class="summary-datail" href="/houseOwnerRoom.do?houseNo=${h.houseNo }&memberNo=${h.memberNo}">하우스
 										상세보기</a>
@@ -203,12 +203,10 @@ margin-left: 500px;
 								<div class="btn-group">
 									<a href="/houseUpdateFrm.do?houseNo=${h.houseNo}&memberNo=${h.memberNo}">수정하기</a> <a href="/houseDelete.do?houseNo=${h.houseNo} &memberNo=${h.memberNo}">삭제하기</a>
 									<a href="javascript:void(0);">입주자 내역</a>
-									<a href="javascript:void(0);">투어리스트 내역
-									<strong>${h.tourAllCount }</strong>									
+									<a href="javascript:void(0);">투어리스트 내역	
+									
 									</a>
 								</div>
-								<div class="move-list"></div>
-								<div class="tour-list"></div>
 							</div>
 						</li>
 					</c:forEach>
@@ -217,6 +215,9 @@ margin-left: 500px;
 			<div class="house-navi">${pageNavi }</div>
 		</div>
 	</div>
+	<script>
+	
+	</script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

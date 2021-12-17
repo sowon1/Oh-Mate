@@ -176,7 +176,7 @@ public class HouseDao {
 	//하우스오너 하우스 상세보기 출력
 	public House selectHouseownerOneHouse(HashMap<String, Object> map) {
 		House h = session.selectOne("house.selectHouseownerOneHouse",map);
-		return null;
+		return h;
 	}
 	//하우스오너 투어리스트
 	public ArrayList<Tour> selectTourList(int roomNo) {
