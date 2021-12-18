@@ -1,5 +1,7 @@
 package kr.or.common;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 
 @Data
@@ -13,4 +15,9 @@ public class Tour {
 	private String tourQna;			//문의사항
 	private String tourVisit;		//희망방문일
 	private int tourStatus;			//상태구분
+	private int houseNo;			//하우스 번호
+	private String addressName;		//주소1
+	private String addressRoad;     //주소2
+	private String addressLegal;	//주소3
+	private ArrayList<Photo> photoList; 	//사진테이블
 }
