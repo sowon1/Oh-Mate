@@ -38,20 +38,39 @@
 						<div id="select_container">
 							<div class="genderFilter">
 								<p class="filterTitle">
-									<strong>성별 타입</strong>
+									<strong>선호 성별</strong>
 								</p>
 								<div class="filter_cont">
 									<div>
-										<input type="radio" id="house-filter_gender_division_f" name="gender" value="2">
-										<label for="house-filter_gender_division_f"><span class="select_icon02"></span>여성헬퍼</label>
+										<input type="radio" id="helper_gender__f" name="gender" value="2">
+										<label for="helper_gender__f"><span class="select_icon02"></span>여성</label>
 									</div>
 									<div>
-										<input type="radio" id="house-filter_gender_division_m" name="gender" value="1">
-										<label for="house-filter_gender_division_m"><span class="select_icon04"></span>남성헬퍼</label>
+										<input type="radio" id="helper_gender__m" name="gender" value="1">
+										<label for="helper_gender__m"><span class="select_icon04"></span>남성</label>
 									</div>
 									<div>
-										<input type="radio" id="house-filter_gender_division_mf" name="gender" value="3">
-										<label for="house-filter_gender_division_mf"><span class="select_icon03"></span>남녀모두</label>
+										<input type="radio" id="helper_gender__mf" name="gender" value="3">
+										<label for="helper_gender__mf"><span class="select_icon03"></span>남녀모두</label>
+									</div>
+								</div>
+							</div>
+							<div class="ageFilter">
+								<p class="filterTitle">
+									<strong>선호 연령</strong>
+								</p>
+								<div class="filter_cont">
+									<div>
+										<input type="radio" id="helper_age1" name="age" value="1">
+										<label for="helper_age1"><span class="select_icon02"></span>20대 이상</label>
+									</div>
+									<div>
+										<input type="radio" id="helper_age2" name="age" value="2">
+										<label for="helper_age2"><span class="select_icon04"></span>30대 이상</label>
+									</div>
+									<div>
+										<input type="radio" id="helper_age3" name="age" value="3">
+										<label for="helper_age3"><span class="select_icon03"></span>40대 이상</label>
 									</div>
 								</div>
 							</div>
@@ -107,7 +126,9 @@
 									</div>
 									<input type="hidden" id="helperCategory" name="helperCategory">
 								</div>
-							</div>							
+							</div>
+							
+							
 						</div>
 					</fieldset>
 					<!--적용하기-->

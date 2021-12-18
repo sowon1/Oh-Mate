@@ -149,19 +149,33 @@
 	        		<div class="like_helper">
 	        			<c:choose>
                        		<c:when test="${empty sessionScope.m}">
-                       			<button onclick="msgpopupopen();" class="heart"></button>
+                       			<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>
                        		</c:when>
                        		<c:when test="${h.likedCheck == '좋아요'}">
-		                		<button onclick="likehelper(this,${hp.helperNo});" class="heart _click"></button>
+		                		<button onclick="likehelper(this,${hp.helperNo});" class="heart _click">
+		                			<img src="/resources/img/icon/heart_off.png">
+		                		</button>
 		                	</c:when>
 		                	<c:otherwise>                							              
-								<button onclick="likehelper(this,${hp.helperNo});" class="heart"></button>
+								<button onclick="likehelper(this,${hp.helperNo});" class="heart">
+									<img src="/resources/img/icon/heart_on.png">
+								</button>
 		                	</c:otherwise>
                        	</c:choose>
 	        		</div>
 	        		<div class="helper_list_profile">
 	                    <img src="/resources/img/icon/profile.png" class="profile_view">
 	        		</div>
+	        	</div>
+	        	<div class="helper_list_text">
+	        		<span class="helper_list_nickname">${hp.helperName}닉네임부분</span>
+	        		<c:choose>
+	        			<c:when test="">
+	        			
+	        			</c:when>
+	        		</c:choose>
+	        		<span class="helper_list_age">20대</span>
+	        		<span class="helper_list_gender">남</span>
 	        	</div>
 	        </li>
         </ul>

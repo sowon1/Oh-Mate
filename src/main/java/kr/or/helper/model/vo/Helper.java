@@ -27,4 +27,6 @@ public class Helper {
 	private String memberId;			//회원 아이디
 	private String memberName;			//회원 이름
 	private int memberLevel;			//관리자 페이지 사용, 활동 여부 판단용
+	private int age;					// 성별구분 1.남 2.여
+	private int gender;					// 나이구분 1.20대 2.30대 3.40대이상
 }
