@@ -134,14 +134,16 @@
     color: #fff
 }
 /* 선택 */
-.genderFilter, .timeWrap{
+.genderFilter, .ageFilter{
 	float:left;
 	width: 438px;
 	margin-bottom:40px;
 }
-.houseTypeWrap{
+.houseTypeWrap,.timeWrap{
+	clear:both;
 	float:left;
 	width:100%;
+	margin-bottom:40px;
 }
 .houseTypeWrap:last-child{
 	margin-bottom:0;
