@@ -22,6 +22,6 @@ public class Room {
 	private String roomMonth;		//첫달월세
 	ArrayList<House> house;			//해당 방이 있는 하우스 정보
 	ArrayList<Photo> photoList;		//해당 방이 있는 하우스 사진
-	private ArrayList<Tour> houseTour; //해당 방의 투어 리스트
-	private ArrayList<Move> houseMove; //해당 방 입주 리스트(과거이력까지)
+	private ArrayList<Tour> roomTour; //해당 방의 투어 리스트
+	private ArrayList<Move> roomMove; //해당 방 입주 리스트(과거이력까지)
 }

@@ -187,7 +187,7 @@
        								</span>
        							</div>
        							<div class="house_view_room_btn">
-       									<a class="room_move_btn house_move_login" href="/roomTourMoveChk.do?roomNo=${r.roomNo }&houseNo=${h.houseNo}" style="width: 100%;">방 상세 내역확인하기</a>	
+       									<a class="room_move_btn house_move_login" href="/roomTourMoveChk.do?roomNo=${r.roomNo }&houseNo=${h.houseNo}&movePage=1&tourPage=1" style="width: 100%;">방 상세 내역확인하기</a>	
        							</div>		
        						</li>
        					</c:forEach>
