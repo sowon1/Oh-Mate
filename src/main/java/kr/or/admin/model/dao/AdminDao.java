@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Photo;
 import kr.or.common.Report;
+import kr.or.helper.model.vo.Helper;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
@@ -123,5 +124,14 @@ public class AdminDao {
 
 	public int updateHouse(House h) {
 		return session.update("admin.updateHouse", h);
+	}
+
+	public ArrayList<Helper> selectAllHelper(HashMap<String, Object> map) {
+		List<Helper> list = session.selectList("admin.selectAllHelper", map);
+		return (ArrayList<Helper>)list;
+	}
+
+	public int totalHelperCount() {
+		return session.selectOne("admin.helperTotal");
 	}
 }

@@ -24,4 +24,7 @@ public class Helper {
 	private Income income;
 	private String likedCheck;				//좋아요 체크용
 	private String likeCount;				//좋아요 카운트
+	private String memberId;			//회원 아이디
+	private String memberName;			//회원 이름
+	private int memberLevel;			//관리자 페이지 사용, 활동 여부 판단용
 }

@@ -219,6 +219,14 @@ public class AdminController {
 		model.addAttribute("loc", "/adminHouseView.do?houseNo="+h.getHouseNo());
 		return "common/msg";
 	}
+	@RequestMapping(value="helperMgr.do")
+	public String helpMgr(int reqPage, Model model) {
+		HashMap<String, Object> data = service.selectAllHelper(reqPage);
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		return "admin/helperMgr";
+	}
 	//대시보드
 	@RequestMapping(value="/dashboard.do")
 	public String dashboard(Model model) {

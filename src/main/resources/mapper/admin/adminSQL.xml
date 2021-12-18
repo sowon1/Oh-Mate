@@ -379,4 +379,19 @@
 			refuse_reason = #{refuseReason}
 		where house_no = #{houseNo}
 	</update>
+	<select id="selectAllHelper" parameterType="map" resultType="hp">
+		select
+			helper_no as helperNo,
+			member_no as memberNo,
+			(select member_id from member where member_no = hh.member_no) memberId,
+			helper_name as helperName,
+			(select member_name from member where member_no = hh.member_no) memberName,
+			(select member_level from member where member_no = hh.member_no) memberLevel,
+			helper_status as helperStatus
+		from
+		(select rownum as rnum, h.* from (select * from helper order by 1 desc)h)hh where rnum between #{start} and #{end}
+	</select>
+	<select id="helperTotal" resultType="_int">
+		select count(*) from helper
+	</select>
 </mapper>
