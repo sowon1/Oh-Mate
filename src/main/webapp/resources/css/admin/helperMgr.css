@@ -41,10 +41,20 @@
 	width:12%;
 }
 .chkBox>table tr>td:nth-of-type(3){
-	width:13%;
+	width:12%;
 }
 input[type="checkbox"]{
     margin-right: 5px;
+}
+.chkBox>table select{
+	width:130px;
+	height: 30px;
+	display: inline-block;
+	line-height: 1;
+}
+.searchBox select:focus{
+    box-shadow: none;
+    border-color: #956bfc;
 }
 .keywordBox{
 	display: flex;
@@ -58,10 +68,6 @@ input[type="checkbox"]{
     width: auto;
     height:45px;
 }
-.keywordBox>select:focus{
-    box-shadow: none;
-    border-color: #956bfc;
-}
 .keywordBox input[name="keyword"]{
     width: 250px;
     height:45px;
@@ -69,8 +75,8 @@ input[type="checkbox"]{
 .keywordBox input[name="keyword"]::placeholder{
 	color:#ddd;
 }
-.container_mate table *{
-    text-align: center;
+.container_mate>div>table{
+	table-layout: fixed;	
 }
 .container_mate a{
 	color: #333;
@@ -111,3 +117,12 @@ table p{
 	bottom: -40px;
 	right:25px;
 }
+.container_mate>div>.table *{
+	text-indent: 50px;
+}
+/*
+.table>tbody>tr>.addressTd{
+	text-align: left;
+	padding:0.5rem 30px;
+}
+*/

@@ -102,13 +102,13 @@
         <div>
             <table class="table">
                 <tr class="table-secondary">
-                    <th style="width:10%;">No</th>
-                    <th style="width:10%;">하우스오너</th>
-                    <th style="width:260px;">하우스 이름</th>
-                    <th style="width:340px;">주소</th>
-                    <th style="width:10%;">임대 만료일</th>
-                    <th style="width:10%;">매매 상태</th>
-                    <th style="width:10%;">승인 상태</th>
+                    <th style="width:7%;">No</th>
+                    <th style="width:12%;">하우스오너</th>
+                    <th style="width:240px;">하우스 이름</th>
+                    <th style="width:260px;">주소</th>
+                    <th style="width:12%;">임대 만료일</th>
+                    <th style="width:11%;">매매 상태</th>
+                    <th style="width:14%;">승인 상태</th>
                 </tr>
                 <c:choose>
                 	<c:when test="${not empty list }">

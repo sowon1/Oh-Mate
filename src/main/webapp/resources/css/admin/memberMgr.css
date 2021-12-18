@@ -60,9 +60,6 @@ input[type="checkbox"]{
 .keywordBox input[name="keyword"]::placeholder{
 	color:#ddd;
 }
-table *{
-    text-align: center;
-}
 .container_mate a{
 	color: #333;
 }
@@ -79,4 +76,7 @@ table p{
 .form-check-input:focus{
 	box-shadow: none;
 	border: 1px solid rgba(0, 0, 0, 0.25);
+}
+.container_mate>div>.table *{
+	text-indent: 40px;
 }

@@ -387,6 +387,8 @@
 			helper_name as helperName,
 			(select member_name from member where member_no = hh.member_no) memberName,
 			(select member_level from member where member_no = hh.member_no) memberLevel,
+			(select	regexp_replace(listagg(address_name, ',') within group(order by address_name), '([^,]+)(,\1)+', '\1')
+				from address where address_category = 2 and address_number = hh.helper_no) addressName,
 			helper_status as helperStatus
 		from
 		(select rownum as rnum, h.* from (select * from helper order by 1 desc)h)hh where rnum between #{start} and #{end}

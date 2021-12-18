@@ -69,9 +69,6 @@ input[type="checkbox"]{
 .keywordBox input[name="keyword"]::placeholder{
 	color:#ddd;
 }
-.container_mate table *{
-    text-align: center;
-}
 .container_mate a{
 	color: #333;
 }
@@ -206,4 +203,7 @@ table p{
 	position: absolute;
 	bottom: -40px;
 	right:25px;
+}
+.container_mate>div>.table *{
+	text-indent: 55px;
 }

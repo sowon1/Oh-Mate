@@ -36,22 +36,11 @@
 	                        	</td>
 	                		</tr>
 	                		<tr>
-	                			<th>회원 등급</th>
-	                			<td>
-			                        <input class="form-check-input" type="checkbox" id="allChk2">
-			                        <label class="form-check-label" for="allChk2">전체</label>
-	                        	</td>
-	                        	<td>
-			                        <input class="form-check-input" type="checkbox" value="1" id="chk4" name="level">
-			                        <label class="form-check-label" for="chk4">메이트</label>
-	                        	</td>
-	                        	<td>
-			                        <input class="form-check-input" type="checkbox" value="2" id="chk5" name="level">
-			                        <label class="form-check-label" for="chk5">헬퍼</label>
-	                        	</td>
-	                        	<td>
-			                        <input class="form-check-input" type="checkbox" value="3" id="chk6" name="level">
-			                        <label class="form-check-label" for="chk6">활동 불가</label>
+	                			<th>지역구</th>
+	                			<td colspan="4">
+		                			<select class="form-select" name="addrName">
+		                				<option class="n">지역구 선택</option>
+		                			</select>
 	                        	</td>
 	                		</tr>
 	                	</table>
@@ -75,12 +64,13 @@
         <div>
             <table class="table">
                 <tr class="table-secondary">
-                    <th style="width:12%;">No</th>
-                    <th style="width:15%;">아이디</th>
-                    <th style="width:15%;">이름</th>
-                    <th style="width:20%;">헬퍼 닉네임</th>
-                    <th style="width:20%;">등급</th>
-                    <th style="width:18%;">승인 상태</th>
+                    <th style="width:9%;">No</th>
+                    <th style="width:12%;">아이디</th>
+                    <th style="width:13%;">이름</th>
+                    <th style="width:17%;">헬퍼 닉네임</th>
+                    <th style="width:20%;">활동 지역</th>
+                    <th style="width:12%;">등급</th>
+                    <th style="width:17%;">승인 상태</th>
                 </tr>
                 <c:forEach items="${list }" var="hp" varStatus="i">
                 	<tr>
@@ -92,6 +82,7 @@
                 		</td>
                 		<td>${hp.memberName }</td>
                 		<td>${hp.helperName }</td>
+                		<td class="addressTd">${hp.addressName }</td>
                 		<td>
                 			<c:choose>
                 				<c:when test="${hp.memberLevel eq 1 }">
@@ -129,6 +120,11 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
+<script>
+	$(function(){
+		
+	});
+</script>
 <link rel="stylesheet" href="/resources/css/admin/helperMgr.css">
 <script type="text/javascript" src="/resources/js/admin/helperMgr.js"></script>
 </html>
