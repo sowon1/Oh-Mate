@@ -172,6 +172,12 @@ public class RoomService {
 		map.put("tourend", tourend);
 		
 		ArrayList<Tour> tourlist= dao.selectAllTourList(map);
+		for(int i=0; i<tourlist.size();i++) {
+			int tourMemberNo=tourlist.get(i).getMemberNo();
+			String tourMemberName=dao.selectOneMemberName(tourMemberNo);
+			Tour t = tourlist.get(i);
+			t.setMemberName(tourMemberName);
+		}
 		int tourTotalCount = dao.tourTotalCount(map);
 		int tourTotalPage = 0;
 		
@@ -189,16 +195,15 @@ public class RoomService {
 				tourpageNo = tourTotalPage-(tourpageNaviSize-1);
 			}
 		}
-		
 		String tourpageNavi = "<ul class='pagination pagination-lg'>";
 		if(tourpageNo != 1) {
-			tourpageNavi += "<li class='page-item-mate-mate'><a href='/tourRequestList.do?reqPage="+(tourPage-1)+"'>&lt;</a></li>";
+			tourpageNavi += "<li class='page-item-mate-mate'><a href='/roomTourMoveChk.do?roomNo="+roomNo+"&houseNo="+houseNo+"&movePage=1&tourPage="+(tourPage-1)+"'>&lt;</a></li>";
 		}
 		for(int i=0;i<tourpageNaviSize;i++) {
 			if(tourpageNo == tourPage) {
-				tourpageNavi += "<li class='page-item-mate-mate active'><a href='/tourRequestList.do?reqPage="+tourpageNo+"'>"+tourpageNo+"</a></li>";
+				tourpageNavi += "<li class='page-item-mate-mate active'><a href='/roomTourMoveChk.do?roomNo="+roomNo+"&houseNo="+houseNo+"&movePage=1&tourPage="+tourpageNo+"'>"+tourpageNo+"</a></li>";
 			}else {
-				tourpageNavi += "<li class='page-item-mate-mate'><a href='/tourRequestList.do?reqPage="+tourpageNo+"'>"+tourpageNo+"</a></li>";
+				tourpageNavi += "<li class='page-item-mate-mate'><a href='/roomTourMoveChk.do?roomNo="+roomNo+"&houseNo="+houseNo+"&movePage=1&tourPage="+tourpageNo+"'>"+tourpageNo+"</a></li>";
 			}
 			tourpageNo++;
 			if(tourpageNo > tourTotalPage) {
@@ -206,7 +211,7 @@ public class RoomService {
 			}
 		}
 		if(tourpageNo <= tourTotalPage) {
-			tourpageNavi += "<li class='page-item-mate-mate'><a href='/tourRequestList.do?reqPage="+(tourPage+1)+"'>&gt;</a><li>";
+			tourpageNavi += "<li class='page-item-mate-mate'><a href='/roomTourMoveChk.do?roomNo="+roomNo+"&houseNo="+houseNo+"&movePage=1&tourPage="+(tourPage+1)+"'>&gt;</a><li>";
 		}
 		tourpageNavi += "</ul>";
 		//해당 룸 입주 내용 페이징 처리
@@ -218,6 +223,12 @@ public class RoomService {
 		map.put("moveend", moveend);
 		
 		ArrayList<Move> movelist=dao.selectallMoveList(map);
+		for (int j = 0; j < movelist.size(); j++) {
+			int moveMemberNo=movelist.get(j).getMemberNo();
+			String moveMemberName = dao.selectOneMemberName(moveMemberNo);
+			Move m = movelist.get(j);
+			m.setMemberName(moveMemberName);
+		}
 		int movetotalCount = dao.moveTotalCount(map);
 		int movetotalPage = 0;
 		
@@ -238,13 +249,13 @@ public class RoomService {
 		
 		String movepageNavi = "<ul class='pagination pagination-lg'>";
 		if(movepageNo != 1) {
-			movepageNavi += "<li class='page-item-mate-mate'><a href='/tourRequestList.do?reqPage="+(movePage-1)+"'>&lt;</a></li>";
+			movepageNavi += "<li class='page-item-mate-mate'><a href='/roomTourMoveChk.do?roomNo="+roomNo+"&houseNo="+houseNo+"&movePage="+(movePage-1)+"&tourPage=1'>&lt;</a></li>";
 		}
 		for(int i=0;i<movepageNaviSize;i++) {
 			if(movepageNo == movePage) {
-				movepageNavi += "<li class='page-item-mate-mate active'><a href='/tourRequestList.do?reqPage="+movepageNo+"'>"+movepageNo+"</a></li>";
+				movepageNavi += "<li class='page-item-mate-mate active'><a href='/roomTourMoveChk.do?roomNo="+roomNo+"&houseNo="+houseNo+"&movePage="+movepageNo+"&tourPage=1'>"+movepageNo+"</a></li>";
 			}else {
-				movepageNavi += "<li class='page-item-mate-mate'><a href='/tourRequestList.do?reqPage="+movepageNo+"'>"+movepageNo+"</a></li>";
+				movepageNavi += "<li class='page-item-mate-mate'><a href='/roomTourMoveChk.do?roomNo="+roomNo+"&houseNo="+houseNo+"&movePage="+movepageNo+"&tourPage=1'>"+movepageNo+"</a></li>";
 			}
 			movepageNo++;
 			if(movepageNo > movetotalPage) {
@@ -252,7 +263,7 @@ public class RoomService {
 			}
 		}
 		if(movepageNo <= movetotalPage) {
-			movepageNavi += "<li class='page-item-mate-mate'><a href='/tourRequestList.do?reqPage="+(movePage+1)+"'>&gt;</a><li>";
+			movepageNavi += "<li class='page-item-mate-mate'><a href='/roomTourMoveChk.do?roomNo="+roomNo+"&houseNo="+houseNo+"&movePage="+(movePage+1)+"&tourPage=1'>&gt;</a><li>";
 		}
 		movepageNavi += "</ul>";
 		//룸vo에 투어 리스트 및 입주 리스트 넣기
@@ -265,5 +276,13 @@ public class RoomService {
 		rtm.setTourPage(tourpageNavi);
 		rtm.setMovePage(movepageNavi);
 		return rtm;
+	}
+
+	public int updateTourStatus(int tourNo, int tourStatus) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("tourNo", tourNo);
+		map.put("tourStatus", tourStatus);
+		int result = dao.updateTourStatus(map);
+		return result;
 	}
 }

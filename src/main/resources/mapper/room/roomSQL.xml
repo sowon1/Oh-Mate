@@ -230,4 +230,13 @@
  	<select id="moveTotalCount" parameterType="map" resultType="_int">
  		select count(*) from move where room_no = #{roomNo}
  	</select>
+ 	<select id="selectOneMemberName" parameterType="_int" resultType="string">
+ 		select
+ 			member_name as memberName
+ 		from member where member_no = #{memberNo}
+ 	</select>
+ 	<update id="updateTourStatus" parameterType="map">
+ 		update tour set tour_status = #{tourStatus}
+ 		where tour_no= #{tourNo}
+ 	</update>
 </mapper>

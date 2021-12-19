@@ -136,4 +136,9 @@ public class RoomController {
 		return "room/roomDetailPage";
 		
 	}
+	@RequestMapping(value = "/updateTourStatus.do")
+	public String updateTourStatus(int houseNo,int roomNo,int movePage,int tourPage,int tourStatus,int tourNo) {
+			int result = service.updateTourStatus(tourNo,tourStatus);
+		return "redirect:/roomTourMoveChk.do?roomNo="+roomNo+"&houseNo="+houseNo+"&movePage="+movePage+"&tourPage="+tourPage;
+	}
 }

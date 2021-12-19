@@ -104,4 +104,13 @@ public class RoomDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("room.moveTotalCount",map);
 	}
+
+	public String selectOneMemberName(int memberNo) {
+		return session.selectOne("room.selectOneMemberName", memberNo);
+	}
+
+	public int updateTourStatus(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update("room.updateTourStatus", map);
+	}
 }

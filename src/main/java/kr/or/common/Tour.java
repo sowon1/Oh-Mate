@@ -20,4 +20,5 @@ public class Tour {
 	private String addressRoad;     //주소2
 	private String addressLegal;	//주소3
 	private ArrayList<Photo> photoList; 	//사진테이블
+	private String memberName;		//투어 신청자 이름 
 }

@@ -10,4 +10,5 @@ public class Move {
 	private String moveStart;		//계약시작일
 	private String moveEnd;			//퇴거일자
 	private String movePhone;		//연락처
+	private String memberName;		// 입주자 회원 이름
 }
