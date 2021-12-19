@@ -9,10 +9,6 @@
 .container_mate .table{
 	margin-bottom: 0;
 }
-.container_mate .table:not(.chkTbl){
-	border-top: 1px solid rgba(0, 0, 0, 0.05);
-	border-right: 1px solid rgba(0, 0, 0, 0.05);
-}
 .container_mate .table th:not(.roomTbl th){
 	padding: 19px;
 	background-color: #eee9f6;
@@ -23,15 +19,16 @@
 	padding: 19px;
 	vertical-align: middle;
 }
+#tbl2>table{
+	border-top: 1px solid rgba(0, 0, 0, 0.05);
+	border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
 #tbl1 a{
 	color:#333;
 }
 #tbl1 a:hover{
 	color:#8500ff;
 	text-decoration: underline;
-}
-#tbl2 .table{
-	border-top: none;
 }
 .chkTbl, .chkTbl *:not(input){
 	border:none;
@@ -147,9 +144,9 @@ html, body{
 	margin-bottom: 0;
 }
 .container_mate ul>li{
-	width:310px;
+	width:300px;
 	padding:10px;
-	border: 1px solid rgba(0, 0, 0, 0.05);
+	border: 1px solid rgba(0, 0, 0, 0.12);
 }
 .roomTbl>tbody>tr>th, .roomTbl>tbody>tr>td{
 	padding:5px 2px;
