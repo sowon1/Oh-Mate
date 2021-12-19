@@ -1,6 +1,5 @@
 package kr.or.helper.model.vo;
 
-import kr.or.common.Address;
 import kr.or.common.Income;
 import lombok.Data;
 

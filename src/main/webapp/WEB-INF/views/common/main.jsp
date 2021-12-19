@@ -136,11 +136,37 @@
 	        	<a href="<c:url value='/helper/helperView?helperNo=${hp.helperNo}'/>">
 		            <li>
 	                    <div class="helper_list_photo">
-	                        <div class="like_house">
-	                            <img src="/resources/img/icon/heart_off.png">
+	                        <div class="like_helper">
+	                            <c:choose>
+		                       		<c:when test="${empty sessionScope.m}">
+		                       			<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>
+		                       		</c:when>
+		                       		<c:when test="${h.likedCheck == '좋아요'}">
+				                		<button onclick="likehelper(this,${hp.helperNo});" class="heart _click">
+				                			<img src="/resources/img/icon/heart_off.png">
+				                		</button>
+				                	</c:when>
+				                	<c:otherwise>                							              
+										<button onclick="likehelper(this,${hp.helperNo});" class="heart">
+											<img src="/resources/img/icon/heart_on.png">
+										</button>
+				                	</c:otherwise>
+		                       	</c:choose>
 	                        </div>
-	                        <img src="/resources/upload/helper/${hp.helperFilepath}">
+							<div class="helper_list_profile">
+			                    <img src="/resources/img/upload/helper/${hp.helperFilepath}" class="profile_view">
+			        		</div>
 	                    </div>
+	                    <div class="helper_list_text">
+			        		<span class="helper_list_nickname">${hp.helperName}</span>
+			        		<c:choose>
+			        			<c:when test="">
+			        			
+			        			</c:when>
+			        		</c:choose>
+			        		<span class="helper_list_age">${hp.age}</span>
+			        		<span class="helper_list_gender">${hp.gender}</span>
+			        	</div>
 		            </li>           
 	        	</a>
 	        </c:forEach>

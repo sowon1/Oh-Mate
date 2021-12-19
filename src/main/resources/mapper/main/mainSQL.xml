@@ -3,24 +3,33 @@
 <mapper namespace="main">
 	<!-- 헬퍼 리스트 조회 3개만 -->
 	<select id="helperList" resultType="hp">
-		select 
-			 helper_no as helperNo,
-			 member_no as memberNo,
-			 helper_name as helperName,
-			 helper_category as helperCategory,
-			 helper_start_time as helperStartTime,
-			 helper_end_time as helperEndTime,
-			 helper_ride as helperRide,
-			 helper_status as helperStatus,
-			 helper_filepath as helperFilepath,
-			 helper_intro as helperIntro,
-			 helper_credit as helperCredit,
-			 helper_refuse as helperRefuse
-		from 
-			(select rownum as rnum, h.*, 
-			decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=helper_no),'1','좋아요','좋아요취소') as likedCheck from
-			(select * from helper where HELPER_STATUS=1 order by 1 desc)h) 
-		where rnum between 1 and 3
+		 select hh.* from
+        (select 
+            rownum as rnum,
+            
+            h.helper_no as helperNo,
+			 h.member_no as memberNo,
+			 h.helper_name as helperName,
+			 h.helper_category as helperCategory,
+			 h.helper_start_time as helperStartTime,
+			 h.helper_end_time as helperEndTime,
+			 h.helper_ride as helperRide,
+			 h.helper_status as helperStatus,
+			 h.helper_filepath as helperFilepath,
+			 h.helper_intro as helperIntro,
+			 h.helper_credit as helperCredit,
+			 h.helper_refuse as helperRefuse,
+            (select age from member where member_no=h.helper_no) as age,
+            (select gender from member where member_no=h.helper_no) as gender,
+            decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=helper_no),'1','좋아요','좋아요취소') as likedCheck         
+        from 
+        (select helper.*
+        from helper 
+        join member on(helper.helper_no = member.member_no)
+        where 
+            HELPER_STATUS=1
+             order by 1 desc
+        )h)hh where rnum between 1 and 3
 	</select>
 	<!-- 하우스 리스트 조회 3개만 -->
 	<select id="houseList" parameterType="_int" resultMap="house">
