@@ -104,6 +104,7 @@ input[type="checkbox"]{
 }
 table p{
 	margin: 50px 0;
+	text-align: center;
 }
 .container_mate>div>.table *{
 	text-indent: 45px;

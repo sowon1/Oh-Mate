@@ -170,7 +170,7 @@
 											<td>
 												<c:choose>
 													<c:when test="${h.houseSelling eq 1 }">
-														판매중
+														판매 중
 													</c:when>
 													<c:when test="${h.houseSelling eq 2 }">
 														판매완료

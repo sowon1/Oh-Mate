@@ -21,7 +21,7 @@
 	                			<th>신고 상태</th>
 	                			<td>
 	                				<input class="form-check-input" type="checkbox" id="allChk1"
-			                        <c:if test="${not empty sr.status and fn:length(sr.status) eq 3}">
+			                        <c:if test="${not empty s.status and fn:length(s.status) eq 3}">
 			                        	checked
 			                        </c:if>
 			                        >
@@ -29,8 +29,8 @@
 	                        	</td>
 	                        	<td>
 			                        <input class="form-check-input" type="checkbox" value="1" id="chk1" name="status"
-			                        <c:if test="${not empty sr.status}">
-			                        	<c:forEach items="${sr.status }" var="s">
+			                        <c:if test="${not empty s.status}">
+			                        	<c:forEach items="${s.status }" var="s">
 											<c:choose>
 					                    		<c:when test="${s eq 1 }">
 					                    			checked
@@ -43,8 +43,8 @@
 	                        	</td>
 	                        	<td>
 			                        <input class="form-check-input" type="checkbox" value="2" id="chk2" name="status"
-			                        <c:if test="${not empty sr.status}">
-			                        	<c:forEach items="${sr.status }" var="s">
+			                        <c:if test="${not empty s.status}">
+			                        	<c:forEach items="${s.status }" var="s">
 											<c:choose>
 					                    		<c:when test="${s eq 2 }">
 					                    			checked
@@ -57,8 +57,8 @@
 	                        	</td>
 	                        	<td colspan="2">
 			                        <input class="form-check-input" type="checkbox" value="3" id="chk3" name="status"
-									<c:if test="${not empty sr.status}">
-			                        	<c:forEach items="${sr.status }" var="s">
+									<c:if test="${not empty s.status}">
+			                        	<c:forEach items="${s.status }" var="s">
 											<c:choose>
 					                    		<c:when test="${s eq 3 }">
 					                    			checked
@@ -74,7 +74,7 @@
 	                			<th>신고 분류</th>
 	                			<td>
 			                        <input class="form-check-input" type="checkbox" id="allChk2"
-									<c:if test="${not empty sr.cate and fn:length(sr.cate) eq 4}">
+									<c:if test="${not empty s.cate and fn:length(s.cate) eq 4}">
 			                        	checked
 			                        </c:if>
 			                        >
@@ -82,8 +82,8 @@
 	                        	</td>
 	                        	<td>
 			                        <input class="form-check-input" type="checkbox" value="1" id="chk4" name="cate"
-			                        <c:if test="${not empty sr.cate}">
-			                        	<c:forEach items="${sr.cate}" var="c">
+			                        <c:if test="${not empty s.cate}">
+			                        	<c:forEach items="${s.cate}" var="c">
 											<c:choose>
 					                    		<c:when test="${c eq 1 }">
 					                    			checked
@@ -96,8 +96,8 @@
 	                        	</td>
 	                        	<td>
 			                        <input class="form-check-input" type="checkbox" value="2" id="chk5" name="cate"
-			                        <c:if test="${not empty sr.cate}">
-			                        	<c:forEach items="${sr.cate}" var="c">
+			                        <c:if test="${not empty s.cate}">
+			                        	<c:forEach items="${s.cate}" var="c">
 											<c:choose>
 					                    		<c:when test="${c eq 2 }">
 					                    			checked
@@ -110,8 +110,8 @@
 	                        	</td>
 	                        	<td>
 			                        <input class="form-check-input" type="checkbox" value="3" id="chk6" name="cate"
-			                        <c:if test="${not empty sr.cate}">
-			                        	<c:forEach items="${sr.cate}" var="c">
+			                        <c:if test="${not empty s.cate}">
+			                        	<c:forEach items="${s.cate}" var="c">
 											<c:choose>
 					                    		<c:when test="${c eq 3 }">
 					                    			checked
@@ -124,8 +124,8 @@
 	                        	</td>
 	                        	<td>
 			                        <input class="form-check-input" type="checkbox" value="4" id="chk7" name="cate"
-			                        <c:if test="${not empty sr.cate}">
-			                        	<c:forEach items="${sr.cate}" var="c">
+			                        <c:if test="${not empty s.cate}">
+			                        	<c:forEach items="${s.cate}" var="c">
 											<c:choose>
 					                    		<c:when test="${c eq 4 }">
 					                    			checked
@@ -143,24 +143,24 @@
                 <div class="keywordBox">
                     <select class="form-select" name="type">
                     	<c:choose>
-                    		<c:when test="${sr.type eq 'reporterId' }">
+                    		<c:when test="${s.type eq 'reporterId' }">
 		                        <option value="reporterId" selected>신고자 아이디</option>
 		                        <option value="atackerId">회원 아이디</option>
 		                        <option value="reportNum">콘텐츠 번호</option>               			
                     		</c:when>
-                    		<c:when test="${sr.type eq 'atackerId' }">
+                    		<c:when test="${s.type eq 'atackerId' }">
 		                        <option value="reporterId">신고자 아이디</option>
 		                        <option value="atackerId" selected>회원 아이디</option>
 		                        <option value="reportNum">콘텐츠 번호</option>               			
                     		</c:when>
-                    		<c:when test="${sr.type eq 'reportNum' }">
+                    		<c:when test="${s.type eq 'reportNum' }">
 		                        <option value="reporterId">신고자 아이디</option>
 		                        <option value="atackerId">회원 아이디</option>
 		                        <option value="reportNum" selected>콘텐츠 번호</option>               			
                     		</c:when>
                     	</c:choose>
                     </select>
-                    <input type="text" class="input_03" name="keyword" value="${sr.keyword }">
+                    <input type="text" class="input_03" name="keyword" value="${s.keyword }">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </div>
                 <a class="resetSearch">※ 검색 조건 초기화</a>

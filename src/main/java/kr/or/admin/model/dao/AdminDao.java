@@ -134,4 +134,13 @@ public class AdminDao {
 	public int totalHelperCount() {
 		return session.selectOne("admin.helperTotal");
 	}
+
+	public ArrayList<Helper> helperSearch(HashMap<String, Object> map) {
+		List<Helper> list = session.selectList("admin.searchHelper", map);
+		return (ArrayList<Helper>)list;
+	}
+
+	public int totalSearchHelperCnt(HashMap<String, Object> map) {
+		return session.selectOne("admin.totalSearchHelper", map);
+	}
 }
