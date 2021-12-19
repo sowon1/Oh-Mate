@@ -19,7 +19,7 @@ public class MainService {
 	private MainDao dao;
 	//하우스, 헬퍼, 멤버카운트 
 	public Main selectMainList(int memberNo) {
-		ArrayList<Helper> helperList = dao.selectHelperList();
+		ArrayList<Helper> helperList = dao.selectHelperList(memberNo);
 		ArrayList<House> houseList = dao.selectHouseList(memberNo);
 		int total = dao.total();
 		Main main = new Main();

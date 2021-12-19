@@ -287,5 +287,20 @@ public class HelperController {
 			map.put("likeCnt", like_cnt);
 			return new Gson().toJson(map);
 		}
-	
+		
+		//헬퍼 상세보기 - sowon
+		@RequestMapping(value="/helperView.do")
+		public String helperView(int helperNo, Model model, HttpSession session) {
+			if (session != null) {
+				Member m = (Member) session.getAttribute("m");
+				int memberNo = 0;
+				if (m != null) {
+					memberNo = m.getMemberNo();
+				}
+				Helper h = service.selectHelperView(helperNo, memberNo);
+				model.addAttribute("h",h);
+				model.addAttribute("review",h.getReview());
+			}
+			return "helper/helperView";
+		}
 }

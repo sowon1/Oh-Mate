@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.common.Address;
+import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import kr.or.helper.model.vo.Helper;
 
@@ -93,6 +94,15 @@ public class HelperDao {
 	//helper like delete
 	public int deleteHelperLike(HashMap<String, Object> map) {
 		return session.delete("helper.deleteHelperLike",map);
+	}
+	//헬퍼 상세보기 - sowon
+	public Helper selectHelperView(HashMap<String, Object> map) {
+		return session.selectOne("helper.selectHelperView",map);
+	}
+	//헬퍼 후기 조회
+	public ArrayList<HelpReview> selectHelperReview(HashMap<String, Object> map) {
+		List<HelpReview> review = session.selectList("helper.selectHelperReview",map);
+		return (ArrayList<HelpReview>) review;
 	}
 	
 }

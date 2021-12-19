@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.common.Address;
+import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import kr.or.helper.model.dao.HelperDao;
 import kr.or.helper.model.vo.Helper;
@@ -205,6 +206,16 @@ public class HelperService {
 		map.put("memberNo", memberNo);
 		map.put("helperNo", helperNo);
 		return dao.deleteHelperLike(map);
+	}
+	//헬퍼 상세보기 - sowon
+	public Helper selectHelperView(int helperNo, int memberNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("helperNo", helperNo);
+		map.put("memberNo", memberNo);
+		Helper h = dao.selectHelperView(map);
+		ArrayList<HelpReview> review = dao.selectHelperReview(map);
+		h.setReview(review);
+		return h;
 	}
 
 }

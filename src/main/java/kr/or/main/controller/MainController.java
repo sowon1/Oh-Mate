@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kr.or.helper.model.service.HelperService;
 import kr.or.main.model.service.MainService;
 import kr.or.main.model.vo.Main;
 import kr.or.member.model.vo.Member;
@@ -21,6 +22,8 @@ import kr.or.member.model.vo.Member;
 public class MainController {
 	@Autowired
 	private MainService service;
+	@Autowired
+	private HelperService hpservice;
 	
 	//main.jsp로 정보주면서 페이지 이동
 	@RequestMapping(value="/main.do")
@@ -53,6 +56,27 @@ public class MainController {
 		}else {
 			like_check--;
 			int like_down = service.deleteHouseLike(memberNo,houseNo);
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("likeCheck", like_check);
+		return new Gson().toJson(map);
+	}
+	
+	//헬퍼 좋아요 부분 - sowon
+	@ResponseBody
+	@RequestMapping(value="/HelperMainLike.do", method = {RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public String HelperMainLike(int memberNo, int helperNo) {
+		int like_check = 0;
+		like_check = hpservice.helperLike(memberNo, helperNo);
+		int like_cnt = hpservice.helperLikeCount(helperNo);
+		if(like_check == 0) {
+			int like_up = hpservice.insertHelperLike(memberNo, helperNo);
+			like_check++;
+			like_cnt++;
+		}else {
+			int like_down = hpservice.deleteHelperLike(memberNo, helperNo);
+			like_check --;
+			like_cnt --;
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("likeCheck", like_check);

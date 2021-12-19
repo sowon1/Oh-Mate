@@ -112,7 +112,7 @@
             rownum as rnum,
             h.*,
             
-            decode((select count(*) from bookmark where bookmarker=1 and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=h.helper_no),'1','좋아요','좋아요취소') as likedCheck            
+             decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=h.helper_no),'1','좋아요','좋아요취소') as likedCheck            
         from 
         (select helper.*
         from helper 
@@ -162,4 +162,37 @@
 	<delete id="deleteHelperLike" parameterType="map">
 		delete from bookmark where bookmark_category=1 and bookmarker=#{memberNo} and bookmark_num=#{helperNo}
 	</delete>
+	<!-- 헬퍼 상세보기 -->
+	<select id="selectHelperView" parameterType="map" resultType="hp">
+		select
+			h.helper_no as helperNo,
+			h.member_no as memberNo,
+			h.helper_name as helperName,
+			h.helper_category as helperCategory,
+			h.helper_start_time as helperStartTime,
+			h.helper_end_time as helperEndTime,
+			h.helper_ride as helperRide,
+			h.helper_status as helperStatus,
+			h.helper_filepath as helperFilepath,
+			h.helper_intro as helperIntro,
+			h.helper_credit as helperCredit,
+			h.helper_refuse as helperRefuse,
+			(select count(*) from bookmark where BOOKMARK_CATEGORY=1 and bookmark_num=h.helper_no) as likeCount,
+            (select count(*) from bookmark where BOOKMARK_CATEGORY=1 and bookmark_num=h.helper_no and bookmarker=#{memberNo}) as likedCheck
+		from helper h where helper_no=#{helperNo}
+	</select>
+	<!-- 헬퍼 후기 -->
+	<select id="selectHelperReview" parameterType="map" resultType="re">
+		select
+			review_no as reviewNo,
+			member_no as memberNo,
+			helper_no as helperNo,
+			review_title as reviewTitle,
+			review_content as reviewContent,
+			asterion,
+			review_date as reviewDate,
+			(select count(*) from bookmark where BOOKMARK_CATEGORY=3 and bookmark_num=review_no) as likeCount,
+            (select count(*) from bookmark where BOOKMARK_CATEGORY=3 and bookmark_num=review_no and bookmarker=#{memberNo}) as likedCheck
+		from help_review where helper_no =#{helperNo}
+	</select>
 </mapper>

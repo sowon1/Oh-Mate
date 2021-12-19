@@ -18,8 +18,8 @@ public class MainDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	//전체 헬퍼 조회
-	public ArrayList<Helper> selectHelperList() {
-		List<Helper> helperList = sqlSession.selectList("main.helperList");
+	public ArrayList<Helper> selectHelperList(int memberNo) {
+		List<Helper> helperList = sqlSession.selectList("main.helperList",memberNo);
 		return (ArrayList<Helper>)helperList;
 	}
 	//전체 하우스 조회
