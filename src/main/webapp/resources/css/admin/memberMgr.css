@@ -69,6 +69,7 @@ table a:hover{
 }
 table p{
 	margin: 50px 0;
+	text-align: center;
 }
 .container_mate>h1{
 	padding-left: 35px;

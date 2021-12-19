@@ -42,6 +42,11 @@ $(function(){
 			option.prop("selected",true);
 		}
 	}
+	$("[name=type]>option").each(function(index,item){
+		if($(item).val() == $("#type").val()){
+			$(item).prop("selected",true);
+		} 
+	});
 });
 $("[name=type]").change(function(){
 	$(this).next().val("");
