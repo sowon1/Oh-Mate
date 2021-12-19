@@ -360,7 +360,7 @@
 	-webkit-animation: scaleUpCenter .4s ease-out both;
 	animation: scaleUpCenter .4s ease-out both;
 }
-.like_house img,{
+.like_house img{
     width: 30px;
 }
 @-webkit-keyframes scaleUp {
