@@ -20,7 +20,7 @@
                 			<th>승인 분류</th>
                 			<td>
 		                        <input class="form-check-input" type="checkbox" id="allChk"
-		                        <c:if test="${not empty sh.status and fn:length(sh.status) eq 3}">
+		                        <c:if test="${not empty s.status and fn:length(s.status) eq 3}">
 		                        	checked
 		                        </c:if>
 		                        >
@@ -28,8 +28,8 @@
                         	</td>
                         	<td>
 		                        <input class="form-check-input" type="checkbox" value="1" id="waitChk" name="status"
-		                        <c:if test="${not empty sh.status}">
-		                        	<c:forEach items="${sh.status }" var="s">
+		                        <c:if test="${not empty s.status}">
+		                        	<c:forEach items="${s.status }" var="s">
 										<c:choose>
 				                    		<c:when test="${s eq 1 }">
 				                    			checked
@@ -42,8 +42,8 @@
                         	</td>
                         	<td>
 		                        <input class="form-check-input" type="checkbox" value="2" id="allowChk" name="status"
-		                        <c:if test="${not empty sh.status}">
-		                        	<c:forEach items="${sh.status }" var="s">
+		                        <c:if test="${not empty s.status}">
+		                        	<c:forEach items="${s.status }" var="s">
 										<c:choose>
 				                    		<c:when test="${s eq 2 }">
 				                    			checked
@@ -56,8 +56,8 @@
                         	</td>
                         	<td colspan="2">
 		                        <input class="form-check-input" type="checkbox" value="3" id="noAllowChk" name="status"
-		                        <c:if test="${not empty sh.status}">
-		                        	<c:forEach items="${sh.status }" var="s">
+		                        <c:if test="${not empty s.status}">
+		                        	<c:forEach items="${s.status }" var="s">
 										<c:choose>
 				                    		<c:when test="${s eq 3 }">
 				                    			checked
@@ -72,7 +72,7 @@
                 		<tr>
                 			<th>지역구</th>
                 			<td colspan="4">
-                			<input type="hidden" id="addr" value="${sh.addrName }">
+                				<input type="hidden" id="addr" value="${s.addrName }">
 	                			<select class="form-select" name="addrName">
 	                				<option class="n">지역구 선택</option>
 	                			</select>
@@ -83,17 +83,17 @@
                 <div class="keywordBox">
                     <select class="form-select" name="type">
                     	<c:choose>
-                    		<c:when test="${sh.type eq 'houseTitle' }">
+                    		<c:when test="${s.type eq 'houseTitle' }">
 		                        <option value="houseTitle" selected>하우스 이름</option>
 		                        <option value="memberId">오너 아이디</option>
                     		</c:when>
-                    		<c:when test="${sh.type eq 'memberId' }">
+                    		<c:when test="${s.type eq 'memberId' }">
 		                        <option value="houseTitle">하우스 이름</option>
 		                        <option value="memberId" selected>오너 아이디</option>
                     		</c:when>
                     	</c:choose>
                     </select>
-                    <input type="text" class="input_03" name="keyword" value="${sh.keyword }">
+                    <input type="text" class="input_03" name="keyword" value="${s.keyword }">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </div>
 				<a class="resetSearch">※ 검색 조건 초기화</a>
@@ -143,6 +143,9 @@
 			                    		</c:when>
 			                    		<c:when test="${h.houseAllow eq 3}">
 			                    			미승인
+			                    		</c:when>
+			                    		<c:when test="${h.houseAllow eq 4}">
+			                    			승인 재요청
 			                    		</c:when>
 			                    	</c:choose>
 			                    </td>

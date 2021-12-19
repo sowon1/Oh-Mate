@@ -11,7 +11,7 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
 		<h1 class="point_title">헬퍼 신청 관리</h1>
-		<form action="" method="post">
+		<form action="/adminHelperSearch.do?reqPage=1" method="post">
             <div class="searchBox">
             	<div>
 	                <div class="chkBox">
@@ -110,6 +110,9 @@
                 				<c:when test="${hp.helperStatus eq 3 }">
                 					미승인
                 				</c:when>
+                				<c:when test="${hp.helperStatus eq 4 }">
+                					승인 재요청
+                				</c:when>
                 			</c:choose>
                 		</td>
                 	</tr>
@@ -120,11 +123,6 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
-<script>
-	$(function(){
-		
-	});
-</script>
 <link rel="stylesheet" href="/resources/css/admin/helperMgr.css">
 <script type="text/javascript" src="/resources/js/admin/helperMgr.js"></script>
 </html>
