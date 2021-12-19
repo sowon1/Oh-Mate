@@ -18,68 +18,7 @@
 		<div>
 			<form action="/adminHouseAllow.do" method="post">
 			<input type="hidden" name="houseNo" value="${h.houseNo }">
-				<div id="tbl1">
-					<table class="table">
-						<tr>
-							<th style="width:130px;">보증금</th>
-							<td style="width:200px;"><fmt:formatNumber value="${h.houseCharge}" pattern="#,###"/>원</td>
-							<th style="width:130px;">성별 타입</th>
-							<td style="width:200px;">
-								<c:choose>
-									<c:when test="${h.houseGender eq 1 }">
-										남성전용
-									</c:when>
-									<c:when test="${h.houseGender eq 2 }">
-										여성전용
-									</c:when>
-									<c:when test="${h.houseGender eq 3 }">
-										남녀공용
-									</c:when>
-								</c:choose>
-							</td>
-							<th style="width:130px;">주거 형태</th>
-							<td style="width:330px;">${h.houseForm }</td>
-						</tr>
-						<tr>
-							<th>방 개수</th>
-							<td>${h.houseRoom }개</td>
-							<th>임대 만료일</th>
-							<td>${h.houseownerDeadline }</td>
-							<th>주소</th>
-							<td>${h.addressName } ${h.addressRoad } ${h.addressDetail }</td>
-						</tr>
-						<tr>
-							<th>하우스오너</th>
-							<td>
-								<a href="/adminMemberView.do?memberNo=${h.memberNo }">
-									${h.memberId }
-								</a>
-							</td>
-							<th>매매 상태</th>
-							<td>
-								<c:choose>
-									<c:when test="${h.houseSelling eq 1 }">
-										판매중
-									</c:when>
-									<c:when test="${h.houseSelling eq 2 }">
-										판매완료
-									</c:when>
-								</c:choose>
-							</td>
-							<th>정산 계좌</th>
-							<td>${h.accountInfo }</td>
-						</tr>
-						<tr>
-							<th>제공 시설</th>
-							<td colspan="5">
-								<input type="hidden" value="${h.houseConvenience }" id="houseOption">
-								<table class="chkTbl table">
-									<tbody></tbody>
-								</table>
-							</td>
-						</tr>
-					</table>
-				</div>
+				
 				<div id="tbl2">
 					<table class="table">
 						<tr>
@@ -189,6 +128,72 @@
 							</td>
 						</tr>
 						<tr>
+							<td colspan="4" style="padding:0;">
+								<div id="tbl1">
+									<table class="table">
+										<tr>
+											<th style="width:130px;">보증금</th>
+											<td style="width:200px;"><fmt:formatNumber value="${h.houseCharge}" pattern="#,###"/>원</td>
+											<th style="width:130px;">성별 타입</th>
+											<td style="width:200px;">
+												<c:choose>
+													<c:when test="${h.houseGender eq 1 }">
+														남성전용
+													</c:when>
+													<c:when test="${h.houseGender eq 2 }">
+														여성전용
+													</c:when>
+													<c:when test="${h.houseGender eq 3 }">
+														남녀공용
+													</c:when>
+												</c:choose>
+											</td>
+											<th style="width:130px;">주거 형태</th>
+											<td style="width:330px;">${h.houseForm }</td>
+										</tr>
+										<tr>
+											<th>방 개수</th>
+											<td>${h.houseRoom }개</td>
+											<th>임대 만료일</th>
+											<td>${h.houseownerDeadline }</td>
+											<th>주소</th>
+											<td>${h.addressName } ${h.addressRoad } ${h.addressDetail }</td>
+										</tr>
+										<tr>
+											<th>하우스오너</th>
+											<td>
+												<a href="/adminMemberView.do?memberNo=${h.memberNo }">
+													${h.memberId }
+												</a>
+											</td>
+											<th>매매 상태</th>
+											<td>
+												<c:choose>
+													<c:when test="${h.houseSelling eq 1 }">
+														판매중
+													</c:when>
+													<c:when test="${h.houseSelling eq 2 }">
+														판매완료
+													</c:when>
+												</c:choose>
+											</td>
+											<th>정산 계좌</th>
+											<td>${h.accountInfo }</td>
+										</tr>
+										<tr>
+											<th>제공 시설</th>
+											<td colspan="5">
+												<input type="hidden" value="${h.houseConvenience }" id="houseOption">
+												<table class="chkTbl table">
+													<tbody></tbody>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr>
 							<th>하우스 소개</th>
 							<td colspan="3">${h.houseContent }</td>
 						</tr>
@@ -204,6 +209,7 @@
 									<option value="1">승인 대기</option>
 									<option value="2">승인</option>
 									<option value="3">미승인</option>
+									<option value="4">승인 재요청</option>
 								</select>
 							</td>
 							<th style="width:131px;" class="noAllow">미승인 사유</th>

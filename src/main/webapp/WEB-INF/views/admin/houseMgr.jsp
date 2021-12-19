@@ -104,6 +104,9 @@
 	                    		<c:when test="${h.houseAllow eq 3}">
 	                    			미승인
 	                    		</c:when>
+	                    		<c:when test="${h.houseAllow eq 4}">
+	                    			승인 재요청
+	                    		</c:when>
 	                    	</c:choose>
 	                    </td>
                 	</tr>
