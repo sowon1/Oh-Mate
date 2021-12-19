@@ -135,6 +135,9 @@ table p{
 	margin: 35px auto;
 	width:400px;
 }
+.modal_report_content .table > :not(caption) > * > *{
+	border-bottom-width: 0;
+}
 .modal_report_content .table-active_mate th{
 	width: 150px;
     border-bottom: none;
