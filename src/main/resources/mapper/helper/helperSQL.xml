@@ -202,5 +202,9 @@
 			decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=3 and BOOKMARK_NUM=review_no),'1','좋아요','좋아요취소') as likedCheck
 		from help_review where helper_no =#{helperNo}
 	</select>
-	
+	<select id="selectHelperNo" parameterType="_int" resultType="_int">
+		select
+			helper_no as helperNo
+		from helper where member_no=#{memberNo}
+	</select>
 </mapper>
