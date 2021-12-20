@@ -106,5 +106,10 @@ public class HelperDao {
 		return (ArrayList<HelpReview>) review;
 	}
 
+	public int selectHelperNo(int memberNo) {
+		
+		return session.selectOne("helper.selectHelperNo", memberNo);
+	}
+
 	
 }

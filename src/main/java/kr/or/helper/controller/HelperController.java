@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-
+import kr.or.common.HelpList;
 import kr.or.common.Income;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
@@ -305,10 +306,24 @@ public class HelperController {
 			}
 			return "helper/helperView";
 		}
-		//하우스 정산 내역 
-		@RequestMapping(value = "/houseAdjustPay.do")
-		public String houseAdjustPay() {
-			
-			return "";
+		//헬퍼 요청 내역 리스트
+		@RequestMapping(value = "/helperReqList.do")
+		public String helperReqList(int reqPage,HttpSession session,Model model) {
+			if(session != null) {
+				Member m = (Member)session.getAttribute("m");
+				int memberNo=0;
+				if(m !=null) {
+					memberNo=m.getMemberNo();
+					HelpList h= service.selectHelpList(memberNo);
+					return"";
+				}else {
+					model.addAttribute("msg", "접근하는 사용자 정보가 없습니다.");
+					return  "redirect:/main.do";
+				}
+			}else {
+				model.addAttribute("msg", "로그인을 해주세요!.");
+				return  "redirect:/main.do";
+			}
 		}
+		
 }
