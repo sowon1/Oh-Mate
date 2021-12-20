@@ -407,10 +407,14 @@
 		
 		//helper 카테고리
 		$(function(){
-			var options = $(".helper_Category").attr("value");
+			var options = $(".helper_Category");
 			for(var i=0;i<options.length;i++){
-				if(options.charAt(i) == 0){
-					$(".helper_Category>span").eq(i).hide();
+				var optionValue = options.eq(i).attr("value");
+				//console.log(optionValue);
+				for(var j=0;j<optionValue.length;j++){					
+					if(optionValue.charAt(j) == 0){
+						$(".helper_Category").eq(i).children("span").eq(j).hide();
+					}
 				}
 			}
 		});		
