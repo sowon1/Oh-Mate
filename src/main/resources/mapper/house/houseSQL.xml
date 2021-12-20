@@ -414,4 +414,10 @@
              (select count(*)from room where house_no=#{houseNo} and room_status=1) as roomCount
         from house h where house_no=#{houseNo}
 	</select>
+	<select id="tourTotalCount" parameterType="_int" resultType="_int">
+		select count(*) from tour where room_no=#{roomNo}
+	</select>
+	<select id="moveTotalCount" parameterType="_int" resultType="_int">
+		select count(*) from move where room_no=#{roomNo}
+	</select>
 </mapper>

@@ -10,12 +10,7 @@ public class housePageData {
 	private String pageNavi;
 	private int start;
 	private int totalCount;
-	public housePageData(ArrayList<House> list, String pageNavi, int start, int totalCount) {
-		super();
-		this.list = list;
-		this.pageNavi = pageNavi;
-		this.start = start;
-		this.totalCount = totalCount;
-	}
+	private int moveTotalCount;
+	private int tourTotalCount;
 	
 }

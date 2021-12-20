@@ -66,6 +66,7 @@
 			income_category as incomeCategory
 		from income where income_num=#{houseNo} and income_category=1
  	</select>
+ 	<!-- 미승인 및 승인대기시 재요청 사진x &&  사진O -->
  	<update id="updateHelperReqNoImg" parameterType="hp">
  		update helper set 
  			helper_name = #{helperName},
@@ -73,7 +74,7 @@
  			helper_start_time = #{helperStartTime},
  			helper_end_time = #{helperEndTime},
  			helper_ride = #{helperRide},
- 			helper_status = 1,
+ 			helper_status = #{helperStatus},
  			helper_intro = #{helperIntro},
  			helper_credit = #{helperCredit}
  		where helper_no = #{helperNo} and member_no=#{memberNo}
@@ -96,7 +97,7 @@
  			helper_start_time = #{helperStartTime},
  			helper_end_time = #{helperEndTime},
  			helper_ride = #{helperRide},
- 			helper_status = 1,
+ 			helper_status = 4,
  			helper_filepath = #{helperFilepath},
  			helper_intro = #{helperIntro},
  			helper_credit = #{helperCredit}

@@ -333,7 +333,8 @@ public class HouseController {
 		model.addAttribute("start", hpd.getStart());
 		model.addAttribute("pageNavi", hpd.getPageNavi());
 		model.addAttribute("totalCount", hpd.getTotalCount());
-
+		model.addAttribute("moveTotalCount", hpd.getMoveTotalCount());
+		model.addAttribute("tourTotalCount", hpd.getTourTotalCount());
 		return "house/houseownerList";
 	}
 

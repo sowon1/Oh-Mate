@@ -169,12 +169,12 @@
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
 		      	<li>
 		      	<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
-		      	<a href="javascript:void(0);" id="requestChk">헬퍼 신청하기</a></li>
+		      	<a href="javascript:void(0);" class="requestChk">헬퍼 신청하기</a></li>
 		      	</c:if>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
 		      <c:if test="${sessionScope.m.memberLevel eq 4 }">
-			      <li><a href="#">메뉴4</a></li>
-			      <li><a href="#">메뉴5</a></li>
+			      <li><a href="javascript:void(0)" class="requestChk">헬퍼 프로필 수정</a></li>
+			      <li><a href="#">헬퍼요청내역 확인</a></li>
 		      </c:if>   	
 		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
@@ -199,9 +199,7 @@
 		    <ul>
 		      <li><a href="/houseWriteFrm.do">하우스 등록</a></li>
 		      <li><a href="/houseOwnerList.do?memberNo=${sessionScope.m.memberNo }&reqPage=1">내 하우스 리스트</a></li>
-		      <li><a href="#">메뉴3</a></li>
-		      <li><a href="#">메뉴4</a></li>
-		      <li><a href="#">메뉴5</a></li>
+		      <li><a href="/houseAdjustPay.do">하우스 입주 정산내역</a></li>
 		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>
@@ -437,22 +435,22 @@
        });
    }); */
    
-	$("#requestChk").click(function() {
+	$(".requestChk").click(function() {
 		var memberNo = $("#memberNo").val();
 		$.ajax({
 			url : "/listCheck.do",
 			data: {memberNo:memberNo},
 			success:function(data){
 				console.log(data);
-				if(data ==2){
+				if(data ==0){
 					location.href = "/helperRequestFrm.do";	
 				}else if(data == 1){
-					if(confirm("헬퍼 등록 요청을 이미 하셨습니다. 수정하시겠습니까?" )){
-					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}";
+					if(confirm("헬퍼 등록을 이미 하셨거나 요청중입니다. 수정하시겠습니까?" )){
+					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}&helperStatus=1";
 					}
 				}else if(data ==3){
-					if(confirm("헬퍼등록이 거절 되었습니다. 다시 수정하시겠습니까?")){
-					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}}";
+					if(confirm("헬퍼등록이 거절되셨거나 재요청중입니다. 다시 수정하시겠습니까? ")){
+					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}&helperStatus=4";
 					}
 				}
 			}
