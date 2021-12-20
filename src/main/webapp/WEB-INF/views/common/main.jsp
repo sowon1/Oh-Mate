@@ -12,7 +12,17 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<div class="main_section01">
         <div class="container_mate">
-            <h1 class="main_section01_h1">어느 지역에<br>살고싶으신가요?</h1>
+            <h1 class="main_section01_h1">
+            	<c:choose>
+            		<c:when test="${not empty sessionScope.m}">
+            			<em class="point" style="font-family: 'ns_700'">${sessionScope.m.memberName}</em>님 <br>
+            		</c:when>
+            		<c:otherwise>
+            			지금,<br>
+            		</c:otherwise>
+            	</c:choose>
+          		  어느 지역에<br>살고싶으신가요?
+            </h1>
             <div class="main_selectbox">
                 <input type="text" name="keyword" placeholder="지역, 지하철역, 대학 주변 검색">
                 <div class="custom-select-wrapper">
@@ -153,7 +163,7 @@
 	                        	</c:choose>                         
 	                        </div>
 							<div class="helper_list_profile">
-			                    <img src="/resources/img/upload/helper/${hp.helperFilepath}" class="profile_view">
+			                    <img src="/resources/upload/helper/${hp.helperFilepath}" class="profile_view">
 			        		</div>
 	                    </div>
 		        	<a href="<c:url value='/helperView.do?helperNo=${hp.helperNo}'/>">
@@ -161,13 +171,13 @@
 			        		<span class="helper_list_nickname">${hp.helperName}</span>
 			        		<c:choose>
 			        			<c:when test="${hp.age == 1}">			        				
-					        		<span class="helper_list_age">20대·</span>
+					        		<span class="helper_list_age">20대 · </span>
 			        			</c:when>
 			        			<c:when test="${hp.age == 2}">			        				
-					        		<span class="helper_list_age">30대·</span>
+					        		<span class="helper_list_age">30대 · </span>
 			        			</c:when>
 			        			<c:otherwise>
-					        		<span class="helper_list_age">40대·</span>			        			
+					        		<span class="helper_list_age">40대 · </span>			        			
 			        			</c:otherwise>
 			        		</c:choose>
 			        		<c:choose>
@@ -356,62 +366,7 @@
 				houseForm="";
 			}
 			location.href="/houseList.do?keyword="+keyword+"&houseGender="+houseGender+"&houseForm="+houseForm+"&roomPersonnel="+roomPersonnel+"&roomCharge1="+roomCharge1+"&roomCharge2="+roomCharge2;		
-		});
-		/*
-		$("#search_date").click(function(){
-			var keyword = $("input[name='keyword']").val();
-			var genderValue = $("div[data-type='gender']").prev().children("span").text();
-			var roomValue = $("div[data-type='room']").prev().children("span").text();
-			var housetypeValue = $("div[data-type='house_type']").prev().children("span").text();
-			var gender;
-			if(genderValue == "남성전용"){
-				gender="1";
-			}else if(genderValue == "어성전용"){
-				gender="2";
-			}else if(genderValue == "남녀공용"){
-				gender="3";
-			}else{
-				gender="";
-			}
-			if(roomValue == "1인실"){
-				room = "1인실";
-			}else if(roomValue == "2인실"){
-				room = "2인실";
-			}else if(roomValue == "다인실"){
-				room = "다인실";
-			}else{
-				room = "";
-			}
-			if(housetypeValue == "아파트"){
-				housetype="아파트";
-			}else if(housetypeValue == "단독주택"){
-				housetype="단독주택";
-			}else if(housetypeValue == "빌라"){
-				housetype = "빌라";
-			}else{
-				housetype="";
-			}
-			$.ajax({
-				type : "POST",
-				data : {
-					keyword : keyword,
-					houseGender : gender,
-					houseForm : housetype,
-					roomPersonnel : room
-				},
-				url : "/houseList.do",
-				success : function(data){
-					
-				}
-			})
-			console.log(gender);
-			console.log(room);
-			console.log(housetype);
-			console.log(keyword);
-			//location.href="/houseList.do?gender="+gender+"&room="+room+"&housetype="+housetype+"&keyword="+keyword;
-		});
-		*/
-		
+		});		
 		//모달
 	    $("#house_modal").click(function(){
 	    	msgpopupopen();
