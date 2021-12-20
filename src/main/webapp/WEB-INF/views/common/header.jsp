@@ -199,7 +199,7 @@
 		    <ul>
 		      <li><a href="/houseWriteFrm.do">하우스 등록</a></li>
 		      <li><a href="/houseOwnerList.do?memberNo=${sessionScope.m.memberNo }&reqPage=1">내 하우스 리스트</a></li>
-		      <li><a href="/houseAdjustPay.do">하우스 입주 정산내역</a></li>
+		      <li><a href="/houseAdjustPayTS.do?reqPage=1">하우스 입주 정산내역</a></li>
 		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>
