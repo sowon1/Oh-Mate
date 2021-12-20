@@ -51,7 +51,10 @@
 			<c:when test="${h.helperStatus eq 1}">	
 				<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 등록 요청서 수정</h4>
 			</c:when>
-			<c:when test="${h.helperStatus eq 3 }">
+			<c:when test="${h.helperStatus eq 2 }">
+				<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 프로필 수정</h4>
+			</c:when>
+			<c:when test="${h.helperStatus eq 3 or helperStatus eq 4}">
 				<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 재등록 요청서</h4>
 			</c:when>
 		</c:choose>
@@ -59,6 +62,7 @@
 			enctype="multipart/form-data" id="funder_add">
 			<input type="hidden" name="memberNo" value="${h.memberNo }">
 			<input type="hidden" name="helperNo" value="${h.helperNo }">
+			<input type="hidden" name="helperStatus" value="${helperStatus }">
 			<div class="add_right border_a">
 				<table class="table" style="padding: 15px;">
 					<tr class="table-active_mate center_list">
@@ -81,9 +85,9 @@
 						</td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>2.자신있는 분야 사진첨부</th>
+						<th>2.프로필 사진 첨부</th>
 						<td>
-							<p class="ac-title">가장 자신있는 분야나 어필할 사진 한장만 다시 올려주세요!!</p>
+							<p class="ac-title">가장 자신있는 프로필 사진을 다시 올려주세요!!</p>
 							<div class="img-viewr">
 								<img id="img-view" src="">
 							</div> <label class="btn btn_sm btn_out" for="profile"
@@ -484,7 +488,7 @@
 									document.querySelectorAll("input[name='addressName']")[count].value = data.sigungu;
 									document.querySelectorAll("input[name='addressRoad']")[count].value = data.roadname;
 									document.querySelectorAll("input[name='addressLegal']")[count].value = data.bname2;
-					$("#tag").val($("input[name='addressCode']").eq(count).val()+" "+$("input[name='addressName']").eq(count).val()+" "+$("input[name='addressRoad']").eq(count).val()+" "+$("input[name='addressLegal']").eq(count).val());
+									document.querySelector("#tag").value = data.address;
 								count++;
 								console.log(count);
 								}

@@ -131,12 +131,19 @@ public class HouseService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberNo", memberNo);
+		int tourTotalCount=0;
+		int moveTotalCount=0;
 		ArrayList<House> list = dao.selectHouseOwnerList(map);
 		for (int i = 0; i < list.size(); i++) {
 			int houseNo = list.get(i).getHouseNo();
 
 			ArrayList<Photo> photoArray = dao.selectPhoto(houseNo);
 			ArrayList<Room> roomArray = dao.selectHouseRoomList(houseNo);
+			for(int j=0; j<roomArray.size();j++) {
+				int roomNo=roomArray.get(j).getRoomNo();
+				tourTotalCount+=dao.selectTourTotalCount(roomNo);
+				moveTotalCount+=dao.selectMoveTotalCount(roomNo);
+			}
 			ArrayList<Income> incomeArray = dao.selectIncome(houseNo);
 			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
 			
@@ -195,7 +202,13 @@ public class HouseService {
 			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
 		}
 		pageNavi += "</ul>";
-		housePageData hpd = new housePageData(list, pageNavi, start, totalCount);
+		housePageData hpd = new housePageData();
+		hpd.setList(list);
+		hpd.setStart(start);
+		hpd.setPageNavi(pageNavi);
+		hpd.setMoveTotalCount(moveTotalCount);
+		hpd.setTourTotalCount(tourTotalCount);
+		hpd.setTotalCount(totalCount);
 		return hpd;
 	}
 

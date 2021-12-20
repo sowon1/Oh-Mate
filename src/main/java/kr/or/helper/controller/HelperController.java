@@ -168,12 +168,12 @@ public class HelperController {
 			Helper h = service.selectOneHelperMemberNo(memberNo);
 			
 			if(h==null) {
-				return "2";
+				return "0";
 			}else {
 				int hs=h.getHelperStatus();
-				if(hs==1) {
+				if(hs==1 || hs==2) {
 					return"1";
-				}else if(hs==3){
+				}else if(hs==3 || hs==4){
 					return "3";
 				}else {
 					return "0";
@@ -182,14 +182,16 @@ public class HelperController {
 		}
 		//헬퍼 요청등록 수정폼 이동
 		@RequestMapping(value = "/helperRequestUpdateFrm.do")
-		public String helperRequestUpdateFrm(int memberNo,Model model) {
+		public String helperRequestUpdateFrm(int memberNo,int helperStatus,Model model) {
 			Helper h = service.selectOneHelperMemberNoUpdate(memberNo);
 			model.addAttribute("h", h);
+			model.addAttribute("helperStatus", helperStatus);
 			return"helper/helperRequestUpdateFrm";
 		}
 		//헬퍼 요청 수정 및 재등록
 		@RequestMapping(value = "/helpRequestUpdate.do")
 		public String helpRequestUpdat(Helper h, Income i,String[] addressCode,String[] addressName,String[] addressRoad,String[] addressLegal,MultipartFile upfile,HttpServletRequest request,Model model) {
+			System.out.println(h.getHelperStatus());
 			if(upfile.isEmpty()) {
 				int result = service.helperRequestNoImgUpdate(h,i,addressCode,addressName,addressRoad,addressLegal);
 				if(result>0) {

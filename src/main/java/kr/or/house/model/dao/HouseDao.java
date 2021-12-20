@@ -203,4 +203,14 @@ public class HouseDao {
 		return session.delete("house.deletePhoto",p);
 	}
 
+	public int selectTourTotalCount(int roomNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("house.tourTotalCount",roomNo);
+	}
+
+	public int selectMoveTotalCount(int roomNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("house.moveTotalCount",roomNo);
+	}
+
 }
