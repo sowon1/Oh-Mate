@@ -144,10 +144,10 @@ margin-left: 500px;
 				<ul>
 					<li><span class="img-space"></span> <span class="name-space">하우스:</span>
 						<span class="result-space"> ${totalCount }</span></li>
-					<li><span class="img-space"></span> <span class="name-space">입주자신청건:</span>
-						<span class="result-space"></span></li>
-					<li><span class="img-space"></span> <span class="name-space">투어신청건:</span>
-						<span class="result-space"></span></li>
+					<li><span class="img-space"></span> <span class="name-space">입주자 내역:</span>
+						<span class="result-space">${moveTotalCount }</span></li>
+					<li><span class="img-space"></span> <span class="name-space">투어신청 내역:</span>
+						<span class="result-space">${tourTotalCount }</span></li>
 				</ul>
 			</div>
 			<div class="house-table">

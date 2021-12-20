@@ -64,19 +64,20 @@ public class BoardService {
 		return dao.insertBoard(b);
 	}
 
-	//게시판 상세보기 이동
+	//게시판 상세보기 이동 / 수정예정
 	@Transactional
-	public BoardMemberData selectBoardList(int boardNo) {
+	public BoardMemberData selectBoardList(int boardNo, HashMap map) {
 		dao.updateCount(boardNo);
 		Board b = dao.selectBoardList(boardNo);
+		String fileImg = dao.selectfileImg(map);
 		ArrayList<MateComment> list = dao.selectComment(boardNo);
-		BoardMemberData bmd = new BoardMemberData(b,list);
+		BoardMemberData bmd = new BoardMemberData(b,fileImg,list);
 		return bmd;
 	}
 	
 	//게시판 수정 이동
+	@Transactional
 	public Board selectBoard(int boardNo) {
-		dao.updateCount(boardNo);
 		Board b = dao.selectBoardList(boardNo);
 		return b;
 	}

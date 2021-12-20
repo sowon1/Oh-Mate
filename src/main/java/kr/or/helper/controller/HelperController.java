@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-
+import kr.or.common.HelpList;
 import kr.or.common.Income;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
@@ -168,12 +169,12 @@ public class HelperController {
 			Helper h = service.selectOneHelperMemberNo(memberNo);
 			
 			if(h==null) {
-				return "2";
+				return "0";
 			}else {
 				int hs=h.getHelperStatus();
-				if(hs==1) {
+				if(hs==1 || hs==2) {
 					return"1";
-				}else if(hs==3){
+				}else if(hs==3 || hs==4){
 					return "3";
 				}else {
 					return "0";
@@ -182,14 +183,16 @@ public class HelperController {
 		}
 		//헬퍼 요청등록 수정폼 이동
 		@RequestMapping(value = "/helperRequestUpdateFrm.do")
-		public String helperRequestUpdateFrm(int memberNo,Model model) {
+		public String helperRequestUpdateFrm(int memberNo,int helperStatus,Model model) {
 			Helper h = service.selectOneHelperMemberNoUpdate(memberNo);
 			model.addAttribute("h", h);
+			model.addAttribute("helperStatus", helperStatus);
 			return"helper/helperRequestUpdateFrm";
 		}
 		//헬퍼 요청 수정 및 재등록
 		@RequestMapping(value = "/helpRequestUpdate.do")
 		public String helpRequestUpdat(Helper h, Income i,String[] addressCode,String[] addressName,String[] addressRoad,String[] addressLegal,MultipartFile upfile,HttpServletRequest request,Model model) {
+			System.out.println(h.getHelperStatus());
 			if(upfile.isEmpty()) {
 				int result = service.helperRequestNoImgUpdate(h,i,addressCode,addressName,addressRoad,addressLegal);
 				if(result>0) {
@@ -303,4 +306,24 @@ public class HelperController {
 			}
 			return "helper/helperView";
 		}
+		//헬퍼 요청 내역 리스트
+		@RequestMapping(value = "/helperReqList.do")
+		public String helperReqList(int reqPage,HttpSession session,Model model) {
+			if(session != null) {
+				Member m = (Member)session.getAttribute("m");
+				int memberNo=0;
+				if(m !=null) {
+					memberNo=m.getMemberNo();
+					HelpList h= service.selectHelpList(memberNo);
+					return"";
+				}else {
+					model.addAttribute("msg", "접근하는 사용자 정보가 없습니다.");
+					return  "redirect:/main.do";
+				}
+			}else {
+				model.addAttribute("msg", "로그인을 해주세요!.");
+				return  "redirect:/main.do";
+			}
+		}
+		
 }

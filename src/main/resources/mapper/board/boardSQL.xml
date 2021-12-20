@@ -90,7 +90,7 @@
 			PROFILE_OPTION as profileOption,
 			STATUS,
 			(select member_filepath from member where member_id=board_writer)as fileImg
-		from board			
+		from board order by regDate desc
 	</select>
 	
 	<!-- 게시글 목록 -->
@@ -115,7 +115,7 @@
 	</insert>
 	
 	<!-- 게시글 조회수 -->
-	<update id="updateCount" parameterType="b">
+	<update id="updateCount">
 		update board set
 			read_count = read_count+1
 		where board_no=#{boardNo}
@@ -139,30 +139,24 @@
 	<delete id="boardDelete" parameterType="b">
 		delete from board where board_no=#{boardNo}
 	</delete>
-	
-	<!-- 회원 파일경로 -->
-	<select id="selectBoardMember" parameterType="b" resultType="string">
-		select member_filepath from member where member_id=(select board_writer from board where board_no=#{boardNo})
-	</select>
-	
+
 	<!-- 댓글 -->
 	<insert id="insertComment" parameterType="mc">												 
 		insert into mate_comment values
 		<choose>
 		<when test="boardRef == 0">
 		(comment_seq.nextval,#{commentLevel},#{commentWriter},#{commentContent},to_char(sysdate,'yyyy-mm-dd hh24:mi'),
-		#{boardNo},null,#{status})
+		#{boardNo},null,#{status},#{commentSecret})
 		</when>
 		<otherwise>
 		(comment_seq.nextval,#{commentLevel},#{commentWriter},#{commentContent},to_char(sysdate,'yyyy-mm-dd hh24:mi'),
-		#{boardNo},#{boardRef},#{status})
+		#{boardNo},#{boardRef},#{status},#{commentSecret})
 		</otherwise>
 		</choose>
 	</insert>
-	
-	
+
 	<!-- 댓글조회 -->
-	<select id="selectComment" parameterType="int" resultType="bmd">
+	<select id="selectComment" parameterType="int" resultType="mc">
 		select
 			COMMENT_NO as commentNo,
 			COMMENT_LEVEL as commentLevel,
@@ -170,9 +164,15 @@
 			COMMENT_CONTENT as commentContent,
 			REG_DATE as regDate,
 			BOARD_NO as boardNo,
-			BOARDREF as boardRef,
-			STATUS as status
-		from Mate_comment where boardref=#{boardRef} order by 1
+			BOARDREF,
+			STATUS,
+			COMMENT_SECRET as commentSecret
+		from Mate_comment where board_no=#{boardNo} order by 1
+	</select>
+	
+		<!-- 회원 파일경로 / 수정예정 -->
+	<select id="selectcommentMember" parameterType="mc" resultType="string">
+		select member_filepath from member where member_id=(select comment_writer from mate_comment where board_no=#{boardNo} and comment_no=#{commentNo})
 	</select>
 </mapper>
 

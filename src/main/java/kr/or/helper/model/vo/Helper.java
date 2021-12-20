@@ -3,6 +3,7 @@ package kr.or.helper.model.vo;
 import java.util.ArrayList;
 
 import kr.or.common.Address;
+import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import lombok.Data;
@@ -33,4 +34,6 @@ public class Helper {
 	private ArrayList<HelpReview> review;	//후기 
 	private ArrayList<Address> addr;
 	private String accountInfo;
+	private String helpStatus3;				//헬프 신청 완료 카운트
+	private String helpStatus4;				//헬프 신청 취소 카운트
 }

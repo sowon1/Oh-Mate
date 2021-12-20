@@ -20,8 +20,8 @@
 			 h.helper_intro as helperIntro,
 			 h.helper_credit as helperCredit,
 			 h.helper_refuse as helperRefuse,
-            (select age from member where member_no=h.helper_no) as age,
-            (select gender from member where member_no=h.helper_no) as gender,
+            (select age from member where member_no=h.member_no) as age,
+            (select gender from member where member_no=h.member_no) as gender,
             decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=h.helper_no),'1','좋아요','좋아요취소') as likedCheck         
         from 
         (select * from helper where HELPER_STATUS=1 order by 1 desc)h) 

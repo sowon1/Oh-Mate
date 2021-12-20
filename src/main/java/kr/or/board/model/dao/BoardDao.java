@@ -1,6 +1,7 @@
 package kr.or.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -79,11 +80,6 @@ public class BoardDao {
 		return sqlSession.delete("board.boardDelete",boardNo);
 	}
 
-	//게시글_회원 파일경로
-	public String selectBoardMember(int boardNo) {
-		return sqlSession.selectOne("board.selectBoardMember",boardNo);
-	}
-
 	//댓글
 	public int insertComment(MateComment mc) {
 		return sqlSession.insert("board.insertComment",mc);
@@ -93,6 +89,11 @@ public class BoardDao {
 	public ArrayList<MateComment> selectComment(int boardNo) {
 		List<MateComment> list = sqlSession.selectList("board.selectComment",boardNo);
 		return (ArrayList<MateComment>)list;
+	}
+
+	//댓글 프로필사진 넣기 / 수정예정
+	public String selectfileImg(HashMap map) {
+		return sqlSession.selectOne("board.selectcommentMember",map);
 	}
 
 }

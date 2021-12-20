@@ -29,7 +29,7 @@ import kr.or.house.model.vo.House;
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
-import kr.or.room.model.dao.RoomService;
+import kr.or.room.model.service.RoomService;
 
 @Controller
 public class MemberController {

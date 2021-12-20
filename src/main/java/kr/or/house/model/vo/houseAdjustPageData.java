@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import lombok.Data;
 
 @Data
-public class housePageData {
-	private ArrayList<House> list;
+public class houseAdjustPageData {
+	private ArrayList<HouseRoomAdjustPay> list;
 	private String pageNavi;
 	private int start;
 	private int totalCount;
-	private int moveTotalCount;
-	private int tourTotalCount;
-	
 }

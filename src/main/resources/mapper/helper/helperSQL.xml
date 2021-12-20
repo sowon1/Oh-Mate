@@ -66,6 +66,7 @@
 			income_category as incomeCategory
 		from income where income_num=#{houseNo} and income_category=1
  	</select>
+ 	<!-- 미승인 및 승인대기시 재요청 사진x &&  사진O -->
  	<update id="updateHelperReqNoImg" parameterType="hp">
  		update helper set 
  			helper_name = #{helperName},
@@ -73,7 +74,7 @@
  			helper_start_time = #{helperStartTime},
  			helper_end_time = #{helperEndTime},
  			helper_ride = #{helperRide},
- 			helper_status = 1,
+ 			helper_status = #{helperStatus},
  			helper_intro = #{helperIntro},
  			helper_credit = #{helperCredit}
  		where helper_no = #{helperNo} and member_no=#{memberNo}
@@ -96,7 +97,7 @@
  			helper_start_time = #{helperStartTime},
  			helper_end_time = #{helperEndTime},
  			helper_ride = #{helperRide},
- 			helper_status = 1,
+ 			helper_status = 4,
  			helper_filepath = #{helperFilepath},
  			helper_intro = #{helperIntro},
  			helper_credit = #{helperCredit}
@@ -177,8 +178,14 @@
 			h.helper_intro as helperIntro,
 			h.helper_credit as helperCredit,
 			h.helper_refuse as helperRefuse,
+			(select age from member where member_no=h.member_no) as age,
+            (select gender from member where member_no=h.member_no) as gender,
 			(select count(*) from bookmark where BOOKMARK_CATEGORY=1 and bookmark_num=h.helper_no) as likeCount,
-            (select count(*) from bookmark where BOOKMARK_CATEGORY=1 and bookmark_num=h.helper_no and bookmarker=#{memberNo}) as likedCheck
+			(select count(*) from helplist where helper_no=h.helper_no and help_status=3) as helpStatus3,
+			(select count(*) from helplist where helper_no=h.helper_no and help_status=4) as helpStatus4,			
+			(select	regexp_replace(listagg(address_name, ',') within group(order by address_name), '([^,]+)(,\1)+', '\1')
+			        from address where address_category = 2 and address_number = h.helper_no) addressName,
+			decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=#{helperNo}),'1','좋아요','좋아요취소') as likedCheck
 		from helper h where helper_no=#{helperNo}
 	</select>
 	<!-- 헬퍼 후기 -->
@@ -192,7 +199,12 @@
 			asterion,
 			review_date as reviewDate,
 			(select count(*) from bookmark where BOOKMARK_CATEGORY=3 and bookmark_num=review_no) as likeCount,
-            (select count(*) from bookmark where BOOKMARK_CATEGORY=3 and bookmark_num=review_no and bookmarker=#{memberNo}) as likedCheck
+			decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=3 and BOOKMARK_NUM=review_no),'1','좋아요','좋아요취소') as likedCheck
 		from help_review where helper_no =#{helperNo}
+	</select>
+	<select id="selectHelperNo" parameterType="_int" resultType="_int">
+		select
+			helper_no as helperNo
+		from helper where member_no=#{memberNo}
 	</select>
 </mapper>

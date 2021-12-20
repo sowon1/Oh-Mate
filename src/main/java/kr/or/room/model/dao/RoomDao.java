@@ -1,4 +1,4 @@
-package kr.or.room.model.service;
+package kr.or.room.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;

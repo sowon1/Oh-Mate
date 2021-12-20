@@ -484,3 +484,346 @@ from { opacity: 0; -webkit-transform: scale(.8); }
     overflow: hidden;
     height: auto;
 }
+/* 테이블 */
+.help_table{
+	width: 100%;
+    box-sizing: border-box;
+    padding: 0px 30px 20px 30px;
+    border-collapse: inherit;
+}
+.table-active_mate_help{
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.table-active_mate_help th{
+    padding: 0px 10px;
+    text-align: left;
+    border-left: 2px solid #956bfc;
+    height: 12px;
+    line-height: 12px;
+    font-family: "ns_300";
+    width: 200px;
+}
+.table-active_mate_help td{
+    width:100%;
+}
+.form_btn{
+	clear:both;
+	float:left;
+	width:100%;
+	display: block;
+}
+.form_btn a{
+	border:none;
+	outline: none;
+	background: #956bfc;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	height: 55px;
+	font-size: 18px;
+	line-height: 55px;
+	text-align: center;
+	transition-duration: 0.5s;
+	display: block;
+}
+/* 상세보기 */
+.helper_view_back{
+	background: #f9f9f9;
+	width:100%;
+	height: 100%;
+}
+.helper_view_top{
+	background: #fff;
+	padding:50px;
+	overflow: hidden;
+}
+.helper_view_top_pro{
+	display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+.helper_pro{
+	flex-grow: 1;
+	margin-left:40px;
+}
+.helper_view_top_proimg {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    object-fit: cover;
+}
+.helper_pro_name{
+	font-size: 28px;
+	margin-right:8px;
+	font-family: "ns_700";
+}
+.helper_pro_agender{
+	font-size:18px;
+	color:#666;
+}
+.helper_pro_btn{
+    position: relative;
+}
+.like_helper{
+    position: absolute;
+    right: 115px;
+    top: 3px;
+}
+.report_helper{
+	position: absolute;
+    right: 60px;
+    top: 3px;
+}
+.chat_helper{
+	position: absolute;
+    right: 3px;
+    top: 3px;
+}
+.like_helper img, .report_helper img, .chat_helper img {
+	width: 30px;
+}
+.like_count{
+	margin-left:5px;
+	color:#666;
+	font-size:14px;
+}
+.helper_pro_cate{
+	margin-top:15px;
+}
+
+.clear{
+	clear:both;
+}
+.heler_pro_cate_title{
+	float:left;
+	margin-bottom:12px;
+	font-size:16px;
+}
+.heler_pro_cate_title:before {
+    content: "";
+    height: 11px;
+    border-left: 2px solid #956bfc;
+    display: inline-block;
+    color: #956bfc;
+    margin-right: 8px;
+}
+.helper_pro_cate_code{
+	float:left;
+	background: #f9f9f9;
+	border: 1px solid #eee;
+	padding: 3px 12px;
+	border-radius: 50px;
+	margin-right:5px;
+	font-size:14px;
+}
+.helper_pro_timeride{
+	float:left;
+	margin-top:15px;
+	margin-right:30px;
+}
+.heler_pro_title{
+	float:left;
+	margin-bottom:12px;
+	font-size:16px;
+}
+.heler_pro_title:before {
+    content: "";
+    height: 11px;
+    border-left: 2px solid #956bfc;
+    display: inline-block;
+    color: #956bfc;
+    margin-right: 8px;
+}
+.heler_pro_code{
+	float:left;
+	background: #f9f9f9;
+	border: 1px solid #eee;
+	padding: 3px 12px;
+	border-radius: 50px;
+	margin-right:5px;
+	font-size:14px;
+	clear:both;
+}
+.heler_pro_code2{
+	float:left;
+	background: #f9f9f9;
+	border: 1px solid #eee;
+	padding: 3px 12px;
+	border-radius: 50px;
+	margin-right:5px;
+	font-size:14px;
+}
+.helper_addr_view span:nth-child(2){
+	clear:both;
+}
+.helper_pro_helperInfo{
+	margin-top:40px;
+}
+.helper_pro_helperInfo_title{
+	font-size:20px;
+	font-family: "ns_500";
+	float:left;
+}
+.helper_pro_helperInfo_title:before {
+    content: "";
+    height: 11px;
+    border-left: 2px solid #956bfc;
+    display: inline-block;
+    color: #956bfc;
+    margin-right: 8px;
+}
+.helper_pro_helperInfo_text{
+	float:left;
+	clear:both;
+	margin-top:10px;
+}
+.helper_pro_helperInfo_text p{
+	margin-bottom:0;
+}
+.helper_view_top_bottom{
+	display: flex;
+	justify-content: space-between;
+    align-items: flex-end;
+}
+.help_btn{
+	width:230px;
+}
+.help_btn a{
+	padding:0;
+}
+
+/* 도움 요청 */
+.help_helper_info{	
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+    padding: 30px;
+    border-bottom:1px solid #eee;
+    margin-bottom: 30px;
+}
+.help_helper_proimg{
+	width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+.help_helper_info_top{
+	flex-grow: 1;
+	margin-left:30px;
+}
+.helper_pro_name2{
+	font-size: 24px;
+    margin-right: 5px;
+    font-family: "ns_700";
+}
+.helper_pro_agender2 {
+    font-size: 14px;
+    color: #666;
+}
+.help_helper_pro_cate{
+	margin-top:5px;
+}
+.help_helper_pro_cate em{
+	float:left;
+	background: #f9f9f9;
+	border: 1px solid #eee;
+	padding: 3px 12px;
+	border-radius: 50px;
+	margin-right:5px;
+	font-size:14px;
+}
+.help_helper_grade{
+	display: inline-block;
+    margin-left: 5px;
+}
+.help_cate div{
+	display: inline-block;
+	float:left;
+	margin-right: 5px;
+	margin-bottom:5px;
+}
+.help_cate div input {
+    display: none
+}
+.help_cate label {
+    display: inline-block;
+    padding: 8px 10px;
+    width: 120px;
+    border: 1px solid #9b9b9b;
+    border-radius: 50px;
+    color: #9b9b9b;
+    font-size: 16px;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+}
+.help_cate input:checked+label {
+    border: 1px solid #956bfc;
+    background: #956bfc;
+    color: #fff
+}
+/* input 추가  */
+.input_help{
+	outline: none;
+	border: none;
+	border-radius: 3px;
+	display: block;
+    width: 211px;
+    height: 40px;
+    box-shadow: none;
+    background-color: #fff;
+    padding: 0 12px;
+    -webkit-appearance: none;
+    border: 1px solid #9f9f9f;
+    color: #292929;
+    float:left;
+}
+.input_help:first-child{
+	margin-right:10px;
+}
+.input_help:focus{
+	border:1px solid #956bfc;
+}
+.postcodebtn{
+	outline: none;
+    background: #956bfc;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    display: inline-block;
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    border-radius: 3px;
+    text-align: center;
+    transition-duration: 0.5s;
+    border: 1px solid #956bfc;
+	width:211px;
+	padding:0;
+}
+.postcodebtn:hover {
+    background: #fff;
+    border: 1px solid #956bfc;
+    color: #956bfc;
+}
+#addressRoad{
+	margin-right: 10px;
+}
+#addressRoad, #detailAddr{
+	margin-top:10px;
+}
+.help_text_notice{
+	font-size:14px;
+	color:#666;
+}

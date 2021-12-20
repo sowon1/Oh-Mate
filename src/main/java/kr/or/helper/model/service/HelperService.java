@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.common.Address;
+import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import kr.or.helper.model.dao.HelperDao;
@@ -216,6 +217,13 @@ public class HelperService {
 		ArrayList<HelpReview> review = dao.selectHelperReview(map);
 		h.setReview(review);
 		return h;
+	}
+
+	public HelpList selectHelpList(int memberNo) {
+		//헬퍼번호 헬퍼테이블에서 꺼내기
+		int helperNo = dao.selectHelperNo(memberNo);
+		//헬퍼리스트관련 주소값 address테이블을 활용하는지...*3번?
+		return null;
 	}
 
 }

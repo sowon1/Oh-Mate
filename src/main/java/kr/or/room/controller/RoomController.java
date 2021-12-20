@@ -13,7 +13,7 @@ import kr.or.common.Move;
 import kr.or.common.Pay;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
-import kr.or.room.model.dao.RoomService;
+import kr.or.room.model.service.RoomService;
 import kr.or.room.model.vo.Room;
 import kr.or.room.model.vo.RoomTMPageData;
 
