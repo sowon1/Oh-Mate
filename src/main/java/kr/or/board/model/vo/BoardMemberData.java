@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoardMemberData {
 	private Board b;
+	private String fileImg;
 	private ArrayList<MateComment> list;
 }

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -89,7 +90,7 @@ public class BoardController {
 		return "common/msg";
 	}
 	
-	//게시판
+	//게시판 + 회원프로필사진
 	@RequestMapping(value="/communityFrm.do")
 	public String coummunityFrm(Model model) {
 		ArrayList<Board> list = service.selectBoard();
@@ -157,15 +158,22 @@ public class BoardController {
 		return "common/msg";
 	}
 	
-	//게시판 상세보기 이동
+	//게시판 상세보기 이동 / 수정예정
 	@RequestMapping(value="/boardView.do")
-	public String boardView(int boardNo, Model model) {
-		//System.out.println(boardNo);
-		BoardMemberData bmd = service.selectBoardList(boardNo);
-		model.addAttribute("b",bmd.getB());
+	public String boardView(Board board, MateComment comment, Model model) {
+		HashMap map = new HashMap();
+		int boardNo = comment.getBoardNo();
+		//System.out.println(board.toString());
+		//System.out.println(comment.toString());
+		map.put("memberId", comment.getCommentWriter());
+		//System.out.println(comment.getCommentWriter());
+		BoardMemberData bmd = service.selectBoardList(boardNo, map);
+		//System.out.println(bmd.getList().toString());
 		model.addAttribute("list",bmd.getList());
-		//System.out.println(bmd.getB());
-		System.out.println(bmd.getList());
+		BoardMemberData bmd2 = service.selectBoardList(boardNo, map);
+		model.addAttribute("b",bmd2.getB());
+		model.addAttribute("fileImg",bmd2.getFileImg());
+		//System.out.println(bmd.getFileImg());
 		return "board/boardView";
 	}
 	

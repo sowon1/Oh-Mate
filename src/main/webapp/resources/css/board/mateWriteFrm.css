@@ -42,5 +42,98 @@ input[name="boardTitle"]{
 	padding: 0px;
 }
 li>.subBtn{
-	padding:0px; margin-top:7px; margin-left:5px; width:100px;
+	padding:0px; 
+	margin-top:7px; 
+	margin-left:5px; 
+	width:100px;
+}
+li{
+	list-style:none;
+}
+.submit{
+	text-align: right;
+}
+button.subbtn{
+	padding: 0px;
+	float: right;
+	width: 100px;
+	height: 40px;
+	margin-right: 5px;
+	line-height:center;
+}
+.recomments{
+	display:flex;
+	background-color: #f2f2f2;
+}
+.comments>li:first-child{
+	display:flex;
+	flex-flow:column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 15%;
+	padding: 5px 0px 5px 0px;
+}
+.comments>li:last-child{
+	padding: 5px 0px 5px 0px;
+	width: 85%;
+	display:flex;
+	flex-flow:column;
+	justify-content: space-between;
+}
+.memberIm{
+	height: 50px;
+	border-radius: 50%;
+	margin-left: 30px;
+	margin-top : 25px;
+}
+.memberImg{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-left: 18px;
+	margin-top : 18px;
+}
+.form-inline{
+	margin-left: 20px;
+}
+.cw{
+	margin-left: 27px;
+	margin-bottom: 0px;
+}
+.cwriter{
+	margin-left: 18px;
+	margin-bottom: 0px;
+}
+.rd{
+	font-size: 13px;
+	text-align: center;
+}
+.commentct{
+	padding-left: 20px;
+	margin-top : 30px;
+	width: -webkit-fill-available;
+}
+.commentsBtn{
+	text-align: end;
+}
+.pstyle{
+	border: 1px solid #E1E1E1;
+	margin-left: 16px;
+	width: 1166px;
+	height: 86px;
+}
+#texstyle{
+	width: 1166px; 
+	display:none;
+	margin-left:55px;
+}
+.recShow{
+	margin-right: 15px;
+}
+#secretBtn{
+	width:100px; 
+	height:30px; 
+	font-size:15px; 
+	padding:0px; 
+	line-height: inherit;
 }
