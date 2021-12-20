@@ -107,23 +107,25 @@
  	<!-- 헬퍼 리스트 출력 부분 - sowon 
  		주소 2개의 행이라서 그부분 처리 어떻게 ?
  	-->
- 	<select id="selectAjaxHelper" parameterType="map" resultType="hp">
+ 	<select id="selectAjaxHelper" parameterType="map" resultMap="helper">
  		select hh.* from
         (select 
             rownum as rnum,
             h.*,
-            
+            (select age from member where member_no=h.member_no) as age,
+            (select gender from member where member_no=h.member_no) as gender,
              decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=h.helper_no),'1','좋아요','좋아요취소') as likedCheck            
         from 
         (select helper.*
         from helper 
-        join address on(helper.helper_no = address.address_number)
         join member on (helper.member_no = member.member_no)
         where 
             helper_status=1
-            and address_category = 2
             <if test="gender != 0 and gender != 3 and gender != null and !''.equals(gender)">
 				and gender=#{gender}
+			</if>
+			<if test="age != 0 and age != 3 and age != null and !''.equals(age)">
+				and age=#{age}
 			</if>
             <if test="keyword != null and !''.equals(keyword)">
             	and (helper_intro || address_name || address_road || address_legal) like '%' ||  #{keyword} || '%'     
@@ -138,9 +140,44 @@
 				and helper_category = #{helperCategory}
 			</if>
         order by 1 desc
-        )h)hh where rnum between 1 and 10;
+        )h)hh where rnum between #{start} and #{end}
  	</select>
-
+	<!-- 주소 -->
+	<select id="selectAddressHelperList" parameterType="_int" resultType="addr">
+		select
+			address_no as addressNo,
+			address_number as addressNumber,
+			address_code as addressCode,
+			address_name as addressName,
+			address_road as addressRoad,
+			address_legal as addressLegal,
+			address_category as addressCategory,
+			address_detail as addressDetail
+		from
+			(select rownum as rnum, h.* from
+			(select * from address where address_category=2 and address_number =#{helperNo} order by 1 )h) 
+		where rnum = 1
+	</select>
+	<resultMap type="hp" id="helper">
+		<result column="helper_no" property="helperNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="helper_name" property="helperName"/>
+		<result column="helper_category" property="helperCategory"/>
+		<result column="helper_start_time" property="helperStartTime"/>
+		<result column="helper_end_time" property="helperEndTime"/>
+		<result column="helper_ride" property="helperRide"/>
+		<result column="helper_status" property="helperStatus"/>
+		<result column="helper_filepath" property="helperFilepath"/>
+		<result column="helper_intro" property="helperIntro"/>
+		<result column="helper_credit" property="helperCredit"/>
+		<result column="helper_refuse" property="helperRefuse"/>
+		<collection property="addr"
+					column="helper_no"
+					javaType="java.util.ArrayList"
+					ofType="addr"
+					select="selectAddressHelperList"	
+		/>
+	</resultMap>
 	<!-- 헬퍼  좋아요 부분 -->
 	<select id="helperLike" parameterType="map" resultType="_int">
 		select 

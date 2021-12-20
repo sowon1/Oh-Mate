@@ -103,7 +103,7 @@
 						</div>
 					</div>
 					<div class="helper_pro_btn">
-						<div class="like_helper">
+						<div class="like_helper_view">
                         	<c:choose>
                         		<c:when test="${empty sessionScope.m}">
                         			<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>

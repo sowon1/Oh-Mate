@@ -42,12 +42,13 @@ public class HelperController {
 	}
 	//헬퍼 리스트 출력
 	@RequestMapping(value="/helperList.do")
-	public String helperList(String keyword, String gender, String helperStartTime, String helperEndTime, Model model,String helperCategory) {
+	public String helperList(String keyword, String gender, String helperStartTime, String helperEndTime, Model model,String helperCategory, String age) {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("gender", gender);
 		model.addAttribute("helperStartTime", helperStartTime);
 		model.addAttribute("helperEndTime", helperEndTime);
 		model.addAttribute("helperCategory",helperCategory);
+		model.addAttribute("age",age);
 	
 		return "helper/helperList";
 	}

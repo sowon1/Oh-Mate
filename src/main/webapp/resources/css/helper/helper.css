@@ -182,7 +182,7 @@
 	cursor: pointer;
 }
 
-/* 리스트 css */
+/* 리스트 css 
 .list_container{
     width: 100%;
     height: auto;
@@ -210,7 +210,127 @@
     height: 100%;
     width: 100%;
 }
+*/
+.list_container{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 0px 30px;
+}
+.list_container li{
+    width: 285px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    float: left;
+    border-radius: 20px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+}
+.list_container li:last-child{
+	margin-right:0;
+}
+.helper_list_profile{
+	width:100%;
+}
+.helper_list_profile img{
+	display: block;
+}
+.helper_list_photo{
+	width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.like_helper{
+    position: absolute;
+    right: 3px;
+    top: 3px;   
+}
+.like_helper img {
+	width: 30px;
+}
+.helper_list_text_name{
+	display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top:30px;
+}
+.helper_list_nickname{
+	font-size: 18px;
+    font-family: "ns_700";
+	text-align: center;
+	float:left;
+	margin-right:5px;
+}
+.helper_list_age, .helper_list_gender{
+	float:left;
+	color:#666;
+	font-size:14px;
+}
+.helper_Category{
+	margin-top:15px;
+	float:left;
+	clear:both;
+	width:100%;
+	height: 52px;
+	white-space: normal;
+	display: -webkit-box;
+	-webkit-line-clamp:2;
+	-webkit-box-orient:vertical;
+	overflow: hidden;
+	position: relative;
+}
+.helper_list_text_info{
+	margin-top:15px;
+	float:left;
+	clear:both;
+	display: flex;
+    justify-content: center;
+    width:100%;
+}
+.helper_Category_title{
+    margin-right: 5px;
+    font-size: 14px;
+    color: #9c9ba1;
+    display: inline-block;
+}
 
+.helper_list_text_code{
+	background: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 2px 12px;
+    border-radius: 50px;
+    margin-right: 5px;
+    font-size: 14px;
+    color: #666;
+    margin-bottom:5px;
+    display: inline-block;
+    float:left;
+}
+.helper_Category:before {
+  content: "";
+  display: block;
+  width: 20px;
+  border-top: 2px solid #956bfc;
+  margin:0 auto;
+  margin-bottom:5px;
+}
+.helper_list_intro{
+	width: 100%;
+    height: 70px;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 8px;
+    float: left;
+    clear: both;
+}
+.helper_list_intro p{
+	margin-bottom:0;
+}
 /* 좋아요 버튼 부분 */
 .like_house{
     position: absolute;
@@ -293,6 +413,7 @@
 @media all and (min-width:300px) and (max-width:1200px) {
   .list_container li {
     width:100%;
+    margin-bottom:15px;
 	}
 	.house_list_photo{
 	height: 300px;
@@ -301,6 +422,7 @@
 @media all and (min-width:1200px) and (max-width:1774px) {
   .list_container li {
     width:403px;
+    margin-bottom:15px;
 	}
 	.house_list_photo{
 	height: 250px;
@@ -590,7 +712,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .helper_pro_btn{
     position: relative;
 }
-.like_helper{
+.like_helper_view{
     position: absolute;
     right: 115px;
     top: 3px;
@@ -605,7 +727,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
     right: 3px;
     top: 3px;
 }
-.like_helper img, .report_helper img, .chat_helper img {
+.like_helper_view img, .report_helper img, .chat_helper img {
 	width: 30px;
 }
 .like_count{
@@ -869,7 +991,16 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	box-sizing: border-box;
 }
 .helper_count_title{
-	font-size:28px;
+	font-size:26px;
+}
+.helper_count_title:before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 26px;
+    margin: -5px 10px 0 0;
+    vertical-align: middle;
+    background: #956bfc;
 }
 .helper_count_left ul, .helper_count_right ul{
 	margin-top:30px;
@@ -882,7 +1013,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	clear:both;
 	margin-bottom:10px;
 }
-.helper_count_left li:last-child, , .helper_count_right li:last-child{
+.helper_count_left li:last-child, .helper_count_right li:last-child{
 	margin-bottom:0;
 }
 .helper_count_box_title{
@@ -895,10 +1026,10 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	float: right;
 	margin-top:30px;
 	font-family: "ns_500";
-	font-size: 24px;
+	font-size: 22px;
 }
 .helper_count_box_total em{
-	font-size: 26px;
+	font-size: 24px;
 	font-family: "ns_700";
 }
 

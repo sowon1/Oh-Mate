@@ -170,6 +170,7 @@ public class HelperService {
 		map.put("memberNo", memberNo);
 		map.put("keyword", keyword);
 		map.put("gender", mem.getGender());
+		map.put("age", mem.getAge());
 		map.put("helperStartTime", h.getHelperStartTime());
 		map.put("helperEndTime",h.getHelperEndTime());
 		map.put("helperCategory",h.getHelperCategory());
