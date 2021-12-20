@@ -6,6 +6,8 @@
 <!-- 지도 -->
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2fe50c2d1b8d26d2ec5e7053eeb12b16&libraries=services,clusterer"></script>
 <link rel="stylesheet" href="/resources/css/helper/helper.css">
+<!-- 우편번호 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Oh-Mate!</title>
@@ -16,7 +18,7 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<div class="helper_view_back">
 		<div class="container_mate">
 			<div class="helper_view_top">
@@ -198,55 +200,56 @@
                         				<th>도움 유형</th>
                         				<td class="help_cate" value="${h.helperCategory}">
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_01" name="helpCategory" value="0">
+				                        		<input type="radio" id="help_cate_01" name="help_cate_01" value="0" class="chk">
 												<label for="help_cate_01"><span class="select_icon02"></span>배달·장보기</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_02" name="helpCategory" value="0">
+				                        		<input type="radio" id="help_cate_02" name="help_cate_01" value="0" class="chk">
 												<label for="help_cate_02"><span class="select_icon02"></span>청소·집안일</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_03" name="helpCategory" value="0">
+				                        		<input type="radio" id="help_cate_03" name="help_cate_01" value="0" class="chk">
 												<label for="help_cate_03"><span class="select_icon02"></span>설치·조립·운반</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_04" name="helpCategory" value="0">
+				                        		<input type="radio" id="help_cate_04" name="help_cate_01" value="0" class="chk">
 												<label for="help_cate_04"><span class="select_icon02"></span>동행·돌봄</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_05" name="helpCategory" value="0">
+				                        		<input type="radio" id="help_cate_05" name="help_cate_01" value="0" class="chk">
 												<label for="help_cate_05"><span class="select_icon02"></span>벌레·쥐</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_06" name="helpCategory" value="0">
+				                        		<input type="radio" id="help_cate_06" name="help_cate_01" value="0" class="chk">
 												<label for="help_cate_06"><span class="select_icon02"></span>역할대행</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_07" name="helpCategory" value="0">
+				                        		<input type="radio" id="help_cate_07" name="help_cate_01" value="0" class="chk">
 												<label for="help_cate_07"><span class="select_icon02"></span>과외·알바</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_08" name="helpCategory" value="0">
+				                        		<input type="radio" id="help_cate_08" name="help_cate_01" value="0" class="chk">
 												<label for="help_cate_08"><span class="select_icon02"></span>기타·원격</label>
                         					</div>
+                        					<input type="hidden" name="helpCategory" id="helpCategory">
                         				</td>
                         			</tr>
                         			<tr class="table-active_mate_help">
                         				<th>장소 선택</th>
                         				<td>
                         					<input type="text" id="postCode" name="addressCode" class="input_help" readonly="readonly" placeholder="우편번호">
-                        					<button type="button" onclick="" class="btn btn_sm">주소검색</button>
-                        					<input type="text" id="roadAddr" class="input_03" placeholder="도로명 주소" name="companyAddr" readonly="readonly">
+                        					<button type="button" onclick="addrSearch();" class="postcodebtn">주소검색</button>
+                        					<input type="text" id="addressRoad" class="input_help" placeholder="도로명 주소" name="addressRoad" readonly="readonly">
+                        					<input type="text" id="detailAddr" class="input_help" placeholder="상세 주소" name="addressDetail" readonly="readonly">
 											<input type="hidden" id="addressName" name="addressName">
-											<input type="hidden" id="addressRoad" name="addressRoad">
 											<input type="hidden" id="addressLegal" name="addressLegal">
                         				</td>
                         			</tr>
                         			<tr class="table-active_mate_help">
                         				<th>시간 선택</th>
                         				<td>
-                        					<input type="text" name="helpStartTime" class="input_help">
-                        					<input type="text" name="helpEndTime" class="input_help">
+                        					<input type="text" class="helptime input_help" name="helpStartTime">
+                        					<input type="text" class="helptime input_help" name="helpEndTime">
                         				</td>
                         			</tr>
                         			<tr class="table-active_mate_help">
@@ -258,14 +261,14 @@
                         			<tr class="table-active_mate_help">
                         				<th>도움 내용</th>
                         				<td>
-                        					<textarea name="helpContent"></textarea>
+                        					<textarea name="helpContent" class="textarea_pro"></textarea>
                         				</td>
                         			</tr>
                         			<tr class="table-active_mate_help">
                         				<th>심부름비</th>
                         				<td>
                         					<input type="text" name="helpCharge" class="input_03">
-                        					<span class="">*헬퍼에게 지급될 심부름비는 고객님께서 정해주세요.</span>
+                        					<span class="help_text_notice">*헬퍼에게 지급될 심부름비는 고객님께서 정해주세요.</span>
                         				</td>
                         			</tr>
                         			<input type="hidden" name="helperNo">
@@ -291,18 +294,37 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
-		//카카오 주소
-		function addrSearch() {
-			new daum.Postcode({
-				oncomplete : function(data) {
-					document.querySelector("#postCode").value = data.zonecode;
-					document.querySelector("#roadAddr").value = data.address;
-					document.querySelector("#addressName").value = data.sigungu;
-					document.querySelector("#addressRoad").value = data.roadname;
-					document.querySelector("#addressLegal").value = data.bname2;
-				}
-			}).open();
-		}
+		//login
+		$(".help_login").click(function(){
+			msgpopupopen();
+		})
+		//우편번호
+		function addrSearch(){
+	    	var width = 500; 
+	    	var height = 600; 
+			 new daum.Postcode({
+				width: width, 
+				height: height,
+		        oncomplete: function(data) {
+		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분
+		            $("#postCode").val(data.zonecode); //우편
+		            $("#roadAddr").val(data.roadAddress); //도로
+		            $("#addressName").val(data.sigungu); //도로
+		            $("#addressRoad").val(data.roadname); //도로
+		            $("#addressLegal").val(data.bname2); //도로
+		            $("#detailAddr").focus(); // 선택후 상세주소 포커스
+		        },
+			 theme:{
+		  			searchBgColor: "#956bfc", //검색창 배경색,
+		  			queryTextColor: "#FFFFFF" //검색창 글자색
+		  			}
+			 }).open({ //팝업 위치 가운데로
+				 popupTitle: 'Oh-Mate 우편번호 검색',
+				 popupKey: 'popup1',
+				 left: (window.screen.width / 2) - (width / 2),
+				 top: (window.screen.height / 2) - (height / 2)
+			 });
+			};
 		//도움요청
 		function helpopen(){
 			$(".room_popup_modal").css("display","flex");
@@ -369,6 +391,44 @@
 				}
 			});
 		});
+		//분야(00000000);
+		$(".chk").click(function(){
+			$("#helpCategory").val()
+			$(".chk").change(function () {
+				if($(this).is(":checked")){
+					$(this).val(1);
+					$("#helpCategory").val($("#help_cate_01").val()+$("#help_cate_02").val()+$("#help_cate_03").val()
+						+$("#help_cate_04").val()+$("#help_cate_05").val()+$("#help_cate_06").val()+$("#help_cate_07").val()+$("#help_cate_08").val()	);
+				}else{
+					$(this).val(0);
+					$("#helpCategory").val($("#help_cate_01").val()+$("#help_cate_02").val()+$("#help_cate_03").val()
+							+$("#help_cate_04").val()+$("#help_cate_05").val()+$("#help_cate_06").val()+$("#help_cate_07").val()+$("#help_cate_08").val()	);
+				}
+				console.log($("#helpCategory").val());
+			});
+		});
+		$(function() {
+			// 시간
+			$(".helptime").daterangepicker({
+				timePicker : true,
+				singleDatePicker : true,
+				timePicker24Hour : true,
+				timePickerIncrement : 30,
+				locale : {
+					"format" : 'HH:mm',
+					"applyLabel" : "확인",
+					"cancelLabel" : "취소"
+				}
+			}).on('show.daterangepicker', function(ev, picker) {
+				picker.container.find(".calendar-table").hide();
+			});
+			$("input[name='helpStartTime']").on('apply.daterangepicker', function(ev, picker) {
+				$("input[name='helpStartTime']").css("color","#956bfc");       
+		   });
+			$("input[name='helpEndTime']").on('apply.daterangepicker', function(ev, picker) {
+				$("input[name='helpEndTime']").css("color","#956bfc");	       
+		   });
+		});	
 	</script>
 </body>
 </html>
