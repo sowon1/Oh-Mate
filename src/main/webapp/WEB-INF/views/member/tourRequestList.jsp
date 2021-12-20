@@ -6,79 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>투어신청 내역</title>
-<style>
-	.tourRequest{
-		height: 300px;
-		border: 1px #f1f1f1 solid;
-	}
-	.house_photo{
-		float: left;
-		width: 500px;
-		height: 300px;
-		padding-top: 0;
-		overflow: hidden;
-	}
-	.house_photo img{
-		width: 500px;
-		height: 300px;
-		position: absolute;
-	}
-	.tour_info{
-		float: left;
-		margin-top: 50px;
-		margin-left: 50px;
-	
-	}
-	.house_title a{
-		font-size: 25px;
-		text-decoration: none;
-		font-weight: bold;
-	}
-	.tour_status span{
-		font-weight: bold;
-	}
-	.room_title{
-		font-size: 15px;
-		text-align: center;
-	}
-	.house_address{
-		font-size: 15px;
-	}
-	.room_name{
-		font-size: 20px;
-		overflow: hidden;
-	}
-	.room_tag{
-	    border: 2px solid #956bfc;
-	    border-radius: 50px;
-	    padding: 3px 8px;
-	    float: left;
-	    margin-right: 10px;
-	   /*  width: 81px; */
-	    font-family: 'ns_500';
-	    color: #956bfc;
-	}
-	.in_ok{
-	    border: 2px solid #956bfc;
-	    border-radius: 50px;
-	    padding: 3px 8px;
-	    float: left;
-	    margin-right: 10px;
-	   /*  width: 81px; */
-	    font-family: 'ns_500';
-	    color: #956bfc;
-	}
-	.in_no{
-	    border: 2px solid #ff0071;
-	    border-radius: 50px;
-	    padding: 3px 8px;
-	    float: left;
-	    margin-right: 10px;
-	   /*  width: 81px; */
-	    font-family: 'ns_500';
-	    color: #ff0071;
-	}
-</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -89,6 +16,7 @@
 			<br>
 			<hr>
 			<div>
+			<br>
 				<ul>
 					<c:forEach items="${list }" var="t">
 						<li>
@@ -152,5 +80,5 @@
 	</div>	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
 </body>
-
+<link rel="stylesheet" href="/resources/css/member/tourRequestList.css">
 </html>

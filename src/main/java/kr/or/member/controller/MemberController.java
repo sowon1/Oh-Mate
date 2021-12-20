@@ -463,4 +463,9 @@ public class MemberController {
 		}
 		return "member/tourRequestList";
 	}
+	
+	@RequestMapping(value = "/helpList.do")
+	public String helpList() {
+		return "member/helpList";
+	}
 }
