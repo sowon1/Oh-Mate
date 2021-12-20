@@ -434,15 +434,15 @@ from { opacity: 0; -webkit-transform: scale(.8); }
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 9995;
+    z-index: 10005;
 }
 .room_tour_popup_modal{
     width: 50vw;
     min-width: 650px;
     max-width: 550px;
     height: 50vh;
-    min-height: 664px;
-    max-height: 664px;
+    min-height: 933px;
+    max-height: 933px;
     text-align: left;
     z-index: 10;
     overflow-y: auto;
@@ -529,11 +529,30 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	transition-duration: 0.5s;
 	display: block;
 }
+.form_btn a:hover{
+	background: #8c62f2;
+}
+.modal_msg_timetitle{
+	font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top:15px;
+    font-family: "ns_300";
+}
+.modal_msg_timetext{
+	font-size: 20px;
+    text-align: center;
+    font-family: "ns_300";
+}
+#countdown, #title_name{
+	font-size:22px;
+	font-family:"ns_700";
+	color:#956bfc;
+}
 /* 상세보기 */
 .helper_view_back{
 	background: #f9f9f9;
 	width:100%;
-	height: 100%;
 }
 .helper_view_top{
 	background: #fff;
@@ -826,4 +845,95 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .help_text_notice{
 	font-size:14px;
 	color:#666;
+}
+/* 달력 인덱스 */
+.helptime{
+	position: relative;
+}
+.daterangepicker{
+	z-index:10010 !important;
+}
+
+/* 헬퍼 상세보기 중간 카운트 부분 */
+.helper_view_bottom{
+	margin-top:20px;
+}
+.helper_count_left{
+	margin-right:20px;
+}
+.helper_count_left, .helper_count_right{
+	background: #fff;
+	padding:30px;
+	width:590px;
+	float:left;
+	box-sizing: border-box;
+}
+.helper_count_title{
+	font-size:28px;
+}
+.helper_count_left ul, .helper_count_right ul{
+	margin-top:30px;
+	overflow: hidden;
+    margin-bottom: 0;
+}
+.helper_count_left li, .helper_count_right li{
+	width:100%;
+	float:left;
+	clear:both;
+	margin-bottom:10px;
+}
+.helper_count_left li:last-child, , .helper_count_right li:last-child{
+	margin-bottom:0;
+}
+.helper_count_box_title{
+	float:left;
+}
+.helper_count_box_code{
+	float:right;
+}
+.helper_count_box_total{
+	float: right;
+	margin-top:30px;
+	font-family: "ns_500";
+	font-size: 24px;
+}
+.helper_count_box_total em{
+	font-size: 26px;
+	font-family: "ns_700";
+}
+
+/* 헬퍼 상세보기 리뷰 */
+.helper_view_review{
+	background: #fff;
+	padding:30px;
+	margin-top:20px;
+	float:left;
+	clear:both;
+	width:100%;
+	overflow: hidden;
+}
+.helper_review_photo{
+	width:100%;
+}
+.helper_review_photo li{
+	width:133px;
+	float:left;
+	margin-right:10px;
+	background: #666;
+	padding:20px;
+}
+.helper_review_photo li:last-child{
+	margin-right:0;
+}
+.helper_review_photo li img{
+	width:100%;
+}
+.helper_review_list{
+	float:left;
+	clear:both;
+	margin-top:30px;
+	border-top:2px solid #eee;
+	border-bottom:2px solid #eee;
+	width:100%;
+	padding: 30px 0px;
 }

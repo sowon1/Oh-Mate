@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import kr.or.common.Address;
 import kr.or.common.HelpList;
 import kr.or.common.Income;
 import kr.or.helper.model.service.HelperService;
@@ -325,5 +326,16 @@ public class HelperController {
 				return  "redirect:/main.do";
 			}
 		}
-		
+		//도움 요청 
+		@RequestMapping(value="/helprequest.do")
+		public String helprequest(HelpList h, Model model, int helperNo, int memberNo, Address addr) {
+			int result = service.insertHelprequest(h,helperNo,memberNo,addr);
+			if(result>0) {
+				model.addAttribute("msg", "헬퍼 요청 성공!");
+				return"helper/helperView";
+			}else {
+				model.addAttribute("msg", "헬프요청실패");
+				return"helper/helperView";
+			}
+		}
 }

@@ -20,7 +20,7 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<div class="helper_view_back">
-		<div class="container_mate">
+		<div class="container_mate" style="overflow: hidden;">
 			<div class="helper_view_top">
 				<div class="helper_view_top_pro">
 					<img src="/resources/upload/helper/${h.helperFilepath}" class="helper_view_top_proimg">
@@ -240,7 +240,7 @@
                         					<input type="text" id="postCode" name="addressCode" class="input_help" readonly="readonly" placeholder="우편번호">
                         					<button type="button" onclick="addrSearch();" class="postcodebtn">주소검색</button>
                         					<input type="text" id="addressRoad" class="input_help" placeholder="도로명 주소" name="addressRoad" readonly="readonly">
-                        					<input type="text" id="detailAddr" class="input_help" placeholder="상세 주소" name="addressDetail" readonly="readonly">
+                        					<input type="text" id="detailAddr" class="input_help" placeholder="상세 주소" name="addressDetail">
 											<input type="hidden" id="addressName" name="addressName">
 											<input type="hidden" id="addressLegal" name="addressLegal">
                         				</td>
@@ -282,13 +282,88 @@
                 	</div> 
                 </div>
 			</div>
+            <div class="form_popup_modal">		       			
+	             <div class="popup_modal">
+	                <div class="msg_modal_top">
+	                		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
+	                 </div>
+	                 <div class="msg_modal_content">
+	                 	<h3 class="modal_msg_timetitle"><em id="title_name" class="title_name"></em> 입력해주세요.</h3>
+	                 	<h2 class="modal_msg_timetext">해당 창은 <em id="countdown">3</em>초 후 자동으로 닫힙니다.</h2>
+	                 </div>
+	         	</div> 
+	         </div>
 			<div class="helper_view_bottom">
-			
-				헬프 신청 완료 카운트 ${h.helpStatus3}
-				헬프 신청 취소 카운트 ${h.helpStatus4}
+				<div class="helper_count_left">
+					<h1 class="helper_count_title">${h.helperName}님 도와줘요 지원 내역</h1>
+					<ul>
+						<li>
+							<span class="helper_count_box_title">도와줘요 완료</span>
+							<span class="helper_count_box_code">${h.helpStatus3}</span>
+						</li>
+						<li>
+							<span class="helper_count_box_title">도와줘요 취소</span>
+							<span class="helper_count_box_code">${h.helpStatus4}</span>
+						</li>
+						<li>
+							<h3 class="helper_count_box_total">총 도와줘요 <em class="point">${h.helpStatus3 + helpStatus4}</em> 건</h3>
+						</li>
+					</ul>
+				</div>
+				<div class="helper_count_right">
+					<h1 class="helper_count_title">${h.helperName}님 도와줘요 만족도</h1>
+					<ul>
+						<li>
+							<span class="helper_count_box_title">만족해요</span>
+							<span class="helper_count_box_code">${h.helpStatus3}</span>
+						</li>
+						<li>
+							<span class="helper_count_box_title">그냥 그래요</span>
+							<span class="helper_count_box_code">${h.helpStatus3}</span>
+						</li>
+						<li>
+							<h3 class="helper_count_box_total">총 만족 고객 <em class="point">${h.helpStatus3 + helpStatus4}</em> 건</h3>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div class="helper_view_review">
-				리뷰란~~
+				<div class="helper_review_photo">
+					<ul>
+						<li>
+							<img src="/resources/img/icon/admin_house.png">
+						</li>
+						<li>
+							<img src="/resources/img/icon/admin_house.png">
+						</li>
+						<li>
+							<img src="/resources/img/icon/admin_house.png">
+						</li>
+						<li>
+							<img src="/resources/img/icon/admin_house.png">
+						</li>
+						<li>
+							<img src="/resources/img/icon/admin_house.png">
+						</li>
+						<li>
+							<img src="/resources/img/icon/admin_house.png">
+						</li>
+						<li>
+							<img src="/resources/img/icon/admin_house.png">
+						</li>
+						<li>
+							<img src="/resources/img/icon/admin_house.png">
+						</li>
+					</ul>
+				</div>
+				<div class="helper_review_list">
+					<ul>
+						<li>
+							<span>프사</span>
+							<span>닉</span>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -391,22 +466,7 @@
 				}
 			});
 		});
-		//분야(00000000);
-		$(".chk").click(function(){
-			$("#helpCategory").val()
-			$(".chk").change(function () {
-				if($(this).is(":checked")){
-					$(this).val(1);
-					$("#helpCategory").val($("#help_cate_01").val()+$("#help_cate_02").val()+$("#help_cate_03").val()
-						+$("#help_cate_04").val()+$("#help_cate_05").val()+$("#help_cate_06").val()+$("#help_cate_07").val()+$("#help_cate_08").val()	);
-				}else{
-					$(this).val(0);
-					$("#helpCategory").val($("#help_cate_01").val()+$("#help_cate_02").val()+$("#help_cate_03").val()
-							+$("#help_cate_04").val()+$("#help_cate_05").val()+$("#help_cate_06").val()+$("#help_cate_07").val()+$("#help_cate_08").val()	);
-				}
-				console.log($("#helpCategory").val());
-			});
-		});
+		
 		$(function() {
 			// 시간
 			$(".helptime").daterangepicker({
@@ -428,7 +488,111 @@
 			$("input[name='helpEndTime']").on('apply.daterangepicker', function(ev, picker) {
 				$("input[name='helpEndTime']").css("color","#956bfc");	       
 		   });
-		});	
+		});
+		//유효성검사
+		var resultArr = [false,false,false,false];
+       $(function(){
+    	   $("input[name='addressDetail']").change(function(){
+				var addr = $(this).val();
+               if(!addr){
+                   resultArr[0] = false;
+               }else{
+                   resultArr[0] = true;
+               } 
+           });
+    	   $("input[name='helpTitle']").change(function(){
+               var titleValue = $(this).val();
+               if(!titleValue){
+                    resultArr[1] = false;
+               }else{
+                   resultArr[1] = true;
+               } 
+           });
+    	   $("textarea[name='helpContent']").change(function(){
+               var contentValue = $(this).val();
+               if(!contentValue){
+                    resultArr[2] = false;
+               }else{
+                   resultArr[2] = true;
+               } 
+           });
+    	   $("input[name='helpCharge']").change(function(){
+    		   var chargeReg = /^[0-9]*$/;
+               var chargeValue = $(this).val();
+               if(!(chargeReg.test(chargeValue))){
+            	   $(this).focus();
+                   $(".title_name").text("숫자만");
+                   countmsgopen(autoClose());
+                    resultArr[3] = false;
+               }else{
+                   resultArr[3] = true;
+               } 
+           });
+       });
+		//유효성
+		function checkVal(){
+			if(!(resultArr[0] && resultArr[1] && resultArr[2] && resultArr[3])){
+				if($("input[name='addressCode']").val() == ""){					
+					 $(".title_name").text("주소를");
+					 $("input[name='addressDetail']").focus();
+					countmsgopen(autoClose());
+				}else if($("input[name='helpTitle']").val() == ""){
+					 $(".title_name").text("제목을");					
+					 $("input[name='helpTitle']").focus();
+					countmsgopen(autoClose());
+				}else if($("textarea[name='helpContent']").val() == ""){
+					 $(".title_name").text("도움내용을");					
+					 $("textarea[name='helpContent']").focus();
+					countmsgopen(autoClose());				
+				}else if($("input[name='helpCharge']").val() == ""){
+					 $(".title_name").text("심부름비를");					
+					 $("input[name='helpCharge']").focus();
+					countmsgopen(autoClose());									
+				}
+			}else{
+				if($("input[name='helpStartTime']").val() == ""){
+					 $(".title_name").text("도움받을 시간을");
+					countmsgopen(autoClose());					
+				}else if($("input[name='helpCategory']").val() == ""){
+					 $(".title_name").text("도움 유형을");
+						countmsgopen(autoClose());		
+				}else{
+	    		   $("form").submit();
+				}
+			}
+       }
+		//적용하기
+		$(".chk").change(function () {
+			if($(this).is(":checked")){
+				$(this).val(1);
+				$("#helpCategory").val($("#help_cate_01").val()+$("#help_cate_02").val()+$("#help_cate_03").val()
+				+$("#help_cate_04").val()+$("#help_cate_05").val()+$("#help_cate_06").val()+$("#help_cate_07").val()+$("#help_cate_08").val());
+			}else{
+				$(this).val(0);
+				$("#helpCategory").val($("#help_cate_01").val()+$("#help_cate_02").val()+$("#help_cate_03").val()
+				+$("#help_cate_04").val()+$("#help_cate_05").val()+$("#help_cate_06").val()+$("#help_cate_07").val()+$("#help_cate_08").val());
+			}
+	
+		});
+		//자동닫기
+       function autoClose(){
+    	   setTimeout('closed()',3000);
+       }
+       function closed(){
+    	   countmsgclose();
+       }
+       //팝업
+       function countmsgopen(){
+			$(".form_popup_modal").css("display","flex");
+		    $("body").css("overflow", "hidden");
+		    $(".back_dark").show();
+		    
+		}
+		function countmsgclose(){
+			$(".form_popup_modal").css("display","none");
+			$("body").css("overflow", "auto");
+			$(".back_dark").hide();
+		}
 	</script>
 </body>
 </html>

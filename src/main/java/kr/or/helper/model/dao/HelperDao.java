@@ -110,6 +110,19 @@ public class HelperDao {
 		
 		return session.selectOne("helper.selectHelperNo", memberNo);
 	}
+	//도움 요청
+	public int insertHelprequest(HashMap<String, Object> map) {
+		return session.insert("helper.insertHelprequest",map);
+	}
+	//헬프 주소 등록
+	public int insertAddress(HashMap<String, Object> map) {
+		return session.insert("helper.insertAddressHelp",map);
+	}
+	//방금 등록한 헬프 번호 가져오기
+	public int selectHelperNo2() {
+		int helpNo = session.selectOne("helper.selectHelperNo2");
+		return helpNo;
+	}
 
 	
 }

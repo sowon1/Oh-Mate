@@ -207,4 +207,20 @@
 			helper_no as helperNo
 		from helper where member_no=#{memberNo}
 	</select>
+	<!-- helpList insert -->
+	<insert id="insertHelprequest" parameterType="map">
+		insert into helplist
+		values (help_seq.nextval,#{memberNo},#{helperNo},#{h.helpTitle},#{h.helpContent},#{h.helpCategory},#{h.helpCharge},1,#{h.helpStartTime},#{h.helpEndTime},to_char(sysdate,'yyyy-mm-dd'),null,null)
+	</insert>
+	<!-- helpList address insert -->
+	<insert id="insertAddressHelp" parameterType="map">
+		insert into address 
+		values(address_seq.nextval,#{helpNo},#{addr.addressCode},#{addr.addressName},#{addr.addressRoad},#{addr.addressLegal},3,#{addr.addressDetail})
+	</insert>
+	<!-- helpNo select -->
+	<select id="selectHelperNo2" resultType="_int">
+		select
+			max(help_no)
+		from helplist
+	</select>
 </mapper>

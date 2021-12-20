@@ -2,7 +2,6 @@ package kr.or.helper.model.vo;
 
 import java.util.ArrayList;
 
-import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import lombok.Data;
