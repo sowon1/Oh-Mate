@@ -20,65 +20,65 @@
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" id="allChk"
-                        <c:if test="${not empty s.level and fn:length(s.level) eq 4}">
-                        	checked
-                        </c:if>
+	                        <c:if test="${not empty s.level and fn:length(s.level) eq 4}">
+	                        	checked
+	                        </c:if>
                         >
                         <label class="form-check-label" for="allChk">전체</label>
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="1" id="mateChk" name="level"
-                        <c:if test="${not empty s.level }">
-                        	<c:forEach items="${s.level }" var="l">
-								<c:choose>
-		                    		<c:when test="${l eq 1 }">
-		                    			checked
-		                    		</c:when>
-		                    	</c:choose>
-                        	</c:forEach>
-                        </c:if>
+	                        <c:if test="${not empty s.level }">
+	                        	<c:forEach items="${s.level }" var="l">
+									<c:choose>
+			                    		<c:when test="${l eq 1 }">
+			                    			checked
+			                    		</c:when>
+			                    	</c:choose>
+	                        	</c:forEach>
+	                        </c:if>
                         >
                         <label class="form-check-label" for="mateChk">메이트</label>
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="2" id="houseownerChk" name="level"
-                        <c:if test="${not empty s.level }">
-                        	<c:forEach items="${s.level }" var="l">
-                        		<c:choose>
-		                    		<c:when test="${l eq 2 }">
-		                    			checked
-		                    		</c:when>
-		                    	</c:choose>
-                        	</c:forEach>
-                        </c:if>
+	                        <c:if test="${not empty s.level }">
+	                        	<c:forEach items="${s.level }" var="l">
+	                        		<c:choose>
+			                    		<c:when test="${l eq 2 }">
+			                    			checked
+			                    		</c:when>
+			                    	</c:choose>
+	                        	</c:forEach>
+	                        </c:if>
                         >
                         <label class="form-check-label" for="houseownerChk">하우스오너</label>
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="4" id="helperChk" name="level"
-                        <c:if test="${not empty s.level }">
-                        	<c:forEach items="${s.level }" var="l">
-                        		<c:choose>
-		                    		<c:when test="${l eq 4 }">
-		                    			checked
-		                    		</c:when>
-		                    	</c:choose>
-                        	</c:forEach>
-                        </c:if>
+	                        <c:if test="${not empty s.level }">
+	                        	<c:forEach items="${s.level }" var="l">
+	                        		<c:choose>
+			                    		<c:when test="${l eq 4 }">
+			                    			checked
+			                    		</c:when>
+			                    	</c:choose>
+	                        	</c:forEach>
+	                        </c:if>
                         >
                         <label class="form-check-label" for="helperChk">헬퍼</label>
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="3" id="blockChk" name="level"
-                        <c:if test="${not empty s.level }">
-                        	<c:forEach items="${s.level }" var="l">
-                        		<c:choose>
-		                    		<c:when test="${l eq 3 }">
-		                    			checked
-		                    		</c:when>
-		                    	</c:choose>
-                        	</c:forEach>
-                        </c:if>
+	                        <c:if test="${not empty s.level }">
+	                        	<c:forEach items="${s.level }" var="l">
+	                        		<c:choose>
+			                    		<c:when test="${l eq 3 }">
+			                    			checked
+			                    		</c:when>
+			                    	</c:choose>
+	                        	</c:forEach>
+	                        </c:if>
                         >
                         <label class="form-check-label" for="blockChk">계정정지</label>
                     </div>

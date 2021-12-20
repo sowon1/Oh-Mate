@@ -314,7 +314,7 @@
 		<if test="!addrName.equals('지역구 선택')">
 			and address_name = #{addrName}
 		</if>
-		order by 1 desc)hh)hhh where rnum between #{start} and #{end}
+		and address_category = 1 order by 1 desc)hh)hhh where rnum between #{start} and #{end}
 	</select>
 	<select id="totalSearchHouse" parameterType="map" resultType="_int">
 		select count(*) from (select h.*, address_name from house h left join address on (house_no = address_number)
@@ -342,7 +342,7 @@
 		<if test="!addrName.equals('지역구 선택')">
 			and address_name = #{addrName}
 		</if>
-		)
+		and address_category = 1)
 	</select>
 	<select id="selectOneHouse" parameterType="_int" resultType="h">
 		select
@@ -350,7 +350,7 @@
 		    member_no as memberNo,
 		    house_title as houseTitle,
 		    (select member_id from member where member_no = h.member_no) memberId,
-		    (select income_bank||' '||income_account||' '||income_name from income where income_num = h.house_no) accountInfo,
+		    (select income_bank||' '||income_account||' '||income_name from income where income_category = 2 and income_num = h.house_no) accountInfo,
             house_charge as houseCharge,
             house_gender as houseGender,
             house_form as houseForm,
@@ -402,10 +402,10 @@
 			    helper_name as helperName,
 			    (select member_name from member where member_no = hhh.member_no) memberName,
 			    (select member_level from member where member_no = hhh.member_no) memberLevel,
-			    (select	regexp_replace(listagg(address_name, ',') within group(order by address_name), '([^,]+)(,\1)+', '\1')
+			    (select	regexp_replace(listagg(address_name, ',') within group(order by address_name), '([^,]+)(,\1)*(,|$)', '\1\3')
 			        from address where address_category = 2 and address_number = hhh.helper_no) addressName,
 			    helper_status as helperStatus
-			from (select rownum as rnum, hh.* from (select h.*, address_name from helper h left join address on (helper_no = address_number))hh)
+			from (select rownum as rnum, hh.* from (select h.*, address_name from helper h left join address on (helper_no = address_number) where address_category = 2)hh)
 				hhh where rnum between #{start} and #{end}
 		)hhhh order by 1 desc
 	</select>
@@ -421,7 +421,7 @@
 				helper_name as helperName,
 				(select member_name from member where member_no = hhh.member_no) memberName,
 				(select member_level from member where member_no = hhh.member_no) memberLevel,
-				(select	regexp_replace(listagg(address_name, ',') within group(order by address_name), '([^,]+)(,\1)+', '\1')
+				(select	regexp_replace(listagg(address_name, ',') within group(order by address_name), '([^,]+)(,\1)*(,|$)', '\1\3')
 					from address where address_category = 2 and address_number = hhh.helper_no) addressName,
 				helper_status as helperStatus
 			from (select rownum as rnum, hh.* from (select h.*, address_name from helper h left join address on (helper_no = address_number)
@@ -452,7 +452,7 @@
 			<if test="!addrName.equals('지역구 선택')">
 				and address_name = #{addrName}
 			</if>
-			)hh)hhh where rnum between #{start} and #{end}
+			and address_category = 2)hh)hhh where rnum between #{start} and #{end}
 		)hhhh order by 1 desc
 	</select>
 	<select id="totalSearchHelper" parameterType="map"	resultType="_int">
@@ -485,6 +485,39 @@
 			</if>
 			<if test="!addrName.equals('지역구 선택')">
 				and address_name = #{addrName}
-			</if>)))
+			</if>
+			and address_category = 2)))
 	</select>
+	<select id="selectOneHelper" parameterType="_int" resultType="hp">
+		select
+		    helper_no as helperNo,
+		    member_no as memberNo,
+		    helper_filepath as helperFilepath,
+		    (select member_id from member where member_no = h.member_no) memberId,
+		    helper_name as helperName,
+		    helper_category as helperCategory,
+		    helper_start_time as helperStartTime,
+		    helper_end_time as helperEndTime,
+		    helper_ride as helperRide,
+		    helper_intro as helperIntro,
+		    helper_credit as helperCredit,
+		    (select member_name from member where member_no = h.member_no) memberName,
+		    (select member_level from member where member_no = h.member_no) memberLevel,
+		    helper_status as helperStatus,
+		    helper_refuse as helperRefuse,
+		    (select income_bank||' '||income_account||' '||income_name from income where income_category = 1 and income_num = h.helper_no) accountInfo
+		from helper h where helper_no = #{helperNo}
+	</select>
+	<select id="selectHelperAddr" parameterType="_int" resultType="addr">
+		select
+			address_name as addressName,
+			address_road as addressRoad
+		from address where address_category = 2 and address_number = #{helperNo}
+	</select>
+	<update id="updateHelper" parameterType="hp">
+		update helper set
+			helper_status = #{helperStatus},
+			helper_refuse = #{helperRefuse}
+		where helper_no = #{helperNo}
+	</update>
 </mapper>

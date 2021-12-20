@@ -81,8 +81,12 @@
 	                    	</a>
                 		</td>
                 		<td>${hp.memberName }</td>
-                		<td>${hp.helperName }</td>
-                		<td class="addressTd">${hp.addressName }</td>
+                		<td>
+                			<a href="/adminHelperView.do?helperNo=${hp.helperNo}">
+                				${hp.helperName }
+	                    	</a>
+                		</td>
+                		<td>${hp.addressName }</td>
                 		<td>
                 			<c:choose>
                 				<c:when test="${hp.memberLevel eq 1 }">

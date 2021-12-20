@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.admin.model.vo.UpdateMember;
+import kr.or.common.Address;
 import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.vo.Helper;
@@ -142,5 +143,18 @@ public class AdminDao {
 
 	public int totalSearchHelperCnt(HashMap<String, Object> map) {
 		return session.selectOne("admin.totalSearchHelper", map);
+	}
+
+	public Helper selectOneHelper(int helperNo) {
+		return session.selectOne("admin.selectOneHelper", helperNo);
+	}
+
+	public ArrayList<Address> selectHelperAddr(int helperNo) {
+		List<Address> list = session.selectList("admin.selectHelperAddr", helperNo);
+		return (ArrayList<Address>)list;
+	}
+
+	public int updateHelper(Helper hp) {
+		return session.update("admin.updateHelper", hp);
 	}
 }
