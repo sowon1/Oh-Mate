@@ -305,4 +305,10 @@ public class HelperController {
 			}
 			return "helper/helperView";
 		}
+		//하우스 정산 내역 
+		@RequestMapping(value = "/houseAdjustPay.do")
+		public String houseAdjustPay() {
+			
+			return "";
+		}
 }
