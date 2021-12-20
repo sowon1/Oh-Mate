@@ -20,4 +20,7 @@ public class Tour {
 	private String addressRoad;     //주소2
 	private String addressLegal;	//주소3
 	private ArrayList<Photo> photoList; 	//사진테이블
+	private String roomTitle;		//방 이름
+	private int roomStatus;			//입실가능 여부
+	private String roomPersonnel;	//몇 인실
 }

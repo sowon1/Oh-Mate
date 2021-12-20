@@ -140,7 +140,10 @@
         		t.*,
         		a.address_name,
         		a.address_road,
-        		a.address_legal
+        		a.address_legal,
+        		r.room_title,
+        		r.room_status,
+       			r.room_personnel
     		from room r 
         		join tour t on r.room_no = t.room_no
         		join address a on r.house_no = a.address_number
@@ -174,6 +177,9 @@
 		<result column="address_name" property="addressName"/>
 		<result column="address_road" property="addressRoad"/>
 		<result column="address_legal" property="addressLegal"/>
+		<result column="room_title" property="roomTitle"/>
+		<result column="room_status" property="roomStatus"/>
+		<result column="room_personnel" property="roomPersonnel"/>
 		<collection property="photoList"
 					column="house_no"
 					javaType="java.util.ArrayList"
