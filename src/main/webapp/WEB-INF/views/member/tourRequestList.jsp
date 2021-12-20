@@ -25,7 +25,7 @@
 	}
 	.tour_info{
 		float: left;
-		padding: 30px;
+		padding: 20px;
 		margin-left: 20px;
 	}
 	.house_title a{
@@ -62,6 +62,12 @@
 											${t.houseName }
 										</a>
 									</div>
+									<div class="room_title">
+										 ${t.roomTitle }
+										 ${t.roomStatus }
+										 ${t.roomPersonnel }
+									</div>
+									
 									<div class="house_address">
 										<i class="fas fa-map-marker-alt"></i>
 										서울시 ${t.addressName } ${t.addressRoad } ${t.addressLegal }
