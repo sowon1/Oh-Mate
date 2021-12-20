@@ -12,5 +12,11 @@ public class MateComment {
 	private int boardNo;		   // 게시판번호 참조
 	private int boardRef;		   // 댓글 참조
 	private int status;		       // 신고여부
+	private int commentSecret;     // 1.일반댓글 2.비밀댓글
+
+	public String getcommentContentBr() {
+		return commentContent.replaceAll("\r\n", "<br>");
+	}
+	
 }
 

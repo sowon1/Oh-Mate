@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>커뮤니티</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="/resources/css/board/communityFrm.css">
+<script type="text/javascript" src="/resources/js/board/communityFrm.js"></script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
@@ -77,17 +79,17 @@
 				    			<option value="0" id="sel" selected disabled>지역구 선택</option>
 				    		</select>
 				    	</div><br>
-				    	<div style="float:left; display:inline;">
-						<h6 style="display:inline;">선호 성별</h6>
-	                 	<div class="select" style="display:inline;">
+				    	<div>
+						<h6>선호 성별</h6>
+	                 	<div class="select">
 			                <input type="radio" id="pGender1" name="pGender" value="1"><label for="pGender1" style="width:130px;">여성전용</label>
 			                <input type="radio" id="pGender2" name="pGender" value="2"><label for="pGender2" style="width:130px;">남성전용</label>
 			                <input type="radio" id="pGender3" name="pGender" value="3"><label for="pGender3" style="width:130px;">남녀공용</label>
 		           		</div>
 		           		</div><br>
-		           		<div style="float:left; display:inline;">
-						<h6 style="display:inline;">선호 나이</h6>
-	                 	<div class="select" style="display:inline;">
+		           		<div>
+						<h6>선호 나이</h6>
+	                 	<div class="select">
 			                <input type="radio" id="pAge1" name="pAge" value="1"><label for="pAge1" style="width:130px;">20대</label>
 			                <input type="radio" id="pAge2" name="pAge" value="2"><label for="pAge2" style="width:130px;">30대</label>
 			                <input type="radio" id="pAge3" name="pAge" value="3"><label for="pAge3" style="width:130px;">40대이상</label>
@@ -162,55 +164,12 @@
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-	</div>
-<c:import url="/WEB-INF/views/common/footer.jsp"/>
+		</div>
 <script>
-$(function(){
-	//조건검색 슬라이드
-	$(".form-check").click(function(){
-		$(".slideOpen").slideToggle();
+	$(function(){
+		
 	});
-	
-	//선호지역
-	var PLocal = ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구',
-		'동작구', '마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'];
-	for(var i=0; i<PLocal.length; i++){
-		var option = $("<option>");
-		option.attr("value",i+1);
-		option.html(PLocal[i]);
-		$("#pLocal2").append(option);
-	}
-	
-	//필수선택
-	$(input[type=submit]).click(function(){
-		if(!$("option").not("#sel").is(":selected")){
-			alert('선호 지역을 선택해주세요.');
-			return false;
-		}else if(!$("[name=pGender]").is(":checked")){
-			alert('선호 성별을 선택해주세요.');
-			return false;
-		}else if(!$("[name=pAge]").is(":checked")){
-			alert('선호 나이를 선택해주세요.');
-			return false;
-		}else if(!$("[name=pSmoke]").is(":checked")){
-			alert('흡연 여부를 선택해주세요.');
-			return false;
-		}else if(!$("[name=pPet]").is(":checked")){
-			alert('반려동물 여부를 선택해주세요.');
-			return false;
-		}else if(!$("[name=pCleaning]").is(":checked")){
-			alert('청소 여부를 선택해주세요.');
-			return false;
-		}else if(!$("[name=pPattern]").is(":checked")){
-			alert('생활패턴을 선택해주세요.');
-			return false;
-		}else{
-			return true;
-		}
-	});
-	
-});
 </script>
-
+<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
