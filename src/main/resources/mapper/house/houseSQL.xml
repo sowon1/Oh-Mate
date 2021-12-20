@@ -420,4 +420,43 @@
 	<select id="moveTotalCount" parameterType="_int" resultType="_int">
 		select count(*) from move where room_no=#{roomNo}
 	</select>
+	<!-- 정산내역(하우스,룸, 입주내용, 정산내역 -->
+	<select id="houseAllPay" parameterType="map" resultType="hrap">
+	select HH.* from
+	(select rownum as rnum,h.* from
+	(select 
+    	house_no as houseNo,
+    	member_no as memberNo,
+    	house_title as houseTitle,
+    	house_selling as houseSelling,
+    	house_gender as houseGender,
+    	r.room_no as roomNo,
+    	r.room_title as roomTitle,
+    	r.room_charge as roomCharge,
+    	r.room_month as roomMonth,
+    	p.pay_no as payNo,
+    	p.pay_id as payId,
+    	p.pay_name as payName,
+    	p.pay_num as payNum,
+    	p.pay_price as payPrice,
+    	p.pay_date as payDate,
+    	p.pay_way as payWay,
+    	p.pay_status as payStatus,
+    	p.cancel_date as cancelDate,
+    	a.adjust_no as adjustNo,
+    	a.adjust_status as adjustStatus
+	from house
+	left join room r using(house_no)
+	left join pay p on(r.room_no=p.pay_goods)
+	left join adjust a on(a.pay_no=p.pay_no)
+	where member_no=#{memberNo} and p.pay_category=2)H)HH
+	where rnum between #{start} and #{end}
+	</select>
+	<!-- 정산 토탈 카운트 -->
+	<select id="payCount" parameterType="_int" resultType="_int">
+	select count(*) from house
+		left join room r using(house_no)
+		left join pay p on(r.room_no=p.pay_goods)
+	where member_no=#{memberNo} and p.pay_category=2
+	</select>
 </mapper>

@@ -30,6 +30,7 @@ import kr.or.common.Tour;
 import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
+import kr.or.house.model.vo.houseAdjustPageData;
 import kr.or.house.model.vo.housePageData;
 import kr.or.main.model.service.MainService;
 import kr.or.member.model.vo.Member;
@@ -397,6 +398,33 @@ public class HouseController {
 		model.addAttribute("photo", h.getPhotoList());
 		model.addAttribute("room", h.getHouseRoomView());
 		return "house/houseownerView";
+	}
+	@RequestMapping(value = "/houseAdjustPayTS.do")
+	public String houseAdjustPay(HttpSession session,Model model,int reqPage) {
+		if(session != null) {
+			Member m = (Member) session.getAttribute("m");
+			if(m!=null) {
+				int memberNo=m.getMemberNo();
+				
+				houseAdjustPageData hapd = service.selectHouseAllPayList(memberNo,reqPage);
+				if(hapd!=null) {
+					model.addAttribute("list", hapd.getList());
+					model.addAttribute("start", hapd.getStart());
+					model.addAttribute("pageNavi", hapd.getPageNavi());
+					model.addAttribute("totalCount", hapd.getTotalCount());
+					return "house/houseAdjustPayList";
+				}else {
+					model.addAttribute("msg", "정보가 없습니다.");
+					return "redirect:/main.do";
+				}
+			}else {
+			model.addAttribute("msg", "잘못된 정보입니다! 다시 로그인해주세요!");
+			return "redirect:/main.do";
+			}
+		}else {
+			model.addAttribute("msg", "로그인을 해주세요!");
+			return "redirect:/main.do";
+		}
 	}
 	
 }
