@@ -9,7 +9,7 @@ $("[type=file]").change(function(){
 				$("#img-view").attr("src", e.target.result);
 			}
 		}else{
-			alert("[ png / jpg / jpeg / gif ] 확장자 파일로 업로드 가능합니다.");
+			alert("[ jpg / jpeg / png / gif ] 확장자 파일로 업로드 가능합니다.");
 		}
 	}
 });

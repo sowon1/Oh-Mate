@@ -5,9 +5,6 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/resources/css/house/house.css">
-<!-- 범위선택 js -->
-<link rel="stylesheet" href="/resources/css/nouislider.css">
-<script type="text/javascript" src="/resources/js/nouislider.js"></script>
 <!-- 지도 -->
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2fe50c2d1b8d26d2ec5e7053eeb12b16&libraries=services,clusterer"></script>
 <!-- 슬라이드 css -->
@@ -162,6 +159,9 @@
        						<li>
        							<span class="house_view_room_title">
        								${r.roomTitle}
+       							</span>
+       							<span class="house_view_room_sub">
+       								${r.roomContent}
        							</span>
        							<div class="house_view_room_text">
        								<span class="house_view_room_text_title">
@@ -643,7 +643,7 @@
 		    // 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {	
 		        var coords = new kakao.maps.LatLng(result[0].y,result[0].x);
-		        var imageSrc = '/resources/img/icon/marker.png',//마커 이미지 경로
+		        var imageSrc = '/resources/img/icon/markerHouse.png',//마커 이미지 경로
 		        imageSize = new kakao.maps.Size(62, 69),
 		        imgOptions = {
 		        		spriteSize : new kakao.maps.Size(62, 69),

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.house.model.vo.House;
+import kr.or.common.Move;
 import kr.or.common.Tour;
 import kr.or.room.model.vo.Room;
 
@@ -82,6 +83,34 @@ public class RoomDao {
 
 	public Room selectOneRoomTM(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return null;
+		return session.selectOne("room.selectOneRoomTM",map);
+	}
+
+	public ArrayList<Tour> selectAllTourList(HashMap<String, Object> map) {
+		List<Tour> tourlist=session.selectList("room.selectAllTourList", map);
+		return (ArrayList<Tour>)tourlist;
+	}
+
+	public ArrayList<Move> selectallMoveList(HashMap<String, Object> map) {
+		List<Move> movelist = session.selectList("room.selectAllMoveList",map); 
+		return (ArrayList<Move>)movelist;
+	}
+
+	public int tourTotalCount(HashMap<String, Object> map) {
+		return session.selectOne("room.tourTotalCount",map);
+	}
+
+	public int moveTotalCount(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("room.moveTotalCount",map);
+	}
+
+	public String selectOneMemberName(int memberNo) {
+		return session.selectOne("room.selectOneMemberName", memberNo);
+	}
+
+	public int updateTourStatus(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update("room.updateTourStatus", map);
 	}
 }

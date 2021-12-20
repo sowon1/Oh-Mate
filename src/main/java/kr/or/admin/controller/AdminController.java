@@ -20,9 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import kr.or.admin.model.service.AdminService;
-import kr.or.admin.model.vo.SearchHouse;
-import kr.or.admin.model.vo.SearchMember;
-import kr.or.admin.model.vo.SearchReport;
+import kr.or.admin.model.vo.Search;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Report;
 import kr.or.house.model.vo.House;
@@ -50,12 +48,12 @@ public class AdminController {
 		return "admin/memberMgr";
 	}
 	@RequestMapping(value="/adminMemberSearch.do")
-	public String memberSearch(int reqPage, SearchMember sm, Model model) {
-		HashMap<String, Object> data = service.memberSearch(reqPage, sm);
+	public String memberSearch(int reqPage, Search s, Model model) {
+		HashMap<String, Object> data = service.memberSearch(reqPage, s);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
 		model.addAttribute("start", data.get("start"));
-		model.addAttribute("sm", sm);
+		model.addAttribute("s", s);
 		return "admin/memberSearch";
 	}
 	@RequestMapping(value="adminMemberView.do")
@@ -159,12 +157,12 @@ public class AdminController {
 		return "admin/reportMgr";
 	}
 	@RequestMapping(value="/reportSearch.do")
-	public String reportSearch(int reqPage, SearchReport sr, Model model) {
-		HashMap<String, Object> data = service.reportSearch(reqPage, sr);
+	public String reportSearch(int reqPage, Search s, Model model) {
+		HashMap<String, Object> data = service.reportSearch(reqPage, s);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
 		model.addAttribute("start", data.get("start"));
-		model.addAttribute("sr", sr);
+		model.addAttribute("s", s);
 		return "admin/reportSearch";
 	}
 	@ResponseBody
@@ -192,12 +190,12 @@ public class AdminController {
 		return "admin/houseMgr";
 	}
 	@RequestMapping(value="/adminHouseSearch.do")
-	public String houseSearch(int reqPage, SearchHouse sh, Model model) {
-		HashMap<String, Object> data = service.houseSearch(reqPage, sh);
+	public String houseSearch(int reqPage, Search s, Model model) {
+		HashMap<String, Object> data = service.houseSearch(reqPage, s);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
 		model.addAttribute("start", data.get("start"));
-		model.addAttribute("sh", sh);
+		model.addAttribute("s", s);
 		return "admin/houseSearch";
 	}
 	
@@ -218,6 +216,23 @@ public class AdminController {
 		}
 		model.addAttribute("loc", "/adminHouseView.do?houseNo="+h.getHouseNo());
 		return "common/msg";
+	}
+	@RequestMapping(value="helperMgr.do")
+	public String helpMgr(int reqPage, Model model) {
+		HashMap<String, Object> data = service.selectAllHelper(reqPage);
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		return "admin/helperMgr";
+	}
+	@RequestMapping(value="/adminHelperSearch.do")
+	public String helperSearch(int reqPage, Search s, Model model) {
+		HashMap<String, Object> data = service.helperSearch(reqPage, s);
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		model.addAttribute("s", s);
+		return "admin/helperSearch";
 	}
 	//대시보드
 	@RequestMapping(value="/dashboard.do")

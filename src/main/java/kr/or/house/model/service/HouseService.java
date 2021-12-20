@@ -1,6 +1,6 @@
 package kr.or.house.model.service;
 
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.common.Address;
-import kr.or.common.Housesearch;
 import kr.or.common.Income;
-import kr.or.common.Move;
 import kr.or.common.Photo;
 import kr.or.common.Tour;
 import kr.or.house.model.dao.HouseDao;

@@ -8,14 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.common.Address;
+import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import kr.or.helper.model.dao.HelperDao;
 import kr.or.helper.model.vo.Helper;
+import kr.or.house.model.dao.HouseDao;
+import kr.or.house.model.vo.House;
+import kr.or.member.model.vo.Member;
 
 @Service
 public class HelperService {
 	@Autowired
 	private HelperDao dao;
+	@Autowired
+	private HouseDao hdao;
 
 	// 사진없을때
 	public int helperRequestNoImg(Helper h, Income i2, String[] addressCode, String[] addressName, String[] addressRoad,
@@ -148,6 +154,68 @@ public class HelperService {
 				return 0;
 			}
 	
+	}
+	//헬퍼 리스트 출력 부분 - sowon
+	public HashMap<String, Object> selectAjaxHelper(int pageNum, int memberNo, String keyword, Helper h, Member mem) {
+		// 한 페이지에 몇개 보여줄건지
+		int numPerPage = 9;
+		// 보여줄 페이지의 시작 ROWNUM - 0부터 시작
+		// 보여줄 페이지의 끝 ROWNUM
+		int end = pageNum * numPerPage;
+		int start = end - numPerPage + 1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberNo", memberNo);
+		map.put("keyword", keyword);
+		map.put("gender", mem.getGender());
+		map.put("helperStartTime", h.getHelperStartTime());
+		map.put("helperEndTime",h.getHelperEndTime());
+		map.put("helperCategory",h.getHelperCategory());
+		ArrayList<Helper> list = dao.selectAjaxHelper(map);
+		int totalRow = hdao.selectAjaxTotal();
+		// 전체 페이지의 갯수 구하기
+		int totalPageCount = (totalRow % numPerPage == 0) ? (totalRow / numPerPage) : (totalRow / numPerPage + 1);
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("list", list);
+		data.put("totalPageCount", totalPageCount);
+		data.put("startPageNum", start);
+		return data;
+	}
+	//helper like select
+	public int helperLike(int memberNo, int helperNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("helperNo", helperNo);
+		return dao.helperLike(map);
+	}
+	//helper like total
+	public int helperLikeCount(int helperNo) {
+		return dao.helperLikeCount(helperNo);
+	}
+	//helper like insert
+	public int insertHelperLike(int memberNo, int helperNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("helperNo", helperNo);
+		return dao.insertHelperLike(map);
+	}
+	//helper like delete
+	public int deleteHelperLike(int memberNo, int helperNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("helperNo", helperNo);
+		return dao.deleteHelperLike(map);
+	}
+	//헬퍼 상세보기 - sowon
+	public Helper selectHelperView(int helperNo, int memberNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("helperNo", helperNo);
+		map.put("memberNo", memberNo);
+		Helper h = dao.selectHelperView(map);
+		ArrayList<HelpReview> review = dao.selectHelperReview(map);
+		h.setReview(review);
+		return h;
 	}
 
 }

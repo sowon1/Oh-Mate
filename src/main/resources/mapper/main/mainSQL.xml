@@ -2,37 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="main">
 	<!-- 헬퍼 리스트 조회 3개만 -->
-	<select id="helperList" resultType="kr.or.helper.model.vo.Helper">
-		select 
-			 helper_no as helperNo,
-			 member_no as memberNo,
-			 helper_name as helperName,
-			 helper_category as helperCategory,
-			 helper_start_time as helperStartTime,
-			 helper_end_time as helperEndTime,
-			 helper_ride as helperRide,
-			 helper_status as helperStatus,
-			 helper_filepath as helperFilepath,
-			 helper_intro as helperIntro,
-			 helper_credit as helperCredit,
-			 helper_refuse as helperRefuse
-		from 
-			(select rownum as rnum, h.* from
-			(select * from helper where HELPER_STATUS=2 order by 1 desc)h) 
-		where rnum between 1 and 3
+	<select id="helperList" parameterType="_int" resultType="hp">
+
+        select * from
+        (select 
+            rownum as rnum,
+            
+            h.helper_no as helperNo,
+			 h.member_no as memberNo,
+			 h.helper_name as helperName,
+			 h.helper_category as helperCategory,
+			 h.helper_start_time as helperStartTime,
+			 h.helper_end_time as helperEndTime,
+			 h.helper_ride as helperRide,
+			 h.helper_status as helperStatus,
+			 h.helper_filepath as helperFilepath,
+			 h.helper_intro as helperIntro,
+			 h.helper_credit as helperCredit,
+			 h.helper_refuse as helperRefuse,
+            (select age from member where member_no=h.helper_no) as age,
+            (select gender from member where member_no=h.helper_no) as gender,
+            decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=h.helper_no),'1','좋아요','좋아요취소') as likedCheck         
+        from 
+        (select * from helper where HELPER_STATUS=1 order by 1 desc)h) 
+		where rnum between 1 and 4
 	</select>
 	<!-- 하우스 리스트 조회 3개만 -->
 	<select id="houseList" parameterType="_int" resultMap="house">
 		select * from 
 			(select rownum as rnum, h.*, (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount, 
             decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','좋아요','좋아요취소') as likedCheck from
-			(select * from house where HOUSE_ALLOW=1 order by 1 desc)h) 
+			(select * from house where HOUSE_ALLOW=2 order by 1 desc)h) 
 		where rnum between 1 and 3
 	</select>
-	<!-- 
-			(select rownum as rnum, h.*,decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=2 and BOOKMARK_NUM=h.house_no),'1','y','n') as liked_check from
-			(select * from house where HOUSE_ALLOW=1 order by 1 desc)h) 
-	 -->
+
 	<!-- 하우스 사진 조회 테이블 -->
 	<select id="selectFileList" resultType="f">
 		select

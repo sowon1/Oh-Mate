@@ -77,9 +77,11 @@
 	background: #fff;
 	z-index:10;
 }
-
-.filterTitle strong{
+.filterTitle{
 	color:#666;
+	font-size:14px;
+}
+.filterTitle strong{
 	font-family: "ns_700";
 	font-size:22px;
 }
@@ -100,6 +102,9 @@
 }
 .filter_cont div input {
     display: none
+}
+.time_filter_cont div input{
+	display: block;
 }
 .filter_cont label {
     display: inline-block;
@@ -129,7 +134,13 @@
     color: #fff
 }
 /* 선택 */
-.genderFilter, .houseTypeWrap, .houseTypeWrap{
+.genderFilter, .ageFilter{
+	float:left;
+	width: 438px;
+	margin-bottom:40px;
+}
+.houseTypeWrap,.timeWrap{
+	clear:both;
 	float:left;
 	width:100%;
 	margin-bottom:40px;

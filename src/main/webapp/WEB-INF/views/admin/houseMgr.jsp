@@ -58,13 +58,13 @@
         <div>
             <table class="table">
                 <tr class="table-secondary">
-                    <th style="width:10%;">No</th>
-                    <th style="width:10%;">하우스오너</th>
-                    <th style="width:260px;">하우스 이름</th>
-                    <th style="width:340px;">주소</th>
-                    <th style="width:10%;">임대 만료일</th>
-                    <th style="width:10%;">매매 상태</th>
-                    <th style="width:10%;">승인 상태</th>
+                    <th style="width:7%;">No</th>
+                    <th style="width:12%;">하우스오너</th>
+                    <th style="width:240px;">하우스 이름</th>
+                    <th style="width:260px;">주소</th>
+                    <th style="width:12%;">임대 만료일</th>
+                    <th style="width:11%;">매매 상태</th>
+                    <th style="width:14%;">승인 상태</th>
                 </tr>
                 <c:forEach items="${list }" var="h" varStatus="i">
                 	<tr>
@@ -86,7 +86,7 @@
 	                    <td>
 	                    	<c:choose>
 	                    		<c:when test="${h.houseSelling eq 1}">
-	                    			판매중
+	                    			판매 중
 	                    		</c:when>
 	                    		<c:when test="${h.houseSelling eq 2}">
 	                    			판매완료
@@ -103,6 +103,9 @@
 	                    		</c:when>
 	                    		<c:when test="${h.houseAllow eq 3}">
 	                    			미승인
+	                    		</c:when>
+	                    		<c:when test="${h.houseAllow eq 4}">
+	                    			승인 재요청
 	                    		</c:when>
 	                    	</c:choose>
 	                    </td>

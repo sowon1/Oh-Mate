@@ -346,32 +346,153 @@
 /* 좋아요 버튼 부분 */
 .like_house{
     position: absolute;
-    right: -20px;
-    top: -20px;   
+    right: 15px;
+    top: 15px;   
 }
 .heart{
 	cursor: pointer;
-    height: 120px;
-    width: 120px;
     outline:none;
     border:none;
     background:none;
-    background-image:url("/resources/img/icon/web_heart_animation.png");
-    background-position: left;
-    background-repeat:no-repeat;
-    background-size:2900%;
+    width:35px;
 }
-.heart:hover {
-    background-position:right;
-  }
-  
-  .is_animating {
-    animation: heart-burst .8s steps(28) 1;
-  }
-  ._click{
-    background-position:right;
-  }
-  @keyframes heart-burst {
-    from {background-position:left;}
-    to { background-position:right;}
-  }
+.heart img{
+	-webkit-animation: scaleUpCenter .4s ease-out both;
+	animation: scaleUpCenter .4s ease-out both;
+}
+.heart2{
+	cursor: pointer;
+    outline:none;
+    border:none;
+    background:none;
+    width:35px;
+}
+.heart2 img{
+	-webkit-animation: scaleUpCenter .4s ease-out both;
+	animation: scaleUpCenter .4s ease-out both;
+}
+.like_house img{
+    width: 30px;
+}
+@-webkit-keyframes scaleUp {
+from { opacity: 0; -webkit-transform: scale(.8); }
+}
+
+
+/* helper */
+.main_helper_list{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+.main_helper_list li{
+    width: 292px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    float: left;
+    border-radius: 20px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+}
+.main_helper_list li:last-child{
+	margin-right:0;
+}
+.helper_list_profile{
+	width:100%;
+}
+.helper_list_profile img{
+	display: block;
+}
+.helper_list_photo{
+	width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.like_helper{
+    position: absolute;
+    right: 3px;
+    top: 3px;   
+}
+.like_helper img {
+	width: 30px;
+}
+.helper_list_text_name{
+	display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-top:30px;
+}
+.helper_list_nickname{
+	font-size: 18px;
+    font-family: "ns_700";
+	text-align: center;
+	float:left;
+	margin-right:5px;
+}
+.helper_list_age, .helper_list_gender{
+	float:left;
+	color:#666;
+	font-size:14px;
+}
+.helper_Category{
+	margin-top:15px;
+	float:left;
+	clear:both;
+	width:100%;
+	height: 52px;
+	white-space: normal;
+	display: -webkit-box;
+	-webkit-line-clamp:2;
+	-webkit-box-orient:vertical;
+	overflow: hidden;
+	position: relative;
+}
+.helper_list_text_info{
+	margin-top:15px;
+	float:left;
+	clear:both;
+}
+.helper_Category_title{
+    margin-right: 5px;
+    font-size: 14px;
+    color: #9c9ba1;
+    display: inline-block;
+}
+
+.helper_list_text_code{
+	background: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 2px 12px;
+    border-radius: 50px;
+    margin-right: 5px;
+    font-size: 14px;
+    color: #666;
+    margin-bottom:5px;
+    display: inline-block;
+    float:left;
+}
+.helper_Category:before {
+  content: "";
+  display: block;
+  width: 20px;
+  border-top: 2px solid #956bfc;
+  margin:0 auto;
+  margin-bottom:5px;
+}
+.helper_list_intro{
+	width: 100%;
+    height: 70px;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 8px;
+    float: left;
+    clear: both;
+}
+.helper_list_intro p{
+	margin-bottom:0;
+}

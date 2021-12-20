@@ -132,8 +132,75 @@
  		where house_no = #{houseNo}
  	</update>
 	<!-- 투어신청 리스트 -->
- 	<select id="selectTourRequest" parameterType="map" resultType="t">
- 		select
+ 	<select id="selectTourRequest" parameterType="map" resultMap="tour">
+ 		select * from 
+    		(select 
+       			rownum as rnum, 
+        		r.house_no,
+        		t.*,
+        		a.address_name,
+        		a.address_road,
+        		a.address_legal
+    		from room r 
+        		join tour t on r.room_no = t.room_no
+        		join address a on r.house_no = a.address_number
+    		where t.member_no = #{memberNo} and a.address_category=1
+    		order by 1 desc)
+		where rnum between #{start} and #{end}
+ 	</select>
+ 	<!-- tour에 하우스 사진 -->
+ 	<select id="selectFileList" parameterType="_int" resultType="f">
+		select
+			photo_no as photoNo,
+			photo_category as photoCategory, 
+			photo_path as photoPath, 
+			photo_num as photoNum 
+		from 
+			(select rownum as rnum, h.* from
+			(select * from photo where photo_category=1 and photo_num = #{houseNo} order by 1 )h) 
+		where rnum = 1
+	</select>
+	<resultMap type="t" id="tour">
+		<result column="house_no" property="houseNo"/>
+		<result column="tour_no" property="tourNo"/>
+		<result column="room_no" property="roomNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="tour_phone" property="tourPhone"/>
+		<result column="tour_email" property="tourEmail"/>
+		<result column="house_name" property="houseName"/>
+		<result column="tour_qna" property="tourQna"/>
+		<result column="tour_visit" property="tourVisit"/>
+		<result column="tour_status" property="tourStatus"/>
+		<result column="address_name" property="addressName"/>
+		<result column="address_road" property="addressRoad"/>
+		<result column="address_legal" property="addressLegal"/>
+		<collection property="photoList"
+					column="house_no"
+					javaType="java.util.ArrayList"
+					ofType="f"
+					select="selectFileList"	
+		/>
+	</resultMap>
+	<!-- tourRequestList count -->
+ 	<select id="tourRequestCount" parameterType="_int" resultType="_int">
+ 		select count(*) from tour where member_no = #{memberNo}
+ 	</select>
+	<select id="selectOneRoomTM" parameterType="map" resultType="r">
+		select
+ 			room_no as roomNo,
+ 			house_no as houseNo,
+ 			room_title as roomTitle,
+ 			room_size as roomSize,
+ 			room_phone as roomPhone,
+ 			room_status as roomStatus,
+ 			room_charge as roomCharge,
+ 			room_content as roomContent,
+ 			room_personnel as roomPersonnel,
+ 			room_month as roomMonth
+ 		from room where room_no=#{roomNo} and house_no =#{houseNo}
+	</select>
+	<select id="selectAllTourList" parameterType="map" resultType="t">
+		select
  			tour_no as tourNo,
  			room_no as roomNo,
  			member_no as memberNo,
@@ -143,11 +210,33 @@
  			tour_qna as tourQna,
  			tour_visit as tourVisit,
  			tour_status as tourStatus
- 		from (select rownum as rnum, t.* from (SELECT * FROM tour where member_no=#{memberNo} order by 1 desc)t) 
-		where rnum between #{start} and #{end}
+ 		from (select rownum as rnum, t.* from (SELECT * FROM tour where room_no=#{roomNo} order by 1 desc)t) 
+		where rnum between #{tourstart} and #{tourend}
+	</select>
+	<select id="selectAllMoveList" parameterType="map" resultType="move">
+		select
+			move_no as moveNo,
+			room_no as roomNo,
+			member_no as memberNo,
+			move_start as moveStart,
+			move_end as moveEnd,
+			move_phone as movePhone
+		from (select rownum as rnum, m.* from (SELECT * FROM move where room_no=#{roomNo} order by 1 desc)m)
+		where rnum between #{tourstart} and #{tourend}
+	</select>
+	<select id="tourTotalCount" parameterType="map" resultType="_int">
+ 		select count(*) from tour where room_no = #{roomNo}
  	</select>
- 	<select id="tourRequestCount" parameterType="_int" resultType="_int">
- 		select count(*) from tour where member_no = #{memberNo}
+ 	<select id="moveTotalCount" parameterType="map" resultType="_int">
+ 		select count(*) from move where room_no = #{roomNo}
  	</select>
-
+ 	<select id="selectOneMemberName" parameterType="_int" resultType="string">
+ 		select
+ 			member_name as memberName
+ 		from member where member_no = #{memberNo}
+ 	</select>
+ 	<update id="updateTourStatus" parameterType="map">
+ 		update tour set tour_status = #{tourStatus}
+ 		where tour_no= #{tourNo}
+ 	</update>
 </mapper>

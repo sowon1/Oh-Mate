@@ -1,12 +1,18 @@
 package kr.or.helper.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.common.Address;
+import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import kr.or.helper.model.vo.Helper;
+
 
 @Repository
 public class HelperDao {
@@ -67,6 +73,36 @@ public class HelperDao {
 	public int insertHouseAndImgUpdate(Helper h) {
 		// TODO Auto-generated method stub
 		return session.update("helper.updateHelperReqImg", h);
+	}
+	//헬퍼 리스트 출력 부분 - sowon
+	public ArrayList<Helper> selectAjaxHelper(HashMap<String, Object> map) {
+		List<Helper> list = session.selectList("helper.selectAjaxHelper",map);
+		return (ArrayList<Helper>)list;
+	}
+	//helper like select
+	public int helperLike(HashMap<String, Object> map) {
+		return session.selectOne("helper.helperLike",map);
+	}
+	//helper like total
+	public int helperLikeCount(int helperNo) {
+		return session.selectOne("helper.helperLikeCount",helperNo);
+	}
+	//helper like insert
+	public int insertHelperLike(HashMap<String, Object> map) {
+		return session.update("helper.insertHelperLike",map);
+	}
+	//helper like delete
+	public int deleteHelperLike(HashMap<String, Object> map) {
+		return session.delete("helper.deleteHelperLike",map);
+	}
+	//헬퍼 상세보기 - sowon
+	public Helper selectHelperView(HashMap<String, Object> map) {
+		return session.selectOne("helper.selectHelperView",map);
+	}
+	//헬퍼 후기 조회
+	public ArrayList<HelpReview> selectHelperReview(HashMap<String, Object> map) {
+		List<HelpReview> review = session.selectList("helper.selectHelperReview",map);
+		return (ArrayList<HelpReview>) review;
 	}
 	
 }

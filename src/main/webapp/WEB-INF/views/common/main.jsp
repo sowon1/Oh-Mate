@@ -69,13 +69,17 @@
 	                        <div class="like_house">
 	                        	<c:choose>
 	                        		<c:when test="${empty sessionScope.m}">
-	                        			<button onclick="msgpopupopen();" class="heart"></button>
+	                        			<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>
 	                        		</c:when>
 	                        		<c:when test="${h.likedCheck == '좋아요'}">
-				                		<button onclick="likehouse(this,${h.houseNo});" class="heart _click"></button>
+				                		<a idx="${h.houseNo}" class="heart">
+				                			<img src="/resources/img/icon/heart_on.png">
+				                		</a>
 				                	</c:when>
 				                	<c:otherwise>                							              
-										<button onclick="likehouse(this,${h.houseNo});" class="heart"></button>
+										<a idx="${h.houseNo}" class="heart">
+											<img src="/resources/img/icon/heart_off.png">
+										</a>
 				                	</c:otherwise>
 	                        	</c:choose>
 	                        </div>
@@ -127,19 +131,93 @@
     <div class="container_mate main_section04">
         <h1 class="point_title">Oh, Help me!</h1>
         <h3 class="sub_text">살다가 혼자서 처리하지 못하는 일이 생긴다면!? 오메, 도와줘요!</h3>
-        <ul class="main_house_list">
+        <ul class="main_helper_list">
            <c:forEach items="${hplist}" var="hp">
-	        	<a href="<c:url value='/helper/helperView?helperNo=${hp.helperNo}'/>">
 		            <li>
 	                    <div class="helper_list_photo">
-	                        <div class="like_house">
-	                            <img src="/resources/img/icon/heart_off.png">
+	                        <div class="like_helper">
+	                        	<c:choose>
+	                        		<c:when test="${empty sessionScope.m}">
+	                        			<button onclick="msgpopupopen();" class="heart2"><img src="/resources/img/icon/heart_off.png"></button>
+	                        		</c:when>
+	                        		<c:when test="${hp.likedCheck == '좋아요'}">
+				                		<a idx2="${hp.helperNo}" class="heart2">
+				                			<img src="/resources/img/icon/heart_on.png">
+				                		</a>
+				                	</c:when>
+				                	<c:otherwise>                							              
+										<a idx2="${hp.helperNo}" class="heart2">
+											<img src="/resources/img/icon/heart_off.png">
+										</a>
+				                	</c:otherwise>
+	                        	</c:choose>                         
 	                        </div>
-	                        <img src="/upload/helper/${hp.helperFilepath}">
+							<div class="helper_list_profile">
+			                    <img src="/resources/img/upload/helper/${hp.helperFilepath}" class="profile_view">
+			        		</div>
 	                    </div>
-		            </li>           
-	        	</a>
-	        </c:forEach> 
+		        	<a href="<c:url value='/helperView.do?helperNo=${hp.helperNo}'/>">
+	                    <div class="helper_list_text_name">
+			        		<span class="helper_list_nickname">${hp.helperName}</span>
+			        		<c:choose>
+			        			<c:when test="${hp.age == 1}">			        				
+					        		<span class="helper_list_age">20대·</span>
+			        			</c:when>
+			        			<c:when test="${hp.age == 2}">			        				
+					        		<span class="helper_list_age">30대·</span>
+			        			</c:when>
+			        			<c:otherwise>
+					        		<span class="helper_list_age">40대·</span>			        			
+			        			</c:otherwise>
+			        		</c:choose>
+			        		<c:choose>
+			        			<c:when test="${hp.gender == 1}">
+					        		<span class="helper_list_gender">남</span>
+			        			</c:when>
+			        			<c:otherwise>
+					        		<span class="helper_list_gender">여</span>			        			
+			        			</c:otherwise>
+			        		</c:choose>
+			        	</div>
+			        	<div class="helper_list_text_info">
+			        		<span class="helper_list_text_code">활동시간 ${hp.helperStartTime}</span>
+			        		<span class="helper_list_text_code">
+			        			이동수단 
+			        			<c:choose>
+			        				<c:when test="${hp.helperRide == 1}">
+			        					자동차
+			        				</c:when>
+			        				<c:when test="${hp.helperRide == 2}">
+			        					오토바이
+			        				</c:when>
+			        				<c:when test="${hp.helperRide == 3}">
+			        					전동퀵보드
+			        				</c:when>
+			        				<c:when test="${hp.helperRide == 4}">
+			        					자전거
+			        				</c:when>
+			        				<c:otherwise>
+			        					걸어서
+			        				</c:otherwise>
+			        			</c:choose>			        		
+			        		</span>
+			        	</div>
+			        	<div class="helper_list_intro">
+			        		${hp.helperIntro}
+			        	</div>
+			        	<div class="helper_Category" value="${hp.helperCategory}">
+			        		<span class="helper_Category_title">#배달·장보기</span>
+			        		<span class="helper_Category_title">#청소·집안일</span>
+			        		<span class="helper_Category_title">#설치·조립·운반</span>
+			        		<span class="helper_Category_title">#동행·돌봄</span>
+			        		<span class="helper_Category_title">#벌레·쥐</span>
+			        		<span class="helper_Category_title">#역할대행</span>
+			        		<span class="helper_Category_title">#과외·알바</span>
+			        		<span class="helper_Category_title">#기타·원격</span>
+			        	</div>
+		        	</a>
+		         </li>           
+	        </c:forEach>	        
         </ul>
     </div>
     <div class="main_section05">
@@ -201,23 +279,46 @@
 		$(".main_modal_login").click(function(){
 	    	msgpopupclose();
 	    });
-		//좋아요
-		function likehouse(c,obj){
+		//House - 좋아요
+		$(document).on("click",".heart",function(){
 			var memberNo = "${sessionScope.m.memberNo}";
-			var houseNo = obj;
+			var houseNo = $(this).attr('idx');		
+			var heart = $(this);
 			$.ajax({
 				url : "/houseLike.do",
 				data : {memberNo:memberNo, houseNo:houseNo},
 				type: "POST",
-				success : function(data){					
-					if(data.likeCheck == 0){						
-						 $(c).attr("class","heart is_animating");						
+				success : function(data){
+					if(data.likeCheck == 0){
+						heart.children().attr("src","/resources/img/icon/heart_off.png");
 					}else{
-						$(c).attr("class","heart is_animating _click");					
+						heart.children().attr("src","/resources/img/icon/heart_on.png");
 					}
 				}
-			})
-		}
+			});
+		});
+		
+		//Helper - 좋아요
+		$(document).on("click",".heart2",function(){
+			var memberNo = "${sessionScope.m.memberNo}";
+			var helperNo = $(this).attr('idx2');		
+			var heart2 = $(this);
+			console.log(this);
+			$.ajax({
+				url : "/HelperMainLike.do",
+				data : {memberNo:memberNo, helperNo:helperNo},
+				type: "POST",
+				success : function(data){
+					console.log(data);
+					console.log(data.likeCheck);
+					if(data.likeCheck == 0){
+						heart2.children().attr("src","/resources/img/icon/heart_off.png");
+					}else{
+						heart2.children().attr("src","/resources/img/icon/heart_on.png");
+					}
+				}
+			});
+		});
 		//검색 
 		$("#search_data").click(function(){
 			var keyword = $("input[name='keyword']").val();
@@ -348,6 +449,16 @@
 	            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	        }
 	    });
+		
+		//helper 카테고리
+		$(function(){
+			var options = $(".helper_Category").attr("value");
+			for(var i=0;i<options.length;i++){
+				if(options.charAt(i) == 0){
+					$(".helper_Category>span").eq(i).hide();
+				}
+			}
+		});		
 	</script>
 </body>
 </html>

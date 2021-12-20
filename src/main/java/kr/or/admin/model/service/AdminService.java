@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.admin.model.dao.AdminDao;
-import kr.or.admin.model.vo.SearchHouse;
-import kr.or.admin.model.vo.SearchMember;
-import kr.or.admin.model.vo.SearchReport;
+import kr.or.admin.model.vo.Search;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Report;
+import kr.or.helper.model.vo.Helper;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
@@ -64,16 +63,16 @@ public class AdminService {
 		return data;
 	}
 
-	public HashMap<String, Object> memberSearch(int reqPage, SearchMember sm) {
+	public HashMap<String, Object> memberSearch(int reqPage, Search s) {
 		int numPerPage = 10;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage +1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("level", sm.getLevel());
-		map.put("type", sm.getType());
-		map.put("keyword", sm.getKeyword());
+		map.put("level", s.getLevel());
+		map.put("type", s.getType());
+		map.put("keyword", s.getKeyword());
 		ArrayList<Member> list = dao.memberSearch(map);
 		int totalCnt = dao.totalSearchCnt(map);
 		int totalPage = (totalCnt % numPerPage == 0) ? (totalCnt / numPerPage) : (totalCnt / numPerPage + 1);
@@ -81,28 +80,28 @@ public class AdminService {
 		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
 		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if(pageNo != 1) {
-			pageNavi += "<li class='page-item-mate-mate'><a href='/adminMemberSearch.do?reqPage="+(pageNo-1)+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
-			if(sm.getLevel() != null) {
-				for(int i=0;i<sm.getLevel().length;i++) {
-					pageNavi += "&level="+sm.getLevel()[i];
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminMemberSearch.do?reqPage="+(pageNo-1)+"&type="+s.getType()+"&keyword="+s.getKeyword();
+			if(s.getLevel() != null) {
+				for(int i=0;i<s.getLevel().length;i++) {
+					pageNavi += "&level="+s.getLevel()[i];
 				}
 			}
 			pageNavi += "'>&lt;</a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi += "<li class='page-item-mate-mate active'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
-				if(sm.getLevel() != null) {
-					for(int j=0;j<sm.getLevel().length;j++) {
-						pageNavi += "&level="+sm.getLevel()[j];
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword();
+				if(s.getLevel() != null) {
+					for(int j=0;j<s.getLevel().length;j++) {
+						pageNavi += "&level="+s.getLevel()[j];
 					}
 				}
 				pageNavi += "'>"+pageNo+"</a></li>";
 			}else {
-				pageNavi += "<li class='page-item-mate-mate'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
-				if(sm.getLevel() != null) {
-					for(int j=0;j<sm.getLevel().length;j++) {
-						pageNavi += "&level="+sm.getLevel()[j];				
+				pageNavi += "<li class='page-item-mate-mate'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword();
+				if(s.getLevel() != null) {
+					for(int j=0;j<s.getLevel().length;j++) {
+						pageNavi += "&level="+s.getLevel()[j];				
 					}
 				}
 				pageNavi += "'>"+pageNo+"</a></li>";
@@ -113,10 +112,10 @@ public class AdminService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li class='page-item-mate-mate'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+sm.getType()+"&keyword="+sm.getKeyword();
-			if(sm.getLevel() != null) {
-				for(int i=0;i<sm.getLevel().length;i++) {
-					pageNavi += "&level="+sm.getLevel()[i];				
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminMemberSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword();
+			if(s.getLevel() != null) {
+				for(int i=0;i<s.getLevel().length;i++) {
+					pageNavi += "&level="+s.getLevel()[i];				
 				}
 			}
 			pageNavi += "'>&gt;</a></li>";
@@ -195,17 +194,17 @@ public class AdminService {
 		return data;
 	}
 
-	public HashMap<String, Object> reportSearch(int reqPage, SearchReport sr) {
+	public HashMap<String, Object> reportSearch(int reqPage, Search s) {
 		int numPerPage = 10;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage +1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("status", sr.getStatus());
-		map.put("cate", sr.getCate());
-		map.put("type", sr.getType());
-		map.put("keyword", sr.getKeyword());
+		map.put("status", s.getStatus());
+		map.put("cate", s.getCate());
+		map.put("type", s.getType());
+		map.put("keyword", s.getKeyword());
 		ArrayList<Report> list = dao.reportSearch(map);
 		int totalCnt = dao.totalSearchReportCnt(map);
 		int totalPage = (totalCnt % numPerPage == 0) ? (totalCnt / numPerPage) : (totalCnt / numPerPage + 1);
@@ -213,43 +212,43 @@ public class AdminService {
 		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
 		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if(pageNo != 1) {
-			pageNavi += "<li class='page-item-mate-mate'><a href='/reportSearch.do?reqPage="+(pageNo-1)+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
-			if(sr.getStatus() != null) {
-				for(int i=0;i<sr.getStatus().length;i++) {
-					pageNavi += "&status="+sr.getStatus()[i];
+			pageNavi += "<li class='page-item-mate-mate'><a href='/reportSearch.do?reqPage="+(pageNo-1)+"&type="+s.getType()+"&keyword="+s.getKeyword();
+			if(s.getStatus() != null) {
+				for(int i=0;i<s.getStatus().length;i++) {
+					pageNavi += "&status="+s.getStatus()[i];
 				}
 			}
-			if(sr.getCate() != null) {
-				for(int i=0;i<sr.getCate().length;i++) {
-					pageNavi += "&cate="+sr.getCate()[i];
+			if(s.getCate() != null) {
+				for(int i=0;i<s.getCate().length;i++) {
+					pageNavi += "&cate="+s.getCate()[i];
 				}
 			}
 			pageNavi += "'>&lt;</a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi += "<li class='page-item-mate-mate active'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
-				if(sr.getStatus() != null) {
-					for(int j=0;j<sr.getStatus().length;j++) {
-						pageNavi += "&status="+sr.getStatus()[j];
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword();
+				if(s.getStatus() != null) {
+					for(int j=0;j<s.getStatus().length;j++) {
+						pageNavi += "&status="+s.getStatus()[j];
 					}
 				}
-				if(sr.getCate() != null) {
-					for(int j=0;j<sr.getCate().length;j++) {
-						pageNavi += "&cate="+sr.getCate()[j];
+				if(s.getCate() != null) {
+					for(int j=0;j<s.getCate().length;j++) {
+						pageNavi += "&cate="+s.getCate()[j];
 					}
 				}
 				pageNavi += "'>"+pageNo+"</a></li>";
 			}else {
-				pageNavi += "<li class='page-item-mate-mate'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
-				if(sr.getStatus() != null) {
-					for(int j=0;j<sr.getStatus().length;j++) {
-						pageNavi += "&status="+sr.getStatus()[j];				
+				pageNavi += "<li class='page-item-mate-mate'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword();
+				if(s.getStatus() != null) {
+					for(int j=0;j<s.getStatus().length;j++) {
+						pageNavi += "&status="+s.getStatus()[j];				
 					}
 				}
-				if(sr.getCate() != null) {
-					for(int j=0;j<sr.getCate().length;j++) {
-						pageNavi += "&cate="+sr.getCate()[j];
+				if(s.getCate() != null) {
+					for(int j=0;j<s.getCate().length;j++) {
+						pageNavi += "&cate="+s.getCate()[j];
 					}
 				}
 				pageNavi += "'>"+pageNo+"</a></li>";
@@ -260,15 +259,15 @@ public class AdminService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li class='page-item-mate-mate'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+sr.getType()+"&keyword="+sr.getKeyword();
-			if(sr.getStatus() != null) {
-				for(int i=0;i<sr.getStatus().length;i++) {
-					pageNavi += "&status="+sr.getStatus()[i];				
+			pageNavi += "<li class='page-item-mate-mate'><a href='/reportSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword();
+			if(s.getStatus() != null) {
+				for(int i=0;i<s.getStatus().length;i++) {
+					pageNavi += "&status="+s.getStatus()[i];				
 				}
 			}
-			if(sr.getCate() != null) {
-				for(int i=0;i<sr.getCate().length;i++) {
-					pageNavi += "&cate="+sr.getCate()[i];
+			if(s.getCate() != null) {
+				for(int i=0;i<s.getCate().length;i++) {
+					pageNavi += "&cate="+s.getCate()[i];
 				}
 			}
 			pageNavi += "'>&gt;</a></li>";
@@ -331,17 +330,17 @@ public class AdminService {
 		return data;
 	}
 
-	public HashMap<String, Object> houseSearch(int reqPage, SearchHouse sh) {
+	public HashMap<String, Object> houseSearch(int reqPage, Search s) {
 		int numPerPage = 10;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage +1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("status", sh.getStatus());
-		map.put("addrName", sh.getAddrName());
-		map.put("type", sh.getType());
-		map.put("keyword", sh.getKeyword());
+		map.put("status", s.getStatus());
+		map.put("addrName", s.getAddrName());
+		map.put("type", s.getType());
+		map.put("keyword", s.getKeyword());
 		ArrayList<House> list = dao.houseSearch(map);
 		int totalCnt = dao.totalSearchHouseCnt(map);
 		int totalPage = (totalCnt % numPerPage == 0) ? (totalCnt / numPerPage) : (totalCnt / numPerPage + 1);
@@ -349,28 +348,28 @@ public class AdminService {
 		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
 		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if(pageNo != 1) {
-			pageNavi += "<li class='page-item-mate-mate'><a href='/adminHouseSearch.do?reqPage="+(pageNo-1)+"&type="+sh.getType()+"&keyword="+sh.getKeyword()+"&addrName="+sh.getAddrName();
-			if(sh.getStatus() != null) {
-				for(int i=0;i<sh.getStatus().length;i++) {
-					pageNavi += "&status="+sh.getStatus()[i];
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminHouseSearch.do?reqPage="+(pageNo-1)+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&addrName="+s.getAddrName();
+			if(s.getStatus() != null) {
+				for(int i=0;i<s.getStatus().length;i++) {
+					pageNavi += "&status="+s.getStatus()[i];
 				}
 			}
 			pageNavi += "'>&lt;</a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
-				pageNavi += "<li class='page-item-mate-mate active'><a href='/adminHouseSearch.do?reqPage="+pageNo+"&type="+sh.getType()+"&keyword="+sh.getKeyword()+"&addrName="+sh.getAddrName();
-				if(sh.getStatus() != null) {
-					for(int j=0;j<sh.getStatus().length;j++) {
-						pageNavi += "&status="+sh.getStatus()[j];
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/adminHouseSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&addrName="+s.getAddrName();
+				if(s.getStatus() != null) {
+					for(int j=0;j<s.getStatus().length;j++) {
+						pageNavi += "&status="+s.getStatus()[j];
 					}
 				}
 				pageNavi += "'>"+pageNo+"</a></li>";
 			}else {
-				pageNavi += "<li class='page-item-mate-mate'><a href='/adminHouseSearch.do?reqPage="+pageNo+"&type="+sh.getType()+"&keyword="+sh.getKeyword()+"&addrName="+sh.getAddrName();
-				if(sh.getStatus() != null) {
-					for(int j=0;j<sh.getStatus().length;j++) {
-						pageNavi += "&status="+sh.getStatus()[j];				
+				pageNavi += "<li class='page-item-mate-mate'><a href='/adminHouseSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&addrName="+s.getAddrName();
+				if(s.getStatus() != null) {
+					for(int j=0;j<s.getStatus().length;j++) {
+						pageNavi += "&status="+s.getStatus()[j];				
 					}
 				}
 				pageNavi += "'>"+pageNo+"</a></li>";
@@ -381,10 +380,10 @@ public class AdminService {
 			}
 		}
 		if(pageNo <= totalPage) {
-			pageNavi += "<li class='page-item-mate-mate'><a href='/adminHouseSearch.do?reqPage="+pageNo+"&type="+sh.getType()+"&keyword="+sh.getKeyword()+"&addrName="+sh.getAddrName();
-			if(sh.getStatus() != null) {
-				for(int i=0;i<sh.getStatus().length;i++) {
-					pageNavi += "&status="+sh.getStatus()[i];				
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminHouseSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&addrName="+s.getAddrName();
+			if(s.getStatus() != null) {
+				for(int i=0;i<s.getStatus().length;i++) {
+					pageNavi += "&status="+s.getStatus()[i];				
 				}
 			}
 			pageNavi += "'>&gt;</a></li>";
@@ -406,5 +405,113 @@ public class AdminService {
 	@Transactional
 	public int updateHouse(House h) {
 		return dao.updateHouse(h);
+	}
+
+	public HashMap<String, Object> selectAllHelper(int reqPage) {
+		int numPerPage = 10;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage +1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		ArrayList<Helper> list = dao.selectAllHelper(map);
+		int totalCnt = dao.totalHelperCount();
+		int totalPage = (totalCnt % numPerPage == 0) ? (totalCnt / numPerPage) : (totalCnt / numPerPage + 1);
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/helperMgr.do?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "&lt;</a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/helperMgr.do?reqPage="+pageNo+"'>";
+				pageNavi += pageNo+"</a></li>";
+			}else {
+				pageNavi += "<li class='page-item-mate-mate'><a href='/helperMgr.do?reqPage="+pageNo+"'>";
+				pageNavi += pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/helperMgr.do?reqPage="+pageNo+"'>";
+			pageNavi += "&gt;</a></li>";
+		}
+		pageNavi += "</ul>";
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("pageNavi", pageNavi);
+		data.put("list", list);
+		data.put("start", start);
+		return data;
+	}
+
+	public HashMap<String, Object> helperSearch(int reqPage, Search s) {
+		int numPerPage = 10;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage +1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("status", s.getStatus());
+		map.put("addrName", s.getAddrName());
+		map.put("type", s.getType());
+		map.put("keyword", s.getKeyword());
+		ArrayList<Helper> list = dao.helperSearch(map);
+		int totalCnt = dao.totalSearchHelperCnt(map);
+		int totalPage = (totalCnt % numPerPage == 0) ? (totalCnt / numPerPage) : (totalCnt / numPerPage + 1);
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminHelperSearch.do?reqPage="+(pageNo-1)+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&addrName="+s.getAddrName();
+			if(s.getStatus() != null) {
+				for(int i=0;i<s.getStatus().length;i++) {
+					pageNavi += "&status="+s.getStatus()[i];
+				}
+			}
+			pageNavi += "'>&lt;</a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/adminHelperSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&addrName="+s.getAddrName();
+				if(s.getStatus() != null) {
+					for(int j=0;j<s.getStatus().length;j++) {
+						pageNavi += "&status="+s.getStatus()[j];
+					}
+				}
+				pageNavi += "'>"+pageNo+"</a></li>";
+			}else {
+				pageNavi += "<li class='page-item-mate-mate'><a href='/adminHelperSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&addrName="+s.getAddrName();
+				if(s.getStatus() != null) {
+					for(int j=0;j<s.getStatus().length;j++) {
+						pageNavi += "&status="+s.getStatus()[j];				
+					}
+				}
+				pageNavi += "'>"+pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/adminHelperSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&addrName="+s.getAddrName();
+			if(s.getStatus() != null) {
+				for(int i=0;i<s.getStatus().length;i++) {
+					pageNavi += "&status="+s.getStatus()[i];				
+				}
+			}
+			pageNavi += "'>&gt;</a></li>";
+		}
+		pageNavi += "</ul>";
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("pageNavi", pageNavi);
+		data.put("list", list);
+		data.put("start", start);
+		return data;
 	}
 }

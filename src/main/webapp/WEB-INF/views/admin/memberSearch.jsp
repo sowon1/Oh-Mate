@@ -20,7 +20,7 @@
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" id="allChk"
-                        <c:if test="${not empty sm.level and fn:length(sm.level) eq 4}">
+                        <c:if test="${not empty s.level and fn:length(s.level) eq 4}">
                         	checked
                         </c:if>
                         >
@@ -28,8 +28,8 @@
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="1" id="mateChk" name="level"
-                        <c:if test="${not empty sm.level }">
-                        	<c:forEach items="${sm.level }" var="l">
+                        <c:if test="${not empty s.level }">
+                        	<c:forEach items="${s.level }" var="l">
 								<c:choose>
 		                    		<c:when test="${l eq 1 }">
 		                    			checked
@@ -42,8 +42,8 @@
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="2" id="houseownerChk" name="level"
-                        <c:if test="${not empty sm.level }">
-                        	<c:forEach items="${sm.level }" var="l">
+                        <c:if test="${not empty s.level }">
+                        	<c:forEach items="${s.level }" var="l">
                         		<c:choose>
 		                    		<c:when test="${l eq 2 }">
 		                    			checked
@@ -56,8 +56,8 @@
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="4" id="helperChk" name="level"
-                        <c:if test="${not empty sm.level }">
-                        	<c:forEach items="${sm.level }" var="l">
+                        <c:if test="${not empty s.level }">
+                        	<c:forEach items="${s.level }" var="l">
                         		<c:choose>
 		                    		<c:when test="${l eq 4 }">
 		                    			checked
@@ -70,8 +70,8 @@
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" value="3" id="blockChk" name="level"
-                        <c:if test="${not empty sm.level }">
-                        	<c:forEach items="${sm.level }" var="l">
+                        <c:if test="${not empty s.level }">
+                        	<c:forEach items="${s.level }" var="l">
                         		<c:choose>
 		                    		<c:when test="${l eq 3 }">
 		                    			checked
@@ -86,24 +86,24 @@
                 <div class="keywordBox">
                     <select class="form-select" name="type">
                     	<c:choose>
-                    		<c:when test="${sm.type eq 'memberId' }">
+                    		<c:when test="${s.type eq 'memberId' }">
 		                        <option value="memberId" selected>아이디</option>
 		                        <option value="memberName">이름</option>
 		                        <option value="phone">전화번호</option>                    			
                     		</c:when>
-                    		<c:when test="${sm.type eq 'memberName' }">
+                    		<c:when test="${s.type eq 'memberName' }">
 		                        <option value="memberId">아이디</option>
 		                        <option value="memberName" selected>이름</option>
 		                        <option value="phone">전화번호</option>                    			
                     		</c:when>
-                    		<c:when test="${sm.type eq 'phone' }">
+                    		<c:when test="${s.type eq 'phone' }">
 		                        <option value="memberId">아이디</option>
 		                        <option value="memberName">이름</option>
 		                        <option value="phone" selected>전화번호</option>                    			
                     		</c:when>
                     	</c:choose>
                     </select>
-                    <input type="text" class="input_03" name="keyword" value="${sm.keyword }">
+                    <input type="text" class="input_03" name="keyword" value="${s.keyword }">
                     <input type="submit" class="btn btn-primary" value="검색">
                 </div>
                 <a class="resetSearch">※ 검색 조건 초기화</a>

@@ -153,7 +153,7 @@
                    	</c:if>
                 </table>
                 <div class="btnBox">
-                    <button type="button" class="btn btn_out">목록</button>
+                    <button type="button" class="btn btn_out">이전</button>
                     <input type="submit" class="btn" value="수정">
                 </div>
             </form>

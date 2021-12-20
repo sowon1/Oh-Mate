@@ -4,7 +4,7 @@
     border-bottom: 1px solid #e7e7e7;
     margin: 50px 0 50px 0;
     padding: 30px 20px 30px 20px;
-    justify-content: space-between;
+    align-items: center;
     position: relative;
 }
 .resetSearch{
@@ -14,15 +14,12 @@
 }
 .searchBox>div{
     width: 50%;
-    display: flex;
-    align-items: center;
 }
-.searchBox p{
-	font-family: "ns_700";
-    margin: 0;
+.searchBox>div:last-child{
+    display: flex;	
 }
-.chkBox{
-    justify-content: space-around;
+.searchBox>div:last-child{
+    justify-content: flex-end;
     align-items: center;
 }
 .chkBox>table{
@@ -32,16 +29,22 @@
 	height:40px;
 }
 .chkBox>table th{
-	width:21%;
+	width:15%;
 	text-align: left;
 	padding-left: 10px;
 }
-.chkBox>table tr:first-child>td{
-	width:80px;
+.chkBox>table tr>td{
+	width:16%;
 	text-align: left;
 }
-.chkBox>table tr:first-child>td:nth-of-type(2){
-	width:115px;
+.chkBox>table tr>td:first-of-type{
+	width:12%;
+}
+.chkBox>table tr>td:nth-of-type(3){
+	width:12%;
+}
+input[type="checkbox"]{
+    margin-right: 5px;
 }
 .chkBox>table select{
 	width:130px;
@@ -54,10 +57,8 @@
     border-color: #956bfc;
 }
 .keywordBox{
-    justify-content: flex-end;
-}
-input[type="checkbox"]{
-    margin-right: 5px;
+	display: flex;
+	justify-content: flex-end;
 }
 .keywordBox input[type="submit"]{
     line-height: 0;
@@ -65,14 +66,17 @@ input[type="checkbox"]{
 }
 .keywordBox>select{
     width: auto;
-    height: 45px;
+    height:45px;
 }
 .keywordBox input[name="keyword"]{
-    height: 45px;
     width: 250px;
+    height:45px;
 }
 .keywordBox input[name="keyword"]::placeholder{
 	color:#ddd;
+}
+.container_mate>div>table{
+	table-layout: fixed;	
 }
 .container_mate a{
 	color: #333;
@@ -82,6 +86,17 @@ input[type="checkbox"]{
 	text-decoration: underline;
 	cursor: pointer;
 }
+table p{
+	margin: 50px 0;
+	text-align: center;
+}
+.table-active_mate{
+	align-items: center;
+	margin-bottom: 10px;
+}
+.table > :not(caption) > * > *{
+    box-shadow: none;
+}
 .container_mate>h1{
 	padding-left: 35px;
 }
@@ -89,23 +104,26 @@ input[type="checkbox"]{
 	box-shadow: none;
 	border: 1px solid rgba(0, 0, 0, 0.25);
 }
-.container_mate>div>table .titleTd{
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
+
+.btn:focus{
+	box-shadow: none;
 }
-.container_mate>div>table .addrTd{
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
+#notice>p, #textBox>p{
+	margin: 0;
+	font-size: 15px;
+	color: #ff5656;
 }
-.container_mate>div>table{
-	table-layout: fixed;	
-}
-table p{
-	margin: 50px 0;
-	text-align: center;
+#textBox{
+	position: absolute;
+	bottom: -40px;
+	right:25px;
 }
 .container_mate>div>.table *{
-	text-indent: 45px;
+	text-indent: 50px;
 }
+/*
+.table>tbody>tr>.addressTd{
+	text-align: left;
+	padding:0.5rem 30px;
+}
+*/

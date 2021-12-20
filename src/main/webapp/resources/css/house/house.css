@@ -886,9 +886,21 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .house_view_room_text{
 	float:left;
 	clear:both;
-	margin-top:10px;
+	margin-top:15px;
 	font-size:16px;
 	line-height: 28px;
+	width:100%;
+}
+.house_view_room_sub{
+	margin-top:5px;
+	margin-top: 7px;
+    float: left;
+    font-size: 14px;
+    height: 22px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width:250px;
 }
 .house_view_room_text_title{
 	float:left;
@@ -897,8 +909,9 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	width:100px;
 }
 .house_view_room_text_code{
-	float:left;
+	float:right;
 	margin-left:20px;
+	text-align: right;
 }
 .house_view_room_btn{
 	float:left;
