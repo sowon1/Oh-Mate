@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
@@ -21,9 +21,9 @@
 	                			<th>승인 분류</th>
 	                			<td>
 	                				<input class="form-check-input" type="checkbox" id="allChk1"
-			                        <c:if test="${not empty s.status and fn:length(s.status) eq 3}">
-			                        	checked
-			                        </c:if>
+				                        <c:if test="${not empty s.status and fn:length(s.status) eq 3}">
+				                        	checked
+				                        </c:if>
 			                        >
 	                        		<label class="form-check-label" for="allChk1">전체</label>
 	                        	</td>
@@ -38,7 +38,7 @@
 						                    	</c:choose>
 				                        	</c:forEach>
 				                        </c:if>
-				                        >
+			                        >
 			                        <label class="form-check-label" for="chk1">승인 대기</label>
 	                        	</td>
 	                        	<td>
@@ -52,7 +52,7 @@
 						                    	</c:choose>
 				                        	</c:forEach>
 				                        </c:if>
-				                        >
+			                        >
 			                        <label class="form-check-label" for="chk2">승인</label>
 	                        	</td>
 	                        	<td>
@@ -66,7 +66,7 @@
 						                    	</c:choose>
 				                        	</c:forEach>
 				                        </c:if>
-				                        >
+			                        >
 			                        <label class="form-check-label" for="chk3">미승인</label>
 	                        	</td>
 	                		</tr>
@@ -120,8 +120,12 @@
 			                    	</a>
 		                		</td>
 		                		<td>${hp.memberName }</td>
-		                		<td>${hp.helperName }</td>
-		                		<td class="addressTd">${hp.addressName }</td>
+		                		<td>
+		                			<a href="/adminHelperView.do?helperNo=${hp.helperNo}">
+		                				${hp.helperName }
+			                    	</a>
+		                		</td>
+		                		<td>${hp.addressName }</td>
 		                		<td>
 		                			<c:choose>
 		                				<c:when test="${hp.memberLevel eq 1 }">

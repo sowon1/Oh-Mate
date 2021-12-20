@@ -17,8 +17,7 @@
 		<h1 class="point_title">하우스 정보</h1>
 		<div>
 			<form action="/adminHouseAllow.do" method="post">
-			<input type="hidden" name="houseNo" value="${h.houseNo }">
-				
+				<input type="hidden" name="houseNo" value="${h.houseNo }">
 				<div id="tbl2">
 					<table class="table">
 						<tr>

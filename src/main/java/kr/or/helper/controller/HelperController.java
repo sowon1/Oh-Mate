@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-
+import kr.or.common.Address;
+import kr.or.common.HelpList;
 import kr.or.common.Income;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
@@ -40,12 +42,13 @@ public class HelperController {
 	}
 	//헬퍼 리스트 출력
 	@RequestMapping(value="/helperList.do")
-	public String helperList(String keyword, String gender, String helperStartTime, String helperEndTime, Model model,String helperCategory) {
+	public String helperList(String keyword, String gender, String helperStartTime, String helperEndTime, Model model,String helperCategory, String age) {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("gender", gender);
 		model.addAttribute("helperStartTime", helperStartTime);
 		model.addAttribute("helperEndTime", helperEndTime);
 		model.addAttribute("helperCategory",helperCategory);
+		model.addAttribute("age",age);
 	
 		return "helper/helperList";
 	}
@@ -305,10 +308,35 @@ public class HelperController {
 			}
 			return "helper/helperView";
 		}
-		//하우스 정산 내역 
-		@RequestMapping(value = "/houseAdjustPay.do")
-		public String houseAdjustPay() {
-			
-			return "";
+		//헬퍼 요청 내역 리스트
+		@RequestMapping(value = "/helperReqList.do")
+		public String helperReqList(int reqPage,HttpSession session,Model model) {
+			if(session != null) {
+				Member m = (Member)session.getAttribute("m");
+				int memberNo=0;
+				if(m !=null) {
+					memberNo=m.getMemberNo();
+					HelpList h= service.selectHelpList(memberNo);
+					return"";
+				}else {
+					model.addAttribute("msg", "접근하는 사용자 정보가 없습니다.");
+					return  "redirect:/main.do";
+				}
+			}else {
+				model.addAttribute("msg", "로그인을 해주세요!.");
+				return  "redirect:/main.do";
+			}
+		}
+		//도움 요청 
+		@RequestMapping(value="/helprequest.do")
+		public String helprequest(HelpList h, Model model, int helperNo, int memberNo, Address addr) {
+			int result = service.insertHelprequest(h,helperNo,memberNo,addr);
+			if(result>0) {
+				model.addAttribute("msg", "헬퍼 요청 성공!");
+				return"helper/helperView";
+			}else {
+				model.addAttribute("msg", "헬프요청실패");
+				return"helper/helperView";
+			}
 		}
 }

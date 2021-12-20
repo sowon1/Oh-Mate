@@ -23,6 +23,7 @@ import kr.or.admin.model.service.AdminService;
 import kr.or.admin.model.vo.Search;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Report;
+import kr.or.helper.model.vo.Helper;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
@@ -233,6 +234,23 @@ public class AdminController {
 		model.addAttribute("start", data.get("start"));
 		model.addAttribute("s", s);
 		return "admin/helperSearch";
+	}
+	@RequestMapping(value="/adminHelperView.do")
+	public String helperView(int helperNo, Model model) {
+		Helper hp = service.selectOneHelper(helperNo);
+		model.addAttribute("hp", hp);
+		return "admin/adminHelperView";
+	}
+	@RequestMapping(value="/adminHelperStatus.do")
+	public String updateHelper(Helper hp, Model model) {
+		int result = service.updateHelper(hp);
+		if(result>0) {
+			model.addAttribute("msg", "처리 완료");
+		}else {
+			model.addAttribute("msg", "처리 실패");
+		}
+		model.addAttribute("loc", "/adminHelperView.do?helperNo="+hp.getHelperNo());
+		return "common/msg";
 	}
 	//대시보드
 	@RequestMapping(value="/dashboard.do")
