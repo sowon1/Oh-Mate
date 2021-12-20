@@ -1,0 +1,103 @@
+.container_mate>h1{
+	padding-left: 35px;
+	margin-bottom: 50px;
+}
+.container_mate>div{
+	width:1130px;
+	margin: 0 auto;	
+}
+.container_mate>div .table{
+	margin: 0 auto;
+}
+.container_mate>div>form>table{
+	border-top: 1px solid rgba(0, 0, 0, 0.05);
+	border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+.container_mate>div>form>table p{
+	margin-bottom: 0;
+}
+.container_mate>div>form>table th{
+	background-color: #eee9f6;
+	vertical-align: middle;
+	text-align: center; 
+	cursor: default;
+}
+.container_mate>div>form>table td{
+	vertical-align: middle;
+}
+.container_mate>div>form>table th, .container_mate>div>form>table td{
+	padding:15px;
+}
+.container_mate>div>form>table a{
+	color: #333;
+}
+.container_mate>div>form>table a:hover{
+	color:#8500ff;
+	text-decoration: underline;
+}
+.container_mate>div>form>table ol{
+	margin:0;
+	padding-left: 1rem;
+}
+#cate{
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 0;
+	height:100px;
+	align-content: space-between;
+}
+#cate>li{
+	width:150px;
+}
+#cate input[type="checkbox"]{
+    margin-right: 10px;
+}
+.form-check-input:disabled, .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label{
+	opacity: 1;
+}
+.btnBox{
+	display: flex;
+	width: 350px;
+	justify-content:space-between;
+	margin: 40px auto 0 auto;
+}
+.btnBox>*{
+	line-height: 0;
+}
+.btn:focus{
+	box-shadow: none;
+}
+.btnBox>input:focus{
+	color:#fff;
+}
+.btnBox>input:hover{
+	color:#956bfc;
+}
+.container_mate>div>form>table .form-select{
+	width: 150px;
+}
+.container_mate>div>form>table .form-select:focus{
+    box-shadow: none;
+    border-color: #956bfc;
+}
+.container_mate>div>form>table textarea{
+	resize: none;
+}
+.container_mate>div>form>table .form-control{
+	border:none;
+	box-shadow:none;
+	-webkit-box-shadow:none;
+}
+.container_mate>div>form>table .form-control:focus{
+	box-shadow: none;
+}
+.container_mate>div>form>table .form-control:disabled{
+	background-color: #fff;
+	cursor: default;
+}
+#noAllow{
+	padding:0;
+}
+.container_mate>div>form>table tr:last-child{
+	height:85px;
+}

@@ -2,6 +2,7 @@ package kr.or.helper.model.vo;
 
 import java.util.ArrayList;
 
+import kr.or.common.Address;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import lombok.Data;
@@ -30,4 +31,6 @@ public class Helper {
 	private int age;						// 성별구분 1.남 2.여
 	private int gender;						// 나이구분 1.20대 2.30대 3.40대이상
 	private ArrayList<HelpReview> review;	//후기 
+	private ArrayList<Address> addr;
+	private String accountInfo;
 }
