@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,24 +85,27 @@
                 			</c:choose>
                 		</td>
                 		<td>
-	                    	<a href="/adminMemberView.do?memberNo=${s.sMemberNo }">
-	                    		${s.sMemberId }
+	                    	<a href="/adminMemberView.do?memberNo=${s.SMemberNo }">
+	                    		${s.SMemberId }
 	                    	</a>
                 		</td>
                 		<td>
-	                    	<a href="/adminMemberView.do?memberNo=${s.pMemberNo }">
-	                    		${s.pMemberId }
+	                    	<a href="/adminMemberView.do?memberNo=${s.PMemberNo }">
+	                    		${s.PMemberId }
 	                    	</a>
                 		</td>
                 		<td>${s.payDate }</td>
-                		<td>${s.payPrice }</td>
+                		<td>
+                			<fmt:formatNumber value="${s.payPrice }" pattern="#,###"/>원
+                		</td>
                 		<td>
                 			<c:choose>
-                				<c:when test="${s. payCategory eq 1}">
-                					${s.payPrice * 0.97 }
+                				<c:when test="${s.payCategory eq 1}">
+                					<fmt:formatNumber value="${s.payPrice * 0.97 }" pattern="#,###"/>원
+                					
                 				</c:when>
-                				<c:when test="${s. payCategory eq 2}">
-                					${s.payPrice * 0.95 }
+                				<c:when test="${s.payCategory eq 2}">
+                					<fmt:formatNumber value="${s.payPrice * 0.95 }" pattern="#,###"/>원
                 				</c:when>
                 			</c:choose>
                 		</td>
@@ -110,7 +114,7 @@
                 				<c:when test="${s.settlement eq 0}">
                 					미정산
                 				</c:when>
-                				<c:when test="${s.settlement eq 0}">
+                				<c:when test="${s.settlement eq 1}">
                 					정산 완료
                 				</c:when>
                 			</c:choose>
