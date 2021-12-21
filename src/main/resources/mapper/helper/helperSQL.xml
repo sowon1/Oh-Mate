@@ -335,4 +335,7 @@
 	<delete id="deleteReviewLike" parameterType="map">
 		delete from bookmark where bookmark_category=3 and bookmarker=#{memberNo} and bookmark_num=#{reviewNo}
 	</delete>
+	<update id="updateHelpStatus" parameterType="map">
+		update helplist set help_status =#{helpStatus} where help_no=#{helpNo}
+	</update>
 </mapper>

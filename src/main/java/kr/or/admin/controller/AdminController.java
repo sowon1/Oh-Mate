@@ -199,8 +199,6 @@ public class AdminController {
 		model.addAttribute("s", s);
 		return "admin/houseSearch";
 	}
-	
-	//하우스 상세 조회 및 승인/미승인 update 처리
 	@RequestMapping(value="/adminHouseView.do")
 	public String houseView(int houseNo, Model model) {
 		House h = service.selectOneHouse(houseNo);
@@ -252,7 +250,14 @@ public class AdminController {
 		model.addAttribute("loc", "/adminHelperView.do?helperNo="+hp.getHelperNo());
 		return "common/msg";
 	}
-	//대시보드
+	@RequestMapping(value="/salesMgr.do")
+	public String selectPay(int reqPage, Model model) {
+		HashMap<String, Object> data = service.selectAllSales(reqPage);
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		return "admin/salesMgr";
+	}
 	@RequestMapping(value="/dashboard.do")
 	public String dashboard(Model model) {
 		return "admin/dashboard";

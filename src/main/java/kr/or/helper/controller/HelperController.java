@@ -357,7 +357,7 @@ public class HelperController {
 			}
 			return "common/msg";
 		}
-		
+
 		//리뷰 좋아요 
 		@ResponseBody
 		@RequestMapping(value="/ReviewListLike.do", method = {RequestMethod.POST }, produces = "application/json;charset=UTF-8")
@@ -379,5 +379,15 @@ public class HelperController {
 			map.put("likeCnt", like_cnt);
 			return new Gson().toJson(map);
 		}
-		
+		@RequestMapping(value = "/updateHelpStatus.do")
+		public String updateHelpStatus(int helpStatus,int helpNo,HttpSession session) {
+			System.out.println(helpNo);
+			int result = service.updateHelpStatus(helpStatus,helpNo);
+			if(result>0) {				
+				return "redirect:/helperReqList.do?reqPage=1";
+			}else {
+				return "redirect:/helperReqList.do?reqPage=1";
+			}
+			
+		}
 }

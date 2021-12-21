@@ -3,10 +3,14 @@ $("[type=file]").change(function(){
 	if(files.length != 0){
 		var extention = files[0].name.substring(files[0].name.lastIndexOf('.')+1, files[0].name.length).toLowerCase();
 		if(extention == 'png' || extention == 'jpg' || extention == 'jpeg' || extention == 'gif'){
-			var reader = new FileReader();
-			reader.readAsDataURL(files[0]);
-			reader.onload = function(e){
-				$("#img-view").attr("src", e.target.result);
+			if(files[0].size > 10485760){
+				alert("10MB 이하의 파일로 업로드 가능합니다.");
+			}else{
+				var reader = new FileReader();
+				reader.readAsDataURL(files[0]);
+				reader.onload = function(e){
+					$("#img-view").attr("src", e.target.result);
+				}
 			}
 		}else{
 			alert("[ jpg / jpeg / png / gif ] 확장자 파일로 업로드 가능합니다.");

@@ -156,5 +156,10 @@ public class HelperDao {
 		return session.delete("helper.deleteReviewLike",map);
 	}
 
+	public int updateHelperStatus(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update("helper.updateHelpStatus", map);
+	}
+
 	
 }
