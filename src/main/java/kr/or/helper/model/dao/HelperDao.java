@@ -12,6 +12,7 @@ import kr.or.common.Address;
 import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
+import kr.or.common.Report;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelperList;
 
@@ -123,6 +124,10 @@ public class HelperDao {
 	public int selectHelperNo2() {
 		int helpNo = session.selectOne("helper.selectHelperNo2");
 		return helpNo;
+	}
+	//헬퍼신고
+	public int insertHelperReport(HashMap<String, Object> map) {
+		return session.insert("helper.insertHelperReport",map);
 	}
 
 	public ArrayList<ReqHelperList> selectAllReqHelpList(HashMap<String, Object> map) {

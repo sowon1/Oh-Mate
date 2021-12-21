@@ -113,4 +113,9 @@ public class RoomDao {
 		// TODO Auto-generated method stub
 		return session.update("room.updateTourStatus", map);
 	}
+	//입주정보
+	public int selectOneMove() {
+		int moveNo = session.selectOne("room.selectGetMove");
+		return moveNo;
+	}
 }

@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 import kr.or.common.Address;
 import kr.or.common.HelpList;
 import kr.or.common.Income;
+import kr.or.common.Report;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
@@ -264,7 +265,6 @@ public class HelperController {
 				}
 			}
 			HashMap<String, Object> data = service.selectAjaxHelper(pageNum, memberNo, keyword, h, mem);
-			System.out.println("아작스"+keyword);
 			System.out.println("아작스"+data.get("list"));
 			model.addAttribute("totalPageCount", data.get("totalPageCount"));
 			model.addAttribute("startPageNum", data.get("startPageNum"));
@@ -338,10 +338,26 @@ public class HelperController {
 			int result = service.insertHelprequest(h,helperNo,memberNo,addr);
 			if(result>0) {
 				model.addAttribute("msg", "헬퍼 요청 성공!");
-				return"helper/helperView";
+				model.addAttribute("loc","/helpList.do?reqPage=1");
+				return "common/msg";
 			}else {
 				model.addAttribute("msg", "헬프요청실패");
 				return"helper/helperView";
 			}
 		}
+		//헬퍼 신고 
+		@RequestMapping(value="/helperReport.do")
+		public String helperreport(Model model, int helperNo, int hmemberNo, int memberNo, String reportContent) {
+			int result = service.insertHelperReport(helperNo, hmemberNo, memberNo,reportContent);
+			if(result > 0) {
+				model.addAttribute("loc","/helperView.do?helperNo="+helperNo);
+				model.addAttribute("msg","신고가 접수되었습니다.");
+			}else {
+				model.addAttribute("loc","/helperView.do?helperNo="+helperNo);
+				model.addAttribute("msg","신고가 실패되었습니다.");
+			}
+			return "common/msg";
+		}
+		
+		
 }

@@ -358,7 +358,7 @@ public class HouseController {
 		int result = service.insertTour(t);
 		if (result > 0) {
 			model.addAttribute("msg", "투어신청이 완료되었습니다.");
-			model.addAttribute("loc", "/");
+			model.addAttribute("loc", "/tourRequestList.do?reqPage=1");
 		} else {
 			model.addAttribute("msg", "투어신청이 실패되었습니다.");
 			model.addAttribute("loc", "/");

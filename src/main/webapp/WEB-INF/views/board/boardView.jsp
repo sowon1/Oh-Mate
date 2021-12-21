@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <title>커뮤니티 상세보기</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
-<link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
 <script type="text/javascript" src="/resources/js/board/boardView.js"></script>
+<link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
@@ -17,12 +17,13 @@
 		<br>
 		<hr>
 		<br>
+		<form action="boardUpdateFrm.do?boardNo=${b.boardNo }" method="post" enctype="multipart/form-data">
 		<table class="table table-hover">
 			<tr class="table-primary">
 				<th>제목</th>
 				<td class="tdStyle" style="padding-top: 11px;">${b.boardTitle }</td>
 				<th></th><td></td>
-				<th>조회수</th>
+				<th>조회수</th>   
 				<td>${b.readCount }</td>
 				<td>
 					<a href="/reportFrm" class="bell">
@@ -37,13 +38,12 @@
 				<td colspan="2">${b.regDate }</td>
 			</tr>
 			<tr>
-				<th></th>
-				<td></td>
-
+				<td colspan="8" id="profileOption" value="${ProfileOption }" style="padding-left:76px;">	
+				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td colspan="7" style="margin-top: 0px; margin-bottom: 0px; height: 390px; vertical-align: top; text-align: left;">
+				<td colspan="7" id="contentTd">
 					${b.boardContent}
 				</td>
 			</tr>
@@ -52,20 +52,21 @@
 					<c:choose>
 						<c:when test="${not empty sessionScope.m && sessionScope.m.memberId eq b.boardWriter}">
 							<div class="submitBtn">
-								<button class="btn" onclick="history.back()" style="padding: 0px;">이전화면</button>
-								<a href="/boardUpdateFrm.do?boardNo=${b.boardNo }" class="btn" id="boardUpdate">수정하기</a> 
+								<button type="button" class="btn" onclick="history.back()" style="padding: 0px;">이전화면</button>
+								<button type="submit" class="btn" id="boardUpdate">수정하기</button> 
 								<a href="/boardDelete.do?boardNo=${b.boardNo }" class="btn" id="deleteBtn" >삭제하기</a>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="submitBtn">
-								<button class="btn" id="boardBack" onclick="history.back()">이전화면</button>
+								<button type="button" class="btn" id="boardBack" onclick="history.back()">이전화면</button>
 							</div>
 						</c:otherwise>
 					</c:choose>
 				</td>
 			</tr>
 		</table>
+		</form>
 
 		<!-- 댓글 작성 -->
 		<c:choose>
@@ -82,27 +83,35 @@
 							<div class="card-body">
 								<ul class="list-group list-group-flush">
 									<li>
-										<div class="form-inline mb-2" >
-											<img src="resources/img/icon/profile.png" class="memberImg" id="memberImd">
-											<div style="margin-left:17px;">${m.memberId }</div>
-										</div> 
+										<c:choose>
+											<c:when test="${m.filepath eq null}">
+											<div class="form-inline mb-2" >
+												<img src="resources/img/icon/profile.png" class="memberImg">
+												<div style="margin-left:17px;">${m.memberId }</div>
+											</div> 
+											</c:when>
+											<c:otherwise>
+											<div class="form-inline mb-2" >
+												<img src="resources/upload/member/${m.filepath}" class="memberImg">
+												<div style="margin-left:17px;">${m.memberId }</div>
+											</div> 
+											</c:otherwise>
+										</c:choose>
 									<li>
 										<div>
 											<input type="hidden" name="CommentLevel" value="1"> 
 											<input type="hidden" name="commentWriter" value="${m.memberId }">
 											<input type="hidden" name="boardNo" value="${b.boardNo }">
-											<input type="hidden" name="boardRef" value="0"> 
-											<input type="hidden" name="status" value="1">
-											<input type="hidden" name="commentSecret" value="1">
+											<input type="hidden" name="boardRef" value="0">
 											<textarea name="commentContent" class="form-control" id="commentcont" rows="3" cols="150" placeholder="댓글을 입력해주세요."></textarea>	
 										</div>
 									</li>
 									<li>	
 								      <div class="form-check" style="float: right; margin-top: 7px; margin-top:10px;">
-								        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-								        <label class="form-check-label" for="flexCheckChecked" style="padding-right:10px;">
+								        <input type="checkbox" id="secretChecked" name="commentSecret" value="2" class="form-check-input">
+								        <label for="secretChecked" class="form-check-label" style="padding-right:10px;">
 								          	비밀댓글
-								        </label>
+								        </label>                          
 								        <button type="submit" class="btn subBtn" id="secretBtn">등록</button>
 								      </div>
 									</li>
@@ -123,11 +132,11 @@
 					<li>
 						<div class="form-inline mb-2">
 							<c:choose>
-								<c:when test="${empty fileImg}">
+								<c:when test="${m.memberId ne c.commentWriter}">
 									<img src="resources/img/icon/profile.png" class="memberIm">
 								</c:when>
 								<c:otherwise>
-									<img src="resources/upload/member/${fileImg}" class="memberIm">
+									<img src="resources/upload/member/${m.filepath}" class="memberIm">
 								</c:otherwise>
 							</c:choose>
 							<p class="cw">${c.commentWriter }</p>
@@ -135,13 +144,34 @@
 						</div> 
 					</li>
 					<li>
-						<p class="pstyle">${c.commentContentBr}</p>
+					
+						
+							<c:if test="${c.commentSecret eq 2 }"> <!-- 비밀 -->
+								<c:choose>
+									<c:when test="${m.memberId eq c.commentWriter }">&emsp;
+									<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">&nbsp;비밀글 입니다.
+										<p class="pstyle">${c.commentContentBr}</p>
+									</c:when>
+									<c:otherwise>
+										<c:if test="${m.memberId eq null && (m.memberId ne c.commentWriter)}">
+										<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">
+						               	비밀글은 작성자와 관리자만 볼 수 있습니다.
+						               	</c:if>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+							<c:if test="${c.commentSecret eq 1 }"> <!-- 일반 -->
+								<p class="pstyle">${c.commentContentBr}</p>
+							</c:if>
+						 
+					
+						
 						<textarea name="commentContent" class="form-control" style="display:none;" rows="3" cols="150">${c.commentContent}</textarea>	
-						<p class="commentsBtn" style="float:right;">
+						<p class="commentsBtn">
 							<c:if test="${not empty sessionScope.m }">
 								<c:if test="${m.memberId eq c.commentWriter }" >
 									<a href="javascript:void(0)" onclick="modifyComment(this,'${c.commentNo }','${b.boardNo }');">수정</a>
-									<a href="javascript:void(0)" onclick="deleteComment(this,'${c.commentNo }','${b.boardNo }');" >삭제</a>
+									<a href="javascript:void(0)" onclick="deleteComment(this,'${c.commentNo }','${b.boardNo }');">삭제</a>
 								</c:if>
 									<a href="javascript:void(0)" class="reshow">답글달기</a>
 							</c:if>
@@ -153,9 +183,9 @@
 							<input type="hidden" name="boardNo" value="${b.boardNo }">
 							<input type="hidden" name="boardRef" value="${c.commentNo }">
 							<input type="hidden" name="status" value="1"> 
-							<textarea name="commentContent" class="form-control txtarea" id="texstyle"></textarea>
+							<textarea name="commentContent" class="form-control txtarea" style="display:none; margin-left:55px;"></textarea>
 								<div style="margin-right:20px;">
-									<button type="submit" class="btn subbtn" style="display:none; margin-bottom:5px;">등록</button>
+									<button type="submit" class="btn subbtn subbtnSty" style="display:none; margin-bottom:5px;">등록</button>
 									<button type="reset" class="btn subbtn recancel" style="display:none; margin-bottom:5px;">취소</button>
 								</div>
 						</form>
@@ -179,11 +209,11 @@
 							</li>
 							<li class="commentct">
 								<p>${bc.commentContentBr }</p>
-								<textarea name="commentContent" class="form-control" style="display:none; width: 100%; resize:none;">${bc.commentContent }</textarea><br><br>
+								<textarea name="commentContent" class="form-control" style="display:none; width: 100%; resize:none;">${bc.commentContent }</textarea>
 								<p class="commentsBtn">
 									<c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq bc.commentWriter}">
-										<a href="javascript:void(0)" onclick="modifyComment(this,'${c.commentNo }','${b.boardNo }');">수정</a>
-										<a href="javascript:void(0)" onclick="deleteComment(this,'${c.commentNo }','${b.boardNo }');" style="margin-right: 15px;">삭제</a>
+										<a href="javascript:void(0)" onclick="modifyComment(this,'${bc.commentNo }','${b.boardNo }');">수정</a>
+										<a href="javascript:void(0)" onclick="deleteComment(this,'${bc.commentNo }','${b.boardNo }');" style="margin-right: 15px;">삭제</a>
 									</c:if>									
 								</p>
 							</li>
@@ -192,7 +222,7 @@
 				</c:forEach>			
 			</c:forEach>
 		</div>	
-	</div>
+	</div>	
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

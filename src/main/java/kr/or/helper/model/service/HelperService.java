@@ -11,6 +11,7 @@ import kr.or.common.Address;
 import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
+import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
@@ -291,6 +292,16 @@ public class HelperService {
 			int result2 = dao.insertAddress(map);
 		}
 
+		return result;
+	}
+	//헬퍼신고
+	public int insertHelperReport(int helperNo, int hmemberNo, int memberNo, String reportContent) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("helperNo", helperNo);
+		map.put("hmemberNo", hmemberNo);
+		map.put("memberNo", memberNo);
+		map.put("reportContent", reportContent);
+		int result = dao.insertHelperReport(map);
 		return result;
 	}
 

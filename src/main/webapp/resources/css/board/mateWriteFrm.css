@@ -1,4 +1,10 @@
 @charset "UTF-8";
+tr>td#contentTd{
+	padding-top: 20px; 
+	height: 390px; 
+	vertical-align: top; 
+	text-align: left;
+}
 #postBtn{
 	width:100px; 
 	height:30px; 
@@ -45,7 +51,7 @@ li>.subBtn{
 	padding:0px; 
 	margin-top:7px; 
 	margin-left:5px; 
-	width:100px;
+	width:50px;
 }
 li{
 	list-style:none;
@@ -64,6 +70,8 @@ button.subbtn{
 .recomments{
 	display:flex;
 	background-color: #f2f2f2;
+	padding-top: 5px;
+	height: 160px;
 }
 .comments>li:first-child{
 	display:flex;
@@ -82,6 +90,7 @@ button.subbtn{
 }
 .memberIm{
 	height: 50px;
+	width: 50px;
 	border-radius: 50%;
 	margin-left: 30px;
 	margin-top : 25px;
@@ -115,17 +124,14 @@ button.subbtn{
 }
 .commentsBtn{
 	text-align: end;
+	float:right;
+	padding-top: 30px;
 }
 .pstyle{
 	border: 1px solid #E1E1E1;
 	margin-left: 16px;
 	width: 1166px;
 	height: 86px;
-}
-#texstyle{
-	width: 1166px; 
-	display:none;
-	margin-left:55px;
 }
 .recShow{
 	margin-right: 15px;
