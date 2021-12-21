@@ -29,6 +29,7 @@ import kr.or.common.Income;
 import kr.or.common.Report;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
+import kr.or.helper.model.vo.ReqHelpListPageData;
 import kr.or.member.model.vo.Member;
 
 @Controller
@@ -319,8 +320,12 @@ public class HelperController {
 				int memberNo=0;
 				if(m !=null) {
 					memberNo=m.getMemberNo();
-					HelpList h= service.selectHelpList(memberNo);
-					return"";
+					ReqHelpListPageData h= service.selectHelpList(memberNo,reqPage);
+					model.addAttribute("list", h.getList());
+					model.addAttribute("start", h.getStart());
+					model.addAttribute("totalCount", h.getTotalCount());
+					model.addAttribute("pageNavi", h.getPageNavi());
+					return"helper/reqHelpList";
 				}else {
 					model.addAttribute("msg", "접근하는 사용자 정보가 없습니다.");
 					return  "redirect:/main.do";

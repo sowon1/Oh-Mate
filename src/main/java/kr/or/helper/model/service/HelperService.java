@@ -14,6 +14,8 @@ import kr.or.common.Income;
 import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
 import kr.or.helper.model.vo.Helper;
+import kr.or.helper.model.vo.ReqHelpListPageData;
+import kr.or.helper.model.vo.ReqHelperList;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
@@ -221,11 +223,60 @@ public class HelperService {
 		return h;
 	}
 
-	public HelpList selectHelpList(int memberNo) {
+	public ReqHelpListPageData selectHelpList(int memberNo, int reqPage) {
 		//헬퍼번호 헬퍼테이블에서 꺼내기
 		int helperNo = dao.selectHelperNo(memberNo);
 		//헬퍼리스트관련 주소값 address테이블을 활용하는지...*3번?
-		return null;
+		int numPerPage = 5;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage + 1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("helperNo", helperNo);
+		ArrayList<ReqHelperList> list = dao.selectAllReqHelpList(map);
+		int totalCount = dao.selectHelpTotalCount(helperNo);
+		int totalPage = 0;
+		if (totalCount % numPerPage == 0) {
+			totalPage = totalCount / numPerPage;
+		} else {
+			totalPage = totalCount / numPerPage + 1;
+		}
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
+		String pageNavi = "<ul class='pagination pagination'>";
+		if (pageNo != 1) {
+			pageNavi += "<li class = 'page-item-mate-mate'>";
+			pageNavi += "<a href='/helperReqList.do?reqPage="+ (pageNo - 1) + "'>";
+			pageNavi += "&lt;</a></li>";
+		}
+		for (int i = 0; i < pageNaviSize; i++) {
+			if (pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'>";
+				pageNavi += "<a href='/helperReqList.do?reqPage="+ pageNo+ "'>";
+				pageNavi += pageNo + "</a></li>";
+			} else {
+				pageNavi += "<li class='page-item-mate-mate'>";
+				pageNavi += "<a href='/helperReqList.do?reqPage=" + pageNo+ "'>";
+				pageNavi += pageNo + "</a></li>";
+			}
+			pageNo++;
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		if (pageNo <= totalPage) {
+			pageNavi += "<li class='page-item'>";
+			pageNavi += "<a href='/helperReqList.do?reqPage=" + pageNo + "'>";
+			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
+		}
+		pageNavi += "</ul>";
+		ReqHelpListPageData rhpd= new ReqHelpListPageData();
+		rhpd.setList(list);
+		rhpd.setPageNavi(pageNavi);
+		rhpd.setStart(start);
+		rhpd.setTotalCount(totalCount);
+		return rhpd;
 	}
 	//도움 요청 
 	public int insertHelprequest(HelpList h, int helperNo, int memberNo, Address addr) {
