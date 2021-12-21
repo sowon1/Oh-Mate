@@ -411,8 +411,104 @@
 				<div class="helper_review_list">
 					<ul>
 						<li>
-							<span>프사</span>
-							<span>닉</span>
+							<div class="review_text">
+								<img src="/resources/img/icon/profile.png" class="review_pro_img">
+								<div class="review_text_box">
+									<div class="star-ratings review_star">
+										<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
+											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										</div>
+										<div class="star-ratings-base space-x-2 text-lg">
+											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										</div>
+									</div>
+									<span class="review_star_text">5</span>
+									<div class="review_writer">									
+										<span class="review_id">thdnjs***</span>
+										<span class="review_date">2021.12.21</span>
+									</div>
+									<div class="review_title">
+										도움 : 바퀴벌레 좀 잡아줘요 !!!
+									</div>
+									<div class="review_content">
+										도움 완전 잘받았어요 !! 최고 !! 최고야 ~~!! 늘 짜릿해 !!
+									</div>
+								</div>
+								<img src="/resources/img/icon/admin_house.png" class="review_img">
+								<div class="review_like">
+									<c:choose>
+		                        		<c:when test="${empty sessionScope.m}">
+		                        			<button onclick="msgpopupopen();" class="review_likebtn">
+		                        				<img src="/resources/img/icon/review_icon_off.png">		                        			
+		                        				<span class="review_count">0</span>
+		                        			</button>
+		                        		</c:when>
+		                        		<c:when test="">
+					                		<a idx="" class="review_likebtn">
+					                			<img src="/resources/img/icon/review_icon_on.png">
+					                			<span class="review_count">0</span>
+					                		</a>
+					                	</c:when>
+					                	<c:otherwise>                							              
+											<a idx="" class="review_likebtn">
+												<img src="/resources/img/icon/review_icon_off.png">
+												<span class="review_count">0</span>
+											</a>
+					                	</c:otherwise>
+		                        	</c:choose>
+		                        	<div class="review_btn_hover">리뷰가 도움이 되었나요?</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="review_text">
+								<img src="/resources/img/icon/profile.png" class="review_pro_img">
+								<div class="review_text_box">
+									<div class="star-ratings review_star">
+										<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
+											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										</div>
+										<div class="star-ratings-base space-x-2 text-lg">
+											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										</div>
+									</div>
+									<span class="review_star_text">5</span>
+									<div class="review_writer">									
+										<span class="review_id">thdnjs***</span>
+										<span class="review_date">2021.12.21</span>
+									</div>
+									<div class="review_title">
+										도움 : 바퀴벌레 좀 잡아줘요 !!!
+									</div>
+									<div class="review_content">
+										도움 완전 잘받았어요 !! 최고 !! 최고야 ~~!! 늘 짜릿해 !!
+									</div>
+								</div>
+								<img src="/resources/img/icon/admin_house.png" class="review_img">
+								<div class="review_like">
+									<c:choose>
+		                        		<c:when test="${empty sessionScope.m}">
+		                        			<button onclick="msgpopupopen();" class="review_likebtn review_on">
+		                        				<img src="/resources/img/icon/review_icon_on.png">		                        			
+		                        				<span class="review_count">0</span>
+		                        			</button>
+		                        		</c:when>
+		                        		<c:when test="">
+					                		<a idx="" class="review_likebtn review_on">
+					                			<img src="/resources/img/icon/review_icon_on.png">
+					                			<span class="review_count">0</span>
+					                		</a>
+					                	</c:when>
+					                	<c:otherwise>                							              
+											<a idx="" class="review_likebtn review_on">
+												<img src="/resources/img/icon/review_icon_on.png">
+												<span class="review_count">0</span>
+											</a>
+					                	</c:otherwise>
+		                        	</c:choose>
+		                        	<div class="review_btn_hover">리뷰가 도움이 되었나요?</div>
+								</div>
+							</div>
 						</li>
 					</ul>
 				</div>
@@ -525,7 +621,8 @@
 				timePicker : true,
 				singleDatePicker : true,
 				timePicker24Hour : true,
-				timePickerIncrement : 30,
+				timePickerIncrement : 15,
+				minDate : new Date(),
 				locale : {
 					"format" : 'HH:mm',
 					"applyLabel" : "확인",

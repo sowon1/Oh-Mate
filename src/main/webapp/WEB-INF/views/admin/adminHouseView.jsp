@@ -75,7 +75,7 @@
 						<tr>
 							<th>방 정보</th>
 							<td colspan="3" id="roomInfo">
-								<ul>
+								<ul class="roomList">
 									<c:forEach items="${h.houseRoomView }" var="r" varStatus="i">
 										<li>
 											<table class="roomTbl">

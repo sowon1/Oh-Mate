@@ -36,7 +36,7 @@
 	                        	</td>
 	                		</tr>
 	                		<tr>
-	                			<th>신고 분류</th>
+	                			<th>신고 구분</th>
 	                			<td>
 			                        <input class="form-check-input" type="checkbox" id="allChk2">
 			                        <label class="form-check-label" for="allChk2">전체</label>
@@ -82,7 +82,7 @@
                     <th style="width:9%;">No</th>
                     <th style="width:16%;">회원 아이디</th>
                     <th style="width:16%;">신고자 아이디</th>
-                    <th style="width:14%;">신고 분류</th>
+                    <th style="width:14%;">신고 구분</th>
                     <th style="width:13%;">콘텐츠 번호</th>
                     <th style="width:15%;">신고일</th>
                     <th style="width:16%;">상태</th>
@@ -165,7 +165,7 @@
                         </td>
                     </tr>
                     <tr class="table-active_mate">
-                        <th>신고 분류</th>
+                        <th>신고 구분</th>
                         <td>
                         	<input type="text" id="cate" class="input_03" readonly>
                         </td>

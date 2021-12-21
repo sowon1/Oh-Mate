@@ -16,7 +16,7 @@
             <div class="searchBox">
                 <div>
                     <div>
-                        <p>등급 분류</p>
+                        <p>등급 구분</p>
                     </div>
                     <div>
                         <input class="form-check-input" type="checkbox" id="allChk"

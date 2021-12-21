@@ -139,7 +139,7 @@
 		      <li><a href="/helperMgr.do?reqPage=1">헬퍼 신청 관리</a></li>
 		      <li><a href="/houseMgr.do?reqPage=1">하우스 등록 관리</a></li>
 		      <li><a href="/reportMgr.do?reqPage=1">신고 관리</a></li>
-		      <li><a href="#">매출 정산</a></li>
+		      <li><a href="/salesMgr.do?reqPage=1">매출 정산</a></li>
 		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
 		</nav>
