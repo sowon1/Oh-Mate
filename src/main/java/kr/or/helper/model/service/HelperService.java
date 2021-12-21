@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.or.common.Address;
+import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
+import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
 import kr.or.helper.model.vo.Helper;
 import kr.or.house.model.dao.HouseDao;
@@ -169,6 +171,7 @@ public class HelperService {
 		map.put("memberNo", memberNo);
 		map.put("keyword", keyword);
 		map.put("gender", mem.getGender());
+		map.put("age", mem.getAge());
 		map.put("helperStartTime", h.getHelperStartTime());
 		map.put("helperEndTime",h.getHelperEndTime());
 		map.put("helperCategory",h.getHelperCategory());
@@ -216,6 +219,39 @@ public class HelperService {
 		ArrayList<HelpReview> review = dao.selectHelperReview(map);
 		h.setReview(review);
 		return h;
+	}
+
+	public HelpList selectHelpList(int memberNo) {
+		//헬퍼번호 헬퍼테이블에서 꺼내기
+		int helperNo = dao.selectHelperNo(memberNo);
+		//헬퍼리스트관련 주소값 address테이블을 활용하는지...*3번?
+		return null;
+	}
+	//도움 요청 
+	public int insertHelprequest(HelpList h, int helperNo, int memberNo, Address addr) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("helperNo", helperNo);
+		map.put("memberNo", memberNo);
+		map.put("h", h);
+		int result = dao.insertHelprequest(map);
+		if(result > 0) {
+			map.put("addr",addr);
+			int helpNo = dao.selectHelperNo2();
+			map.put("helpNo", helpNo);
+			int result2 = dao.insertAddress(map);
+		}
+
+		return result;
+	}
+	//헬퍼신고
+	public int insertHelperReport(int helperNo, int hmemberNo, int memberNo, String reportContent) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("helperNo", helperNo);
+		map.put("hmemberNo", hmemberNo);
+		map.put("memberNo", memberNo);
+		map.put("reportContent", reportContent);
+		int result = dao.insertHelperReport(map);
+		return result;
 	}
 
 }

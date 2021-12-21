@@ -14,7 +14,9 @@ import kr.or.common.Tour;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
+import kr.or.house.model.vo.houseAdjustPageData;
 import kr.or.house.model.vo.housePageData;
+import kr.or.house.model.vo.HouseRoomAdjustPay;
 import kr.or.room.model.vo.Room;
 
 @Service
@@ -131,12 +133,19 @@ public class HouseService {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("memberNo", memberNo);
+		int tourTotalCount=0;
+		int moveTotalCount=0;
 		ArrayList<House> list = dao.selectHouseOwnerList(map);
 		for (int i = 0; i < list.size(); i++) {
 			int houseNo = list.get(i).getHouseNo();
 
 			ArrayList<Photo> photoArray = dao.selectPhoto(houseNo);
 			ArrayList<Room> roomArray = dao.selectHouseRoomList(houseNo);
+			for(int j=0; j<roomArray.size();j++) {
+				int roomNo=roomArray.get(j).getRoomNo();
+				tourTotalCount+=dao.selectTourTotalCount(roomNo);
+				moveTotalCount+=dao.selectMoveTotalCount(roomNo);
+			}
 			ArrayList<Income> incomeArray = dao.selectIncome(houseNo);
 			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
 			
@@ -167,20 +176,20 @@ public class HouseService {
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 		String pageNavi = "<ul class='pagination pagination'>";
 		if (pageNo != 1) {
-			pageNavi += "<li class = 'page-item-mate'>";
-			pageNavi += "<a class='page-link' href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage="
+			pageNavi += "<li class = 'page-item-mate-mate'>";
+			pageNavi += "<a href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage="
 					+ (pageNo - 1) + "'>";
 			pageNavi += "&lt;</a></li>";
 		}
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo == reqPage) {
-				pageNavi += "<li class='page-item-mate active'>";
-				pageNavi += "<a class='page-link' href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage=" + pageNo
+				pageNavi += "<li class='page-item-mate-mate active'>";
+				pageNavi += "<a href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage=" + pageNo
 						+ "'>";
 				pageNavi += pageNo + "</a></li>";
 			} else {
-				pageNavi += "<li class='page-item-mate'>";
-				pageNavi += "<a class='page-link' href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage=" + pageNo
+				pageNavi += "<li class='page-item-mate-mate'>";
+				pageNavi += "<a href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage=" + pageNo
 						+ "'>";
 				pageNavi += pageNo + "</a></li>";
 			}
@@ -191,11 +200,17 @@ public class HouseService {
 		}
 		if (pageNo <= totalPage) {
 			pageNavi += "<li class='page-item'>";
-			pageNavi += "<a class='page-link' href='/houseownerList?reqPage=" + pageNo + "&memberNo=" + memberNo + "'>";
+			pageNavi += "<a href='/houseownerList.do?reqPage=" + pageNo + "&memberNo=" + memberNo + "'>";
 			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
 		}
 		pageNavi += "</ul>";
-		housePageData hpd = new housePageData(list, pageNavi, start, totalCount);
+		housePageData hpd = new housePageData();
+		hpd.setList(list);
+		hpd.setStart(start);
+		hpd.setPageNavi(pageNavi);
+		hpd.setMoveTotalCount(moveTotalCount);
+		hpd.setTourTotalCount(tourTotalCount);
+		hpd.setTotalCount(totalCount);
 		return hpd;
 	}
 
@@ -308,6 +323,59 @@ public class HouseService {
 	public ArrayList<House> selectBookmarkHouse(int memberNo) {
 		// TODO Auto-generated method stub
 		return dao.selectBookmarkHouse(memberNo);
+	}
+
+	public houseAdjustPageData selectHouseAllPayList(int memberNo, int reqPage) {
+		int numPerPage = 5;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage + 1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberNo", memberNo);
+		ArrayList<HouseRoomAdjustPay> list = dao.selectHouseAllPayList(map);
+		int totalCount = dao.totalPay(memberNo);
+		int totalPage = 0;
+		if (totalCount % numPerPage == 0) {
+			totalPage = totalCount / numPerPage;
+		} else {
+			totalPage = totalCount / numPerPage + 1;
+		}
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
+		String pageNavi = "<ul class='pagination pagination'>";
+		if (pageNo != 1) {
+			pageNavi += "<li class = 'page-item-mate-mate'>";
+			pageNavi += "<a href='/houseAdjustPay.do?reqPage="+ (pageNo - 1) + "'>";
+			pageNavi += "&lt;</a></li>";
+		}
+		for (int i = 0; i < pageNaviSize; i++) {
+			if (pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'>";
+				pageNavi += "<a href='/houseAdjustPay.do?reqPage="+ pageNo+ "'>";
+				pageNavi += pageNo + "</a></li>";
+			} else {
+				pageNavi += "<li class='page-item-mate-mate'>";
+				pageNavi += "<a href='/houseAdjustPay.do?reqPage=" + pageNo+ "'>";
+				pageNavi += pageNo + "</a></li>";
+			}
+			pageNo++;
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		if (pageNo <= totalPage) {
+			pageNavi += "<li class='page-item'>";
+			pageNavi += "<a href='/houseAdjustPay.do?reqPage=" + pageNo + "'>";
+			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
+		}
+		pageNavi += "</ul>";
+		houseAdjustPageData hrap = new houseAdjustPageData();
+		hrap.setList(list);
+		hrap.setPageNavi(pageNavi);
+		hrap.setStart(start);
+		hrap.setTotalCount(totalCount);
+		return hrap;
 	}
 
 }

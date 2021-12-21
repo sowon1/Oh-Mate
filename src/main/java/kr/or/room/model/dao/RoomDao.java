@@ -1,4 +1,4 @@
-package kr.or.room.model.service;
+package kr.or.room.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,5 +112,10 @@ public class RoomDao {
 	public int updateTourStatus(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return session.update("room.updateTourStatus", map);
+	}
+	//입주정보
+	public int selectOneMove() {
+		int moveNo = session.selectOne("room.selectGetMove");
+		return moveNo;
 	}
 }

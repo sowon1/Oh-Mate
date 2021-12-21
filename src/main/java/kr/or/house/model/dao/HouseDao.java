@@ -14,6 +14,7 @@ import kr.or.common.Move;
 import kr.or.common.Photo;
 import kr.or.common.Tour;
 import kr.or.house.model.vo.House;
+import kr.or.house.model.vo.HouseRoomAdjustPay;
 import kr.or.room.model.vo.Room;
 
 @Repository
@@ -201,6 +202,26 @@ public class HouseDao {
 
 	public int deletePhoto(Photo p) {
 		return session.delete("house.deletePhoto",p);
+	}
+
+	public int selectTourTotalCount(int roomNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("house.tourTotalCount",roomNo);
+	}
+
+	public int selectMoveTotalCount(int roomNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("house.moveTotalCount",roomNo);
+	}
+
+	public ArrayList<HouseRoomAdjustPay> selectHouseAllPayList(HashMap<String, Object> map) {
+		List<HouseRoomAdjustPay> list = session.selectList("house.houseAllPay", map);
+		return (ArrayList<HouseRoomAdjustPay>)list;
+	}
+
+	public int totalPay(int memberNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("house.payCount", memberNo);
 	}
 
 }

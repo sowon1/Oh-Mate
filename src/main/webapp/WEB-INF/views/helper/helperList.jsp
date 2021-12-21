@@ -27,7 +27,7 @@
 				</div>
 				<div class="search_line">
 					<input class="search_input" placeholder="지역, 지하철역, 대학 주변 검색">
-					<a href="" class="search_icon">
+					<a id="searchHelper" class="search_icon">
 						<img src="/resources/img/icon/search_on.png">
 					</a>
 				</div>
@@ -61,15 +61,15 @@
 								</p>
 								<div class="filter_cont">
 									<div>
-										<input type="radio" id="helper_age1" name="age" value="1">
+										<input type="radio" id="helper_age1" name="helperage" value="1">
 										<label for="helper_age1"><span class="select_icon02"></span>20대 이상</label>
 									</div>
 									<div>
-										<input type="radio" id="helper_age2" name="age" value="2">
+										<input type="radio" id="helper_age2" name="helperage" value="2">
 										<label for="helper_age2"><span class="select_icon04"></span>30대 이상</label>
 									</div>
 									<div>
-										<input type="radio" id="helper_age3" name="age" value="3">
+										<input type="radio" id="helper_age3" name="helperage" value="3">
 										<label for="helper_age3"><span class="select_icon03"></span>40대 이상</label>
 									</div>
 								</div>
@@ -167,12 +167,9 @@
 		var helperStartTime = '${helperStartTime}';
 		var helperEndTime = '${helperEndTime}';
 		var helperCategory = '${helperCategory}';
+		var age = '${age}';
+		var addrs = new Array();
 	
-		console.log(keyword);
-		console.log(gender);
-		console.log(helperStartTime);
-		console.log(helperEndTime);
-		console.log(helperCategory);
 		
 		//var start = '${startPageNum}';
 		//웹 브라우저의 창을 스크롤 할 때 마다 호출되는 함수 등록
@@ -199,6 +196,18 @@
 			}
 		})
 		function GetList(currentPage){
+			if(gender == ""){
+				gender = 0;
+			}
+			if(age == ""){
+				age = 0;
+			}
+		//console.log(keyword);
+		//console.log(gender);
+		//console.log(helperStartTime);
+		//console.log(helperEndTime);
+		//console.log(helperCategory);
+		//console.log(age);
 			$.ajax({
 				type : "GET",
 				data : {
@@ -207,7 +216,8 @@
 					gender : gender,
 					helperStartTime : helperStartTime,
 					helperEndTime : helperEndTime,
-					helperCategory : helperCategory
+					helperCategory : helperCategory,
+					age : age
 				},
 				url : "/ajax_helper_page.do",
 				success : function(data){
@@ -222,8 +232,8 @@
 						html += '<div class="search_none_text">검색 결과가 없습니다.</div>';
 	
 					}
-					for(var i=0;i<list.length;i++){								
-						html += '<li><div class="house_list_photo"><div class="like_house">';
+					for(var i=0;i<list.length;i++){
+						html += '<li><div class="helper_list_photo"><div class="like_helper">';
 						if(login == ''){
 							html += '<button onclick="msgpopupopen();" class="heart"><img src="/resources/img/icon/heart_off.png"></button>';
 						}else if(list[i].likedCheck == '좋아요'){
@@ -231,25 +241,66 @@
 						}else {
 							html += '<a idx="'+list[i].helperNo+'" class="heart"><img src="/resources/img/icon/heart_off.png"></a>'
 						}
-						if(list[i].photoList.length == 0){
-							html += ' </div><img src="/resources/img/icon/heart_off.png"></div>';
+						html += '</div><div class="helper_list_profile">';
+						html += '<img src="/resources/upload/helper/'+list[i].helperFilepath+'" class="profile_view"></div></div>';
+						html += '<a href="helperView.do?helperNo='+list[i].helperNo+'"><div class="helper_list_text_name"><span class="helper_list_nickname">'+list[i].helperName+'</span>';
+						if(list[i].age == '1'){
+							html += '<span class="helper_list_age">20대 · </span>';
+						}else if(list[i].age == '2'){
+							html += '<span class="helper_list_age">30대 · </span>';							
 						}else{
-							html += ' </div><img src="/resources/upload/helper/'+list[i].helperFilepath+'"></div>';
+							html += '<span class="helper_list_age">40대 · </span>';
 						}
-						
-						html += '<a href="houseView.do?houseNo='+list[i].helperNo+'"><div class="house_list_text"><div class="list_line_01"><span class="list_house_title">'+list[i].helperName+'</span></div>';
-						html += '<div class="list_line_02"><span class="list_tag">';					
-						html += '</span><span class="house_form">'+list[i].helperRide+'</span></div></div>';
-						html += '<a href="helperView.do?helperNo='+list[i].helperNo+'" class="house_more_btn">입주 가능한 방 '+list[i].helperName+'개</a>';
-						html += '<input type="hidden" value="'+list[i].addressRoad+'" name="address">';
-						html += '<input type="hidden" value="'+list[i].helperName+'" name="houseTitle">';
-						html += '</li></a>';
-						//getHouseMap(list[i].addressRoad,list[i].houseTitle,"/resources/img/icon/heart_off.png",list[i].houseForm,list[i].roomCount,list[i].houseNo);
-						//getHouseMap(list[i].addressRoad,list[i].houseTitle,list[i].photoList[0].photoPath,list[i].houseForm,list[i].roomCount,list[i].houseNo);
+						if(list[i].gender == '1'){
+							html += '<span class="helper_list_gender">남</span>';
+						}else{
+							html += '<span class="helper_list_gender">여</span>';
+						}
+						html += '</div><div class="helper_list_text_info">';
+						html += '<span class="helper_list_text_code">활동시간 '+list[i].helperStartTime+'</span>';
+						html += '<span class="helper_list_text_code">';
+						if(list[i].helperRide == '1'){							
+							html += '자동차';
+						}else if(list[i].helperRide == '2'){
+							html += '오토바이';
+						}else if(list[i].helperRide == '3'){
+							html += '전동퀵보드';
+						}else if(list[i].helperRide == '4'){
+							html += '자전거';
+						}else{
+							html += '걸어서';
+						}
+						html += '</span></div><div class="helper_list_intro">'+list[i].helperIntro+'</div>';
+						html += '<div class="helper_Category" value="'+list[i].helperCategory+'">';
+						html += '<span class="helper_Category_title">#배달·장보기</span>';
+						html += '<span class="helper_Category_title">#청소·집안일</span>';
+						html += '<span class="helper_Category_title">#설치·조립·운반</span>';
+						html += '<span class="helper_Category_title">#동행·돌봄</span>';
+						html += '<span class="helper_Category_title">#벌레·쥐</span>';
+						html += '<span class="helper_Category_title">#역할대행</span>';
+						html += '<span class="helper_Category_title">#과외·알바</span>';
+						html += '<span class="helper_Category_title">#기타·원격</span>';
+						html += '</div></a></li>';
+						//for(var j =0; j < list[i].addr.length;j++){
+						//	addrs.push(list[i].addr[j].addressRoad);
+						//}
+						//console.log(addr);
+						getHouseMap(list[i].addr[0].addressRoad,list[i].helperName,list[i].helperFilepath,list[i].gender,list[i].age,list[i].helperNo,list[i].helperStartTime,list[i].helperEndTime,list[i].helperRide);
 					}
 					$(".list_container").append(html);
 					$(".loading").hide();
-					isLoading = false;					
+					isLoading = false;
+					//카테고리
+					var options = $(".helper_Category");
+					for(var i=0;i<options.length;i++){
+						var optionValue = options.eq(i).attr("value");
+						//console.log(optionValue);
+						for(var j=0;j<optionValue.length;j++){					
+							if(optionValue.charAt(j) == 0){
+								$(".helper_Category").eq(i).children("span").eq(j).hide();
+							}
+						}
+					}
 				}
 			});
 		}
@@ -283,7 +334,9 @@
 	      var selectedMarker = null;
 	      var coay = null;
 	      var cselectedMarker = null;
-	      function getHouseMap(addr,title,photo,housef,count,houseno) {
+	      console.log("주소 : "+addrs);
+	      function getHouseMap(addr,name,photo,gender,age,helperno,time,time2,ride) {
+	    	  
 	    	  // 주소-좌표 변환 객체를 생성합니다
 		         var geocoder = new kakao.maps.services.Geocoder();
 		         // 주소로 좌표를 검색합니다
@@ -312,25 +365,47 @@
 			           // 커스텀 오버레이에 표시할 컨텐츠 입니다
 			           // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 			           // 별도의 이벤트 메소드를 제공하지 않습니다 
+			           if(gender == 1){
+			        	   gender = "남";
+			           }else{
+			        	   gender = "여";
+			           }
+			           if(age == 1){
+			        	   age = "20대 · ";
+			           }else if(age == 2){
+			        	   age = "30대 · ";
+			           }else{
+			        	   age = "40대 · ";
+			           }
+			           if(ride == '1'){							
+			        	   ride= '자동차';
+						}else if(ride == '2'){
+							ride= '오토바이';
+						}else if(ride == '3'){
+							ride= '전동퀵보드';
+						}else if(ride == '4'){
+							ride= '자전거';
+						}else{
+							ride= '걸어서';
+						}
 			           var content = '<div class="map_wrap">' +  
 			                       '    <div class="info">' + 
-			                       '        <div class="title">' + 
-			                       '            ' +title+
+			                       '        <div class="title"> Helper' +
 			                       '            <div class="house_map_close" onclick="closeOverlay(this)" title="닫기"></div>' + 
 			                       '        </div>' + 
 			                       '        <div class="body">' +
 			                       '			<div class="img">' +
-			                       //'                <img src="/resources/upload/house/'+photo+'">' +
-			                       '                <img src="'+photo+'">' +
+			                       '                <img src="/resources/upload/helper/'+photo+'">' +
 			                       '           </div>' + 
-			                       '            <div class="desc">' + 
-					               '       			<div class="title_tag">' +
-					               '           			' +housef+
+			                       '            <div class="desc">' +
+			                       '				<span class="map_title_name">'+name+'</span>' +
+					               '       			<div class="title_age">' +
+					               '           			' +age+
 					               '        		</div>' + 
-			                       '                <div class="ellipsis">'+addr+'</div>' + 
-			                       '                <div class="jibun ellipsis">입주 가능한 방 '+count+'개</div>' + 
-			                       '                <div><a href="houseView.do?houseNo='+houseno+'" target="_blank" class="house_view_more">자세히보기</a></div>' + 
-			                       '            </div>' + 
+			                       '                <div class="title_gender">'+gender+'</div>' + 
+			                       '				</div><span class="map_titme">활동시간 : '+time+' ~ '+time2+'</span>'+
+			                       '				<span class="map_ride">이동수단 : '+ride+'</span>'+
+			                       '                <div><a href="helperView.do?helperNo='+helperno+'" target="_blank" class="house_view_more">More</a></div>' + 
 			                       '        </div>' + 
 			                       '    </div>' +    
 			                       '</div>';
@@ -370,6 +445,7 @@
 			           });
 		             } 
 		            });
+	    
 	      }
 	   	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 	      function closeOverlay(a) {
@@ -422,6 +498,7 @@
 			var helperStartTime = $("input[name='helperStartTime']").val();
 			var helperEndTime = $("input[name='helperEndTime']").val();
 			var helperCategory = $("#helperCategory").val();
+			var ageValue = $("input[name='age']:checked").val();
 			if(genderValue == ""){
 				gender = "0";
 			}else if(genderValue == "1"){
@@ -431,16 +508,24 @@
 			}else{
 				gender="0";
 			}
-			console.log(gender);
-			console.log(helperStartTime);
-			console.log(helperEndTime);
-			console.log(helperCategory);
+			if(ageValue == ""){
+				age = "0";
+			}else if(ageValue == "1"){
+				age = "1";
+			}else if(ageValue == "2"){
+				age = "2";
+			}else{
+				age = "0";
+			}
+			if(helperCategory == ""){
+				helperCategory="00000000";
+			}
 			$(".h_filter_open").slideToggle();
 		});
 		//서치
-		$("#searchHouse").click(function(){
+		$("#searchHelper").click(function(){
 			var keyword = $("input[name='keyword']").val();
-			location.href="/helperList.do?keyword="+keyword+"&gender="+gender+"&helperStartTime="+helperStartTime+"&helperEndTime="+helperEndTime+"&helperCategory="+helperCategory;
+			location.href="/helperList.do?keyword="+keyword+"&gender="+gender+"&helperStartTime="+helperStartTime+"&helperEndTime="+helperEndTime+"&helperCategory="+helperCategory+"&age="+age;
 		});
 		$(function() {
 			// 시간
@@ -470,6 +555,7 @@
 	    	$("input[name='helperStartTime']").val("");
 	    	$("input[name='helperEndTime']").val("");
 	    });
+	  
 	</script>
 </body>
 </html>

@@ -514,4 +514,14 @@ public class AdminService {
 		data.put("start", start);
 		return data;
 	}
+
+	public Helper selectOneHelper(int helperNo) {
+		Helper hp = dao.selectOneHelper(helperNo);
+		hp.setAddr(dao.selectHelperAddr(helperNo));
+		return hp;
+	}
+	@Transactional
+	public int updateHelper(Helper hp) {
+		return dao.updateHelper(hp);
+	}
 }

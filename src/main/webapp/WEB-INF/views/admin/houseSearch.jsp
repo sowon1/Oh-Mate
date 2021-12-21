@@ -20,52 +20,52 @@
                 			<th>승인 분류</th>
                 			<td>
 		                        <input class="form-check-input" type="checkbox" id="allChk"
-		                        <c:if test="${not empty s.status and fn:length(s.status) eq 3}">
-		                        	checked
-		                        </c:if>
-		                        >
+			                        <c:if test="${not empty s.status and fn:length(s.status) eq 3}">
+			                        	checked
+			                        </c:if>
+			                    >
 		                        <label class="form-check-label" for="allChk">전체</label>
                         	</td>
                         	<td>
 		                        <input class="form-check-input" type="checkbox" value="1" id="waitChk" name="status"
-		                        <c:if test="${not empty s.status}">
-		                        	<c:forEach items="${s.status }" var="s">
-										<c:choose>
-				                    		<c:when test="${s eq 1 }">
-				                    			checked
-				                    		</c:when>
-				                    	</c:choose>
-		                        	</c:forEach>
-		                        </c:if>
-		                        >
+			                        <c:if test="${not empty s.status}">
+			                        	<c:forEach items="${s.status }" var="s">
+											<c:choose>
+					                    		<c:when test="${s eq 1 }">
+					                    			checked
+					                    		</c:when>
+					                    	</c:choose>
+			                        	</c:forEach>
+			                        </c:if>
+			                    >
 		                        <label class="form-check-label" for="waitChk">승인 대기</label>
                         	</td>
                         	<td>
 		                        <input class="form-check-input" type="checkbox" value="2" id="allowChk" name="status"
-		                        <c:if test="${not empty s.status}">
-		                        	<c:forEach items="${s.status }" var="s">
-										<c:choose>
-				                    		<c:when test="${s eq 2 }">
-				                    			checked
-				                    		</c:when>
-				                    	</c:choose>
-		                        	</c:forEach>
-		                        </c:if>
-		                        >
+			                        <c:if test="${not empty s.status}">
+			                        	<c:forEach items="${s.status }" var="s">
+											<c:choose>
+					                    		<c:when test="${s eq 2 }">
+					                    			checked
+					                    		</c:when>
+					                    	</c:choose>
+			                        	</c:forEach>
+			                        </c:if>
+			                    >
 		                        <label class="form-check-label" for="allowChk">승인</label>
                         	</td>
                         	<td colspan="2">
 		                        <input class="form-check-input" type="checkbox" value="3" id="noAllowChk" name="status"
-		                        <c:if test="${not empty s.status}">
-		                        	<c:forEach items="${s.status }" var="s">
-										<c:choose>
-				                    		<c:when test="${s eq 3 }">
-				                    			checked
-				                    		</c:when>
-				                    	</c:choose>
-		                        	</c:forEach>
-		                        </c:if>
-		                        >
+			                        <c:if test="${not empty s.status}">
+			                        	<c:forEach items="${s.status }" var="s">
+											<c:choose>
+					                    		<c:when test="${s eq 3 }">
+					                    			checked
+					                    		</c:when>
+					                    	</c:choose>
+			                        	</c:forEach>
+			                        </c:if>
+			                    >
 		                        <label class="form-check-label" for="noAllowChk">미승인</label>
                         	</td>
                 		</tr>

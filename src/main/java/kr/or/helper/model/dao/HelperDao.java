@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.common.Address;
+import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
+import kr.or.common.Report;
 import kr.or.helper.model.vo.Helper;
 
 
@@ -104,5 +106,28 @@ public class HelperDao {
 		List<HelpReview> review = session.selectList("helper.selectHelperReview",map);
 		return (ArrayList<HelpReview>) review;
 	}
+
+	public int selectHelperNo(int memberNo) {
+		
+		return session.selectOne("helper.selectHelperNo", memberNo);
+	}
+	//도움 요청
+	public int insertHelprequest(HashMap<String, Object> map) {
+		return session.insert("helper.insertHelprequest",map);
+	}
+	//헬프 주소 등록
+	public int insertAddress(HashMap<String, Object> map) {
+		return session.insert("helper.insertAddressHelp",map);
+	}
+	//방금 등록한 헬프 번호 가져오기
+	public int selectHelperNo2() {
+		int helpNo = session.selectOne("helper.selectHelperNo2");
+		return helpNo;
+	}
+	//헬퍼신고
+	public int insertHelperReport(HashMap<String, Object> map) {
+		return session.insert("helper.insertHelperReport",map);
+	}
+
 	
 }

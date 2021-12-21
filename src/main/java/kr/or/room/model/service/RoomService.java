@@ -1,4 +1,4 @@
-package kr.or.room.model.dao;
+package kr.or.room.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import kr.or.common.Move;
 import kr.or.common.Pay;
 import kr.or.house.model.vo.House;
 import kr.or.common.Tour;
-import kr.or.room.model.service.RoomDao;
+import kr.or.room.model.dao.RoomDao;
 import kr.or.room.model.vo.Room;
 import kr.or.room.model.vo.RoomTMPageData;
 
@@ -65,6 +65,9 @@ public class RoomService {
 			h=dao.selectOneHouse(houseNo);
 			int houseRoom = h.getHouseRoom();
 			int houseSelling=h.getHouseSelling();
+			//입주정보
+			int moveNo = dao.selectOneMove();
+			map.put("moveNo", moveNo);
 			int roomCount = dao.selectCountRoom(houseNo);
 			if(houseRoom==roomCount && houseSelling==2) {
 				int updateHouseSelling = dao.updatehouseSelling(houseNo);

@@ -21,16 +21,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
-
+import kr.or.common.Tour;
 import kr.or.board.model.service.BoardService;
 import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.service.MemberService;
 import kr.or.member.model.vo.Member;
 import kr.or.profile.model.vo.Profile;
-import kr.or.room.model.dao.RoomService;
+import kr.or.room.model.service.RoomService;
 
 @Controller
 public class MemberController {
@@ -466,7 +465,12 @@ public class MemberController {
 		}
 		return "member/tourRequestList";
 	}
-	
+		
+	@RequestMapping(value = "/helpList.do")
+	public String helpList() {
+		return "member/helpList";
+	}
+
 	//커뮤니티 게시글/댓글 hdy
 	@RequestMapping(value="//communityConfim.do")
 	public String communityConfirm(int reqPage, Model model) {
@@ -476,5 +480,4 @@ public class MemberController {
 		model.addAttribute("start",map.get("start")); 
 		return "member/communityConfirm.do";
 	}
-	
 }
