@@ -13,6 +13,7 @@ import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import kr.or.helper.model.vo.Helper;
+import kr.or.helper.model.vo.ReqHelperList;
 
 
 @Repository
@@ -122,6 +123,16 @@ public class HelperDao {
 	public int selectHelperNo2() {
 		int helpNo = session.selectOne("helper.selectHelperNo2");
 		return helpNo;
+	}
+
+	public ArrayList<ReqHelperList> selectAllReqHelpList(HashMap<String, Object> map) {
+		List<ReqHelperList> list = session.selectList("helper.selectAllReqHelpList",map);
+		return (ArrayList<ReqHelperList>)list;
+	}
+
+	public int selectHelpTotalCount(int helperNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("helper.helpTotalCount", helperNo);
 	}
 
 	

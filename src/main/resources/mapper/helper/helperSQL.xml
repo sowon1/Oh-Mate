@@ -260,4 +260,48 @@
 			max(help_no)
 		from helplist
 	</select>
+	<select id="selectAllReqHelpList" parameterType="map" resultType="rhl">
+		select LL.*from
+			(select rownum as rnum,L.*from
+			(select
+			helper_no as helperNo,
+			h.member_no as memberNo,
+			h.helper_category as helperCategory,
+			h.helper_name as helperName,
+			h.helper_start_time as helperStartTime,
+			h.helper_end_time as helperEndTime,
+			h.helper_ride as helperRide,
+			h.helper_filepath as helperFilepath,
+			h.helper_credit as helperCredit,
+			hl.help_no as helpNo,
+			hl.member_no as hMemberNo,
+			hl.help_title as helpTitle,
+			hl.help_content as helpContent,
+			hl.help_category as helpCategory,
+			hl.help_charge as helpCharge,
+			hl.help_status as helpStatus,
+			hl.help_start_time as helpStartTime,
+			hl.help_end_time as helpEndTime,
+			hl.help_request_date as helpRequestDate,
+			hl.help_finish_date as helpFinishDate,
+			a.address_no as addressNo,
+			a.address_code as  addressCode,
+			a.address_name as addressName,
+			a.address_road as addressRoad,
+			a.address_legal as addressLegal,
+			a.address_detail as addressDetail,
+			m.member_id as memberId,
+			m.member_name as memberName,
+			m.phone as phone,
+			m.email as email
+			from helper h
+			left join helplist hl using(helper_no)
+			left join address a on(help_no=address_number)
+			left join member m on(m.member_no=hl.member_no)
+			where helper_no=#{helperNo} and help_request_date= to_char(sysdate,'yyyy-mm-dd')  order by help_no desc)L)LL
+			where rnum between #{start} and #{end}
+	</select>
+	<select id="helpTotalCount" parameterType="_int" resultType="_int">
+		select count(*) from helplist where helper_no=#{helperNo}
+	</select>
 </mapper>
