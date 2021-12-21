@@ -52,7 +52,7 @@
 	</beans:bean>
 	
 	
-	<!-- 파일첨부 객체 생성 20메가로 환산 -->
+	<!-- 파일첨부 객체 생성 200메가로 환산 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="209715200"/>
 	</beans:bean> 

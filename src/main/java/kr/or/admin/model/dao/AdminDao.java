@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.admin.model.vo.Sales;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Address;
 import kr.or.common.Photo;
@@ -156,5 +157,14 @@ public class AdminDao {
 
 	public int updateHelper(Helper hp) {
 		return session.update("admin.updateHelper", hp);
+	}
+
+	public ArrayList<Sales> selectAllSales(HashMap<String, Object> map) {
+		List<Sales> list = session.selectList("admin.selectAllSales", map);
+		return (ArrayList<Sales>)list;
+	}
+
+	public int totalSalesCount() {
+		return session.selectOne("admin.salesTotal");
 	}
 }

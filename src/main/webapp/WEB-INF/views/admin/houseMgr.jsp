@@ -16,7 +16,7 @@
                 <div class="chkBox">
                     <table>
                 		<tr>
-                			<th>승인 분류</th>
+                			<th>승인 상태</th>
                 			<td>
 		                        <input class="form-check-input" type="checkbox" id="allChk">
 		                        <label class="form-check-label" for="allChk">전체</label>

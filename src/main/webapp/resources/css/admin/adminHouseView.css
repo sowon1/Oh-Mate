@@ -138,15 +138,17 @@ html, body{
 }
 
 /* 방 정보 */
-.container_mate ul{
+.roomList{
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	margin-bottom: 0;
+	flex-wrap: wrap;
 }
-.container_mate ul>li{
+.roomList>li{
 	width:300px;
 	padding:10px;
 	border: 1px solid rgba(0, 0, 0, 0.12);
+	margin:8px 10px;
 }
 .roomTbl>tbody>tr>th, .roomTbl>tbody>tr>td{
 	padding:5px 2px;
