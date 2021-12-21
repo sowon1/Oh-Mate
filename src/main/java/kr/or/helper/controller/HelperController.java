@@ -357,6 +357,16 @@ public class HelperController {
 			}
 			return "common/msg";
 		}
-		
+		@RequestMapping(value = "/updateHelpStatus.do")
+		public String updateHelpStatus(int helpStatus,int helpNo,HttpSession session) {
+			System.out.println(helpNo);
+			int result = service.updateHelpStatus(helpStatus,helpNo);
+			if(result>0) {				
+				return "redirect:/helperReqList.do?reqPage=1";
+			}else {
+				return "redirect:/helperReqList.do?reqPage=1";
+			}
+			
+		}
 		
 }
