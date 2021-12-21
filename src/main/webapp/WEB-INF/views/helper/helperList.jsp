@@ -285,7 +285,7 @@
 						//	addrs.push(list[i].addr[j].addressRoad);
 						//}
 						//console.log(addr);
-						getHouseMap(list[i].addr[0].addressRoad,list[i].helperName,list[i].helperFilepath,list[i].gender,list[i].age,list[i].helperNo);
+						getHouseMap(list[i].addr[0].addressRoad,list[i].helperName,list[i].helperFilepath,list[i].gender,list[i].age,list[i].helperNo,list[i].helperStartTime,list[i].helperEndTime,list[i].helperRide);
 					}
 					$(".list_container").append(html);
 					$(".loading").hide();
@@ -335,7 +335,7 @@
 	      var coay = null;
 	      var cselectedMarker = null;
 	      console.log("주소 : "+addrs);
-	      function getHouseMap(addr,name,photo,gender,age,helperno) {
+	      function getHouseMap(addr,name,photo,gender,age,helperno,time,time2,ride) {
 	    	  
 	    	  // 주소-좌표 변환 객체를 생성합니다
 		         var geocoder = new kakao.maps.services.Geocoder();
@@ -365,9 +365,32 @@
 			           // 커스텀 오버레이에 표시할 컨텐츠 입니다
 			           // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 			           // 별도의 이벤트 메소드를 제공하지 않습니다 
+			           if(gender == 1){
+			        	   gender = "남";
+			           }else{
+			        	   gender = "여";
+			           }
+			           if(age == 1){
+			        	   age = "20대 · ";
+			           }else if(age == 2){
+			        	   age = "30대 · ";
+			           }else{
+			        	   age = "40대 · ";
+			           }
+			           if(ride == '1'){							
+			        	   ride= '자동차';
+						}else if(ride == '2'){
+							ride= '오토바이';
+						}else if(ride == '3'){
+							ride= '전동퀵보드';
+						}else if(ride == '4'){
+							ride= '자전거';
+						}else{
+							ride= '걸어서';
+						}
 			           var content = '<div class="map_wrap">' +  
 			                       '    <div class="info">' + 
-			                       '        <div class="title"> Oh-Mate' +
+			                       '        <div class="title"> Helper' +
 			                       '            <div class="house_map_close" onclick="closeOverlay(this)" title="닫기"></div>' + 
 			                       '        </div>' + 
 			                       '        <div class="body">' +
@@ -375,13 +398,14 @@
 			                       '                <img src="/resources/upload/helper/'+photo+'">' +
 			                       '           </div>' + 
 			                       '            <div class="desc">' +
-			                       '				<span class="title_name">'+name+'</span>'
-					               '       			<div class="title_tag">' +
-					               '           			' +gender+
+			                       '				<span class="map_title_name">'+name+'</span>' +
+					               '       			<div class="title_age">' +
+					               '           			' +age+
 					               '        		</div>' + 
-			                       '                <div class="ellipsis">'+age+'</div>' + 
-			                       '                <div><a href="helperView.do?helperNo='+helperno+'" target="_blank" class="house_view_more">자세히보기</a></div>' + 
-			                       '            </div>' + 
+			                       '                <div class="title_gender">'+gender+'</div>' + 
+			                       '				</div><span class="map_titme">활동시간 : '+time+' ~ '+time2+'</span>'+
+			                       '				<span class="map_ride">이동수단 : '+ride+'</span>'+
+			                       '                <div><a href="helperView.do?helperNo='+helperno+'" target="_blank" class="house_view_more">More</a></div>' + 
 			                       '        </div>' + 
 			                       '    </div>' +    
 			                       '</div>';

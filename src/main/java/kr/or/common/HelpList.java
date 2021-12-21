@@ -1,7 +1,5 @@
 package kr.or.common;
 
-import java.util.ArrayList;
-
 import lombok.Data;
 
 @Data
@@ -11,7 +9,7 @@ public class HelpList {
 	private int helperNo;					//헬퍼번호
 	private String helpTitle;				//타이틀
 	private String helpContent;				//헬프내용
-	private String helpCategory;			//선호분야
+	private int helpCategory;				//헬프 분야 [1.배달·장보기 /2. 청소·집안일 / 3. 설치·조립·운반 / 4. 동행·돌봄 / 5. 벌레·쥐 / 6. 역할대행 / 7. 과외·알바 / 8. 기타·원격 ]
 	private String helpCharge;				//심부름비
 	private int helpStatus;					//처리상태 [1.요청중 / 2.처리중 / 3. 처리완료 / 4. 취소]
 	private String helpStartTime;			//시작시간 [HH:MM]

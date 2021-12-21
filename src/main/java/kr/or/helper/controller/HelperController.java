@@ -263,7 +263,6 @@ public class HelperController {
 				}
 			}
 			HashMap<String, Object> data = service.selectAjaxHelper(pageNum, memberNo, keyword, h, mem);
-			System.out.println("아작스"+keyword);
 			System.out.println("아작스"+data.get("list"));
 			model.addAttribute("totalPageCount", data.get("totalPageCount"));
 			model.addAttribute("startPageNum", data.get("startPageNum"));
@@ -333,7 +332,8 @@ public class HelperController {
 			int result = service.insertHelprequest(h,helperNo,memberNo,addr);
 			if(result>0) {
 				model.addAttribute("msg", "헬퍼 요청 성공!");
-				return"helper/helperView";
+				model.addAttribute("loc","/helpList.do?reqPage=1");
+				return "common/msg";
 			}else {
 				model.addAttribute("msg", "헬프요청실패");
 				return"helper/helperView";
