@@ -126,7 +126,7 @@
                         			<a onclick="msgpopupopen();"><img src="/resources/img/icon/report.png"></a>
                         		</c:when>
                         		<c:otherwise>
-                        			<a idx2="${h.helperNo}" id="helperReport"><img src="/resources/img/icon/report.png"></a>
+                        			<a id="helperReport"><img src="/resources/img/icon/report.png"></a>
                         		</c:otherwise>
                         	</c:choose>
                         </div>           
@@ -143,13 +143,39 @@
 		                      	<span class="re_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
 		                   </div>
 		                   <div class="re_modal_content">
-		                   		<form action="/helpreport.do" method="post">
+		                   		<form action="/helperReport.do" method="post" class="reform">
 		                   			<table class="help_table">
 	                        			<tr class="table-active_mate_help">
-	                        				<th>도움 유형</th>
-	                        				<td></td>
+	                        				<th>신고 닉네임</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="${h.helperName}"readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${h.memberNo}" name="hmemberNo" readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${h.helperNo}" name="helperNo" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고자</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="${sessionScope.m.memberName}" readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${sessionScope.m.memberNo}" name="memberNo" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고분류</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="헬퍼" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고사유</th>
+	                        				<td>
+	                        					<textarea name="reportContent" class="textarea_pro"></textarea>
+	                        				</td>
 	                        			</tr>
                         			</table>
+                        			<div class="form_btn">
+	                        			<a class="btn_100" type="submit" onclick="return checkReVal();">신고하기</a>
+	                        		</div>
 		                   		</form>
 		                   </div>
                  	</div>
@@ -625,6 +651,17 @@
 		    $("body").css("overflow", "auto");
 		    $(".tour_back_dark").hide();			
 		}
+		//신고 유효성 
+		function checkReVal(){
+			if($("textarea").val() == ""){					
+				 $(".title_name").text("사유를");
+				 $($("textarea[name='helpContent']")).focus();
+				countmsgopen(autoClose());
+			}else{
+				 $(".reform").submit();
+			}
+		}
+		
 	</script>
 </body>
 </html>

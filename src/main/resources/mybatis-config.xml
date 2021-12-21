@@ -27,6 +27,7 @@
 		<typeAlias type="kr.or.common.Move" alias="move"/>
 		<typeAlias type="kr.or.helper.model.vo.Helper" alias="hp"/>
 		<typeAlias type="kr.or.common.HelpReview" alias="re"/>
+		<typeAlias type="kr.or.common.Report" alias="report"/>
 		<typeAlias type="kr.or.house.model.vo.HouseRoomAdjustPay" alias="hrap"/>
 	</typeAliases>
 </configuration>

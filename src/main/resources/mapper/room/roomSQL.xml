@@ -90,7 +90,7 @@
 	  	values(
 	  		pay_seq.nextval,
 	  		2,
-	  		#{roomNo},
+	  		#{moveNo},
 	  		#{p.payId},
 	  		#{p.payName},
 	  		#{p.payNum},
@@ -245,4 +245,10 @@
  		update tour set tour_status = #{tourStatus}
  		where tour_no= #{tourNo}
  	</update>
+ 	<!-- 입주번호 -->
+ 	<select id="selectGetMove" resultType="_int">
+ 		select 
+   			max(move_no) 
+   		from move
+ 	</select>
 </mapper>

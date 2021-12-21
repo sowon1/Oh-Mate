@@ -260,4 +260,9 @@
 			max(help_no)
 		from helplist
 	</select>
+	<!-- helper report -->
+	<insert id="insertHelperReport" parameterType="map">
+		insert into report
+		values(report_seq.nextval,1,#{helperNo},#{memberNo},#{hmemberNo},#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
+	</insert>
 </mapper>

@@ -642,7 +642,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .help_table{
 	width: 100%;
     box-sizing: border-box;
-    padding: 0px 30px 20px 30px;
+    padding: 40px 30px 20px 30px;
     border-collapse: inherit;
 }
 .table-active_mate_help{
@@ -1115,15 +1115,15 @@ from { opacity: 0; -webkit-transform: scale(.8); }
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 19993;
+    z-index: 9993;
 }
 .re_pop_modal{
     width: 50vw;
     min-width: 400px;
     max-width: 400px;
     height: 50vh;
-    min-height: 500px;
-    max-height: 500px;
+    min-height: 534px;
+    max-height: 534px;
     text-align: left;
     z-index: 10;
     overflow-y: auto;
