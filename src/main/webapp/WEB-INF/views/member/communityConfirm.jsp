@@ -17,23 +17,16 @@
 				<div class="confirm_cont">
 					<div class="community-wrap">
 						<div class="community-tab">
-							<a href="/communityConfirm.do">내가 작성한 게시물 보기</a>
+							<a href="/communityConfim.do">내가 작성한 게시물 보기</a>
 						</div>
 						<div class="community-tab">
-							<a href="/commentConfirm.do">내가 작성한 댓글 보기</a>
+							<a href="/commentConfim.do">내가 작성한 댓글 보기</a>
 						</div>
-						<div class="delbutton">
-							<button class="delete" name="delete" id="delete" style="display:none;"></button> 
-							<label for="delete"><img src="resources/img/icon/trash.png" style="width:35px; margin-top:10px;"></label>
-						</div>
-						<form action="/searchId.do" method="post">
+						<form action="/searchId.do" method="post"> 
 						    <table class="community-table table table-hover">
 						  	<thead>
-								<tr>
-									<th scope="col">
-										<label for="chkAllBox">모두선택</label>
-										<input type="checkbox" id="chkAllBox" style="width:0px; height:0px;">
-									</th>
+								<tr class="table-secondary">
+									<th scope="col">No</th>
 									<th scope="col">제목</th>
 									<th scope="col">작성일</th>
 									<th scope="col">조회수</th>

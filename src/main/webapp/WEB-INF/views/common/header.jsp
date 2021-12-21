@@ -165,7 +165,7 @@
 		      <li><a href="/bookmarkHouseList.do">하우스 찜목록</a></li>
 		      <li><a href="#">하우스 입주 내역</a></li>
 		      <li><a href="/tourRequestList.do?reqPage=1">투어 신청 내역</a></li>
-		      <li><a href="/communityConfirm.do">커뮤니티 게시글/댓글</a></li>
+		      <li><a href="/communityConfirm.do?reqPage=1">커뮤니티 게시글/댓글</a></li>
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
 		      	<li>
 		      	<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">

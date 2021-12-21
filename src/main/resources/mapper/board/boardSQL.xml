@@ -146,11 +146,11 @@
 		<choose>
 		<when test="boardRef == 0">
 		(comment_seq.nextval,#{commentLevel},#{commentWriter},#{commentContent},to_char(sysdate,'yyyy-mm-dd hh24:mi'),
-		#{boardNo},null,#{status},#{commentSecret})
+		#{boardNo},null,1,#{commentSecret})
 		</when>
 		<otherwise>
 		(comment_seq.nextval,#{commentLevel},#{commentWriter},#{commentContent},to_char(sysdate,'yyyy-mm-dd hh24:mi'),
-		#{boardNo},#{boardRef},#{status},#{commentSecret})
+		#{boardNo},#{boardRef},1,#{commentSecret})
 		</otherwise>
 		</choose>
 	</insert>
@@ -170,12 +170,48 @@
 		from Mate_comment where board_no=#{boardNo} order by 1
 	</select>
 	
-		<!-- 회원 파일경로 / 수정예정 -->
-	<select id="selectcommentMember" parameterType="mc" resultType="string">
-		select member_filepath from member where member_id=(select comment_writer from mate_comment where board_no=#{boardNo} and comment_no=#{commentNo})
+	<!-- 회원 파일경로 / 수정예정 -->
+	<select id="selectcommentMember" parameterType="int" resultType="string">
+		select 
+    		comment_no,
+    		comment_content,
+    		comment_writer,
+    		member_filepath
+		from mate_comment left join member on (comment_writer = member_id) where board_no=#{boardNo}
 	</select>
-</mapper>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="map">
+		update mate_comment set comment_content=#{commentContent} where comment_no=#{commentNo}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delteComment" parameterType="int">
+		delete from mate_comment where comment_no=#{commentNo}
+	</delete>
+	
+	<!-- 게시판_프로필옵션 -->
+	<select id="selectBoardPr" parameterType="int" resultType="string">
+		select profile_option from board where board_no=#{boardNo}
+	</select>
+	
+	<!-- 마이페이지_커뮤니티 게시글/댓글 -->
+	<select id="communityConfirm" parameterType="map" resultType="b">
+		select 
+			board_no as boardNo, 
+			board_title as boardTitle, 
+			reg_date as regDate, 
+			read_count as readCount 
+		from (select rownum as rnum,b.* from (select * from board order by reg_date desc)b)
+		where rnum between #{start} and #{end}
+	</select>
+	
+	<!-- 마이페이지_전체 게시물 수 -->
+	<select id="totalCount" resultType="int">
+		select count(*)as count from board
+	</select>
 
+</mapper>
 
 
 
