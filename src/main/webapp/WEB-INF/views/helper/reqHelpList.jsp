@@ -81,7 +81,9 @@
 					</tr>
 					<c:forEach items="${list }" var="h" varStatus="i">
 						<tr>
-							<td>${start+i.index }</td>
+							<td>${start+i.index }
+							<input type="hidden" name=helpNo value="${h.helpNo }">
+							</td>
 							<td><c:choose>
 									<c:when test="${h.helpCategory eq 1}">배달·장보기</c:when>
 									<c:when test="${h.helpCategory eq 2}">청소·집안일</c:when>
@@ -96,7 +98,16 @@
 							<td>${h.helpRequestDate}${h.helpStartTime }</td>
 							<td>${h.helpRequestDate}${h.helpEndTime }</td>
 							<td>${h.helpFinishDate }</td>
-							<td>${h.helpStatus }</td>
+							<td>
+							<c:choose>
+								<c:when test="${h.helpStatus eq 1 }">헬프요청중</c:when>
+								<c:when test="${h.helpStatus eq 2 }">헬프진행중</c:when>
+								<c:when test="${h.helpStatus eq 3 }">헬프완료</c:when>
+								<c:when test="${h.helpStatus eq 4 }">헬프취소</c:when>
+								<c:when test="${h.helpStatus eq 5 }">헬프만료</c:when>
+								<c:when test="${h.helpStatus eq 6 }">헬프거절</c:when>
+							</c:choose>
+							</td>
 							<td>
 								<div>
 									<button class="modbtn" id="modbtn" style="float: left;">확인하기</button>
@@ -151,11 +162,11 @@
 														<input type="hidden" value="${h.helpStartTime }"
 															name="StartTime">
 												<c:choose>
-													<c:when test="${h.helpStatus eq 2 }">
+													<c:when test="${h.helpStatus eq 1 }">
 														<a href="#" class="btn btn_b_line btn_rx" name="allowBtn" style="line-height: 30px">승인</a>
 														<a href="/updateHelpStatus.do?helpStatus=6 and helpNo=${h.helpNo }" class="btn btn_b_line btn_rx" style="line-height: 30px">거절</a>
 													</c:when>
-													<c:when test="${h.helpStatus eq 1 }">
+													<c:when test="${h.helpStatus eq 2 }">
 														<div>
 														<form action="/helpComplete.do" class="comForm"  method="post" enctype="multipart/form-data">
 														<table>
@@ -267,16 +278,17 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo= $('input[name=helpNo]').eq(0).val();
 					if(nowNum>=startNum){
 						alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!")
-						location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[0].helpNo}";
+						location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo;
 					}else if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=2 and helpNo=${list[0].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=2&helpNo="+helpNo;
 						}else{
 							alert("한시간 이전까지만 헬프요청 승락이 가능합니다.")
-							location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[0].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo;
 						}
 					}
 					
@@ -291,16 +303,17 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo1= $('input[name=helpNo]').eq(1).val();
 					if(nowNum>=startNum){
 						alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!")
-						location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[1].helpNo}";
+						location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo1;
 					}else if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=2 and helpNo=${list[1].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=2&helpNo="+helpNo1;
 						}else{
 							alert("한시간 이전까지만 헬프요청 승락이 가능합니다.")
-							location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[1].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo1;
 						}
 					}
 					
@@ -315,16 +328,17 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo= $('input[name=helpNo]').eq(2).val();
 					if(nowNum>=startNum){
 						alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!")
-						location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[2].helpNo}";
+						location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo;
 					}else if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=2 and helpNo=${list[2].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=2&helpNo="+helpNo;
 						}else{
 							alert("한시간 이전까지만 헬프요청 승락이 가능합니다.")
-							location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[2].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo;
 						}
 					}
 					
@@ -339,16 +353,17 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo= $('input[name=helpNo]').eq(3).val();
 					if(nowNum>=startNum){
 						alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!")
-						location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[3].helpNo}";
+						location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo;
 					}else if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=2 and helpNo=${list[3].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=2&helpNo="+helpNo;
 						}else{
 							alert("한시간 이전까지만 헬프요청 승락이 가능합니다.")
-							location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[3].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo;
 						}
 					}
 					
@@ -363,16 +378,17 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo= $('input[name=helpNo]').eq(4).val();
 					if(nowNum>=startNum){
 						alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!")
-						location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[4].helpNo}";
+						location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo;
 					}else if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=2 and helpNo=${list[4].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=2&helpNo="+helpNo;
 						}else{
 							alert("한시간 이전까지만 헬프요청 승락이 가능합니다.")
-							location.href="/updateHelpStatus.do?helpStatus=5 and helpNo=${list[4].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=5&helpNo="+helpNo;
 						}
 					}
 					
@@ -387,10 +403,11 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo= $('input[name=helpNo]').eq(0).val();
 					if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=4 and helpNo=${list[0].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=4&helpNo="+helpNo;
 						}else{
 							alert("한시간 이전까지만 취소가 가능합니다.");
 						}
@@ -407,10 +424,11 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo= $('input[name=helpNo]').eq(1).val();
 					if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=4 and helpNo=${list[1].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=4&helpNo="+helpNo;
 						}else{
 							alert("한시간 이전까지만 취소가 가능합니다.");
 						}
@@ -427,10 +445,11 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo= $('input[name=helpNo]').eq(2).val();
 					if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=4 and helpNo=${list[2].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=4&helpNo="+helpNo;
 						}else{
 							alert("한시간 이전까지만 취소가 가능합니다.");
 						}
@@ -447,10 +466,11 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo= $('input[name=helpNo]').eq(3).val();
 					if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=4 and helpNo=${list[3].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=4&helpNo="+helpNo;
 						}else{
 							alert("한시간 이전까지만 취소가 가능합니다.");
 						}
@@ -467,10 +487,11 @@
 					console.log(now);
 					var startNum = Number(startTime);
 					var nowNum = Number(now);
+					var helpNo= $('input[name=helpNo]').eq(4).val();
 					if(nowNum<startNum){
 						var comTime= startNum-nowNum;
 						if(comTime>100){
-							location.href="/updateHelpStatus.do?helpStatus=4 and helpNo=${list[4].helpNo}";
+							location.href="/updateHelpStatus.do?helpStatus=4&helpNo="+helpNo;
 						}else{
 							alert("한시간 이전까지만 취소가 가능합니다.");
 						}

@@ -309,4 +309,7 @@
 		insert into report
 		values(report_seq.nextval,1,#{helperNo},#{memberNo},#{hmemberNo},#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
 	</insert>
+	<update id="updateHelpStatus" parameterType="map">
+		update helplist set help_status =#{helpStatus} where help_no=#{helpNo}
+	</update>
 </mapper>

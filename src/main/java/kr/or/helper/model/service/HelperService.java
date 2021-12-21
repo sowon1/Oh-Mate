@@ -305,4 +305,12 @@ public class HelperService {
 		return result;
 	}
 
+	public int updateHelpStatus(int helpStatus, int helpNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("helpStatus", helpStatus);
+		map.put("helpNo", helpNo);
+		int result = dao.updateHelperStatus(map);
+		return result;
+	}
+
 }
