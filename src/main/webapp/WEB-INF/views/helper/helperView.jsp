@@ -526,6 +526,7 @@
 				singleDatePicker : true,
 				timePicker24Hour : true,
 				timePickerIncrement : 30,
+				setTime : new Date(),
 				locale : {
 					"format" : 'HH:mm',
 					"applyLabel" : "확인",

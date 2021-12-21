@@ -264,7 +264,10 @@ public class HelperController {
 				}
 			}
 			HashMap<String, Object> data = service.selectAjaxHelper(pageNum, memberNo, keyword, h, mem);
-			System.out.println("아작스"+data.get("list"));
+			System.out.println("컨트롤러"+h.getHelperCategory());
+			System.out.println("컨트롤러"+h.getHelperEndTime());
+			System.out.println("컨트롤러"+h.getHelperStartTime());
+			System.out.println("아작스잉"+data.get("list"));
 			model.addAttribute("totalPageCount", data.get("totalPageCount"));
 			model.addAttribute("startPageNum", data.get("startPageNum"));
 
