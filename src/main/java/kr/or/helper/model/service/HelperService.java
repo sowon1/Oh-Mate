@@ -304,5 +304,30 @@ public class HelperService {
 		int result = dao.insertHelperReport(map);
 		return result;
 	}
+	//리뷰 좋아요 조회
+	public int reviewLike(int memberNo, int reviewNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("reviewNo", reviewNo);
+		return dao.reviewLike(map);
+	}
+	//리뷰 토탈 
+	public int reviewLikeCount(int reviewNo) {
+		return dao.reviewLikeCount(reviewNo);
+	}
+	//리뷰 insert
+	public int insertReviewLike(int memberNo, int reviewNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("reviewNo", reviewNo);
+		return dao.insertReviewLike(map);
+	}
+	//리뷰 delete
+	public int deleteReviewLike(int memberNo, int reviewNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("reviewNo", reviewNo);
+		return dao.deleteReviewLike(map);
+	}
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <!-- 지도 -->
@@ -367,14 +368,14 @@
 					<ul>
 						<li>
 							<span class="helper_count_box_title">만족해요</span>
-							<span class="helper_count_box_code">${h.helpStatus3}</span>
+							<span class="helper_count_box_code">${review[0].star5}</span>
 						</li>
 						<li>
 							<span class="helper_count_box_title">그냥 그래요</span>
-							<span class="helper_count_box_code">${h.helpStatus3}</span>
+							<span class="helper_count_box_code">${review[0].star4}</span>
 						</li>
 						<li>
-							<h3 class="helper_count_box_total">총 만족 고객 <em class="point">${h.helpStatus3 + helpStatus4}</em> 건</h3>
+							<h3 class="helper_count_box_total">총 만족 고객 <em class="point">${review[0].star5 + review[0].star4}</em> 건</h3>
 						</li>
 					</ul>
 				</div>
@@ -410,106 +411,76 @@
 				</div>
 				<div class="helper_review_list">
 					<ul>
-						<li>
-							<div class="review_text">
-								<img src="/resources/img/icon/profile.png" class="review_pro_img">
-								<div class="review_text_box">
-									<div class="star-ratings review_star">
-										<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
-											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+						<c:forEach items="${review}" var="r">						
+							<li>
+								<div class="review_text">
+									<img src="/resources/img/icon/profile.png" class="review_pro_img">
+									<div class="review_text_box">
+										<div class="star-ratings review_star">
+											<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
+												<c:choose>
+													<c:when test="${r.asterion == 5}">
+														<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>													
+													</c:when>
+													<c:when test="${r.asterion == 4}">
+														<span>★</span><span>★</span><span>★</span><span>★</span>												
+													</c:when>
+													<c:when test="${r.asterion == 3}">
+														<span>★</span><span>★</span><span>★</span>											
+													</c:when>
+													<c:when test="${r.asterion == 2}">
+														<span>★</span><span>★</span>							
+													</c:when>
+													<c:otherwise>
+														<span>★</span>																						
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="star-ratings-base space-x-2 text-lg">
+												<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>	
+											</div>
 										</div>
-										<div class="star-ratings-base space-x-2 text-lg">
-											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										<span class="review_star_text">${r.asterion}</span>
+										<div class="review_writer">
+											<span class="review_id">
+												<c:if test="${r.memberId ne null && r.memberId!=''}">${fn:substring(r.memberId,0,fn:length(r.memberId)-1)}****</c:if>											
+											</span>
+											<span class="review_date">${r.reviewDate}</span>
 										</div>
-									</div>
-									<span class="review_star_text">5</span>
-									<div class="review_writer">									
-										<span class="review_id">thdnjs***</span>
-										<span class="review_date">2021.12.21</span>
-									</div>
-									<div class="review_title">
-										도움 : 바퀴벌레 좀 잡아줘요 !!!
-									</div>
-									<div class="review_content">
-										도움 완전 잘받았어요 !! 최고 !! 최고야 ~~!! 늘 짜릿해 !!
-									</div>
-								</div>
-								<img src="/resources/img/icon/admin_house.png" class="review_img">
-								<div class="review_like">
-									<c:choose>
-		                        		<c:when test="${empty sessionScope.m}">
-		                        			<button onclick="msgpopupopen();" class="review_likebtn">
-		                        				<img src="/resources/img/icon/review_icon_off.png">		                        			
-		                        				<span class="review_count">0</span>
-		                        			</button>
-		                        		</c:when>
-		                        		<c:when test="">
-					                		<a idx="" class="review_likebtn">
-					                			<img src="/resources/img/icon/review_icon_on.png">
-					                			<span class="review_count">0</span>
-					                		</a>
-					                	</c:when>
-					                	<c:otherwise>                							              
-											<a idx="" class="review_likebtn">
-												<img src="/resources/img/icon/review_icon_off.png">
-												<span class="review_count">0</span>
-											</a>
-					                	</c:otherwise>
-		                        	</c:choose>
-		                        	<div class="review_btn_hover">리뷰가 도움이 되었나요?</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="review_text">
-								<img src="/resources/img/icon/profile.png" class="review_pro_img">
-								<div class="review_text_box">
-									<div class="star-ratings review_star">
-										<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
-											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										<div class="review_title">
+											도움 : ${r.reviewTitle}
 										</div>
-										<div class="star-ratings-base space-x-2 text-lg">
-											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										<div class="review_content">
+											${r.reviewContent}
 										</div>
 									</div>
-									<span class="review_star_text">5</span>
-									<div class="review_writer">									
-										<span class="review_id">thdnjs***</span>
-										<span class="review_date">2021.12.21</span>
-									</div>
-									<div class="review_title">
-										도움 : 바퀴벌레 좀 잡아줘요 !!!
-									</div>
-									<div class="review_content">
-										도움 완전 잘받았어요 !! 최고 !! 최고야 ~~!! 늘 짜릿해 !!
+									<img src="/resources/img/icon/admin_house.png" class="review_img">
+									<div class="review_like">
+										<c:choose>
+			                        		<c:when test="${empty sessionScope.m}">
+			                        			<button onclick="msgpopupopen();" class="review_likebtn">
+			                        				<img src="/resources/img/icon/review_icon_off.png">		                        			
+			                        				<span class="review_count">${r.likeCount}</span>
+			                        			</button>
+			                        		</c:when>
+			                        		<c:when test="${r.likedCheck == '좋아요'}">
+						                		<a idx2="${r.reviewNo}" class="review_likebtn review_on">
+						                			<img src="/resources/img/icon/review_icon_on.png">
+						                			<span class="review_count">${r.likeCount}</span>
+						                		</a>
+						                	</c:when>
+						                	<c:otherwise>
+												<a idx2="${r.reviewNo}" class="review_likebtn">
+													<img src="/resources/img/icon/review_icon_off.png">
+													<span class="review_count">${r.likeCount}</span>
+												</a>
+						                	</c:otherwise>
+			                        	</c:choose>
+			                        	<div class="review_btn_hover">리뷰가 도움이 되었나요?</div>
 									</div>
 								</div>
-								<img src="/resources/img/icon/admin_house.png" class="review_img">
-								<div class="review_like">
-									<c:choose>
-		                        		<c:when test="${empty sessionScope.m}">
-		                        			<button onclick="msgpopupopen();" class="review_likebtn review_on">
-		                        				<img src="/resources/img/icon/review_icon_on.png">		                        			
-		                        				<span class="review_count">0</span>
-		                        			</button>
-		                        		</c:when>
-		                        		<c:when test="">
-					                		<a idx="" class="review_likebtn review_on">
-					                			<img src="/resources/img/icon/review_icon_on.png">
-					                			<span class="review_count">0</span>
-					                		</a>
-					                	</c:when>
-					                	<c:otherwise>                							              
-											<a idx="" class="review_likebtn review_on">
-												<img src="/resources/img/icon/review_icon_on.png">
-												<span class="review_count">0</span>
-											</a>
-					                	</c:otherwise>
-		                        	</c:choose>
-		                        	<div class="review_btn_hover">리뷰가 도움이 되었나요?</div>
-								</div>
-							</div>
-						</li>
+							</li>
+						</c:forEach>						
 					</ul>
 				</div>
 			</div>
@@ -614,7 +585,28 @@
 				}
 			});
 		});
-		
+		//리뷰 좋아유
+		$(document).on("click",".review_likebtn",function(){
+			var memberNo = "${sessionScope.m.memberNo}";
+			var reviewNo = $(this).attr('idx2');
+			var like = $(this);
+			$.ajax({
+				url : "/ReviewListLike.do",
+				data : {memberNo:memberNo, reviewNo:reviewNo},
+				type : "POST",
+				success : function(data){
+					if(data.likeCheck == 0){
+						like.children("img").attr("src","/resources/img/icon/review_icon_off.png");
+						like.toggleClass("review_on");
+						like.children("span").html(data.likeCnt);
+					}else{
+						like.children("img").attr("src","/resources/img/icon/review_icon_on.png");
+						like.toggleClass("review_on");
+						like.children("span").html(data.likeCnt);
+					}
+				}
+			})
+		});
 		$(function() {
 			// 시간
 			$(".helptime").daterangepicker({

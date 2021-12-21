@@ -1,7 +1,5 @@
 package kr.or.common;
 
-import java.util.ArrayList;
-
 import lombok.Data;
 
 @Data
@@ -15,4 +13,7 @@ public class HelpReview {
 	private String reviewDate;				//작성시간
 	private String likedCheck;				//좋아요 체크용
 	private String likeCount;				//좋아요 카운트
+	private String memberId;				//작성자 아이디
+	private int star5;						//별점5
+	private int star4;						//별점4
 }

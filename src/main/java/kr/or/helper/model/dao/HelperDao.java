@@ -139,6 +139,22 @@ public class HelperDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("helper.helpTotalCount", helperNo);
 	}
+	//리뷰 좋아요 조회
+	public int reviewLike(HashMap<String, Object> map) {
+		return session.selectOne("helper.reviewLike",map);
+	}
+	//리뷰 토탈
+	public int reviewLikeCount(int reviewNo) {
+		return session.selectOne("helper.reviewLikeCount",reviewNo);
+	}
+	//리뷰 insert
+	public int insertReviewLike(HashMap<String, Object> map) {
+		return session.update("helper.insertReviewLike",map);
+	}
+	//리뷰 delete
+	public int deleteReviewLike(HashMap<String, Object> map) {
+		return session.delete("helper.deleteReviewLike",map);
+	}
 
 	
 }

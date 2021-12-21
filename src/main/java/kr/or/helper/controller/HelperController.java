@@ -358,5 +358,26 @@ public class HelperController {
 			return "common/msg";
 		}
 		
+		//리뷰 좋아요 
+		@ResponseBody
+		@RequestMapping(value="/ReviewListLike.do", method = {RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+		public String reviewListLike(int memberNo, int reviewNo) {
+			int like_check = 0;
+			like_check = service.reviewLike(memberNo,reviewNo);
+			int like_cnt = service.reviewLikeCount(reviewNo);
+			if(like_check == 0) {
+				int like_up = service.insertReviewLike(memberNo,reviewNo);
+				like_check++;
+				like_cnt++;
+			}else {
+				int like_down = service.deleteReviewLike(memberNo,reviewNo);
+				like_check--;
+				like_cnt--;
+			}
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("likeCheck", like_check);
+			map.put("likeCnt", like_cnt);
+			return new Gson().toJson(map);
+		}
 		
 }

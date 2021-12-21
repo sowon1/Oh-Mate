@@ -236,9 +236,12 @@
 			review_content as reviewContent,
 			asterion,
 			review_date as reviewDate,
+			(select member_id from member where member_no=r.member_no) as memberId,
+			(select count(*) from help_review where asterion=5) as star5,
+            (select count(*) from help_review where asterion=4) as star4,
 			(select count(*) from bookmark where BOOKMARK_CATEGORY=3 and bookmark_num=review_no) as likeCount,
 			decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=3 and BOOKMARK_NUM=review_no),'1','좋아요','좋아요취소') as likedCheck
-		from help_review where helper_no =#{helperNo}
+		from help_review r where helper_no =#{helperNo}
 	</select>
 	<select id="selectHelperNo" parameterType="_int" resultType="_int">
 		select
@@ -310,4 +313,26 @@
 		insert into report
 		values(report_seq.nextval,1,#{helperNo},#{memberNo},#{hmemberNo},#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
 	</insert>
+	<!-- 리뷰 좋아요 조회 -->
+	<select id="reviewLike" parameterType="map" resultType="_int">
+		select
+			count(*)
+		from bookmark
+		where bookmark_category=3 and bookmarker=#{memberNo} and bookmark_num=#{reviewNo}
+	</select>
+	<!-- 리뷰 토탈 -->
+	<select id="reviewLikeCount" parameterType="_int" resultType="_int">
+		select count(*)
+		from bookmark
+		where bookmark_category=3 and bookmark_num=#{reviewNo}
+	</select>
+	<!-- 리뷰 insert -->
+	<insert id="insertReviewLike" parameterType="map">
+		insert into bookmark 
+  		values(bookmark_seq.nextval,#{memberNo},#{reviewNo},3,to_char(sysdate,'yyyy-mm-dd'))
+	</insert>
+	<!-- 리뷰 delete -->
+	<delete id="deleteReviewLike" parameterType="map">
+		delete from bookmark where bookmark_category=3 and bookmarker=#{memberNo} and bookmark_num=#{reviewNo}
+	</delete>
 </mapper>
