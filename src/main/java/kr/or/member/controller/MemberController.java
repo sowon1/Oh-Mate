@@ -22,8 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import kr.or.common.Tour;
+import kr.or.board.model.service.BoardService;
 import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.service.MemberService;
@@ -41,8 +41,10 @@ public class MemberController {
 	private HouseService houseService;
 	@Autowired
 	private RoomService roomService;
+	@Autowired
+	private BoardService boardService;
 	
-	//로그인1
+	//로그인1 hdy
 	@RequestMapping(value="/login.do")
 	public String login(Member member, HttpSession session, Model model) {
 		Member m = service.selectOneMember(member);
@@ -82,32 +84,32 @@ public class MemberController {
 	}
 	 */
 
-	//로그아웃
+	//로그아웃 hdy
 	@RequestMapping(value="/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
 	
-	//회원가입 이동 (일반회원or기업)
+	//회원가입 이동 (일반회원or기업) hdy
 	@RequestMapping(value="/joinFrm.do")
 	public String joinFrm() {
 		return "member/joinFrm";
 	}
 	
-	//메이트 회원가입 이동
+	//메이트 회원가입 이동 hdy
 	@RequestMapping(value="/joinMate")
 	public String joinMate() {
 		return "member/joinMate";
 	}
 	
-	//하우스오더 회원가입 이동
+	//하우스오더 회원가입 이동 hdy
 	@RequestMapping(value="/joinOwner")
 	public String joinOwner() {
 		return "member/joinOwner";
 	}
 
-	//메이트 회원가입
+	//메이트 회원가입 hdy
 	@RequestMapping(value="/join1.do")
 	public String join1(Member member, MultipartFile uploadFile, HttpServletRequest request, Model model){
 
@@ -171,7 +173,7 @@ public class MemberController {
 		return "common/msg";
 	}
 	
-	//하우스오너 회원가입 
+	//하우스오너 회원가입  hdy
 		@RequestMapping(value="/join2.do")
 		public String join2(Member member, MultipartFile uploadFile, HttpServletRequest request, Model model){
 
@@ -236,7 +238,7 @@ public class MemberController {
 			return "common/msg";
 		}
 		
-	//회원가입_아이디 중복체크
+	//회원가입_아이디 중복체크 hdy
 	@ResponseBody
 	@RequestMapping(value="/IdCheck.do")
     public String idCheck(String memberId){
@@ -248,7 +250,7 @@ public class MemberController {
         }
     }
 
-	//회원가입_이메일 중복체크
+	//회원가입_이메일 중복체크 hdy
 	@ResponseBody
 	@RequestMapping(value="/emailCheck.do")
 	public String emailCheck(String email) {
@@ -260,7 +262,7 @@ public class MemberController {
 		}
 	}
 	
-	//이메일 인증 
+	//이메일 인증  hdy
     @ResponseBody
     @RequestMapping(value="/mailCheck")
     public String mailCheck(String email){
@@ -299,13 +301,13 @@ public class MemberController {
 			return num;
     	}
 	
-	//아이디찾기 이동
+	//아이디찾기 이동 hdy
 	@RequestMapping(value="/searchIdFrm.do")
 	public String searchIdFrm() {
 		return "member/searchId";
 	}
  	
-	//아이디찾기
+	//아이디찾기 hdy
 	@RequestMapping(value="/searchId.do")
 	public String searchId(Member member, Model model) {
 		Member m = service.searchId(member);
@@ -318,13 +320,13 @@ public class MemberController {
 		return "common/msg";	
 	}
 	
-	//비밀번호찾기 이동
+	//비밀번호찾기 이동 hdy
 	@RequestMapping(value="/searchPwFrm.do")
 	public String searchPwFrm() {
 		return "member/searchPw";
 	}
 	
-	//비밀번호 찾기
+	//비밀번호 찾기 hdy
 	@RequestMapping(value="/searchPw.do")
 	public String searchPw(Member member, Model model) {
 		Member m = service.searchPw(member);
@@ -337,13 +339,13 @@ public class MemberController {
 		return "common/msg";
 	}
 	
-	//마이페이지 이동
+	//마이페이지 이동 hdy
 	@RequestMapping(value="/myPage.do")
 	public String myPageFrm() {
 		return "member/myPage";
 	}
 	
-	//마이페이지_수정
+	//마이페이지_수정 hdy
 	@RequestMapping(value="/myPageUpdate.do")
 	public String myPageUpdate(Member member, String memberId, Profile p, MultipartFile uploadFile, HttpServletRequest request, Model model, HttpSession session) {
 		if(uploadFile.isEmpty()) { //첨부파일이 없는경우
@@ -405,7 +407,7 @@ public class MemberController {
 		return "common/msg";
 	}
 	
-	//회원탈퇴
+	//회원탈퇴 hdy
 	@RequestMapping(value="/deleteMember.do")
 	public String deleteMember(int memberNo, HttpSession session, Model model) {
 		int result = service.deleteMember(memberNo);
@@ -435,19 +437,19 @@ public class MemberController {
 		return "member/bookmarkHouseList";
 	}
 	
-	//마이페이지_커뮤니티 작성글 보기 이동
+	//마이페이지_커뮤니티 작성글 보기 이동 hdy
 	@RequestMapping(value="/communityConfirm.do")
 	public String communityConfirm() {
 		return "member/communityConfirm";
 	}
 	
-	//마이페이지_커뮤니티 댓글 보기 이동
+	//마이페이지_커뮤니티 댓글 보기 이동 hdy
 	@RequestMapping(value="/commentConfirm.do")
 	public String commentConfirm() {
 		return "member/commentConfirm";
 	}
 	
-	//투어신청 리스트
+	//투어신청 리스트 jjh
 	@RequestMapping(value = "/tourRequestList.do")
 	public String tourRequestList(Model model, HttpSession session, int reqPage) {
 		if(session != null) {
@@ -463,9 +465,19 @@ public class MemberController {
 		}
 		return "member/tourRequestList";
 	}
-	
+		
 	@RequestMapping(value = "/helpList.do")
 	public String helpList() {
 		return "member/helpList";
+	}
+
+	//커뮤니티 게시글/댓글 hdy
+	@RequestMapping(value="//communityConfim.do")
+	public String communityConfirm(int reqPage, Model model) {
+		HashMap<String, Object> map = boardService.communityConfirm(reqPage);
+		model.addAttribute("pageNavi",map.get("pageNavi"));
+		model.addAttribute("list",map.get("list"));
+		model.addAttribute("start",map.get("start")); 
+		return "member/communityConfirm.do";
 	}
 }

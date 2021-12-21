@@ -128,7 +128,8 @@
 				and age=#{age}
 			</if>
             <if test="keyword != null and !''.equals(keyword)">
-            	and (helper_intro || address_name || address_road || address_legal) like '%' ||  #{keyword} || '%'     
+            	and (helper_intro) like '%' ||  #{keyword} || '%'
+            	and helper_no in (select address_number from address where address_category=2 and (address_name||address_road||address_legal) like '%' ||  #{keyword} || '%')  
 			</if>
 			<if test="!'00:00'.equals(helperStartTime) and helperStartTime != null and !''.equals(helperStartTime)">
 				and helper_start_time=#{helperStartTime}
@@ -136,8 +137,8 @@
 			<if test="!'00:00'.equals(helperEndTime) and helperEndTime != null and !''.equals(helperEndTime)">
 				and helper_end_time=#{helperEndTime}
 			</if>
-			<if test="!'00000000'.equals(helperCategory) and helperCategory != null and !''.equals(helperCategory)">
-				and helper_category = #{helperCategory}
+			<if test="!'________'.equals(helperCategory) and helperCategory != null and !''.equals(helperCategory)">
+				and helper_category like #{helperCategory}
 			</if>
         order by 1 desc
         )h)hh where rnum between #{start} and #{end}
@@ -220,7 +221,7 @@
 			(select count(*) from bookmark where BOOKMARK_CATEGORY=1 and bookmark_num=h.helper_no) as likeCount,
 			(select count(*) from helplist where helper_no=h.helper_no and help_status=3) as helpStatus3,
 			(select count(*) from helplist where helper_no=h.helper_no and help_status=4) as helpStatus4,			
-			(select	regexp_replace(listagg(address_name, ',') within group(order by address_name), '([^,]+)(,\1)+', '\1')
+			(select	regexp_replace(listagg(address_name, ',') within group(order by address_name), '([^,]+)(,\1)*(,|$)', '\1\3')
 			        from address where address_category = 2 and address_number = h.helper_no) addressName,
 			decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=1 and BOOKMARK_NUM=#{helperNo}),'1','좋아요','좋아요취소') as likedCheck
 		from helper h where helper_no=#{helperNo}
@@ -260,4 +261,53 @@
 			max(help_no)
 		from helplist
 	</select>
+	<select id="selectAllReqHelpList" parameterType="map" resultType="rhl">
+		select LL.*from
+			(select rownum as rnum,L.*from
+			(select
+			helper_no as helperNo,
+			h.member_no as memberNo,
+			h.helper_category as helperCategory,
+			h.helper_name as helperName,
+			h.helper_start_time as helperStartTime,
+			h.helper_end_time as helperEndTime,
+			h.helper_ride as helperRide,
+			h.helper_filepath as helperFilepath,
+			h.helper_credit as helperCredit,
+			hl.help_no as helpNo,
+			hl.member_no as hMemberNo,
+			hl.help_title as helpTitle,
+			hl.help_content as helpContent,
+			hl.help_category as helpCategory,
+			hl.help_charge as helpCharge,
+			hl.help_status as helpStatus,
+			hl.help_start_time as helpStartTime,
+			hl.help_end_time as helpEndTime,
+			hl.help_request_date as helpRequestDate,
+			hl.help_finish_date as helpFinishDate,
+			a.address_no as addressNo,
+			a.address_code as  addressCode,
+			a.address_name as addressName,
+			a.address_road as addressRoad,
+			a.address_legal as addressLegal,
+			a.address_detail as addressDetail,
+			m.member_id as memberId,
+			m.member_name as memberName,
+			m.phone as phone,
+			m.email as email
+			from helper h
+			left join helplist hl using(helper_no)
+			left join address a on(help_no=address_number)
+			left join member m on(m.member_no=hl.member_no)
+			where helper_no=#{helperNo} and help_request_date= to_char(sysdate,'yyyy-mm-dd')  order by help_no desc)L)LL
+			where rnum between #{start} and #{end}
+	</select>
+	<select id="helpTotalCount" parameterType="_int" resultType="_int">
+		select count(*) from helplist where helper_no=#{helperNo}
+	</select>
+	<!-- helper report -->
+	<insert id="insertHelperReport" parameterType="map">
+		insert into report
+		values(report_seq.nextval,1,#{helperNo},#{memberNo},#{hmemberNo},#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
+	</insert>
 </mapper>

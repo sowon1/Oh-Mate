@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.mail.Session;
+
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.context.annotation.SessionScope;
 
 import kr.or.board.model.vo.Board;
 import kr.or.board.model.vo.MateComment;
@@ -92,8 +95,35 @@ public class BoardDao {
 	}
 
 	//댓글 프로필사진 넣기 / 수정예정
-	public String selectfileImg(HashMap map) {
-		return sqlSession.selectOne("board.selectcommentMember",map);
+	public ArrayList<Member> selectfileImg(int boardNo) {
+		List<Member> list = sqlSession.selectList("board.selectcommentMember",boardNo);
+		return (ArrayList<Member>)list;
+	}
+
+	//댓글 수정
+	public int updateComment(HashMap<String, Object> map) {
+		return sqlSession.update("board.updateComment",map);
+	}
+
+	//댓글 삭제
+	public int deleteComment(int commentNo) {
+		return sqlSession.delete("board.delteComment",commentNo);
+	}
+
+	//게시판_프로필옵션
+	public String selectBoardPr(int boardNo) {
+		return sqlSession.selectOne("board.selectBoardPr",boardNo);
+	}
+
+	//마이페이지_커뮤니티 게시글/댓글
+	public ArrayList<Board> communityConfirm(HashMap<String, Object> map) {
+		List<Board> list = sqlSession.selectList("board.communityConfirm",map);
+		return (ArrayList<Board>)list;
+	}
+
+	//마이페이지_전체 게시물 수
+	public int totalCount() {
+		return sqlSession.selectOne("board.totalCount");
 	}
 
 }

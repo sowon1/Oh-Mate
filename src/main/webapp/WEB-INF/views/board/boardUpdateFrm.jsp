@@ -14,7 +14,7 @@
 		<div class="container_mate">
 		<h1>오늘부터 메이트_글수정</h1>
 		<br><hr><br>
-		<form action="/boardUpdate.do" method="post" enctype="multipart/form-data">
+		<form action="/boardUpdate.do?boardNo=${b.boardNo }" method="post" enctype="multipart/form-data">
 		<table class="table table-hover">
 			<tr class="table-primary">
 				<th>제목</th>
@@ -34,9 +34,10 @@
 			    <th>첨부파일</th>			    
 			    <td class="tdStyle">
 			    	<img src="/resources/img/icon/file.png" width="16px" class="delFile">
-					<span class="delFile">${b.filePath }</span>
+					<span class="delFile" >${b.filePath }</span>
 					<button type="button" id="delBtn" class="btn btn-primary btn-sm delFile">삭제</button>
 					<input type="file" name="uploadFile" style="display: none;">
+					<input type="hidden" name="filepath" value="${filepath}">
 			    </td>			    
 			    <th>조회수</th>
 			    <td>${b.readCount }</td>
@@ -52,13 +53,13 @@
 		    	<c:choose>
 		    		<c:when test="${not empty sessionScope.m && sessionScope.m.memberId eq b.boardWriter}">
 			    	<div class="submitBtn">
-			    		<a href="/boardUpdate.do?boardNo=${b.boardNo }" class="btn" id="boardUpdate">수정하기</a>
+			    		<button type="submit" class="btn" id="boardUpdate">수정하기</button>
 			    		<a href="/boardDelete.do?boardNo=${b.boardNo }" class="btn" id="deleteBtn">삭제하기</a>
 			    	</div>
 			    	</c:when>
 			    	<c:otherwise>
 			    	<div class="submitBtn">
-			    		<button onclick="history.back()" class="btn" id="boardBack">이전화면</button>
+			    		<button type="button" onclick="history.back()" class="btn" id="boardBack">이전화면</button>
 			    	</div>
 			    	</c:otherwise>
 		    	</c:choose>
@@ -87,15 +88,4 @@
 	}
 </style>
 </html>
-
-
-<!-- 
-
-		$("#boardUpdate").click(function(){
-			var upload = $("[name=uploadFile]").val();
-			if(upload=""){
-				alert="첨부파일을 넣어주세요";
-				return false;
-			}
-		});
- -->
+E

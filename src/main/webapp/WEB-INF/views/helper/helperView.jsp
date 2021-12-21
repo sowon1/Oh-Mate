@@ -121,13 +121,66 @@
                         	</c:choose>
                         </div>
                         <div class="report_helper">
-                        	<img src="/resources/img/icon/report.png">
-                        </div>
+                        	<c:choose>
+                        		<c:when test="${empty sessionScope.m}">
+                        			<a onclick="msgpopupopen();"><img src="/resources/img/icon/report.png"></a>
+                        		</c:when>
+                        		<c:otherwise>
+                        			<a id="helperReport"><img src="/resources/img/icon/report.png"></a>
+                        		</c:otherwise>
+                        	</c:choose>
+                        </div>           
                         <div class="chat_helper">
                         	<img src="/resources/img/icon/chat_icon.png">
                         </div>
 					</div>
 				</div>
+				<!-- --------------------------------------신고 팝업------------------------------------------------------ -->
+				<div class="report_popup_modal">
+                 	<div class="re_pop_modal">
+	                 		<div class="re_modal_top">
+		                  		<span class="re_modal_text">신고</span>
+		                      	<span class="re_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+		                   </div>
+		                   <div class="re_modal_content">
+		                   		<form action="/helperReport.do" method="post" class="reform">
+		                   			<table class="help_table">
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고 닉네임</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="${h.helperName}"readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${h.memberNo}" name="hmemberNo" readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${h.helperNo}" name="helperNo" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고자</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="${sessionScope.m.memberName}" readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${sessionScope.m.memberNo}" name="memberNo" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고분류</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="헬퍼" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고사유</th>
+	                        				<td>
+	                        					<textarea name="reportContent" class="textarea_pro"></textarea>
+	                        				</td>
+	                        			</tr>
+                        			</table>
+                        			<div class="form_btn">
+	                        			<a class="btn_100" type="submit" onclick="return checkReVal();">신고하기</a>
+	                        		</div>
+		                   		</form>
+		                   </div>
+                 	</div>
+                 </div>
+				<!-- --------------------------------------신고 팝업끝------------------------------------------------------ -->
 				<div class="helper_view_top_bottom">				
 					<div class="helper_pro_helperInfo">
 						<span class="helper_pro_helperInfo_title">${h.helperName} 헬퍼 자기소개</span>
@@ -200,38 +253,37 @@
                         				<th>도움 유형</th>
                         				<td class="help_cate" value="${h.helperCategory}">
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_01" name="help_cate_01" value="0" class="chk">
+				                        		<input type="radio" id="help_cate_01" name="helpCategory" value="1">
 												<label for="help_cate_01"><span class="select_icon02"></span>배달·장보기</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_02" name="help_cate_01" value="0" class="chk">
+				                        		<input type="radio" id="help_cate_02" name="helpCategory" value="2">
 												<label for="help_cate_02"><span class="select_icon02"></span>청소·집안일</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_03" name="help_cate_01" value="0" class="chk">
+				                        		<input type="radio" id="help_cate_03" name="helpCategory" value="3">
 												<label for="help_cate_03"><span class="select_icon02"></span>설치·조립·운반</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_04" name="help_cate_01" value="0" class="chk">
+				                        		<input type="radio" id="help_cate_04" name="helpCategory" value="4">
 												<label for="help_cate_04"><span class="select_icon02"></span>동행·돌봄</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_05" name="help_cate_01" value="0" class="chk">
+				                        		<input type="radio" id="help_cate_05" name="helpCategory" value="5">
 												<label for="help_cate_05"><span class="select_icon02"></span>벌레·쥐</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_06" name="help_cate_01" value="0" class="chk">
+				                        		<input type="radio" id="help_cate_06" name="helpCategory" value="6">
 												<label for="help_cate_06"><span class="select_icon02"></span>역할대행</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_07" name="help_cate_01" value="0" class="chk">
+				                        		<input type="radio" id="help_cate_07" name="helpCategory" value="7">
 												<label for="help_cate_07"><span class="select_icon02"></span>과외·알바</label>
                         					</div>
                         					<div>                       					
-				                        		<input type="radio" id="help_cate_08" name="help_cate_01" value="0" class="chk">
+				                        		<input type="radio" id="help_cate_08" name="helpCategory" value="8">
 												<label for="help_cate_08"><span class="select_icon02"></span>기타·원격</label>
                         					</div>
-                        					<input type="hidden" name="helpCategory" id="helpCategory">
                         				</td>
                         			</tr>
                         			<tr class="table-active_mate_help">
@@ -359,8 +411,104 @@
 				<div class="helper_review_list">
 					<ul>
 						<li>
-							<span>프사</span>
-							<span>닉</span>
+							<div class="review_text">
+								<img src="/resources/img/icon/profile.png" class="review_pro_img">
+								<div class="review_text_box">
+									<div class="star-ratings review_star">
+										<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
+											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										</div>
+										<div class="star-ratings-base space-x-2 text-lg">
+											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										</div>
+									</div>
+									<span class="review_star_text">5</span>
+									<div class="review_writer">									
+										<span class="review_id">thdnjs***</span>
+										<span class="review_date">2021.12.21</span>
+									</div>
+									<div class="review_title">
+										도움 : 바퀴벌레 좀 잡아줘요 !!!
+									</div>
+									<div class="review_content">
+										도움 완전 잘받았어요 !! 최고 !! 최고야 ~~!! 늘 짜릿해 !!
+									</div>
+								</div>
+								<img src="/resources/img/icon/admin_house.png" class="review_img">
+								<div class="review_like">
+									<c:choose>
+		                        		<c:when test="${empty sessionScope.m}">
+		                        			<button onclick="msgpopupopen();" class="review_likebtn">
+		                        				<img src="/resources/img/icon/review_icon_off.png">		                        			
+		                        				<span class="review_count">0</span>
+		                        			</button>
+		                        		</c:when>
+		                        		<c:when test="">
+					                		<a idx="" class="review_likebtn">
+					                			<img src="/resources/img/icon/review_icon_on.png">
+					                			<span class="review_count">0</span>
+					                		</a>
+					                	</c:when>
+					                	<c:otherwise>                							              
+											<a idx="" class="review_likebtn">
+												<img src="/resources/img/icon/review_icon_off.png">
+												<span class="review_count">0</span>
+											</a>
+					                	</c:otherwise>
+		                        	</c:choose>
+		                        	<div class="review_btn_hover">리뷰가 도움이 되었나요?</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="review_text">
+								<img src="/resources/img/icon/profile.png" class="review_pro_img">
+								<div class="review_text_box">
+									<div class="star-ratings review_star">
+										<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
+											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										</div>
+										<div class="star-ratings-base space-x-2 text-lg">
+											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+										</div>
+									</div>
+									<span class="review_star_text">5</span>
+									<div class="review_writer">									
+										<span class="review_id">thdnjs***</span>
+										<span class="review_date">2021.12.21</span>
+									</div>
+									<div class="review_title">
+										도움 : 바퀴벌레 좀 잡아줘요 !!!
+									</div>
+									<div class="review_content">
+										도움 완전 잘받았어요 !! 최고 !! 최고야 ~~!! 늘 짜릿해 !!
+									</div>
+								</div>
+								<img src="/resources/img/icon/admin_house.png" class="review_img">
+								<div class="review_like">
+									<c:choose>
+		                        		<c:when test="${empty sessionScope.m}">
+		                        			<button onclick="msgpopupopen();" class="review_likebtn review_on">
+		                        				<img src="/resources/img/icon/review_icon_on.png">		                        			
+		                        				<span class="review_count">0</span>
+		                        			</button>
+		                        		</c:when>
+		                        		<c:when test="">
+					                		<a idx="" class="review_likebtn review_on">
+					                			<img src="/resources/img/icon/review_icon_on.png">
+					                			<span class="review_count">0</span>
+					                		</a>
+					                	</c:when>
+					                	<c:otherwise>                							              
+											<a idx="" class="review_likebtn review_on">
+												<img src="/resources/img/icon/review_icon_on.png">
+												<span class="review_count">0</span>
+											</a>
+					                	</c:otherwise>
+		                        	</c:choose>
+		                        	<div class="review_btn_hover">리뷰가 도움이 되었나요?</div>
+								</div>
+							</div>
 						</li>
 					</ul>
 				</div>
@@ -473,7 +621,8 @@
 				timePicker : true,
 				singleDatePicker : true,
 				timePicker24Hour : true,
-				timePickerIncrement : 30,
+				timePickerIncrement : 15,
+				minDate : new Date(),
 				locale : {
 					"format" : 'HH:mm',
 					"applyLabel" : "확인",
@@ -553,27 +702,16 @@
 				if($("input[name='helpStartTime']").val() == ""){
 					 $(".title_name").text("도움받을 시간을");
 					countmsgopen(autoClose());					
-				}else if($("input[name='helpCategory']").val() == ""){
+				}else if($("input:radio[name='helpCategory']:checked").val() == null){
 					 $(".title_name").text("도움 유형을");
-						countmsgopen(autoClose());		
+						countmsgopen(autoClose());
+						
 				}else{
+					var helpCategory = $("input:radio[name='helpCategory']:checked").val();
 	    		   $("form").submit();
 				}
 			}
        }
-		//적용하기
-		$(".chk").change(function () {
-			if($(this).is(":checked")){
-				$(this).val(1);
-				$("#helpCategory").val($("#help_cate_01").val()+$("#help_cate_02").val()+$("#help_cate_03").val()
-				+$("#help_cate_04").val()+$("#help_cate_05").val()+$("#help_cate_06").val()+$("#help_cate_07").val()+$("#help_cate_08").val());
-			}else{
-				$(this).val(0);
-				$("#helpCategory").val($("#help_cate_01").val()+$("#help_cate_02").val()+$("#help_cate_03").val()
-				+$("#help_cate_04").val()+$("#help_cate_05").val()+$("#help_cate_06").val()+$("#help_cate_07").val()+$("#help_cate_08").val());
-			}
-	
-		});
 		//자동닫기
        function autoClose(){
     	   setTimeout('closed()',3000);
@@ -593,6 +731,34 @@
 			$("body").css("overflow", "auto");
 			$(".back_dark").hide();
 		}
+		//신고 팝업
+		$("#helperReport").click(function(){
+			reportopen();
+		});
+		$(".re_modal_close").click(function(){
+			reportclose();
+		});
+		function reportopen(){
+			$(".report_popup_modal").css("display","flex");
+		    $("body").css("overflow", "hidden");
+		    $(".tour_back_dark").show();			
+		}
+		function reportclose(){
+			$(".report_popup_modal").css("display","none");
+		    $("body").css("overflow", "auto");
+		    $(".tour_back_dark").hide();			
+		}
+		//신고 유효성 
+		function checkReVal(){
+			if($("textarea").val() == ""){					
+				 $(".title_name").text("사유를");
+				 $($("textarea[name='helpContent']")).focus();
+				countmsgopen(autoClose());
+			}else{
+				 $(".reform").submit();
+			}
+		}
+		
 	</script>
 </body>
 </html>

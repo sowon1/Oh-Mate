@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.board.model.service.BoardService;
@@ -160,20 +161,13 @@ public class BoardController {
 	
 	//게시판 상세보기 이동 / 수정예정
 	@RequestMapping(value="/boardView.do")
-	public String boardView(Board board, MateComment comment, Model model) {
-		HashMap map = new HashMap();
-		int boardNo = comment.getBoardNo();
-		//System.out.println(board.toString());
-		//System.out.println(comment.toString());
-		map.put("memberId", comment.getCommentWriter());
-		//System.out.println(comment.getCommentWriter());
-		BoardMemberData bmd = service.selectBoardList(boardNo, map);
-		//System.out.println(bmd.getList().toString());
+	public String boardView(int boardNo, Model model) {
+		BoardMemberData bmd = service.selectBoardList(boardNo);
+		model.addAttribute("b",bmd.getB());
+		model.addAttribute("fileImg",bmd.getFileImg());
+		//System.out.println("controller : " + bmd.getFileImg());
 		model.addAttribute("list",bmd.getList());
-		BoardMemberData bmd2 = service.selectBoardList(boardNo, map);
-		model.addAttribute("b",bmd2.getB());
-		model.addAttribute("fileImg",bmd2.getFileImg());
-		//System.out.println(bmd.getFileImg());
+		model.addAttribute("ProfileOption",bmd.getProfileOption());
 		return "board/boardView";
 	}
 	
@@ -253,6 +247,16 @@ public class BoardController {
 	//댓글
 	@RequestMapping(value="/insertComment.do", method=RequestMethod.POST)
 	public String insertComment(MateComment mc, Model model) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int secret = mc.getCommentSecret();
+		if(secret == 0) {
+			mc.setCommentSecret(1);  //일반댓글
+		}else {
+			mc.setCommentSecret(2);  //비밀댓글
+		}
+		
+		map.put("secret", secret);
+		map.put("mc", mc);
 		int result = service.insertComment(mc);
 		if(result>0) {
 			model.addAttribute("msg","댓글성공");
@@ -260,6 +264,35 @@ public class BoardController {
 			model.addAttribute("msg","댓글실패");
 		}
 		model.addAttribute("loc","/boardView.do?boardNo="+mc.getBoardNo());
+		return "common/msg";
+	}
+	
+	//댓글수정
+	@RequestMapping(value="/updateComment.do")
+	public String updateComment(int commentNo, int boardNo, String commentContent, Model model) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("commentNo", commentNo);
+		map.put("commentContent", commentContent);
+		int result = service.updateComment(map);
+		if(result>0) {
+			model.addAttribute("msg","댓글수정완료");
+		}else {
+			model.addAttribute("msg","댓글수정실패");
+		}
+		model.addAttribute("loc","/boardView.do?boardNo="+boardNo);
+		return "common/msg";
+	}
+	
+	//댓글삭제
+	@RequestMapping(value="/deleteComment.do")
+	public String deleteComment(int commentNo, int boardNo, Model model) {
+		int result = service.deleteComment(commentNo);
+		if(result>0) {
+			model.addAttribute("msg","댓글삭제");
+		}else {
+			model.addAttribute("msg","댓글삭제실패");
+		}
+		model.addAttribute("loc","/boardView.do?boardNo="+boardNo);
 		return "common/msg";
 	}
 }

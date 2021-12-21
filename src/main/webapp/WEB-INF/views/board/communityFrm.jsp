@@ -117,7 +117,7 @@
 		           		</div>
 	           		</div><br><br>
 	           		<div class="submitbtn">
-	           			<input type="submit" class="btn btn-primary" id="profilesubmit" value="조건검색">
+	           			<input type="submit" class="btn btn-primary" id="communitySearch" value="조건검색">
 					</div>
 					</form>
 				</div>
@@ -165,11 +165,6 @@
 			</c:otherwise>
 		</c:choose>
 		</div>
-<script>
-	$(function(){
-		
-	});
-</script>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
