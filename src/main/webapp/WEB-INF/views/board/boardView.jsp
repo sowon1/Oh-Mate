@@ -167,11 +167,11 @@
 					
 						
 						<textarea name="commentContent" class="form-control" style="display:none;" rows="3" cols="150">${c.commentContent}</textarea>	
-						<p class="commentsBtn">
+						<p class="commentsBtn commentbt">
 							<c:if test="${not empty sessionScope.m }">
 								<c:if test="${m.memberId eq c.commentWriter }" >
-									<a href="javascript:void(0)" onclick="modifyComment(this,'${c.commentNo }','${b.boardNo }');">수정</a>
-									<a href="javascript:void(0)" onclick="deleteComment(this,'${c.commentNo }','${b.boardNo }');">삭제</a>
+									<a href="javascript:void(0)" class="boardviews" onclick="modifyComment(this,'${c.commentNo }','${b.boardNo }');">수정</a>
+									<a href="javascript:void(0)" class="boardviews" onclick="deleteComment(this,'${c.commentNo }','${b.boardNo }');">삭제</a>
 								</c:if>
 									<a href="javascript:void(0)" class="reshow">답글달기</a>
 							</c:if>
@@ -183,10 +183,10 @@
 							<input type="hidden" name="boardNo" value="${b.boardNo }">
 							<input type="hidden" name="boardRef" value="${c.commentNo }">
 							<input type="hidden" name="status" value="1"> 
-							<textarea name="commentContent" class="form-control txtarea" style="display:none; margin-left:55px;"></textarea>
-								<div style="margin-right:20px;">
-									<button type="submit" class="btn subbtn subbtnSty" style="display:none; margin-bottom:5px;">등록</button>
-									<button type="reset" class="btn subbtn recancel" style="display:none; margin-bottom:5px;">취소</button>
+							<textarea name="commentContent" class="form-control txtarea"></textarea>
+								<div style="margin-right:20px;" class="btnsty">
+									<button type="submit" class="btn subbtn subbtnSty">등록</button>
+									<button type="reset" class="btn subbtn recancel">취소</button>
 								</div>
 						</form>
 						</c:if>

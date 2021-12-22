@@ -3,17 +3,20 @@
 		//답글 창 열기
 		$(".reshow").click(function(){
 			var idx = $(".reshow").index(this);
-			$(this).hide();
-			$(".recomment").eq(idx).css("display","flex");
 			$(".txtarea").eq(idx).show();
-			$(".subbtn").eq(idx).show();
+			$(".txtarea").css('width','1100px');
+			$(".commentbt").eq(idx).hide();
+			$(".subbtnSty").eq(idx).show();
+			$(".recancel").eq(idx).show();
 		});
 		
 		//답글 창 닫기
 		$(".recancel").click(function(){
 			var idx = $(".recancel").index(this);
-			$(".recomment").eq(idx).css("display","none");
-			$(".reshow").eq(idx).show();
+			$(".txtarea").eq(idx).hide();
+			$(".commentbt").eq(idx).show();
+			$(".subbtnSty").eq(idx).hide();
+			$(".recancel").eq(idx).hide();
 		});
 		
 		 //댓글필수입력

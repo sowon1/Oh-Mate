@@ -470,7 +470,7 @@ public class MemberController {
 		model.addAttribute("pageNavi",map.get("pageNavi"));
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("start",map.get("start")); 
-		return "member/communityConfirm";
+		return "member/communityList";
 	}
 	
 	//마이페이지_커뮤니티 댓글 보기 hdy -> 수정
