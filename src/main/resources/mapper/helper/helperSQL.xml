@@ -302,11 +302,11 @@
 			left join helplist hl using(helper_no)
 			left join address a on(help_no=address_number)
 			left join member m on(m.member_no=hl.member_no)
-			where helper_no=#{helperNo} and help_request_date= to_char(sysdate,'yyyy-mm-dd')  order by help_no desc)L)LL
+			where helper_no=#{helperNo} and help_request_date= to_char(sysdate,'yyyy-mm-dd')and  help_status not in (4,5,6) and address_category=3 order by help_no desc)L)LL
 			where rnum between #{start} and #{end}
 	</select>
 	<select id="helpTotalCount" parameterType="_int" resultType="_int">
-		select count(*) from helplist where helper_no=#{helperNo}
+		select count(*) from helplist where helper_no=#{helperNo} and help_request_date= to_char(sysdate,'yyyy-mm-dd') and  help_status not in (4,5,6)
 	</select>
 	<!-- helper report -->
 	<insert id="insertHelperReport" parameterType="map">
@@ -338,4 +338,8 @@
 	<update id="updateHelpStatus" parameterType="map">
 		update helplist set help_status =#{helpStatus} where help_no=#{helpNo}
 	</update>
+	<update id="updatePayCancelDate" parameterType="_int">
+		update pay set cancel_date= to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_goods=#{helpNo} and pay_category=1
+	</update>
+
 </mapper>

@@ -160,6 +160,12 @@ public class HelperDao {
 		// TODO Auto-generated method stub
 		return session.update("helper.updateHelpStatus", map);
 	}
+	
+
+	public int updatePayCancelDate(int helpNo) {
+		// TODO Auto-generated method stub
+		return session.update("helper.updatePayCancelDate", helpNo);
+	}
 
 	
 }

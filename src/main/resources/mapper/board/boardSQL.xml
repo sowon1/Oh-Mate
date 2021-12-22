@@ -197,20 +197,41 @@
 	
 	<!-- 마이페이지_커뮤니티 게시글/댓글 -->
 	<select id="communityConfirm" parameterType="map" resultType="b">
-		select 
-			board_no as boardNo, 
+	 select 
+	 		board_no as boardNo,
 			board_title as boardTitle, 
+			board_writer as boardWriter,
 			reg_date as regDate, 
-			read_count as readCount 
-		from (select rownum as rnum,b.* from (select * from board order by reg_date desc)b)
+			read_count as readCount,
+            status
+		from (select rownum as rnum,b.* from (select * from board where board_writer=#{memberId} order by reg_date desc)b)
 		where rnum between #{start} and #{end}
 	</select>
 	
 	<!-- 마이페이지_전체 게시물 수 -->
-	<select id="totalCount" resultType="int">
-		select count(*)as count from board
+	<select id="totalCount" parameterType="string" resultType="int">
+		select count(*)as count from board where board_writer=#{memberId}
 	</select>
 
+		<!-- 마이페이지_커뮤니티 게시글/댓글 -->
+	<select id="commentConfirm" parameterType="map" resultType="mc">
+	    select 
+			comment_no as commentNo, 
+			comment_level as commentLevel,
+			comment_writer as commentWriter,
+			comment_content as commentContent, 
+			reg_date as regDate,
+            status
+		from (select rownum as rnum,b.* from (select * from mate_comment where comment_writer=#{memberId} order by reg_date desc)b)
+		where rnum between #{start} and #{end}
+	</select>
+	
+	<!-- 마이페이지_전체 게시물 수 -->
+	<select id="totalCountcm" parameterType="string" resultType="int">
+		select count(*)as count from mate_comment where comment_writer=#{memberId}
+	</select>
+	
+	<!-- 조건검색 -->
 </mapper>
 
 

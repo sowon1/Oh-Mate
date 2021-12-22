@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 import kr.or.common.Address;
 import kr.or.common.HelpList;
 import kr.or.common.Income;
+import kr.or.common.Pay;
 import kr.or.common.Report;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
@@ -379,8 +380,9 @@ public class HelperController {
 			map.put("likeCnt", like_cnt);
 			return new Gson().toJson(map);
 		}
+		//수락할때 변경
 		@RequestMapping(value = "/updateHelpStatus.do")
-		public String updateHelpStatus(int helpStatus,int helpNo,HttpSession session) {
+		public String updateHelpStatus(int helpStatus,int helpNo) {
 			System.out.println(helpNo);
 			int result = service.updateHelpStatus(helpStatus,helpNo);
 			if(result>0) {				
@@ -389,5 +391,17 @@ public class HelperController {
 				return "redirect:/helperReqList.do?reqPage=1";
 			}
 			
+		}
+
+		@RequestMapping(value = "/updateCancelHelpStatus.do")
+		public String updateCancelHelpStatus(int helpStatus,int helpNo) {
+			int result = service.updateCancelHelpStatus(helpStatus,helpNo);
+			System.out.println("helpNo:"+helpNo);
+			System.out.println("helpStatus:"+helpStatus);
+			if(result>0) {
+				return "redirect:/helperReqList.do?reqPage=1";
+			}else {
+				return "redirect:/helperReqList.do?reqPage=1";
+			}
 		}
 }

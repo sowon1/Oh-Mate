@@ -321,7 +321,7 @@
                         				<th>심부름비</th>
                         				<td>
                         					<input type="text" name="helpCharge" class="input_03">
-                        					<span class="help_text_notice">*헬퍼에게 지급될 심부름비는 고객님께서 정해주세요.</span>
+                        					<span class="help_text_notice">*헬퍼에게 지급될 심부름비는 고객님께서 정해주세요.<br>*일정 시간동안 헬퍼가 요청을 받지않으면 자동으로 결제가 취소됩니다.</span>
                         				</td>
                         			</tr>
                         			<input type="hidden" name="helperNo">

@@ -165,7 +165,7 @@
 		      <li><a href="/bookmarkHouseList.do">하우스 찜목록</a></li>
 		      <li><a href="/moveInList.do?reqPage=1">하우스 입주 내역</a></li>
 		      <li><a href="/tourRequestList.do?reqPage=1">투어 신청 내역</a></li>
-		      <li><a href="/communityConfirm.do?reqPage=1">커뮤니티 게시글/댓글</a></li>
+		      <li><a href="/communityList.do?reqPage=1&memberId=${sessionScope.m.memberId }">커뮤니티 게시글/댓글</a></li>
 		      <li><a href="/helpList.do?reqPage=1">헬프 내역</a></li>
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
 		      	<li>
@@ -223,38 +223,13 @@
 			<a href="" class="msg_edit">
 				<img src="/resources/img/icon/edit.png">
 			</a>
-			<span class="mate_talk_name">박꼬맹님 메세지</span>
+			<span class="mate_talk_name">${sessionScope.m.memberName}님 메세지</span>
 			<span class="msg_close_btn">
 				<img src="/resources/img/icon/close_wh.png">
 			</span>
 		</div>
 		<ul class="mate_talk_list">
-			<a href="/">
-				<li>
-					<div class="talk_profile">
-						<c:choose>
-				    		<c:when test="${not empty m.filepath}">
-				    			<img src="/resources/upload/member/${m.filepath}">
-				    		</c:when>
-				    		<c:otherwise>		    		
-						        <img src="/resources/img/icon/profile.png">
-				    		</c:otherwise>
-				    	</c:choose>
-					</div>
-					<div class="talk_list_text">
-						<div class="talk_list_02">
-							<span class="mate_talk_msg_name">박꼬맹</span>
-							<span class="mate_talk_list_view">
-								미리보기 메세지이이이ㅣㅣㅣㅣㅣㅣㅣaaaaaaaaaaaaaaaa
-							</span>
-						</div>
-						<div class="talk_list_time">
-							<span class="mate_talk_time">14:59</span>
-							<span class="mate_talk_read_count">99</span>
-						</div>
-					</div>
-				</li>
-			</a>
+			
 		</ul>
 		<div class="mate_talk_list_bottom">
 			<span>오늘부터 메이트, Oh-Mate!</span>
@@ -342,6 +317,58 @@
 </div>
 
 <script>
+	//matetalk
+	$(function(){
+		var receiver = "${sessionScope.m.memberNo}"; 
+		var receiverName = "${sessionScope.m.memberName}"; 
+		$("#mate_talk").click(function(){
+			$.ajax({
+				type : "post",
+				url : "matetalkList.do",
+				data : {receiver:receiver},
+				success : function(data){
+					console.log(data);
+					var html = "";
+					if(data == 0){
+						html += '<div class="none_chat">';
+						html += '<img src="/resources/img/icon/none_chat_icon.png">';
+						html += '<span class="none_chat_text">';
+						html += '개설된 채팅방이 없습니다.<br>Oh-Mate 회원들과 함께 채팅을 즐겨보세요.<span>';
+						html += '</div>';
+					}
+					for(var i = 0; i < data.length; i++){
+						html += '<a href="/">';
+						html += '<li><div class="talk_profile">';
+						if(data[i].filepath == null){
+							html += '<img src="/resources/img/icon/profile.png">';
+						}else{
+							html += '<img src="/resources/upload/member/'+data[i].filepath+'">';
+						}
+						html += '</div>';
+						html += '<div class="talk_list_text">';
+						html += '<div class="talk_list_02">';
+						if(data[i].senderName == receiverName){
+							html += '<span class="mate_talk_msg_name">'+data[i].receiverName+'</span>';
+						}else{						
+							html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
+						}
+						html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
+						html += '</div>';
+						html += '<div class="talk_list_time">';
+						html += '<span class="mate_talk_time">'+data[i].chatDate+'</span>';
+						if(data[i].senderName == receiverName){
+							
+						}else{							
+							html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
+						}
+						html += '</div></div></li></a>';					
+					}
+					$(".mate_talk_list").append(html);
+				}
+			});
+		});
+	})
+
 	//비 로그인 시 메신저 버튼누를경우 
 	$("#mate_talk_login").click(function(){
 		msgpopupopen();

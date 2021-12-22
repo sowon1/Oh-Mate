@@ -30,5 +30,7 @@
 		<typeAlias type="kr.or.common.Report" alias="report"/>
 		<typeAlias type="kr.or.house.model.vo.HouseRoomAdjustPay" alias="hrap"/>
 		<typeAlias type="kr.or.helper.model.vo.ReqHelperList" alias="rhl"/>
+		<typeAlias type="kr.or.chat.model.vo.Chat" alias="chat"/>
+		<typeAlias type="kr.or.chatmsg.model.vo.ChatMsg" alias="chatmsg"/>
 	</typeAliases>
 </configuration>

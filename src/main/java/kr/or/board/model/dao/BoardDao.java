@@ -115,17 +115,34 @@ public class BoardDao {
 		return sqlSession.selectOne("board.selectBoardPr",boardNo);
 	}
 
-	//마이페이지_커뮤니티 게시글/댓글
+	//마이페이지_커뮤니티 게시글 
 	public ArrayList<Board> communityConfirm(HashMap<String, Object> map) {
 		List<Board> list = sqlSession.selectList("board.communityConfirm",map);
 		return (ArrayList<Board>)list;
 	}
 
 	//마이페이지_전체 게시물 수
-	public int totalCount() {
-		return sqlSession.selectOne("board.totalCount");
+	public int totalCount(String memberId) {
+		return sqlSession.selectOne("board.totalCount",memberId);
 	}
 
+	//마이페이지_커뮤니티 댓글
+	public ArrayList<Board> commentConfirm(HashMap<String, Object> map) {
+		List<Board> list = sqlSession.selectList("board.commentConfirm",map);
+		return (ArrayList<Board>)list;
+	}
+
+	//마이페이지_전체 댓글 수
+	public int totalCountcm(String memberId) {
+		return sqlSession.selectOne("board.totalCountcm",memberId);
+	}
+
+	//게시판 검색
+	public String mateSearch(String keyword) {
+		return sqlSession.selectOne("board.mateSearch",keyword);
+	}
+
+	
 }
 
 
