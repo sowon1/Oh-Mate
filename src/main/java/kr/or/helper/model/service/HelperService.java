@@ -338,4 +338,22 @@ public class HelperService {
 		return result;
 	}
 
+	public int updateCancelHelpStatus(int helpStatus, int helpNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("helpStatus", helpStatus);
+		map.put("helpNo", helpNo);
+		int result =dao.updateHelperStatus(map);
+		if(result>0) {
+			int result2=dao.updatePayCancelDate(helpNo);
+			if(result2>0) {
+				
+				return result2;
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
+	}
+
 }
