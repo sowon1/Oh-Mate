@@ -20,8 +20,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
+
 import kr.or.common.Tour;
 import kr.or.board.model.service.BoardService;
 import kr.or.house.model.service.HouseService;
@@ -437,18 +441,6 @@ public class MemberController {
 		return "member/bookmarkHouseList";
 	}
 	
-	//마이페이지_커뮤니티 작성글 보기 이동 hdy
-	@RequestMapping(value="/communityConfirm.do")
-	public String communityConfirm() {
-		return "member/communityConfirm";
-	}
-	
-	//마이페이지_커뮤니티 댓글 보기 이동 hdy
-	@RequestMapping(value="/commentConfirm.do")
-	public String commentConfirm() {
-		return "member/commentConfirm";
-	}
-	
 	//투어신청 리스트 jjh
 	@RequestMapping(value = "/tourRequestList.do")
 	public String tourRequestList(Model model, HttpSession session, int reqPage) {
@@ -471,13 +463,23 @@ public class MemberController {
 		return "member/helpList";
 	}
 
-	//커뮤니티 게시글/댓글 hdy
-	@RequestMapping(value="//communityConfim.do")
-	public String communityConfirm(int reqPage, Model model) {
-		HashMap<String, Object> map = boardService.communityConfirm(reqPage);
+	//마이페이지_커뮤니티 게시글 보기hdy
+	@RequestMapping(value="/communityList.do")
+	public String communityConfirm(int reqPage, String memberId, Model model) {
+		HashMap<String, Object> map = boardService.communityConfirm(reqPage, memberId);
 		model.addAttribute("pageNavi",map.get("pageNavi"));
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("start",map.get("start")); 
-		return "member/communityConfirm.do";
+		return "member/communityConfirm";
 	}
+	
+	//마이페이지_커뮤니티 댓글 보기 hdy -> 수정
+	@ResponseBody
+	@RequestMapping(value="/myCommunity.do", produces = "application/json;charset=utf-8", method=RequestMethod.POST )
+	public String commentConfirm(int reqPage, String memberId, Model model) {
+		HashMap<String, Object> map = boardService.commentConfirm(reqPage, memberId);
+		System.out.println("map : "+ map);
+		return new Gson().toJson(map);
+	}
+	
 }

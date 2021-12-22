@@ -12,6 +12,6 @@ public class Board {
 	private String regDate;		 // 작성날짜(YYYY-MM-DD hh24:mi)
 	private String filePath;	 // 첨부파일경로
 	private String profileOption;// 프로필선택
-	private int status;		     // 신고여부
+	private int status;		     // 신고여부 1.신고없음 2.신고있음
 	private String fileImg;		 // 회원파일이미지
 }

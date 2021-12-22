@@ -52,9 +52,9 @@
 		
 		//console.log(pro); 2262222
 		if(pro.charAt(0) == '1'){
-			td.append("<span class='tag'>#남성전용</span>&emsp;");
-		}else if(pro.charAt(0) == '2'){
 			td.append("<span class='tag'>#여성전용</span>&emsp;");
+		}else if(pro.charAt(0) == '2'){
+			td.append("<span class='tag'>#남성전용</span>&emsp;");
 		}else if(pro.charAt(0) == '3'){
 			td.append("<span class='tag'>#남녀공용</span>&emsp;");
 		}

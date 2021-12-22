@@ -1,47 +1,21 @@
 @charset "UTF-8";
-	.confirm_cont{
-		background: #fff;
-		padding: 50px 45px 60px;
-	}
-	.confirm_cont>p{
-		font-size: 15px;
-		color: #828282;
-		letter-spacing: -0.5px;
-		line-height: 1.5;
-	}
-	.community-wrap{
-		border: 2px solid rgba(155, 89, 182, 0.81);
-	}	
-	.community-table{
-		margin:0 auto;
-		width:400px;
-		height:500px;
-	}
-	.community-tab{
-		height:50px;
-		width:50%;
-		text-align:center;
-		float:left;
-		border-bottom: 1px solid rgba(155, 89, 182, 0.81);
-	}	
-	.community-tab > a{
-		text-decoration: none;
-		font-size: 23px;
-		line-height: 50px;
-	}	
-	.community-tab:nth-child(1){
-		background-color:rgba(155, 89, 182, 0.81);
-	}		
-	.community-tab:nth-child(1)>a{
-		color:#fff;
-	}	
-	.community-tab:nth-child(2)>a{
-		color:rgba(155, 89, 182, 0.81);
-	}
-	.delbutton{
-		text-align: right;
-		margin-right: 10px;
-	}
-	tr>th {
-		text-align: center;
-	}
+.community-table{
+	margin-top: 30px;
+}
+tr>th {
+	text-align: center;
+}
+.trstyle{
+	text-align:center; 
+	border-left:1px solid #EAEAEA; 
+	border-right:1px solid #EAEAEA;
+	height:100px;
+	vertical-align:middle;
+}
+.tdstyle{
+	border-bottom:1px solid #8C8C8C;
+}
+.page-navi{
+	text-align: center;
+	margin-left: 45%;
+}
