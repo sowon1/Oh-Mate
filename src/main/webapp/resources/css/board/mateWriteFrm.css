@@ -143,3 +143,19 @@ button.subbtn{
 	padding:0px; 
 	line-height: inherit;
 }
+button.subbtnSty{
+	display:none; 
+	margin-bottom:5px; 
+	margin-right:22px;
+}
+textarea.txtarea{
+	display:none; 
+	margin-left:55px;
+}
+.btnsty{
+	margin-top: 5px;
+}
+button.recancel{
+	display:none; 
+	margin-bottom:5px;
+}

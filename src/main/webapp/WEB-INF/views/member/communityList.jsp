@@ -12,9 +12,9 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 		<div class="container_mate">
-			<h1>마이페이지_커뮤니티 게시판/댓글</h1><br>
+			<h1>MyPage_커뮤니티/댓글</h1><br>
 			<hr><br>
-			<h4><span class="communityTab">게시판</span> / <span class="communityTab">댓글</span></h4>
+			<h4><span class="communityTab">커뮤니티</span> / <span class="communityTab">댓글</span></h4>
 			<!-- 게시판 -->
 			<div class=communityTbl>
 			<table class="community-table table table-hover">
