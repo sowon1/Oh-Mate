@@ -31,13 +31,12 @@
 			    <td>${b.regDate }</td>
 		    </tr>
 		    <tr>
-			    <th>첨부파일</th>			    
+			    <th>첨부파일</th>		    
 			    <td class="tdStyle">
 			    	<img src="/resources/img/icon/file.png" width="16px" class="delFile">
 					<span class="delFile" >${b.filePath }</span>
 					<button type="button" id="delBtn" class="btn btn-primary btn-sm delFile">삭제</button>
-					<input type="file" name="uploadFile" style="display: none;">
-					<input type="hidden" name="filepath" value="${filepath}">
+					<input type="file" name="uploadFile" class="upfile" style="display: none;">
 			    </td>			    
 			    <th>조회수</th>
 			    <td>${b.readCount }</td>
@@ -77,6 +76,13 @@
 			$(this).next().show();
 		});
 		
+		$("#boardUpdate").click(function(){
+			var uploadFile = $(".upfile").val();
+			if(uploadFile == ""){
+				alert('파일을 첨부해주세요.');
+				return false;
+			}
+		});
 	});
 </script>
 </body>
@@ -88,4 +94,3 @@
 	}
 </style>
 </html>
-E

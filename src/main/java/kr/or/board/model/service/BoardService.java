@@ -102,59 +102,61 @@ public class BoardService {
 	}
 
 	//댓글수정
+	@Transactional
 	public int updateComment(HashMap<String, Object> map) {
 		return dao.updateComment(map);
 	}
 
 	//댓글삭제
+	@Transactional
 	public int deleteComment(int commentNo) {
 		return dao.deleteComment(commentNo);
 	}
 
-	//커뮤니티 게시글/댓글
-	public HashMap<String, Object> communityConfirm(int reqPage) {
-		int numPerPage = 10;
+	//마이페이지_커뮤니티 게시글 보기
+	public HashMap<String, Object> communityConfirm(int reqPage, String memberId) {
+		int numPerPage = 5;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
+		map.put("memberId", memberId);
 		
 		ArrayList<Board> list = dao.communityConfirm(map);
-		int totalCount = dao.totalCount();
+		int totalCount = dao.totalCount(memberId);
 		int totalPage = 0;
 		if(totalCount%numPerPage == 0) {
 			totalPage = totalCount/numPerPage;
 		}else {
 			totalPage = totalCount/numPerPage+1;
 		}
-		
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;  //시작
 		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if(pageNo != 1) {
 			pageNavi += "<li class='page-item-mate-mate'>";
-			pageNavi += "<a href='/communityConfirm.do?reqPage="+(pageNo-1)+"'>&laquo;</a></li>";
+			pageNavi += "<a href='/communityList.do?reqPage="+(pageNo-1)+"&memberId="+memberId+"'>&laquo;</a></li>";
 		}
 		
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
 				pageNavi += "<li class='page-item-mate-mate active'>";
-				pageNavi += "<a href='/communityConfirm.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+				pageNavi += "<a href='/communityList.do?reqPage="+pageNo+"&memberId="+memberId+"'>"+pageNo+"</a></li>";
 			} else {
-				pageNavi += "<li class='page-item-mate-mate active'>";
-				pageNavi += "<a href='/communityConfirm.do?reqPage="+pageNo+"'>";
+				pageNavi += "<li class='page-item-mate-mate'>";
+				pageNavi += "<a href='/communityList.do?reqPage="+pageNo+"&memberId="+memberId+"'>";
 				pageNavi += pageNo+"</a></li>";
 			}
 			pageNo++;
 			if(pageNo>totalPage) {
 				break;
 			}
-			
+		}
 			if(pageNo <= totalPage) {
 				pageNavi += "<li class='page-item-mate-mate'>";
-				pageNavi += "<a href='/communityConfirm.do?reqPage="+pageNo+"'>";
+				pageNavi += "<a href='/communityList.do?reqPage="+pageNo+"&memberId="+memberId+"'>";
 				pageNavi += "&raquo;</a></li>";
 			}
 			pageNavi += "</ul>";
@@ -162,9 +164,69 @@ public class BoardService {
 			map.put("pageNavi", pageNavi);
 			map.put("list", list);
 			map.put("start", start);
-		}
-		return map;
+			return map;
 	}
+
+	//마이페이지_커뮤니티 댓글 보기
+	public HashMap<String, Object> commentConfirm(int reqPage, String memberId) {
+		int numPerPage = 5;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage + 1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+		
+		ArrayList<Board> list = dao.commentConfirm(map);
+		int totalCount = dao.totalCountcm(memberId);
+		int totalPage = 0;
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage;
+		}else {
+			totalPage = totalCount/numPerPage+1;
+		}
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize+1;  //시작
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'>";
+			pageNavi += "<a href='/communityList.do?reqPage="+(pageNo-1)+"&memberId="+memberId+"'>&laquo;</a></li>";
+		}
+		
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'>";
+				pageNavi += "<a href='/communityList.do?reqPage="+pageNo+"&memberId="+memberId+"'>"+pageNo+"</a></li>";
+			} else {
+				pageNavi += "<li class='page-item-mate-mate'>";
+				pageNavi += "<a href='/communityList.do?reqPage="+pageNo+"&memberId="+memberId+"'>";
+				pageNavi += pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo>totalPage) {
+				break;
+			}
+		}
+			if(pageNo <= totalPage) {
+				pageNavi += "<li class='page-item-mate-mate'>";
+				pageNavi += "<a href='/communityList.do?reqPage="+pageNo+"&memberId="+memberId+"'>";
+				pageNavi += "&raquo;</a></li>";
+			}
+			pageNavi += "</ul>";
+			
+			map.put("pageNavi", pageNavi);
+			map.put("list", list);
+			map.put("start", start);
+			return map;
+	}
+
+	//게시판 검색
+	public String mateSearch(String keyword) {
+		return dao.mateSearch(keyword);
+	}
+	
+	
 
 }
 

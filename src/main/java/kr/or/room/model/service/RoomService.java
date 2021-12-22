@@ -76,12 +76,9 @@ public class RoomService {
 					// 결제 테이블 
 					int pay = dao.insertMovePay(map);
 					if(pay > 0) {
-						System.out.println("결제테이블 등록 성공");
 					}else {
-						System.out.println("결제테이블 등록 실패");
 					}
 				}else {
-					System.out.println("룸 업데이트 오류");
 				}
 			}else {
 				
@@ -90,16 +87,12 @@ public class RoomService {
 					// 결제 테이블 
 					int pay = dao.insertMovePay(map);
 					if(pay > 0) {
-						System.out.println("결제테이블 등록 성공");
 					}else {
-						System.out.println("결제테이블 등록 실패");
 					}
 				}else {
-					System.out.println("룸 업데이트 오류");
 				}
 			}
 		}else {
-			System.out.println("입주신청 오류..");
 		}
 		return result;
 	}

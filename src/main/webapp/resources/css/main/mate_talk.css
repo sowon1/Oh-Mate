@@ -1,6 +1,21 @@
 @charset "UTF-8";
 
 /* 채팅방 리스트 */
+.none_chat{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+.none_chat img{
+	width:100px;
+}
+.none_chat_text{
+	margin-top: 12px;
+}
 .mate_talk_open{
 	position: fixed;
     right: 40px;

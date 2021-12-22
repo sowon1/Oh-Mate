@@ -341,4 +341,5 @@
 	<update id="updatePayCancelDate" parameterType="_int">
 		update pay set cancel_date= to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_goods=#{helpNo} and pay_category=1
 	</update>
+
 </mapper>
