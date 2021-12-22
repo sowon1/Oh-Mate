@@ -57,7 +57,7 @@ public class AdminController {
 		model.addAttribute("s", s);
 		return "admin/memberSearch";
 	}
-	@RequestMapping(value="adminMemberView.do")
+	@RequestMapping(value="/adminMemberView.do")
 	public String memberView(int memberNo, Model model) {
 		Member m = service.selectMemberInfo(memberNo);
 		model.addAttribute("m", m);
@@ -216,7 +216,7 @@ public class AdminController {
 		model.addAttribute("loc", "/adminHouseView.do?houseNo="+h.getHouseNo());
 		return "common/msg";
 	}
-	@RequestMapping(value="helperMgr.do")
+	@RequestMapping(value="/helperMgr.do")
 	public String helpMgr(int reqPage, Model model) {
 		HashMap<String, Object> data = service.selectAllHelper(reqPage);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
