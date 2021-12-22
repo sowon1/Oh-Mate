@@ -320,6 +320,7 @@
 	//matetalk
 	$(function(){
 		var receiver = "${sessionScope.m.memberNo}"; 
+		var receiverName = "${sessionScope.m.memberName}"; 
 		$("#mate_talk").click(function(){
 			$.ajax({
 				type : "post",
@@ -346,12 +347,20 @@
 						html += '</div>';
 						html += '<div class="talk_list_text">';
 						html += '<div class="talk_list_02">';
-						html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
+						if(data[i].senderName == receiverName){
+							html += '<span class="mate_talk_msg_name">'+data[i].receiverName+'</span>';
+						}else{						
+							html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
+						}
 						html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
 						html += '</div>';
 						html += '<div class="talk_list_time">';
 						html += '<span class="mate_talk_time">'+data[i].chatDate+'</span>';
-						html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
+						if(data[i].senderName == receiverName){
+							
+						}else{							
+							html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
+						}
 						html += '</div></div></li></a>';					
 					}
 					$(".mate_talk_list").append(html);
