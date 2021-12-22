@@ -383,5 +383,11 @@ public class HelperService {
 		}
 		return result;
 	}
+	//찜한 헬퍼
+
+	public ArrayList<Helper> selectBookmarkHelperList(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.selectBookmarkHelperList(memberNo);
+	}
 
 }

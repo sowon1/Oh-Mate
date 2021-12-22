@@ -182,6 +182,13 @@ public class HelperDao {
 		
 		return session.insert("helper.insertPhotoHelpCom", p);
 	}
+	//찜한 헬퍼
+	public ArrayList<Helper> selectBookmarkHelperList(int memberNo) {
+		// TODO Auto-generated method stub
+		List<Helper> list = session.selectList("helper.selectBookmarkHelperList", memberNo);
+		return (ArrayList<Helper>)list;
+
+	}
 
 	
 }
