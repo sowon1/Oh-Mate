@@ -295,6 +295,14 @@ public class BoardController {
 		model.addAttribute("loc","/boardView.do?boardNo="+boardNo);
 		return "common/msg";
 	}
+	
+	//게시판 검색 -> 아직안함
+	@RequestMapping(value="/mateSearch.do")
+	public String mateSearch(String keyword) {
+		String search = service.mateSearch(keyword);
+		return search;
+	}
+	
 }
 
 
