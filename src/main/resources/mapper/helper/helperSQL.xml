@@ -341,5 +341,18 @@
 	<update id="updatePayCancelDate" parameterType="_int">
 		update pay set cancel_date= to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_goods=#{helpNo} and pay_category=1
 	</update>
-
+	<update id="updateCompilte" parameterType="map">
+		update helplist set 
+		help_status = 4,
+		help_complite = #{helpComplite},
+		help_finish_date = to_char(sysdate,yyyy-mm-dd)
+		where help_no=#{helpNo}
+	</update>
+	<update id="updatePayCom" parameterType="_int">
+		update pay set pay_status='정산대기' where pay_goods=#{helpNo} and pay_category=1
+	</update>
+	<insert id="insertPhotoHelpCom" parameterType="f">
+	insert into photo
+  	values(photo_seq.nextval,2,#{photoPath},#{photoNum})
+	</insert>
 </mapper>

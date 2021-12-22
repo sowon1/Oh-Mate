@@ -11,6 +11,7 @@ import kr.or.common.Address;
 import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
+import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
 import kr.or.helper.model.vo.Helper;
@@ -354,6 +355,33 @@ public class HelperService {
 		}else {
 			return 0;
 		}
+	}
+
+	public int updateCompilte(int helpNo, String helpComplite) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("helpNo", helpNo);
+		map.put("helpComplite", helpComplite);
+		int result= dao.updateCompilte(map);
+		if(result>0) {
+			int result2= dao.updatePayCom(helpNo);
+			if(result2>0) {
+				return result2;
+			}else {
+				return 0;
+			}
+		}else {			
+			return 0;
+		}
+	}
+
+	public int insertPhotoHelpCom(int helpNo, ArrayList<Photo> list) {
+		int result = 0;
+		for (Photo p : list) {
+			p.setPhotoNum(helpNo);
+			result += dao.insertPhotoHelpCom(p);
+		}
+		return result;
 	}
 
 }

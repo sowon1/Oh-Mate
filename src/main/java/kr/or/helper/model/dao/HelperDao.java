@@ -12,6 +12,7 @@ import kr.or.common.Address;
 import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
+import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelperList;
@@ -165,6 +166,21 @@ public class HelperDao {
 	public int updatePayCancelDate(int helpNo) {
 		// TODO Auto-generated method stub
 		return session.update("helper.updatePayCancelDate", helpNo);
+	}
+
+	public int updateCompilte(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update("helper.updateCompilte", map);
+	}
+
+	public int updatePayCom(int helpNo) {
+		// TODO Auto-generated method stub
+		return session.update("helper.updatePayCom",helpNo);
+	}
+
+	public int insertPhotoHelpCom(Photo p) {
+		
+		return session.insert("helper.insertPhotoHelpCom", p);
 	}
 
 	

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import kr.or.common.Address;
 import kr.or.common.HelpList;
 import kr.or.common.Income;
 import kr.or.common.Pay;
+import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
@@ -402,6 +404,75 @@ public class HelperController {
 				return "redirect:/helperReqList.do?reqPage=1";
 			}else {
 				return "redirect:/helperReqList.do?reqPage=1";
+			}
+		}
+		//헬프완료
+		@RequestMapping(value = "/helpComplete.do")
+		public String helpComplete(int helpNo,String helpComplite,MultipartFile[] photoPath,Model model,HttpServletRequest request) {
+			ArrayList<Photo> list = new ArrayList<Photo>();
+			if(photoPath[0].isEmpty()) {
+				model.addAttribute("msg", "파일이없습니다.!!");
+				return "redirect:/helperReqList.do?reqPage=1";
+			}else {
+				int result = service.updateCompilte(helpNo,helpComplite);
+				if(result>0) {
+					// 파일이 있는경우
+					String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
+					for (MultipartFile file : photoPath) {
+						// 사용자가 올린 파일명
+						String filename = file.getOriginalFilename();
+						String onlyFilename = filename.substring(0, filename.indexOf(".")); // test
+						String extention = filename.substring(filename.indexOf("."));// .txt
+						String filepath = null;
+						System.out.println("사진경로:" + filename);
+						int count = 0;
+						while (true) {
+							if (count == 0) {
+								filepath = onlyFilename + extention;// test.txt
+							} else {
+								filepath = onlyFilename + "_" + count + extention;// test_1.txt
+							}
+							File checkFile = new File(photoPathfile + filepath);// File>> java.io
+							if (!checkFile.exists()) {// 똑같은 파일이 없을경우 중지
+								break;
+							}
+							count++;
+						}
+						// 파일명 중복처리가 끝나면 파일업로드
+						System.out.println("photoPathfile:" + photoPathfile);
+						System.out.println("filepath" + filepath);
+						try {
+							// 중복처리가 끝난 파일명(filepath)으로 파일을 업로드
+							FileOutputStream fos = new FileOutputStream(new File(photoPathfile + filepath));
+							// 업로드 속도증가를 위한 보조스트림
+							BufferedOutputStream bos = new BufferedOutputStream(fos);
+							// 파일업로드
+							byte[] bytes = file.getBytes();
+							bos.write(bytes);
+							bos.close();
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						Photo p = new Photo();
+						p.setPhotoPath(filepath);
+						list.add(p);
+
+					}
+					int result2 = service.insertPhotoHelpCom(helpNo,list);
+					if(result2>0) {
+						model.addAttribute("msg", "사진전송 성공!!");
+						return "redirect:/helperReqList.do?reqPage=1";
+					}else {
+						model.addAttribute("msg", "사진전송 실패 ");
+						return "redirect:/helperReqList.do?reqPage=1";
+					}
+				}else {
+					return "redirect:/helperReqList.do?reqPage=1";
+				}
 			}
 		}
 }
