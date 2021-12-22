@@ -260,4 +260,27 @@
 			max(help_no)
 		from helplist
 	</select>
+	<select id="selectBookmarkHelperList" parameterType="_int" resultType="hp">
+        select * from
+        	(select 
+            	b.bookmark_date as bookmarkDate,           
+            	h.helper_no as helperNo,
+				h.member_no as memberNo,
+				h.helper_name as helperName,
+				h.helper_category as helperCategory,
+				h.helper_start_time as helperStartTime,
+				h.helper_end_time as helperEndTime,
+				h.helper_ride as helperRide,
+				h.helper_status as helperStatus,
+				h.helper_filepath as helperFilepath,
+				h.helper_intro as helperIntro,
+				h.helper_credit as helperCredit,
+				h.helper_refuse as helperRefuse,
+            	(select age from member where member_no=h.member_no) as age,
+            	(select gender from member where member_no=h.member_no) as gender         
+        	from (select * from helper where HELPER_STATUS=1 order by 1 desc)h
+        	join  bookmark b on(bookmark_num=helper_no)
+        	where b.bookmark_category=1 and b.bookmarker=#{memberNo}) 
+	</select>
+
 </mapper>

@@ -123,6 +123,12 @@ public class HelperDao {
 		int helpNo = session.selectOne("helper.selectHelperNo2");
 		return helpNo;
 	}
+	//찜한 헬퍼
+	public ArrayList<Helper> selectBookmarkHelperList(int memberNo) {
+		// TODO Auto-generated method stub
+		List<Helper> list = session.selectList("helper.selectBookmarkHelperList", memberNo);
+		return (ArrayList<Helper>)list;
+	}
 
 	
 }
