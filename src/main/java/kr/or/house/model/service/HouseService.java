@@ -377,5 +377,9 @@ public class HouseService {
 		hrap.setTotalCount(totalCount);
 		return hrap;
 	}
+	//하우스 만료일 관련 스케줄드
+	public int updateChkDeadLine() {
+		return dao.updateChkDeadLine();
+	}
 
 }

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +39,7 @@ import kr.or.member.model.vo.Member;
 import kr.or.room.model.vo.Room;
 
 @Controller
+@Component
 public class HouseController {
 	@Autowired
 	private HouseService service;
@@ -425,6 +428,12 @@ public class HouseController {
 			model.addAttribute("msg", "로그인을 해주세요!");
 			return "redirect:/main.do";
 		}
+	}
+	//하우스 리스트 확인!!! 
+	@Scheduled(cron = "0 01 00 * * ?"  ) //오전 12:01분확인
+	public void checkHouseDeadLine() {
+		System.out.println("하우스리스트 만료일 확인프로그램 실행!!");
+		int result = service.updateChkDeadLine();
 	}
 	
 }

@@ -162,5 +162,10 @@ public class HelperDao {
 	}
 	
 
+	public int updatePayCancelDate(int helpNo) {
+		// TODO Auto-generated method stub
+		return session.update("helper.updatePayCancelDate", helpNo);
+	}
+
 	
 }

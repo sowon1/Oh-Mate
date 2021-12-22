@@ -224,4 +224,8 @@ public class HouseDao {
 		return session.selectOne("house.payCount", memberNo);
 	}
 
+	public int updateChkDeadLine() {
+		return session.update("house.updateChkDeadLine");
+	}
+
 }

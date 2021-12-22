@@ -459,4 +459,9 @@
 		left join pay p on(r.room_no=p.pay_goods)
 	where member_no=#{memberNo} and p.pay_category=2
 	</select>
+	<!-- 하우스 리스트 만료일확인내역 -->
+	<update id="updateChkDeadLine">
+		update house set house_selling=2 
+		where 0>to_date(houseowner_deadline)- to_date(to_char(sysdate,'yyyy-mm-dd'))
+	</update>
 </mapper>
