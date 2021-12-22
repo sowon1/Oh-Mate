@@ -758,9 +758,13 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .house_name{
 	float:left;
 	clear:both;
-	font-size:32px;
+	font-size:30px;
 	font-family: "ns_700";
 	margin-top:15px;
+	width: 330px;
+    overflow: hidden;
+    text-overflow:ellipsis; 
+    white-space:nowrap;
 }
 .house_addr{
 	float:left;
