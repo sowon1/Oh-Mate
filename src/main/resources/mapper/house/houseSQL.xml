@@ -34,7 +34,7 @@
 			(select rownum as rnum, h.*, 
             (select count(*)from room where house_no=h.house_no and room_status=1) as roomCount
             from
-			(select * from house where house_allow=2 order by 1 desc)h) 
+			(select * from house where house_selling=1 and house_allow=2 order by 1 desc)h) 
 		where rnum between 1 and 10
 			<if test="houseGender != 0">
 				and house_gender=#{h.houseGender}
@@ -99,7 +99,9 @@
         (select house.*
         from house 
         join address on(house.house_no = address.address_number)
-        where 
+        where
+        	house_selling=1
+        	and
             house_allow=2
             and address_category = 1
             <if test="houseForm != null and !''.equals(houseForm)">

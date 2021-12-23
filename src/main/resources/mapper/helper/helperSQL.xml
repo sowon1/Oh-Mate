@@ -104,9 +104,7 @@
  		where helper_no = #{helperNo} and member_no=#{memberNo}
  	</update>
  	
- 	<!-- 헬퍼 리스트 출력 부분 - sowon 
- 		주소 2개의 행이라서 그부분 처리 어떻게 ?
- 	-->
+ 	<!-- 헬퍼 리스트 출력 부분 - sowon -->
  	<select id="selectAjaxHelper" parameterType="map" resultMap="helper">
  		select hh.* from
         (select 
@@ -119,8 +117,9 @@
         (select helper.*
         from helper 
         join member on (helper.member_no = member.member_no)
-        where 
-            helper_status=1
+        where
+        	member_level=4 and
+            helper_status=2
             <if test="gender != 0 and gender != 3 and gender != null and !''.equals(gender)">
 				and gender=#{gender}
 			</if>
