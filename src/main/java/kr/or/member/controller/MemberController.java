@@ -19,6 +19,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,8 @@ import com.google.gson.Gson;
 
 import kr.or.common.Tour;
 import kr.or.board.model.service.BoardService;
+import kr.or.helper.model.service.HelperService;
+import kr.or.helper.model.vo.Helper;
 import kr.or.house.model.service.HouseService;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.service.MemberService;
@@ -47,6 +50,8 @@ public class MemberController {
 	private RoomService roomService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private HelperService helperService;
 	
 	//로그인1 hdy
 	@RequestMapping(value="/login.do")
@@ -457,9 +462,12 @@ public class MemberController {
 		}
 		return "member/tourRequestList";
 	}
-		
+
+	
+	//헬프 요청내역
 	@RequestMapping(value = "/helpList.do")
 	public String helpList() {
+		//작성중
 		return "member/helpList";
 	}
 
@@ -473,13 +481,34 @@ public class MemberController {
 		return "member/communityList";
 	}
 	
-	//마이페이지_커뮤니티 댓글 보기 hdy -> 수정
+	//마이페이지_커뮤니티 댓글 보기 hdy 
 	@ResponseBody
-	@RequestMapping(value="/myCommunity.do", produces = "application/json;charset=utf-8", method=RequestMethod.POST )
+	@RequestMapping(value="/myCommunity.do", produces = "application/json;charset=utf-8", method = RequestMethod.GET )
 	public String commentConfirm(int reqPage, String memberId, Model model) {
 		HashMap<String, Object> map = boardService.commentConfirm(reqPage, memberId);
-		System.out.println("map : "+ map);
+		//System.out.println("map : "+ map);
 		return new Gson().toJson(map);
 	}
 	
+	//찜한 헬퍼 
+	@RequestMapping(value = "/bookmarkHelper.do")
+	public String bookmarkHeler(Model model, HttpSession session) {
+		if(session != null) {
+			Member m = (Member)session.getAttribute("m");
+			int memberNo = 0;
+			if(m != null)
+			{
+				memberNo = m.getMemberNo();
+			}	
+			ArrayList<Helper> list = helperService.selectBookmarkHelperList(memberNo);
+			model.addAttribute("list",list);
+		}
+		return "/member/bookmarkHelper";
+	}
+	
+	//입주 내역
+	@RequestMapping(value = "/moveInList.do")
+	public String moveInList() {
+		return "/member/moveInList";
+	}
 }

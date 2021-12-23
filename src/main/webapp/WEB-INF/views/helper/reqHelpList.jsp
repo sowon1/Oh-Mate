@@ -205,7 +205,7 @@
 														</div>
 														<div>
 														<div>
-														<form action="/helpComplete.do" class="comForm"  method="post" enctype="multipart/form-data">
+														<form action="/helpComplete.do?helpNo=${h.helpNo }" class="comForm"  method="post" enctype="multipart/form-data">
 														<table>
 															<tr>
 															<th>헬프완료 내역</th>
@@ -217,6 +217,7 @@
 																<th>헬프완료 사진</th>
 															<td>
 																<div>
+																	<p>※수정불가 하오니 신중히 올려주세요</p>
 																	<input type="file" id="input_imgs" name="photoPath" multiple />
 																</div>
 																<div class="img_wrap"></div>
@@ -280,7 +281,7 @@
 					</c:forEach>
 				</table>
 			</div>
-			<div>${pageNavi }</div>
+			<div style="width: 300px; margin: 0 auto;">${pageNavi }</div>
 		</div>
 	</div>
 	<script>
@@ -351,17 +352,19 @@
 			});
 			//헬프 완료 이미지 띄우기
 			var sel_files = [];
+			var qq=$("input[name='photoPath']").eq(idx).val();
+			console.log(qq);
 			$(document).ready(function() {
 				$("input[name='photoPath']").eq(idx).on("change", handleImgsFilesSelect);
 			});
 			
 			$("a[name='complete']").click(function () {
-				if($("textarea[name='helpComplite']").eq(idx).val()!="" && $("input[name='photoPath']").eq(cidx).val()!=null){
-					$(".comForm").eq(cidx).submit();
+				if($("textarea[name='helpComplite']").eq(idx).val()!="" && $("input[name='photoPath']").eq(idx).val()!=""){
+					$(".comForm").eq(idx).submit();
 				}else{
 					if($("textarea[name='helpComplite']").eq(idx).val()==""){
 						alert("헬프 마감내역을 적지 않았습니다.")
-					}else if($("input[name='photoPath']").eq(idx).val()==null){
+					}else if($("input[name='photoPath']").eq(idx).val()==""){
 						alert("사진을 한장이라도 올려주셔야합니다.")
 					}
 				}

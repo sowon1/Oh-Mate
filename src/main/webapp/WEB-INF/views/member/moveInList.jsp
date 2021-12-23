@@ -5,9 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>입주내역</title>
 </head>
 <body>
-
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />	
+	<div class="container_mate">
+		<h1 class="point_title">입주내역</h1>
+	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
 </body>
 </html>

@@ -351,7 +351,8 @@ public class HouseController {
 			return "house/houseUpdateFrm";
 		} else {
 			model.addAttribute("msg", "입력하신 내용이 없습니다.");
-			return "redirect:/houseOwnerList.do?memberNo=$" + memberNo + "&reqPage=1";
+			model.addAttribute("loc", "/houseOwnerList.do?memberNo="+memberNo+"&reqPage=1");
+			return "common/msg";
 		}
 	}
 
@@ -386,10 +387,12 @@ public class HouseController {
 		int reqPage = 1;
 		if (result > 0) {
 			model.addAttribute("msg", "하우스 삭제 성공");
-			return "redirect:houseOwnerList.do?memberNo=" + memberNo + "&reqPage=" + reqPage;
+			model.addAttribute("loc", "/houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage);
+			return "common/msg";
 		} else {
 			model.addAttribute("msg", "하우스 삭제 실패");
-			return "redirect:houseOwnerList.do?memberNo=" + memberNo + "&reqPage=" + reqPage;
+			model.addAttribute("loc", "/houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage);
+			return "common/msg";
 		}
 	}
 
@@ -418,15 +421,18 @@ public class HouseController {
 					return "house/houseAdjustPayList";
 				}else {
 					model.addAttribute("msg", "정보가 없습니다.");
-					return "redirect:/main.do";
+					model.addAttribute("loc","/main.do");
+					return "common/msg";
 				}
 			}else {
 			model.addAttribute("msg", "잘못된 정보입니다! 다시 로그인해주세요!");
-			return "redirect:/main.do";
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
 			}
 		}else {
 			model.addAttribute("msg", "로그인을 해주세요!");
-			return "redirect:/main.do";
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
 		}
 	}
 	//하우스 리스트 확인!!! 
@@ -434,6 +440,8 @@ public class HouseController {
 	public void checkHouseDeadLine() {
 		System.out.println("하우스리스트 만료일 확인프로그램 실행!!");
 		int result = service.updateChkDeadLine();
+		System.out.println("룸 내용 실행");
+		int result2 = service.updateChkRoomMoveEndDate();
 	}
 	
 }

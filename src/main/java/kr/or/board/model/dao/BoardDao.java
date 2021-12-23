@@ -138,8 +138,9 @@ public class BoardDao {
 	}
 
 	//게시판 검색
-	public String mateSearch(String keyword) {
-		return sqlSession.selectOne("board.mateSearch",keyword);
+	public ArrayList<Board> mateSearch(String keyword) {
+		List<Board> list = sqlSession.selectList("board.mateSearch",keyword);
+		return (ArrayList<Board>)list;
 	}
 
 	

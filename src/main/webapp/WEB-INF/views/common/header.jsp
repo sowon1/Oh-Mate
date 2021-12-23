@@ -18,6 +18,10 @@
 <link rel="stylesheet" href="/resources/css/font.css">
 <!-- 채팅방 css -->
 <link rel="stylesheet" href="/resources/css/main/mate_talk.css">
+<!-- 날짜관련 js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.min.js"></script>
 </head>
 <div class="back_dark"></div>
 <div class="tour_back_dark"></div>
@@ -125,7 +129,7 @@
 		    <header>
 		    	<c:choose>
 		    		<c:when test="${not empty sessionScope.m.filepath}">
-		    			<img src="/resources/upload/member/${m.filepath}">
+		    			<img src="/resources/upload/member/${m.filepath}" class="nav_pro">
 		    		</c:when>
 		    		<c:otherwise>		    		
 				        <img src="/resources/img/icon/profile.png">
@@ -151,7 +155,7 @@
 		    <header>
 		        <c:choose>
 		    		<c:when test="${not empty sessionScope.m.filepath}">
-		    			<img src="/resources/upload/member/${m.filepath}">
+		    			<img src="/resources/upload/member/${m.filepath}" class="nav_pro">
 		    		</c:when>
 		    		<c:otherwise>		    		
 				        <img src="/resources/img/icon/profile.png">
@@ -188,7 +192,7 @@
 		    <header>
 		        <c:choose>
 		    		<c:when test="${not empty sessionScope.m.filepath}">
-		    			<img src="/resources/upload/member/${m.filepath}">
+		    			<img src="/resources/upload/member/${m.filepath}" class="nav_pro">
 		    		</c:when>
 		    		<c:otherwise>		    		
 				        <img src="/resources/img/icon/profile.png">
@@ -317,11 +321,14 @@
 </div>
 
 <script>
-	//matetalk
+	
+
+	//matetalk - list
 	$(function(){
 		var receiver = "${sessionScope.m.memberNo}"; 
 		var receiverName = "${sessionScope.m.memberName}"; 
 		$("#mate_talk").click(function(){
+			$(".mate_talk_list").empty();
 			$.ajax({
 				type : "post",
 				url : "matetalkList.do",
@@ -337,12 +344,12 @@
 						html += '</div>';
 					}
 					for(var i = 0; i < data.length; i++){
-						html += '<a href="/">';
+						html += '<a onclick="initChat("'+receiver+'")">';
 						html += '<li><div class="talk_profile">';
 						if(data[i].filepath == null){
 							html += '<img src="/resources/img/icon/profile.png">';
 						}else{
-							html += '<img src="/resources/upload/member/'+data[i].filepath+'">';
+							html += '<img src="/resources/upload/member/'+data[i].filepath+'" class="chat_list_pro">';
 						}
 						html += '</div>';
 						html += '<div class="talk_list_text">';
@@ -355,8 +362,8 @@
 						html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
 						html += '</div>';
 						html += '<div class="talk_list_time">';
-						html += '<span class="mate_talk_time">'+data[i].chatDate+'</span>';
-						if(data[i].senderName == receiverName){
+						html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('hour').fromNow()+'</span>';
+						if(data[i].receiverName == receiverName){
 							
 						}else{							
 							html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
@@ -368,7 +375,57 @@
 			});
 		});
 	})
+	
+	//matetalk - talk start
+	var ws;
+	var receiver;
+	var messageStatus = "n";
+	var messageDate = moment().format('LT');
+	function initChat(param){
+		receiver = param;
+		//웹소켓 연걸 시도
+		ws = new WebSocket("ws://192.168.75.104/chat.do");
+		//웹소켓 연결이 성공하면 실행할 함수
+		ws.onopen = startChat;
+		//서버에서 화면으로 데이터를 전송하면 처리할 함수
+		ws.onmessage = receiveMsg;
+		//웹소켓 연결이 종료되면 실핼할 함수 지정
+		ws.onclose = endChat;
+		$(".mate_talk_open").hide();
+		$(".mate_talk_view_open").css("right","40px");
+	}
+	function startChat() {
+		var data = {type:"enter", msg:receiver};
+		ws.send(JSON.stringify(data));
+	}
+	function receiveMsg(param) {
+		appendChat(param.data);
+	}
+	function endChat() {
+		
+	}
+	function appendChat(msg) {
+		$(".mate_talk_messageArea").append(msg);
+		$(".mate_talk_messageArea").scrollTop($(".mate_talk_messageArea")[0].scrollHeight);
+	}
+	function sendMsg() {
+		var msg = $("#sendMsg").val();
+		if(msg != '') {
+			var data = {type:"chat", msg:msg};
+			ws.send(JSON.stringify(data));
+			appendChat("<div class='mate_talk_right'><span class='mate_talk_right_date'>"+messageStatus+"<br>"+messageDate+"</span><span class='mate_talk_right_msg'>"+mag+"</div>");
+			$("#sendMsg").val("");
+		}
+	}
+	$(function(){
+		$("#sendMsg").keyup(function(key){
+			if(key.keyCode == 13) {		//키보드 13번 -> enter
+				sendMsg();
+			}
+		});
+	});
 
+	
 	//비 로그인 시 메신저 버튼누를경우 
 	$("#mate_talk_login").click(function(){
 		msgpopupopen();
