@@ -709,7 +709,7 @@
 					var phone = '${sessionScope.m.phone}';
 					var memberNo = '${sessionScope.m.memberNo}';
 					var payId = '${sessionScope.m.memberId}';
-					var helpNo = 55;
+					var helpNo = 9999;
 								
 					var d = new Date();
 					//고유식별번호 문자열로 쓰려고 +""+ 붙여줌 - 월은 0~11이라 +1해줌

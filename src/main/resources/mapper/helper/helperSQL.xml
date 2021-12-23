@@ -127,8 +127,7 @@
 				and age=#{age}
 			</if>
             <if test="keyword != null and !''.equals(keyword)">
-            	and (helper_intro) like '%' ||  #{keyword} || '%'
-            	and helper_no in (select address_number from address where address_category=2 and (address_name||address_road||address_legal) like '%' ||  #{keyword} || '%')  
+            	and helper_no in (select address_number from address where address_category=2 and (address_name||address_road||address_legal || helper_intro || helperName) like '%' ||  #{keyword} || '%')  
 			</if>
 			<if test="!'00:00'.equals(helperStartTime) and helperStartTime != null and !''.equals(helperStartTime)">
 				and helper_start_time=#{helperStartTime}
@@ -395,6 +394,6 @@
 	</insert>
 	<!-- 결제 업데이트 -->
 	<update id="updateHelpPay" parameterType="map">
-		update pay set pay_goods=#{helpNo} where pay_goods=55 and pay_category=1
+		update pay set pay_goods=#{helpNo} where pay_goods=9999 and pay_category=1
 	</update>
 </mapper>

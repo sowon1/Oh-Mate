@@ -192,14 +192,23 @@ ul{
 	cursor: pointer;
 }
 #sidenav header img{
-	width: 100px;
 	margin: 0 auto 10px 34px;
+}
+.nav_pro{
+	width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    object-fit: cover;
 }
 #sidenav header p{
 	color:#fff;
+	margin-bottom:0px;
 }
 #sidenav header .name{
 	font-size: 18px;
+	margin-top:5px;
 }
 #close_sidenav {
 	cursor: pointer;

@@ -21,7 +21,7 @@
     right: 40px;
     bottom: 235px;
     transition-duration: 0.8s;
-	width: 450px;
+	width: 400px;
 	display:none;
 	transition: 0.8s;
 	z-index:5553;
@@ -32,14 +32,14 @@
     right: -500px;
     bottom: 235px;
     transition-duration: 0.8s;
-	width: 450px;
+	width: 400px;
 	display:block;
 	transition: 0.8s;
 	z-index:5554;
 	filter: drop-shadow(rgba(0, 0, 0, 0.4) 0px 1px 4px);
 }
 .mate_talk{
-    width: 450px;
+    width: 400px;
     height: 500px;
     overflow: hidden;
     border-top-right-radius: 20px;
@@ -90,6 +90,14 @@
     float: left;
     margin-right: 10px;
 }
+.chat_list_pro{
+	width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    object-fit: cover;
+}
 .talk_list_text{
     display: flex;
     justify-content: space-between;
@@ -107,11 +115,12 @@
     text-overflow: ellipsis;
     overflow: hidden;
     display: block;
-    width: 270px;
+    width: 220px;
+    font-size: 14px;
 }
 .talk_list_time{
     color: #666;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -187,7 +196,7 @@
 
 /* 채팅방 내부 */
 .mate_talk_view{
-    width: 450px;
+    width: 400px;
     height: 500px;
     overflow: hidden;
     border-top-right-radius: 20px;
@@ -239,11 +248,11 @@
 .mate_talk_left{
     display: flex;
     align-items: flex-start;
-    width: 400px;
+    /* width: 400px; */
     margin-bottom: 25px;
 }
 .mate_talk_left img{
-    width:70px;
+    width:60px;
     float: left;
 }
 .mate_talk_left_line{
@@ -251,10 +260,10 @@
 }
 .mate_talk_msg_name{
     color: #666;
-    font-size: 16px;
+    font-size: 14px;
     font-family: "ns_500";
     float: left;
-    margin-bottom: 8px;;
+    margin-bottom: 5px;
 }
 .mate_talk_left_msg{
     float: left;
@@ -262,8 +271,8 @@
     background: #fff;
     padding: 8px 16px;
     border-radius: 10px;
-    font-size: 14px;
-    width: 250px;
+    font-size: 13px;
+    width: 222px;
     position: relative;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
     word-break: break-all;
@@ -324,7 +333,7 @@
     background: #e5ddf4;
     width: 250px;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 13px;
     padding: 8px 16px;
     word-break: break-all;
     position: relative;
