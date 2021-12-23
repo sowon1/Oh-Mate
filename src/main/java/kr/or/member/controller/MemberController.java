@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import kr.or.common.Move;
 import kr.or.common.Tour;
 import kr.or.board.model.service.BoardService;
 import kr.or.helper.model.service.HelperService;
@@ -508,7 +509,18 @@ public class MemberController {
 	
 	//입주 내역
 	@RequestMapping(value = "/moveInList.do")
-	public String moveInList() {
+	public String moveInList(int reqPage, Model model, HttpSession session) {
+		if(session != null) {
+			Member m = (Member)session.getAttribute("m");
+			int memberNo = 0;
+			if(m != null)
+			{
+				memberNo = m.getMemberNo();
+			}	
+			HashMap<String, Object> data = roomService.selectMoveInList(memberNo,reqPage);
+			model.addAttribute("list",data.get("list"));
+			model.addAttribute("pageNavi",data.get("pageNavi"));
+		}
 		return "/member/moveInList";
 	}
 }
