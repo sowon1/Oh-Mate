@@ -129,7 +129,7 @@
 		    <header>
 		    	<c:choose>
 		    		<c:when test="${not empty sessionScope.m.filepath}">
-		    			<img src="/resources/upload/member/${m.filepath}">
+		    			<img src="/resources/upload/member/${m.filepath}" class="nav_pro">
 		    		</c:when>
 		    		<c:otherwise>		    		
 				        <img src="/resources/img/icon/profile.png">
@@ -155,7 +155,7 @@
 		    <header>
 		        <c:choose>
 		    		<c:when test="${not empty sessionScope.m.filepath}">
-		    			<img src="/resources/upload/member/${m.filepath}">
+		    			<img src="/resources/upload/member/${m.filepath}" class="nav_pro">
 		    		</c:when>
 		    		<c:otherwise>		    		
 				        <img src="/resources/img/icon/profile.png">
@@ -192,7 +192,7 @@
 		    <header>
 		        <c:choose>
 		    		<c:when test="${not empty sessionScope.m.filepath}">
-		    			<img src="/resources/upload/member/${m.filepath}">
+		    			<img src="/resources/upload/member/${m.filepath}" class="nav_pro">
 		    		</c:when>
 		    		<c:otherwise>		    		
 				        <img src="/resources/img/icon/profile.png">
@@ -328,6 +328,7 @@
 		var receiver = "${sessionScope.m.memberNo}"; 
 		var receiverName = "${sessionScope.m.memberName}"; 
 		$("#mate_talk").click(function(){
+			$(".mate_talk_list").empty();
 			$.ajax({
 				type : "post",
 				url : "matetalkList.do",
@@ -348,7 +349,7 @@
 						if(data[i].filepath == null){
 							html += '<img src="/resources/img/icon/profile.png">';
 						}else{
-							html += '<img src="/resources/upload/member/'+data[i].filepath+'">';
+							html += '<img src="/resources/upload/member/'+data[i].filepath+'" class="chat_list_pro">';
 						}
 						html += '</div>';
 						html += '<div class="talk_list_text">';
@@ -362,7 +363,7 @@
 						html += '</div>';
 						html += '<div class="talk_list_time">';
 						html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('hour').fromNow()+'</span>';
-						if(data[i].senderName == receiverName){
+						if(data[i].receiverName == receiverName){
 							
 						}else{							
 							html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';

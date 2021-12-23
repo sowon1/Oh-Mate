@@ -783,10 +783,8 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	font-size:16px;
 }
 .heler_pro_cate_title:before {
-    content: "";
-    height: 11px;
-    border-left: 2px solid #956bfc;
-    display: inline-block;
+    content: "\22C4";
+    font-size: 18px;
     color: #956bfc;
     margin-right: 8px;
 }
@@ -810,10 +808,8 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	font-size:16px;
 }
 .heler_pro_title:before {
-    content: "";
-    height: 11px;
-    border-left: 2px solid #956bfc;
-    display: inline-block;
+    content: "\22C4";
+    font-size: 18px;
     color: #956bfc;
     margin-right: 8px;
 }
@@ -848,12 +844,10 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	float:left;
 }
 .helper_pro_helperInfo_title:before {
-    content: "";
-    height: 11px;
-    border-left: 2px solid #956bfc;
-    display: inline-block;
-    color: #956bfc;
+    content: "\1F64B";
+    font-size: 22px;
     margin-right: 8px;
+	vertical-align: text-bottom;
 }
 .helper_pro_helperInfo_text{
 	float:left;
@@ -1275,6 +1269,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .review_img{
 	width:130px;
 	height: 130px;
+	align-self: center;
 }
 .review_like{
 	align-self: center;

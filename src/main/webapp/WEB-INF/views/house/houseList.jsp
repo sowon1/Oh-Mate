@@ -24,7 +24,7 @@
 						<span class="filter_name">조건검색</span>					
 					</div>
 					<div class="search_line">
-						<input class="search_input" name="keyword" placeholder="지역, 지하철역, 대학 주변 검색">
+						<input class="search_input" name="keyword" placeholder="지역, 하우스 이름, 특징 검색">
 						<a id="searchHouse" class="search_icon">
 							<img src="/resources/img/icon/search_on.png">
 						</a>
@@ -169,8 +169,6 @@
 			}
 		})
 		function GetList(currentPage){
-			console.log("1 : "+keyword);
-			console.log("2 : "+houseGender);
 			if(houseGender == ""){
 				houseGender = 0;
 			}
