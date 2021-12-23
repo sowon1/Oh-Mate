@@ -251,4 +251,31 @@
    			max(move_no) 
    		from move
  	</select>
+ 	<select id="totalMoveInCount" parameterType="_int" resultType="_int">
+		select count(*) from move where member_no=#{memberNo}
+	</select>
+	<select id="selectMoveInList" parameterType="map" resultType="move">
+		select 
+		    rownum as rnum, 
+		    g.* 
+		from
+		    (select 
+		        m.move_no as moveNo,
+		        h.house_title as houseTitle,
+		        m.member_no as memberNo,
+		        m.room_no as roomNo,
+		        m.move_start as moveStart,
+		        m.move_end as moveEnd,
+		        r.room_title as roomTitle,
+		        r.house_no as houseNo,
+		        p.pay_price as payPrice,
+		        p.pay_date as payDate
+		    from move m
+		        join room r on m.room_no = r.room_no
+		        join house h on r.house_no=h.house_no
+		        join pay p on m.move_no = p.pay_goods
+		    where m.member_no=#{memberNo} and p.pay_category=2
+		    order by 2 desc)g
+		where rownum between #{start} and #{end}
+	</select>
 </mapper>
