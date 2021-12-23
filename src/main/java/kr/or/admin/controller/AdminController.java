@@ -260,7 +260,6 @@ public class AdminController {
 	}
 	@RequestMapping(value="/salesSearch.do")
 	public String salesSearch(int reqPage, Search s, Model model) {
-		System.out.println(s.toString());
 		HashMap<String, Object> data = service.salesSearch(reqPage, s);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
