@@ -7,10 +7,8 @@ tr>th {
 }
 .trstyle{
 	text-align:center; 
-	border-left:1px solid #EAEAEA; 
-	border-right:1px solid #EAEAEA;
-	height:100px;
-	vertical-align:middle;
+	height:30px;
+	vertical-align: middle;
 }
 .tdstyle{
 	border-bottom:1px solid #8C8C8C;
@@ -18,4 +16,17 @@ tr>th {
 .page-navi{
 	text-align: center;
 	margin-left: 45%;
+}
+span:hover{
+	cursor: pointer;
+	font-wight: bolder;
+	color: #956bfc;
+	}
+.communityTbl td{
+	height:30px;
+	vertical-align: middle;
+	text-align: center;
+}
+.communityTbl td>p{
+	margin: 0px;
 }

@@ -45,8 +45,7 @@
 					</c:when>
 				</c:choose>
 				<div class="MateSearch">
-					<form style="position: relative;" action="/mateSearch.do" method="post">
-					<input type="hidden" name="">
+					<form style="position:relative;" action="/mateSearch.do" method="post">
 						<div class="form-check" style="padding-left:0px;">
 							<img class="searchsty" src="/resources/img/icon/search1.png">
 							<p class="searchfs">조건검색</p>

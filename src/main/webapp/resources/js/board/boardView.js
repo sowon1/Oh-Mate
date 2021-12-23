@@ -8,6 +8,9 @@
 			$(".commentbt").eq(idx).hide();
 			$(".subbtnSty").eq(idx).show();
 			$(".recancel").eq(idx).show();
+			$(".secretCom").show();
+			$(".secretCom").css('display','inline');
+					
 		});
 		
 		//답글 창 닫기
@@ -17,6 +20,7 @@
 			$(".commentbt").eq(idx).show();
 			$(".subbtnSty").eq(idx).hide();
 			$(".recancel").eq(idx).hide();
+			$(".secretCom").hide();
 		});
 		
 		 //댓글필수입력

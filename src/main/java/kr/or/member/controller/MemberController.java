@@ -19,6 +19,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -473,12 +474,12 @@ public class MemberController {
 		return "member/communityList";
 	}
 	
-	//마이페이지_커뮤니티 댓글 보기 hdy -> 수정
+	//마이페이지_커뮤니티 댓글 보기 hdy 
 	@ResponseBody
-	@RequestMapping(value="/myCommunity.do", produces = "application/json;charset=utf-8", method=RequestMethod.POST )
+	@RequestMapping(value="/myCommunity.do", produces = "application/json;charset=utf-8", method = RequestMethod.GET )
 	public String commentConfirm(int reqPage, String memberId, Model model) {
 		HashMap<String, Object> map = boardService.commentConfirm(reqPage, memberId);
-		System.out.println("map : "+ map);
+		//System.out.println("map : "+ map);
 		return new Gson().toJson(map);
 	}
 	

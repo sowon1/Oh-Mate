@@ -168,6 +168,7 @@ public class BoardController {
 		//System.out.println("controller : " + bmd.getFileImg());
 		model.addAttribute("list",bmd.getList());
 		model.addAttribute("ProfileOption",bmd.getProfileOption());
+		//System.out.println(bmd.getB());
 		return "board/boardView";
 	}
 	
@@ -259,7 +260,7 @@ public class BoardController {
 		map.put("mc", mc);
 		int result = service.insertComment(mc);
 		if(result>0) {
-			model.addAttribute("msg","댓글성공");
+			model.addAttribute("msg","댓글성공~");
 		}else {
 			model.addAttribute("msg","댓글실패");
 		}
@@ -296,11 +297,12 @@ public class BoardController {
 		return "common/msg";
 	}
 	
-	//게시판 검색 -> 아직안함
+	//게시판 검색
 	@RequestMapping(value="/mateSearch.do")
-	public String mateSearch(String keyword) {
-		String search = service.mateSearch(keyword);
-		return search;
+	public String mateSearch(String keyword, Model model) {
+		ArrayList<Board> list = service.mateSearch(keyword);
+		model.addAttribute("list",list);
+		return "board/communityFrm";
 	}
 	
 }

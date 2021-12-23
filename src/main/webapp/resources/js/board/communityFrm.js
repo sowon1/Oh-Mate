@@ -15,7 +15,7 @@ $(function(){
 	}
 	
 	//필수선택
-	$(input[type=submit]).click(function(){
+	$("#communitySearch").click(function(){
 		if(!$("option").not("#sel").is(":selected")){
 			alert('선호 지역을 선택해주세요.');
 			return false;
