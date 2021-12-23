@@ -116,7 +116,9 @@
     flex-direction: column;
     align-items: center;
 }
-
+.mate_talk_time{
+	text-align: end;
+}
 .mate_talk_read_count{
     background: #956bfc;
     color: #fff;

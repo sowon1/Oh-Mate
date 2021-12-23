@@ -23,6 +23,7 @@ public class ChatController {
 	@RequestMapping(value="/matetalkList.do", produces = "application/json;charset=utf-8")
 	public String matetalkList(int receiver, Model model) {
 		ArrayList<Chat> data = service.selectMateTalkList(receiver);
+		model.addAttribute("list",data);
 		return new Gson().toJson(data);
 	}
 }

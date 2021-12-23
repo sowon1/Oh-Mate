@@ -336,8 +336,8 @@ public class HelperController {
 		}
 		//도움 요청 
 		@RequestMapping(value="/helprequest.do")
-		public String helprequest(HelpList h, Model model, int helperNo, int memberNo, Address addr) {
-			int result = service.insertHelprequest(h,helperNo,memberNo,addr);
+		public String helprequest(HelpList h, Model model, int helperNo, int memberNo, Address addr, Pay p) {
+			int result = service.insertHelprequest(h,helperNo,memberNo,addr,p);
 			if(result>0) {
 				model.addAttribute("msg", "헬퍼 요청 성공!");
 				model.addAttribute("loc","/helpList.do?reqPage=1");
@@ -475,4 +475,13 @@ public class HelperController {
 				}
 			}
 		}
+		
+		// 결제 - sowon
+		@ResponseBody
+		@RequestMapping(value="/helpPayment.do")
+		public String helpPayment(Pay p, int memberNo, int helpNo) {
+			int result = service.insertHelpPayment(p,memberNo,helpNo);
+			return new Gson().toJson(result);
+		}
+		
 }

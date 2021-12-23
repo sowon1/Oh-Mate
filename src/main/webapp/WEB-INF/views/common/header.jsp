@@ -18,6 +18,10 @@
 <link rel="stylesheet" href="/resources/css/font.css">
 <!-- 채팅방 css -->
 <link rel="stylesheet" href="/resources/css/main/mate_talk.css">
+<!-- 날짜관련 js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.min.js"></script>
 </head>
 <div class="back_dark"></div>
 <div class="tour_back_dark"></div>
@@ -317,6 +321,8 @@
 </div>
 
 <script>
+	
+
 	//matetalk
 	$(function(){
 		var receiver = "${sessionScope.m.memberNo}"; 
@@ -355,7 +361,7 @@
 						html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
 						html += '</div>';
 						html += '<div class="talk_list_time">';
-						html += '<span class="mate_talk_time">'+data[i].chatDate+'</span>';
+						html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('day').fromNow()+'</span>';
 						if(data[i].senderName == receiverName){
 							
 						}else{							

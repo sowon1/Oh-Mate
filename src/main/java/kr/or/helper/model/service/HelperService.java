@@ -11,6 +11,7 @@ import kr.or.common.Address;
 import kr.or.common.HelpList;
 import kr.or.common.HelpReview;
 import kr.or.common.Income;
+import kr.or.common.Pay;
 import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
@@ -280,7 +281,7 @@ public class HelperService {
 		return rhpd;
 	}
 	//도움 요청 
-	public int insertHelprequest(HelpList h, int helperNo, int memberNo, Address addr) {
+	public int insertHelprequest(HelpList h, int helperNo, int memberNo, Address addr, Pay p) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("helperNo", helperNo);
 		map.put("memberNo", memberNo);
@@ -291,6 +292,7 @@ public class HelperService {
 			int helpNo = dao.selectHelperNo2();
 			map.put("helpNo", helpNo);
 			int result2 = dao.insertAddress(map);
+			int result3 = dao.updateHelpPay(map);
 		}
 
 		return result;
@@ -388,6 +390,14 @@ public class HelperService {
 	public ArrayList<Helper> selectBookmarkHelperList(int memberNo) {
 		// TODO Auto-generated method stub
 		return dao.selectBookmarkHelperList(memberNo);
+	}
+	//결제 - sowon
+	public int insertHelpPayment(Pay p, int memberNo, int helpNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("p", p);
+		map.put("memberNo", memberNo);
+		map.put("helpNo", helpNo);
+		return dao.insertHelpPayment(map);
 	}
 
 }

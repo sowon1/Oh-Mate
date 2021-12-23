@@ -376,4 +376,25 @@
         	join  bookmark b on(bookmark_num=helper_no)
         	where b.bookmark_category=1 and b.bookmarker=#{memberNo}) 
 	</select>
+	<!-- 결제 -->
+	<insert id="insertHelpPayment" parameterType="map">
+		insert into pay
+	  	values(
+	  		pay_seq.nextval,
+	  		1,
+	  		#{helpNo},
+	  		#{p.payId},
+	  		#{p.payName},
+	  		#{p.payNum},
+	  		#{p.payPrice},
+	  		to_char(sysdate,'YYYY-MM-DD HH24:MI:SS'),
+	  		#{p.payWay},
+	  		'결제완료',
+	  		null
+	  	)	
+	</insert>
+	<!-- 결제 업데이트 -->
+	<update id="updateHelpPay" parameterType="map">
+		update pay set pay_goods=#{helpNo} where pay_goods=55 and pay_category=1
+	</update>
 </mapper>
