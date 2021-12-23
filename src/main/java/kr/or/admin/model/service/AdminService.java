@@ -534,7 +534,6 @@ public class AdminService {
 		map.put("start", start);
 		map.put("end", end);
 		ArrayList<Sales> list = dao.selectAllSales(map);
-		System.out.println(list.get(0).toString());
 		int totalCnt = dao.totalSalesCount();
 		int totalPage = (totalCnt % numPerPage == 0) ? (totalCnt / numPerPage) : (totalCnt / numPerPage + 1);
 		int pageNaviSize = 5;
@@ -560,6 +559,73 @@ public class AdminService {
 		if(pageNo <= totalPage) {
 			pageNavi += "<li class='page-item-mate-mate'><a href='/salesMgr.do?reqPage="+pageNo+"'>";
 			pageNavi += "&gt;</a></li>";
+		}
+		pageNavi += "</ul>";
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("pageNavi", pageNavi);
+		data.put("list", list);
+		data.put("start", start);
+		return data;
+	}
+
+	public HashMap<String, Object> salesSearch(int reqPage, Search s) {
+		int numPerPage = 10;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage +1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("status", s.getStatus());
+		map.put("startDate", s.getStartDate());
+		map.put("endDate", s.getEndDate());
+		map.put("type", s.getType());
+		map.put("keyword", s.getKeyword());
+		ArrayList<Sales> list = dao.salesSearch(map);
+		int totalCnt = dao.totalSearchSalesCnt(map);
+		int totalPage = (totalCnt % numPerPage == 0) ? (totalCnt / numPerPage) : (totalCnt / numPerPage + 1);
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize) * pageNaviSize +1;
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/salesSearch.do?reqPage="+(pageNo-1)+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&startDate="+s.getStartDate()+"&endDate="+s.getEndDate();
+			if(s.getStatus() != null) {
+				for(int i=0;i<s.getStatus().length;i++) {
+					pageNavi += "&status="+s.getStatus()[i];
+				}
+			}
+			pageNavi += "'>&lt;</a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/salesSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&startDate="+s.getStartDate()+"&endDate="+s.getEndDate();
+				if(s.getStatus() != null) {
+					for(int j=0;j<s.getStatus().length;j++) {
+						pageNavi += "&status="+s.getStatus()[j];
+					}
+				}
+				pageNavi += "'>"+pageNo+"</a></li>";
+			}else {
+				pageNavi += "<li class='page-item-mate-mate'><a href='/salesSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&startDate="+s.getStartDate()+"&endDate="+s.getEndDate();
+				if(s.getStatus() != null) {
+					for(int j=0;j<s.getStatus().length;j++) {
+						pageNavi += "&status="+s.getStatus()[j];				
+					}
+				}
+				pageNavi += "'>"+pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/salesSearch.do?reqPage="+pageNo+"&type="+s.getType()+"&keyword="+s.getKeyword()+"&startDate="+s.getStartDate()+"&endDate="+s.getEndDate();
+			if(s.getStatus() != null) {
+				for(int i=0;i<s.getStatus().length;i++) {
+					pageNavi += "&status="+s.getStatus()[i];				
+				}
+			}
+			pageNavi += "'>&gt;</a></li>";
 		}
 		pageNavi += "</ul>";
 		HashMap<String, Object> data = new HashMap<String, Object>();

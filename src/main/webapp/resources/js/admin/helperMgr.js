@@ -1,4 +1,4 @@
-$("#allChk1").click(function(){
+$("#allChk").click(function(){
 	if($(this).is(":checked")){
 		$("[name=status]").prop("checked", true);
 	}else{
@@ -7,23 +7,9 @@ $("#allChk1").click(function(){
 });
 $("[name=status]").click(function(){
 	if($("[name=status]").length == $("[name=status]:checked").length){
-		$("#allChk1").prop("checked", true);
+		$("#allChk").prop("checked", true);
 	}else{
-		$("#allChk1").prop("checked", false);
-	}
-});
-$("#allChk2").click(function(){
-	if($(this).is(":checked")){
-		$("[name=level]").prop("checked", true);
-	}else{
-		$("[name=level]").prop("checked", false);
-	}
-});
-$("[name=level]").click(function(){
-	if($("[name=level]").length == $("[name=level]:checked").length){
-		$("#allChk2").prop("checked", true);
-	}else{
-		$("#allChk2").prop("checked", false);
+		$("#allChk").prop("checked", false);
 	}
 });
 //프로필 지역구 선택 option 배열

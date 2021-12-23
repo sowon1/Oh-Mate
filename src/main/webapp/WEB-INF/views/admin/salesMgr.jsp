@@ -12,31 +12,33 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
 		<h1 class="point_title">매출 정산</h1>
-		<form action="" method="post">
+		<form action="/salesSearch.do?reqPage=1" method="post">
             <div class="searchBox">
                 <div class="chkBox">
                     <table>
                 		<tr>
-                			<th>정산 구분</th>
+                			<th>정산 여부</th>
                 			<td>
 		                        <input class="form-check-input" type="checkbox" id="allChk">
 		                        <label class="form-check-label" for="allChk">전체</label>
                         	</td>
                         	<td>
-		                        <input class="form-check-input" type="checkbox" value="1" id="waitChk" name="status">
-		                        <label class="form-check-label" for="waitChk">미정산</label>
+		                        <input class="form-check-input" type="checkbox" value="0" id="settleChk1" name="status">
+		                        <label class="form-check-label" for="settleChk1">정산 대기</label>
                         	</td>
                         	<td>
-		                        <input class="form-check-input" type="checkbox" value="2" id="allowChk" name="status">
-		                        <label class="form-check-label" for="allowChk">정산 완료</label>
+		                        <input class="form-check-input" type="checkbox" value="1" id="settleChk2" name="status">
+		                        <label class="form-check-label" for="settleChk2">정산 완료</label>
                         	</td>
                 		</tr>
                 		<tr>
-                			<th>결제 기간</th>
+                			<th>결제 일자</th>
                 			<td colspan="4">
-	                			<select class="form-select" name="payDate">
-	                				<option class="n">기간 선택</option>
-	                			</select>
+								<input class="input_03 datefilter" type="text" readonly name="startDate" placeholder="검색 시작일">
+								<img src="/resources/img/icon/admin_calendar.png">
+								~
+								<input class="input_03 datefilter" type="text" readonly name="endDate" placeholder="검색 종료일">
+								<img src="/resources/img/icon/admin_calendar.png">
                         	</td>
                 		</tr>
                 	</table>
@@ -51,33 +53,29 @@
                 </div>
 				<a class="resetSearch">※ 검색 조건 초기화</a>
                 <div id="textBox">
-                	<p>※ 정산 수수료 : 헬프 - 3% / 하우스 입주 - 5%</p>
+                	<p>※ 정산 수수료 : 도와줘요 - 3% / 하우스 입주 - 5%</p>
                 </div>
             </div>
         </form>
         <div>
             <table class="table">
                 <tr class="table-secondary">
-                    <th>
-                    	<input class="form-check-input" type="checkbox">
-                    </th>
-                    <th>구분</th>
-                    <th>정산 회원</th>
-                    <th>결제 회원</th>
+                    <th style="width:80px;">No</th>
+                    <th style="width:11%;">구분</th>
+                    <th style="width:13%;">정산 회원</th>
+                    <th style="width:13%;">결제 회원</th>
                     <th>결제 일자</th>
                     <th>결제 금액</th>
                     <th>정산 금액</th>
-                    <th>정산 여부</th>
+                    <th>정산</th>
                 </tr>
                 <c:forEach items="${list }" var="s" varStatus="i">
                 	<tr>
-                		<td>
-                			<input class="form-check-input" type="checkbox">
-                		</td>
+                		<td>${start+i.index }</td>
                 		<td>
                 			<c:choose>
                 				<c:when test="${s.payCategory eq 1}">
-                					헬프
+                					도와줘요
                 				</c:when>
                 				<c:when test="${s.payCategory eq 2}">
                 					입주
@@ -102,7 +100,6 @@
                 			<c:choose>
                 				<c:when test="${s.payCategory eq 1}">
                 					<fmt:formatNumber value="${s.payPrice * 0.97 }" pattern="#,###"/>원
-                					
                 				</c:when>
                 				<c:when test="${s.payCategory eq 2}">
                 					<fmt:formatNumber value="${s.payPrice * 0.95 }" pattern="#,###"/>원
@@ -110,9 +107,10 @@
                 			</c:choose>
                 		</td>
                 		<td>
+                			<input type="hidden" value="${s.payNo }">
                 			<c:choose>
                 				<c:when test="${s.settlement eq 0}">
-                					미정산
+                					<button class="btn btn_out btn_sm">정산</button>
                 				</c:when>
                 				<c:when test="${s.settlement eq 1}">
                 					정산 완료
@@ -127,5 +125,10 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
-<link rel="stylesheet" href="/resources/css/admin/helperMgr.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/resources/css/admin/salesMgr.css">
+<script type="text/javascript" src="/resources/js/admin/salesMgr.js"></script>
 </html>

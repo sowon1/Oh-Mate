@@ -535,26 +535,131 @@
 		from
 		    (select rownum as rnum, a.* from
 		        (select * from
-		            (select p.pay_no, p.pay_category, p.pay_goods, p.pay_price, p.pay_id, substr(p.pay_date,1,10) pay_date, h.member_no , mem.member_id
+		            (select p.pay_no, p.pay_category, p.pay_goods, p.pay_price, p.pay_id, substr(p.pay_date,1,10) pay_date, h.member_no, mem.member_id
 		            from pay p
 		            left join move m on(p.pay_goods = m.move_no)
 		            left join room r on (m.room_no = r.room_no)
 		            left join house h on (r.house_no = h.house_no)
 		            left join member mem on (h.member_no = mem.member_no)
-		            where pay_category=2 and pay_status='결제완료'
+		            where pay_category=2 and pay_status='정산대기'
 		            union
-		            select p.pay_no, p.pay_category,  p.pay_goods, p.pay_price, p.pay_id, substr(p.pay_date,1,10) pay_date, h.member_no , mem.member_id
+		            select p.pay_no, p.pay_category, p.pay_goods, p.pay_price, p.pay_id, substr(p.pay_date,1,10) pay_date, h.member_no, mem.member_id
 		            from pay p
 		            left join helplist h on (p.pay_goods = h.help_no)
 		            left join helper hh on (h.helper_no = hh.helper_no)
 		            left join member mem on (hh.member_no = mem.member_no)
-		            where pay_category=1 and pay_status='결제완료')
+		            where pay_category=1 and pay_status='정산대기')
 		            order by pay_date desc
 		        )a
 		    )aa
 		where rnum between #{start} and #{end}
 	</select>
 	<select id="salesTotal" resultType="_int">
-		select count(*) from pay where pay_status='결제완료'
+		select count(*) from pay where pay_status='정산대기'
+	</select>
+	<select id="searchSales" parameterType="map" resultType="kr.or.admin.model.vo.Sales">
+		select
+		    pay_no as payNo,
+		    pay_category as payCategory,
+		    pay_goods as payGoods,
+		    pay_id as pMemberId,
+		    member_id as sMemberId,
+		    (select member_no from member where member_id = aa.pay_id) pMemberNo,
+		    member_no as sMemberNo,
+		    pay_date as payDate,
+		    pay_price as payPrice,
+		    settlement
+		from
+		    (select rownum as rnum, a.* from
+		        (select * from
+		            (select p.pay_no, p.pay_category, p.pay_goods, p.pay_price, p.pay_id, substr(p.pay_date,1,10) pay_date, h.member_no, mem.member_id,  (select count(*) from adjust where pay_no = p.pay_no) settlement
+		            from pay p
+		            left join move m on(p.pay_goods = m.move_no)
+		            left join room r on (m.room_no = r.room_no)
+		            left join house h on (r.house_no = h.house_no)
+		            left join member mem on (h.member_no = mem.member_no)
+		            where pay_category=2 and pay_status='정산대기'
+		            union
+		            select p.pay_no, p.pay_category, p.pay_goods, p.pay_price, p.pay_id, substr(p.pay_date,1,10) pay_date, h.member_no, mem.member_id,  (select count(*) from adjust where pay_no = p.pay_no) settlement
+		            from pay p
+		            left join helplist h on (p.pay_goods = h.help_no)
+		            left join helper hh on (h.helper_no = hh.helper_no)
+		            left join member mem on (hh.member_no = mem.member_no)
+		            where pay_category=1 and pay_status='정산대기')
+					<choose>
+						<when test="type != null and type.equals('memberId')">
+							where pay_id like '%'||#{keyword}||'%'
+						</when>
+						<when test="type != null and type.equals('memberId2')">
+							where member_id like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+					<if test="status != null">
+						and settlement in
+						<foreach collection="status" item="s" open="(" close=")" separator=",">
+								#{s}
+						</foreach>
+					</if>
+					<if test="!startDate.equals('') or !endDate.equals('')">
+						<choose>
+							<when test="!startDate.equals('') and endDate.equals('')">
+								and #{startDate} <![CDATA[ <= ]]> pay_date
+							</when>
+							<when test="startDate.equals('') and !endDate.equals('')">
+								and pay_date <![CDATA[ <= ]]> #{endDate}
+							</when>
+							<when test="!startDate.equals('') and !endDate.equals('')">
+								and #{startDate} <![CDATA[ <= ]]> pay_date and pay_date <![CDATA[ <= ]]> #{endDate}
+							</when>
+						</choose>
+					</if>
+		            order by pay_date desc
+		        )a
+		    )aa
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="totalSearchSales" parameterType="map" resultType="_int">
+        select count(*) from
+            (select p.pay_no, p.pay_category, p.pay_goods, p.pay_price, p.pay_id, substr(p.pay_date,1,10) pay_date, h.member_no, mem.member_id,  (select count(*) from adjust where pay_no = p.pay_no) settlement
+            from pay p
+            left join move m on(p.pay_goods = m.move_no)
+            left join room r on (m.room_no = r.room_no)
+            left join house h on (r.house_no = h.house_no)
+            left join member mem on (h.member_no = mem.member_no)
+            where pay_category=2 and pay_status='정산대기'
+            union
+            select p.pay_no, p.pay_category, p.pay_goods, p.pay_price, p.pay_id, substr(p.pay_date,1,10) pay_date, h.member_no, mem.member_id,  (select count(*) from adjust where pay_no = p.pay_no) settlement
+            from pay p
+            left join helplist h on (p.pay_goods = h.help_no)
+            left join helper hh on (h.helper_no = hh.helper_no)
+            left join member mem on (hh.member_no = mem.member_no)
+            where pay_category=1 and pay_status='정산대기')
+			<choose>
+				<when test="type != null and type.equals('memberId')">
+					where pay_id like '%'||#{keyword}||'%'
+				</when>
+				<when test="type != null and type.equals('memberId2')">
+					where member_id like '%'||#{keyword}||'%'
+				</when>
+			</choose>
+			<if test="status != null">
+				and settlement in
+				<foreach collection="status" item="s" open="(" close=")" separator=",">
+						#{s}
+				</foreach>
+			</if>
+			<if test="!startDate.equals('') or !endDate.equals('')">
+				<choose>
+					<when test="!startDate.equals('') and endDate.equals('')">
+						and #{startDate} <![CDATA[ <= ]]> pay_date
+					</when>
+					<when test="startDate.equals('') and !endDate.equals('')">
+						and pay_date <![CDATA[ <= ]]> #{endDate}
+					</when>
+					<when test="!startDate.equals('') and !endDate.equals('')">
+						and #{startDate} <![CDATA[ <= ]]> pay_date and pay_date <![CDATA[ <= ]]> #{endDate}
+					</when>
+				</choose>
+			</if>
 	</select>
 </mapper>
