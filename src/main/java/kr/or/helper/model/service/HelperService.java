@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.common.Address;
 import kr.or.common.HelpList;
@@ -388,6 +389,20 @@ public class HelperService {
 	public ArrayList<Helper> selectBookmarkHelperList(int memberNo) {
 		// TODO Auto-generated method stub
 		return dao.selectBookmarkHelperList(memberNo);
+	}
+	@Transactional
+	public int ChkHelpComeDelay() {
+		int result= dao.chkHelpEndTime();
+		if(result>0) {
+			int result2=dao.updatePayAutoCancel();
+			if(result2>0) {
+				return result2;
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
 	}
 
 }

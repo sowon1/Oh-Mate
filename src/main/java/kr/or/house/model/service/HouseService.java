@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.common.Address;
 import kr.or.common.Income;
@@ -380,6 +381,20 @@ public class HouseService {
 	//하우스 만료일 관련 스케줄드
 	public int updateChkDeadLine() {
 		return dao.updateChkDeadLine();
+	}
+	@Transactional
+	public int updateChkRoomMoveEndDate() {
+		int result=dao.updateChkRoomMoveEndDate();
+		if(result>0) {
+			int result2 = dao.updateChkHouseSelling();
+			if(result2>0) {
+				return result2;
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
 	}
 
 }

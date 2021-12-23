@@ -283,7 +283,7 @@
 			house_form = #{houseForm},
 			house_gender = #{houseGender},
 			house_convenience = #{houseConvenience},
-			house_allow = 1
+			house_allow = 4
 		where house_no = #{houseNo} and member_no = #{memberNo}
 	</update>
 	<update id="incomeupdate" parameterType="i">
@@ -463,5 +463,12 @@
 	<update id="updateChkDeadLine">
 		update house set house_selling=2 
 		where 0>to_date(houseowner_deadline)- to_date(to_char(sysdate,'yyyy-mm-dd'))
+	</update>
+	<!-- 룸 만료일 지나면 해당 룸  바꾸고 하우스 상태가 판매완료이고 과 하우스 소개일이 끝나지 않은 날짜인 하우스 상태 다시 판매중으로 바꾸기  -->
+	<update id="updateChkRoomMoveEndDate">
+		update room set room_status=1 where room_no in (select room_no from move where 0>to_date(move_end)- to_date(to_char(sysdate,'yyyy-mm-dd')))
+	</update>
+	<update id="updateChkHouseSelling">
+		update house set house_selling = 1 where house_no in (select house_no from house h where  house_room >(select count(*) from room r where room_status=2 and r.house_no=h.house_no) and  (to_date(h.houseowner_deadline)- to_date(to_char(sysdate,'yyyy-mm-dd')))>=0 and house_allow=2 and house_selling=2
 	</update>
 </mapper>

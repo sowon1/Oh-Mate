@@ -343,9 +343,9 @@
 	</update>
 	<update id="updateCompilte" parameterType="map">
 		update helplist set 
-		help_status = 4,
+		help_status = 3,
 		help_complite = #{helpComplite},
-		help_finish_date = to_char(sysdate,yyyy-mm-dd)
+		help_finish_date = to_char(sysdate,'yyyy-mm-dd')
 		where help_no=#{helpNo}
 	</update>
 	<update id="updatePayCom" parameterType="_int">
@@ -377,4 +377,10 @@
         	join  bookmark b on(bookmark_num=helper_no)
         	where b.bookmark_category=1 and b.bookmarker=#{memberNo}) 
 	</select>
+	<update id="chkHelpEndTime">
+		update helplist set help_status=5 where help_no in (SELECT help_no FROM helplist where help_status in (1,2) and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100);
+	</update>
+	<update id="updatePayAutoCancel">
+		update pay set pay_status = '결제취소', cancel_date=to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_category=1 and pay_goods in (SELECT help_no FROM helplist where help_status in (1,2) and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100);
+	</update> 
 </mapper>

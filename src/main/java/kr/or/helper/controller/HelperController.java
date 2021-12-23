@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +38,7 @@ import kr.or.helper.model.vo.ReqHelpListPageData;
 import kr.or.member.model.vo.Member;
 
 @Controller
+@Component
 public class HelperController {
 	@Autowired
 	private HelperService service;
@@ -465,14 +468,28 @@ public class HelperController {
 					int result2 = service.insertPhotoHelpCom(helpNo,list);
 					if(result2>0) {
 						model.addAttribute("msg", "사진전송 성공!!");
-						return "redirect:/helperReqList.do?reqPage=1";
+						model.addAttribute("loc", "/helperReqList.do?reqPage=1");
+						return "common/msg";
 					}else {
 						model.addAttribute("msg", "사진전송 실패 ");
-						return "redirect:/helperReqList.do?reqPage=1";
+						model.addAttribute("loc", "/helperReqList.do?reqPage=1");
+						return "common/msg";
 					}
 				}else {
-					return "redirect:/helperReqList.do?reqPage=1";
+					model.addAttribute("msg", "그냥실패!");
+					model.addAttribute("loc", "/helperReqList.do?reqPage=1");
+					return "common/msg";
 				}
+			}
+		}
+		@Scheduled(cron = "0 0/15 * * * ?"  )
+		public void ChkHelpComDelay() {
+			System.out.println("15분마다 실행!");
+			int result = service.ChkHelpComeDelay();
+			if(result>0) {
+				System.out.println(result+"처리완료");
+			}else {
+				System.out.println("처리실패");
 			}
 		}
 }

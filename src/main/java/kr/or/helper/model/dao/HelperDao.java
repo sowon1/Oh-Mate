@@ -190,5 +190,16 @@ public class HelperDao {
 
 	}
 
+	public int chkHelpEndTime() {
+		// TODO Auto-generated method stub
+		return session.update("helper.chkHelpEndTime");
+	}
+
+
+	public int updatePayAutoCancel() {
+		// TODO Auto-generated method stub
+		return session.update("helper.updatePayAutoCancel");
+	}
+
 	
 }
