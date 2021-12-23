@@ -104,9 +104,7 @@
  		where helper_no = #{helperNo} and member_no=#{memberNo}
  	</update>
  	
- 	<!-- 헬퍼 리스트 출력 부분 - sowon 
- 		주소 2개의 행이라서 그부분 처리 어떻게 ?
- 	-->
+ 	<!-- 헬퍼 리스트 출력 부분 - sowon -->
  	<select id="selectAjaxHelper" parameterType="map" resultMap="helper">
  		select hh.* from
         (select 
@@ -119,8 +117,9 @@
         (select helper.*
         from helper 
         join member on (helper.member_no = member.member_no)
-        where 
-            helper_status=1
+        where
+        	member_level=4 and
+            helper_status=2
             <if test="gender != 0 and gender != 3 and gender != null and !''.equals(gender)">
 				and gender=#{gender}
 			</if>
@@ -302,11 +301,11 @@
 			left join helplist hl using(helper_no)
 			left join address a on(help_no=address_number)
 			left join member m on(m.member_no=hl.member_no)
-			where helper_no=#{helperNo} and help_request_date= to_char(sysdate,'yyyy-mm-dd')  order by help_no desc)L)LL
+			where helper_no=#{helperNo} and help_request_date= to_char(sysdate,'yyyy-mm-dd')and  help_status not in (4,5,6) and address_category=3 order by help_no desc)L)LL
 			where rnum between #{start} and #{end}
 	</select>
 	<select id="helpTotalCount" parameterType="_int" resultType="_int">
-		select count(*) from helplist where helper_no=#{helperNo}
+		select count(*) from helplist where helper_no=#{helperNo} and help_request_date= to_char(sysdate,'yyyy-mm-dd') and  help_status not in (4,5,6)
 	</select>
 	<!-- helper report -->
 	<insert id="insertHelperReport" parameterType="map">
@@ -337,5 +336,65 @@
 	</delete>
 	<update id="updateHelpStatus" parameterType="map">
 		update helplist set help_status =#{helpStatus} where help_no=#{helpNo}
+	</update>
+	<update id="updatePayCancelDate" parameterType="_int">
+		update pay set cancel_date= to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_goods=#{helpNo} and pay_category=1
+	</update>
+	<update id="updateCompilte" parameterType="map">
+		update helplist set 
+		help_status = 4,
+		help_complite = #{helpComplite},
+		help_finish_date = to_char(sysdate,yyyy-mm-dd)
+		where help_no=#{helpNo}
+	</update>
+	<update id="updatePayCom" parameterType="_int">
+		update pay set pay_status='정산대기' where pay_goods=#{helpNo} and pay_category=1
+	</update>
+	<insert id="insertPhotoHelpCom" parameterType="f">
+	insert into photo
+  	values(photo_seq.nextval,2,#{photoPath},#{photoNum})
+	</insert>
+	<select id="selectBookmarkHelperList" parameterType="_int" resultType="hp">
+        select * from
+        	(select 
+            	b.bookmark_date as bookmarkDate,           
+            	h.helper_no as helperNo,
+				h.member_no as memberNo,
+				h.helper_name as helperName,
+				h.helper_category as helperCategory,
+				h.helper_start_time as helperStartTime,
+				h.helper_end_time as helperEndTime,
+				h.helper_ride as helperRide,
+				h.helper_status as helperStatus,
+				h.helper_filepath as helperFilepath,
+				h.helper_intro as helperIntro,
+				h.helper_credit as helperCredit,
+				h.helper_refuse as helperRefuse,
+            	(select age from member where member_no=h.member_no) as age,
+            	(select gender from member where member_no=h.member_no) as gender         
+        	from (select * from helper where HELPER_STATUS=1 order by 1 desc)h
+        	join  bookmark b on(bookmark_num=helper_no)
+        	where b.bookmark_category=1 and b.bookmarker=#{memberNo}) 
+	</select>
+	<!-- 결제 -->
+	<insert id="insertHelpPayment" parameterType="map">
+		insert into pay
+	  	values(
+	  		pay_seq.nextval,
+	  		1,
+	  		#{helpNo},
+	  		#{p.payId},
+	  		#{p.payName},
+	  		#{p.payNum},
+	  		#{p.payPrice},
+	  		to_char(sysdate,'YYYY-MM-DD HH24:MI:SS'),
+	  		#{p.payWay},
+	  		'결제완료',
+	  		null
+	  	)	
+	</insert>
+	<!-- 결제 업데이트 -->
+	<update id="updateHelpPay" parameterType="map">
+		update pay set pay_goods=#{helpNo} where pay_goods=55 and pay_category=1
 	</update>
 </mapper>
