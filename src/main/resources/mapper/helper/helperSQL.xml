@@ -104,9 +104,7 @@
  		where helper_no = #{helperNo} and member_no=#{memberNo}
  	</update>
  	
- 	<!-- 헬퍼 리스트 출력 부분 - sowon 
- 		주소 2개의 행이라서 그부분 처리 어떻게 ?
- 	-->
+ 	<!-- 헬퍼 리스트 출력 부분 - sowon -->
  	<select id="selectAjaxHelper" parameterType="map" resultMap="helper">
  		select hh.* from
         (select 
@@ -119,8 +117,9 @@
         (select helper.*
         from helper 
         join member on (helper.member_no = member.member_no)
-        where 
-            helper_status=1
+        where
+        	member_level=4 and
+            helper_status=2
             <if test="gender != 0 and gender != 3 and gender != null and !''.equals(gender)">
 				and gender=#{gender}
 			</if>
@@ -377,10 +376,32 @@
         	join  bookmark b on(bookmark_num=helper_no)
         	where b.bookmark_category=1 and b.bookmarker=#{memberNo}) 
 	</select>
+
 	<update id="chkHelpEndTime">
 		update helplist set help_status=5 where help_no in (SELECT help_no FROM helplist where help_status in (1,2) and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100);
 	</update>
 	<update id="updatePayAutoCancel">
 		update pay set pay_status = '결제취소', cancel_date=to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_category=1 and pay_goods in (SELECT help_no FROM helplist where help_status in (1,2) and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100);
 	</update> 
+	<!-- 결제 -->
+	<insert id="insertHelpPayment" parameterType="map">
+		insert into pay
+	  	values(
+	  		pay_seq.nextval,
+	  		1,
+	  		#{helpNo},
+	  		#{p.payId},
+	  		#{p.payName},
+	  		#{p.payNum},
+	  		#{p.payPrice},
+	  		to_char(sysdate,'YYYY-MM-DD HH24:MI:SS'),
+	  		#{p.payWay},
+	  		'결제완료',
+	  		null
+	  	)	
+	</insert>
+	<!-- 결제 업데이트 -->
+	<update id="updateHelpPay" parameterType="map">
+		update pay set pay_goods=#{helpNo} where pay_goods=55 and pay_category=1
+	</update>
 </mapper>

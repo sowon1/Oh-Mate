@@ -167,7 +167,7 @@
 			BOARDREF,
 			STATUS,
 			COMMENT_SECRET as commentSecret
-		from Mate_comment where board_no=#{boardNo} order by 1
+		from Mate_comment where board_no=#{boardNo} order by regdate desc
 	</select>
 	
 	<!-- 회원 파일경로 / 수정예정 -->
@@ -228,10 +228,24 @@
 	
 	<!-- 마이페이지_전체 게시물 수 -->
 	<select id="totalCountcm" parameterType="string" resultType="int">
-		select count(*)as count from mate_comment where comment_writer=#{memberId}
+		select count(*) from mate_comment where comment_writer=#{memberId}
 	</select>
 	
 	<!-- 조건검색 -->
+	<select id="mateSearch" parameterType="String" resultType="b">
+			select 
+			BOARD_NO as boardNo,
+			BOARD_WRITER as boardWriter,
+			BOARD_TITLE as boardTitle,
+			BOARD_CONTENT as boardContent,
+			READ_COUNT as readCount,
+			REG_DATE as regDate,
+			FILEPATH,
+			PROFILE_OPTION as profileOption,
+			STATUS,
+			(select member_filepath from member where member_id=board_writer)as fileImg
+        from board where (board_title like '%' ||  #{keyword} || '%' or board_content like '%' ||  #{keyword} || '%') order by regDate desc
+	</select>
 </mapper>
 
 

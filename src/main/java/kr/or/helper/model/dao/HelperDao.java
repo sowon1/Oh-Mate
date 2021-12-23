@@ -189,6 +189,14 @@ public class HelperDao {
 		return (ArrayList<Helper>)list;
 
 	}
+	//결제
+	public int insertHelpPayment(HashMap<String, Object> map) {
+		return session.insert("helper.insertHelpPayment",map);
+	}
+	//결제 업데이트
+	public int updateHelpPay(HashMap<String, Object> map) {
+		return session.update("helper.updateHelpPay",map);
+	}
 
 	public int chkHelpEndTime() {
 		// TODO Auto-generated method stub

@@ -144,28 +144,23 @@
 						</div> 
 					</li>
 					<li>
-					
-						
-							<c:if test="${c.commentSecret eq 2 }"> <!-- 비밀 -->
-								<c:choose>
-									<c:when test="${m.memberId eq c.commentWriter }">&emsp;
-									<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">&nbsp;비밀글 입니다.
-										<p class="pstyle">${c.commentContentBr}</p>
-									</c:when>
-									<c:otherwise>
-										<c:if test="${m.memberId eq null && (m.memberId ne c.commentWriter)}">
-										<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">
-						               	비밀글은 작성자와 관리자만 볼 수 있습니다.
-						               	</c:if>
-									</c:otherwise>
-								</c:choose>
-							</c:if>
-							<c:if test="${c.commentSecret eq 1 }"> <!-- 일반 -->
-								<p class="pstyle">${c.commentContentBr}</p>
-							</c:if>
-						 
-					
-						
+						<c:if test="${c.commentSecret eq 2 }"> <!-- 비밀 -->
+							<c:choose>
+								<c:when test="${m.memberId eq c.commentWriter }">&emsp;
+								<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">&nbsp;비밀글 입니다.
+									<p class="pstyle">${c.commentContentBr}</p>
+								</c:when>
+								<c:otherwise>
+									<c:if test="${m.memberId eq null || (m.memberId ne c.commentWriter)}">&nbsp;
+									<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">
+					               	비밀글은 작성자와 관리자만 볼 수 있습니다.
+					               	</c:if>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+						<c:if test="${c.commentSecret eq 1 }"> <!-- 일반 -->
+							<p class="pstyle">${c.commentContentBr}</p>
+						</c:if>
 						<textarea name="commentContent" class="form-control" style="display:none;" rows="3" cols="150">${c.commentContent}</textarea>	
 						<p class="commentsBtn commentbt">
 							<c:if test="${not empty sessionScope.m }">
@@ -173,7 +168,11 @@
 									<a href="javascript:void(0)" class="boardviews" onclick="modifyComment(this,'${c.commentNo }','${b.boardNo }');">수정</a>
 									<a href="javascript:void(0)" class="boardviews" onclick="deleteComment(this,'${c.commentNo }','${b.boardNo }');">삭제</a>
 								</c:if>
-									<a href="javascript:void(0)" class="reshow">답글달기</a>
+									<a href="javascript:void(0)" class="reshow">답글달기</a>&ensp;
+									<c:if test="${m.memberId ne c.commentWriter }">
+										<i class="far fa-bell"></i>
+										<a href="javascript:void(0)" id="report" style="margin:0px;">신고하기</a>&ensp;
+									</c:if>
 							</c:if>
 						</p>
 						<c:if test="${not empty sessionScope.m }">  <!-- 댓글/답글달기 -->
@@ -185,8 +184,16 @@
 							<input type="hidden" name="status" value="1"> 
 							<textarea name="commentContent" class="form-control txtarea"></textarea>
 								<div style="margin-right:20px;" class="btnsty">
-									<button type="submit" class="btn subbtn subbtnSty">등록</button>
-									<button type="reset" class="btn subbtn recancel">취소</button>
+									<div class="form-check" style="float: right; margin-top: 7px; margin-top:10px;">
+										<div class="secretCom" style="display:none;">
+										<input type="checkbox" id="secretCheck" name="commentSecret" value="2" class="form-check-input">
+								        	<label for="secretCheck" class="form-check-label" style="padding-right:10px;">
+								          	비밀댓글
+								        	</label>
+								        </div>   
+										<button type="submit" class="btn subbtn subbtnSty">등록</button>
+										<button type="reset" class="btn subbtn recancel">취소</button>
+									</div>
 								</div>
 						</form>
 						</c:if>
@@ -208,13 +215,35 @@
 								<p class="rd">${bc.regDate }</p>
 							</li>
 							<li class="commentct">
+							
+							<c:if test="${bc.commentSecret eq 2 }"> <!-- 비밀 -->
+								<c:choose>
+									<c:when test="${m.memberId eq bc.commentWriter }">&emsp;
+									<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">&nbsp;비밀글 입니다.
+										<p style="margin-top:5px;">${bc.commentContentBr }</p>
+									</c:when>
+									<c:otherwise>
+										<c:if test="${m.memberId eq null || (m.memberId ne bc.commentWriter)}">&nbsp;
+										<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">
+						               	비밀글은 작성자와 관리자만 볼 수 있습니다.
+						               	</c:if>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+							<c:if test="${bc.commentSecret eq 1 }"> <!-- 일반 -->
 								<p>${bc.commentContentBr }</p>
+							</c:if>
+		
 								<textarea name="commentContent" class="form-control" style="display:none; width: 100%; resize:none;">${bc.commentContent }</textarea>
-								<p class="commentsBtn">
+								<p class="commentsBtn" style="margin:0px;">
 									<c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq bc.commentWriter}">
 										<a href="javascript:void(0)" onclick="modifyComment(this,'${bc.commentNo }','${b.boardNo }');">수정</a>
 										<a href="javascript:void(0)" onclick="deleteComment(this,'${bc.commentNo }','${b.boardNo }');" style="margin-right: 15px;">삭제</a>
-									</c:if>									
+									</c:if>	
+									<c:if test="${m.memberId ne bc.commentWriter }">
+										<i class="far fa-bell"></i>
+										<a href="javascript:void(0)" id="report" style="margin:0px;">신고하기</a>&ensp;
+									</c:if>								
 								</p>
 							</li>
 						</ul>

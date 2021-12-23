@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="/resources/css/helper/helper.css">
 <!-- 우편번호 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- 아임포트 -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Oh-Mate!</title>
@@ -700,7 +702,55 @@
 						
 				}else{
 					var helpCategory = $("input:radio[name='helpCategory']:checked").val();
-	    		   $("form").submit();
+					var price = 100;
+					var totalprice = $("input[name='helpCharge']").val();
+					var memberName = '${sessionScope.m.memberName}';
+					var email = '${sessionScope.m.email}';
+					var phone = '${sessionScope.m.phone}';
+					var memberNo = '${sessionScope.m.memberNo}';
+					var payId = '${sessionScope.m.memberId}';
+					var helpNo = 55;
+								
+					var d = new Date();
+					//고유식별번호 문자열로 쓰려고 +""+ 붙여줌 - 월은 0~11이라 +1해줌
+					var date = d.getFullYear()+""+(d.getMonth()+1)+""+d.getDate()+""+d.getHours()+""+d.getMinutes()+""+d.getSeconds();
+					//결제 API 사용을 위해 아임포트 가맹점 식별코드 입력
+					IMP.init("imp41554995");
+					IMP.request_pay({ //결제할때 필요한 정보(가격 등)를 객체형태로 넣어줌
+						pay_method: 'card',
+						merchant_uid : date, //거래 아이디
+						name : "㈜오늘부터메이트",		// 결제 이름 설정
+						amount : price,				// 결제 금액
+						buyer_email : email, 		//구매자 이메일
+						buyer_name : memberName,	//구매자 이름
+						buyer_phone : phone			//구매자 전하번호		
+					},function(rsp){ //결제를 하고나면 결제 이후의 작업을 처리할 함수
+						if(rsp.success){
+							$.ajax({
+								url : "/helpPayment.do",
+								method : "POST",
+								data : {
+									memberNo : memberNo,
+									helpNo : helpNo,
+									payId : payId,
+									payName : memberName,
+									payNum : rsp.merchant_uid,
+									payPrice : totalprice,
+									payWay : rsp.pay_method
+								},
+								success : function(data){
+		
+					    		   $("form").submit();
+								}
+							});
+							
+						}else{
+							$(".title_name").text("결제가 ");
+							$(".title_and_text").text("취소되었습니다.");
+							countmsgopen(autoClose());
+						}
+					});
+
 				}
 			}
        }

@@ -68,15 +68,17 @@
 				<input type="hidden" name="memberId" class="memberId" value="${m.memberId }">
 					<table class="community-table table table-hover">
 				  	<thead>
-						<tr class="table-secondary" style="border:1px solid #8C8C8C;">
-							<th scope="col">No</th>
+						<tr class="table-secondary " style="border:1px solid #8C8C8C;">
+							<th scope="col">댓글번호</th>
 							<th scope="col">댓글분류</th>
 							<th scope="col">내용</th>
 							<th scope="col">댓글작성일</th>
 							<th scope="col">신고상태</th>
 						</tr>
 					</thead>
+					<tbody></tbody>
 					</table>
+					<div class="page-navi">${pageNavi }</div>
 				</div>
 			</div>
 			<c:import url="/WEB-INF/views/common/footer.jsp"/>
@@ -94,19 +96,21 @@
 		
         //마이페이지_댓글
 		$(".communityTab").eq(1).click(function(){
-			var memberId = $(".memberId");
+			var memberId = $(".memberId").val();
 			var reqPage = 1;
 			var commentTab = $(".communityTbl").eq(1).find("tbody");
 			
 			$.ajax({
 				url: "/myCommunity.do",
-				data: {memberId:memberId, reqPage:reqPage},
-				type: "post",
+				data: {reqPage:reqPage,memberId:memberId},
+				type: "GET",
 				success:function(data){
-					console.log(data);
+					//console.log(data);
 					var list = data.list;
+					//console.log(list);
 					var pageNavi = data.pageNavi;
-					
+					commentTab.empty();
+
 					for(var i=0; i<list.length; i++){
 						var commentLevel = "";
 						if(list[i].commentLevel == 1){
@@ -122,14 +126,14 @@
 							status = "신고"
 						}
 						
-						var html="<tr><td><h5>"+list[i].index+"</h5></td><td><h5>"+commentLevel+"</h5></td><td><h5>"+list[i].commentContent+"</h5></td><td><h5>"+list[i].regDate+"</h5></td><td><h5>"+status+"</h5></td></tr>";
+						var html="<tr><td><p>"+list[i].commentNo+"</p></td><td><p>"+commentLevel+"</p></td><td><p>"+list[i].commentContent+"</p></td><td><p>"+list[i].regDate+"</p></td><td><p>"+status+"</p></td></tr>";
 						commentTab.append(html);
+						console.log(html);
 					}	
-					
 						$(".page-navi").last().empty();
 						$(".page-navi").last().html(pageNavi);
-				}
-			});
+				}		
+			}); 
 		});
 	});
 </script>
