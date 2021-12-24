@@ -18,8 +18,6 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<!-- 달력 -->
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<div class="helper_view_back">
@@ -323,7 +321,7 @@
                         				<th>심부름비</th>
                         				<td>
                         					<input type="text" name="helpCharge" class="input_03">
-                        					<span class="help_text_notice">*헬퍼에게 지급될 심부름비는 고객님께서 정해주세요.<br>*일정 시간동안 헬퍼가 요청을 받지않으면 자동으로 결제가 취소됩니다.</span>
+                        					<span class="help_text_notice">*헬퍼에게 지급될 심부름비는 고객님께서 정해주세요.<br>*일정 시간 동안 헬퍼가 요청을 받지 않으면 자동으로 결제가 취소됩니다.</span>
                         				</td>
                         			</tr>
                         			<input type="hidden" name="helperNo">
@@ -709,7 +707,7 @@
 					var phone = '${sessionScope.m.phone}';
 					var memberNo = '${sessionScope.m.memberNo}';
 					var payId = '${sessionScope.m.memberId}';
-					var helpNo = 55;
+					var helpNo = 9999;
 								
 					var d = new Date();
 					//고유식별번호 문자열로 쓰려고 +""+ 붙여줌 - 월은 0~11이라 +1해줌
@@ -780,16 +778,7 @@
 		$(".re_modal_close").click(function(){
 			reportclose();
 		});
-		function reportopen(){
-			$(".report_popup_modal").css("display","flex");
-		    $("body").css("overflow", "hidden");
-		    $(".tour_back_dark").show();			
-		}
-		function reportclose(){
-			$(".report_popup_modal").css("display","none");
-		    $("body").css("overflow", "auto");
-		    $(".tour_back_dark").hide();			
-		}
+		
 		//신고 유효성 
 		function checkReVal(){
 			if($("textarea").val() == ""){					

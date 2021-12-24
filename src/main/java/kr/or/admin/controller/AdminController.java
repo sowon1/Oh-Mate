@@ -251,15 +251,34 @@ public class AdminController {
 		return "common/msg";
 	}
 	@RequestMapping(value="/salesMgr.do")
-	public String selectPay(int reqPage, Model model) {
+	public String selectSales(int reqPage, Model model) {
 		HashMap<String, Object> data = service.selectAllSales(reqPage);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
 		model.addAttribute("start", data.get("start"));
 		return "admin/salesMgr";
 	}
+	@RequestMapping(value="/salesSearch.do")
+	public String salesSearch(int reqPage, Search s, Model model) {
+		HashMap<String, Object> data = service.salesSearch(reqPage, s);
+		model.addAttribute("pageNavi", data.get("pageNavi"));
+		model.addAttribute("list", data.get("list"));
+		model.addAttribute("start", data.get("start"));
+		model.addAttribute("s", s);
+		return "admin/salesSearch";
+	}
 	@RequestMapping(value="/dashboard.do")
 	public String dashboard(Model model) {
 		return "admin/dashboard";
+	}
+	@ResponseBody
+	@RequestMapping(value="/insertAdjust.do")
+	public String insertAdjust(int payNo) {
+		int result = service.insertAdjust(payNo);
+		if(result>0) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
 }

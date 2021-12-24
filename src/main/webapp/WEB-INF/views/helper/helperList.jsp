@@ -26,7 +26,7 @@
 					<span class="filter_name">조건검색</span>					
 				</div>
 				<div class="search_line">
-					<input class="search_input" placeholder="지역, 지하철역, 대학 주변 검색" name="keyword">
+					<input class="search_input" placeholder="지역, 헬퍼 이름, 특징 검색" name="keyword">
 					<a id="searchHelper" class="search_icon">
 						<img src="/resources/img/icon/search_on.png">
 					</a>
@@ -334,7 +334,6 @@
 	      var selectedMarker = null;
 	      var coay = null;
 	      var cselectedMarker = null;
-	      console.log("주소 : "+addrs);
 	      function getHouseMap(addr,name,photo,gender,age,helperno,time,time2,ride) {
 	    	  
 	    	  // 주소-좌표 변환 객체를 생성합니다

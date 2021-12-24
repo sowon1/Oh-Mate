@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.common.Address;
 import kr.or.common.HelpList;
@@ -17,6 +18,8 @@ import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
+import kr.or.helper.model.vo.ReqHelperAdjust;
+import kr.or.helper.model.vo.ReqHelperAdjustPageData;
 import kr.or.helper.model.vo.ReqHelperList;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
@@ -340,7 +343,7 @@ public class HelperService {
 		int result = dao.updateHelperStatus(map);
 		return result;
 	}
-
+	@Transactional
 	public int updateCancelHelpStatus(int helpStatus, int helpNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("helpStatus", helpStatus);
@@ -349,8 +352,12 @@ public class HelperService {
 		if(result>0) {
 			int result2=dao.updatePayCancelDate(helpNo);
 			if(result2>0) {
-				
-				return result2;
+				if(helpStatus==4||helpStatus==5 || helpStatus==6) {
+					int result3= dao.cancelPayUpdate(helpNo);
+					return result3;
+				}else {					
+					return result2;
+				}
 			}else {
 				return 0;
 			}
@@ -391,6 +398,22 @@ public class HelperService {
 		// TODO Auto-generated method stub
 		return dao.selectBookmarkHelperList(memberNo);
 	}
+	@Transactional
+	public int ChkHelpComeDelay() {
+		int result= dao.chkHelpEndTime();
+		System.out.println("스케줄드 헬프만료처리내역"+result+"건");
+		if(result>0) {
+			int result2=dao.updatePayAutoCancel();
+			System.out.println("스케줄드 결제취소변경"+result2+"건");
+			if(result2>0) {
+				return result2;
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
+	}
 	//결제 - sowon
 	public int insertHelpPayment(Pay p, int memberNo, int helpNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -398,6 +421,60 @@ public class HelperService {
 		map.put("memberNo", memberNo);
 		map.put("helpNo", helpNo);
 		return dao.insertHelpPayment(map);
+	}
+
+	public ReqHelperAdjustPageData selectAdjustList(int memberNo, int reqPage) {
+		int helperNo = dao.selectHelperNo(memberNo);
+		int numPerPage = 5;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage + 1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("helperNo", helperNo);
+		ArrayList<ReqHelperAdjust> list = dao.selectHelperAdjustList(map);
+		int totalCount = dao.selectAllhelperCount(helperNo);
+		int totalPage = 0;
+		if (totalCount % numPerPage == 0) {
+			totalPage = totalCount / numPerPage;
+		} else {
+			totalPage = totalCount / numPerPage + 1;
+		}
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
+		String pageNavi = "<ul class='pagination pagination'>";
+		if (pageNo != 1) {
+			pageNavi += "<li class = 'page-item-mate-mate'>";
+			pageNavi += "<a href='/helperReqListAdjust.do?reqPage="+ (pageNo - 1) + "'>";
+			pageNavi += "&lt;</a></li>";
+		}
+		for (int i = 0; i < pageNaviSize; i++) {
+			if (pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'>";
+				pageNavi += "<a href='/helperReqListAdjust.do?reqPage="+ pageNo+ "'>";
+				pageNavi += pageNo + "</a></li>";
+			} else {
+				pageNavi += "<li class='page-item-mate-mate'>";
+				pageNavi += "<a href='/helperReqListAdjust.do?reqPage=" + pageNo+ "'>";
+				pageNavi += pageNo + "</a></li>";
+			}
+			pageNo++;
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		if (pageNo <= totalPage) {
+			pageNavi += "<li class='page-item'>";
+			pageNavi += "<a href='/helperReqListAdjust.do?reqPage=" + pageNo + "'>";
+			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
+		}
+		pageNavi += "</ul>";
+		ReqHelperAdjustPageData rhapd= new ReqHelperAdjustPageData();
+		rhapd.setList(list);
+		rhapd.setStart(start);
+		rhapd.setTotalCount(totalCount);
+		rhapd.setPageNavi(pageNavi);
+		return rhapd;
 	}
 
 }

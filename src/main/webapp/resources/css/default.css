@@ -192,14 +192,23 @@ ul{
 	cursor: pointer;
 }
 #sidenav header img{
-	width: 100px;
 	margin: 0 auto 10px 34px;
+}
+.nav_pro{
+	width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    object-fit: cover;
 }
 #sidenav header p{
 	color:#fff;
+	margin-bottom:0px;
 }
 #sidenav header .name{
 	font-size: 18px;
+	margin-top:5px;
 }
 #close_sidenav {
 	cursor: pointer;
@@ -1403,4 +1412,63 @@ input[name="funderCategory"]:checked+label:after{
 	background: none;
 	border: 1px solid #956bfc;
 	color: #956bfc;
+}
+
+/* 신고 팝업 */
+.report_popup_modal{
+    /* 현재 화면 중앙에 모달 뜰수있게 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9993;
+}
+.re_pop_modal{
+    width: 50vw;
+    min-width: 400px;
+    max-width: 400px;
+    height: 50vh;
+    min-height: 504px;
+    max-height: 504px;
+    text-align: left;
+    z-index: 10;
+    overflow-y: auto;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.re_modal_top{
+    display: block;
+    align-items: center;
+    width: 100%;
+    padding: 0px 20px;
+    /* justify-content: center; */
+    align-items: center;
+    background: #956bfc;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+}
+.re_modal_text{
+	font-size: 24px;
+    color: #fff;
+}
+
+.re_modal_top img{
+	width:25px;
+}
+.re_modal_top span:last-child{
+	float:right;	
+}
+.re_modal_content{
+	background: #fff;
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    height: auto;
 }

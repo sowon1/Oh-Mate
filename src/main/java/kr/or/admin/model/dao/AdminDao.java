@@ -167,4 +167,17 @@ public class AdminDao {
 	public int totalSalesCount() {
 		return session.selectOne("admin.salesTotal");
 	}
+
+	public ArrayList<Sales> salesSearch(HashMap<String, Object> map) {
+		List<Sales> list = session.selectList("admin.searchSales", map);
+		return (ArrayList<Sales>)list;
+	}
+
+	public int totalSearchSalesCnt(HashMap<String, Object> map) {
+		return session.selectOne("admin.totalSearchSales", map);
+	}
+
+	public int insertAdjust(int payNo) {
+		return session.insert("admin.insertAdjust", payNo);
+	}
 }

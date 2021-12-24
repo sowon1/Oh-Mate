@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,9 +35,12 @@ import kr.or.common.Report;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
+import kr.or.helper.model.vo.ReqHelperAdjust;
+import kr.or.helper.model.vo.ReqHelperAdjustPageData;
 import kr.or.member.model.vo.Member;
 
 @Controller
+@Component
 public class HelperController {
 	@Autowired
 	private HelperService service;
@@ -412,7 +417,8 @@ public class HelperController {
 			ArrayList<Photo> list = new ArrayList<Photo>();
 			if(photoPath[0].isEmpty()) {
 				model.addAttribute("msg", "파일이없습니다.!!");
-				return "redirect:/helperReqList.do?reqPage=1";
+				model.addAttribute("loc", "/helperReqList.do");
+				return "common/msg";
 			}else {
 				int result = service.updateCompilte(helpNo,helpComplite);
 				if(result>0) {
@@ -465,16 +471,31 @@ public class HelperController {
 					int result2 = service.insertPhotoHelpCom(helpNo,list);
 					if(result2>0) {
 						model.addAttribute("msg", "사진전송 성공!!");
-						return "redirect:/helperReqList.do?reqPage=1";
+						model.addAttribute("loc", "/helperReqList.do?reqPage=1");
+						return "common/msg";
 					}else {
 						model.addAttribute("msg", "사진전송 실패 ");
-						return "redirect:/helperReqList.do?reqPage=1";
+						model.addAttribute("loc", "/helperReqList.do?reqPage=1");
+						return "common/msg";
 					}
 				}else {
-					return "redirect:/helperReqList.do?reqPage=1";
+					model.addAttribute("msg", "그냥실패!");
+					model.addAttribute("loc", "/helperReqList.do?reqPage=1");
+					return "common/msg";
 				}
 			}
 		}
+		@Scheduled(cron = "1 0/15 * * * ?"  )
+		public void ChkHelpComDelay() {
+			System.out.println("15분마다 실행!");
+			int result = service.ChkHelpComeDelay();
+			if(result>0) {
+				System.out.println(result+"건 처리완료");
+			}else {
+				System.out.println("처리내역이없습니다.");
+			}
+		}
+
 		
 		// 결제 - sowon
 		@ResponseBody
@@ -482,6 +503,30 @@ public class HelperController {
 		public String helpPayment(Pay p, int memberNo, int helpNo) {
 			int result = service.insertHelpPayment(p,memberNo,helpNo);
 			return new Gson().toJson(result);
+		}		
+		//헬퍼 정산내역
+		@RequestMapping(value = "/helperReqListAdjust.do")
+		public String helperReqListAdjust(int reqPage,HttpSession session,Model model) {
+			if(session!= null) {
+				Member m = (Member)session.getAttribute("m");
+				int memberNo=0;
+				if(m !=null) {
+					memberNo=m.getMemberNo();
+					ReqHelperAdjustPageData h= service.selectAdjustList(memberNo,reqPage);
+					model.addAttribute("list", h.getList());
+					model.addAttribute("start", h.getStart());
+					model.addAttribute("totalCount", h.getTotalCount());
+					model.addAttribute("pageNavi", h.getPageNavi());
+					return"helper/reqHelpAdjustList";
+				}else {
+					model.addAttribute("msg", "접근하는 사용자 정보가 없습니다.");
+					return  "redirect:/main.do";
+				}
+				
+			}else {
+				model.addAttribute("msg", "로그인 정보가 없습니다.");
+				model.addAttribute("loc", "/main.do");
+				return "common/msg";
+			}
 		}
-		
 }

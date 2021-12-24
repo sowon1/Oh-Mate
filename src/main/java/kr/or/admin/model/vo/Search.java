@@ -10,4 +10,6 @@ public class Search {
 	private String addrName;
 	private String type;
 	private String keyword;
+	private String startDate;
+	private String endDate;
 }

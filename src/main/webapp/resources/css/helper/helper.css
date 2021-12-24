@@ -783,10 +783,8 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	font-size:16px;
 }
 .heler_pro_cate_title:before {
-    content: "";
-    height: 11px;
-    border-left: 2px solid #956bfc;
-    display: inline-block;
+    content: "\22C4";
+    font-size: 18px;
     color: #956bfc;
     margin-right: 8px;
 }
@@ -810,10 +808,8 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	font-size:16px;
 }
 .heler_pro_title:before {
-    content: "";
-    height: 11px;
-    border-left: 2px solid #956bfc;
-    display: inline-block;
+    content: "\22C4";
+    font-size: 18px;
     color: #956bfc;
     margin-right: 8px;
 }
@@ -848,12 +844,10 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	float:left;
 }
 .helper_pro_helperInfo_title:before {
-    content: "";
-    height: 11px;
-    border-left: 2px solid #956bfc;
-    display: inline-block;
-    color: #956bfc;
+    content: "\1F64B";
+    font-size: 22px;
     margin-right: 8px;
+	vertical-align: text-bottom;
 }
 .helper_pro_helperInfo_text{
 	float:left;
@@ -1068,64 +1062,6 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 }
 
 
-/* 신고 팝업 */
-.report_popup_modal{
-    /* 현재 화면 중앙에 모달 뜰수있게 */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* 실제로 modal은 처음에 안보여야하니 none으로 */
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9993;
-}
-.re_pop_modal{
-    width: 50vw;
-    min-width: 400px;
-    max-width: 400px;
-    height: 50vh;
-    min-height: 534px;
-    max-height: 534px;
-    text-align: left;
-    z-index: 10;
-    overflow-y: auto;
-    border-top-right-radius: 30px;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-}
-.re_modal_top{
-    display: block;
-    align-items: center;
-    width: 100%;
-    padding: 0px 20px;
-    /* justify-content: center; */
-    align-items: center;
-    background: #956bfc;
-    height: 60px;
-    text-align: center;
-    line-height: 60px;
-}
-.re_modal_text{
-	font-size: 24px;
-    color: #fff;
-}
-
-.re_modal_top img{
-	width:25px;
-}
-.re_modal_top span:last-child{
-	float:right;	
-}
-.re_modal_content{
-	background: #fff;
-    float: left;
-    width: 100%;
-    overflow: hidden;
-    height: auto;
-}
 
 /* 헬퍼 상세보기 리뷰 */
 .helper_view_review{
@@ -1275,6 +1211,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .review_img{
 	width:130px;
 	height: 130px;
+	align-self: center;
 }
 .review_like{
 	align-self: center;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.chat.model.dao.ChatDao;
 import kr.or.chat.model.vo.Chat;
+import kr.or.chatmsg.model.vo.ChatMsg;
 
 @Service
 public class ChatService {
@@ -17,4 +18,5 @@ public class ChatService {
 	public ArrayList<Chat> selectMateTalkList(int receiver) {
 		return dao.selectMateTalkList(receiver);
 	}
+	
 }

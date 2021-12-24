@@ -228,4 +228,14 @@ public class HouseDao {
 		return session.update("house.updateChkDeadLine");
 	}
 
+	public int updateChkRoomMoveEndDate() {
+		// TODO Auto-generated method stub
+		return session.update("house.updateChkRoomMoveEndDate");
+	}
+
+	public int updateChkHouseSelling() {
+		// TODO Auto-generated method stub
+		return session.update("house.updateChkHouseSelling");
+	}
+
 }

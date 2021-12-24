@@ -15,6 +15,7 @@ import kr.or.common.Income;
 import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.vo.Helper;
+import kr.or.helper.model.vo.ReqHelperAdjust;
 import kr.or.helper.model.vo.ReqHelperList;
 
 
@@ -196,6 +197,33 @@ public class HelperDao {
 	//결제 업데이트
 	public int updateHelpPay(HashMap<String, Object> map) {
 		return session.update("helper.updateHelpPay",map);
+	}
+
+	public int chkHelpEndTime() {
+		// TODO Auto-generated method stub
+		return session.update("helper.chkHelpEndTime");
+	}
+
+
+	public int updatePayAutoCancel() {
+		// TODO Auto-generated method stub
+		return session.update("helper.updatePayAutoCancel");
+	}
+
+
+	public int cancelPayUpdate(int helpNo) {
+		// TODO Auto-generated method stub
+		return session.update("helper.cancelPayUpdate",helpNo);
+	}
+
+	public ArrayList<ReqHelperAdjust> selectHelperAdjustList(HashMap<String, Object> map) {
+		List<ReqHelperAdjust> list = session.selectList("helper.selectHelperAdjustList", map);
+		return (ArrayList<ReqHelperAdjust>)list;
+	}
+
+	public int selectAllhelperCount(int helperNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("helper.selectAllhelperCount", helperNo);
 	}
 
 	

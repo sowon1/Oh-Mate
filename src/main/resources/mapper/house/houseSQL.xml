@@ -285,7 +285,7 @@
 			house_form = #{houseForm},
 			house_gender = #{houseGender},
 			house_convenience = #{houseConvenience},
-			house_allow = 1
+			house_allow = 4
 		where house_no = #{houseNo} and member_no = #{memberNo}
 	</update>
 	<update id="incomeupdate" parameterType="i">
@@ -424,35 +424,31 @@
 	</select>
 	<!-- 정산내역(하우스,룸, 입주내용, 정산내역 -->
 	<select id="houseAllPay" parameterType="map" resultType="hrap">
-	select HH.* from
-	(select rownum as rnum,h.* from
-	(select 
-    	house_no as houseNo,
-    	member_no as memberNo,
-    	house_title as houseTitle,
-    	house_selling as houseSelling,
-    	house_gender as houseGender,
-    	r.room_no as roomNo,
-    	r.room_title as roomTitle,
-    	r.room_charge as roomCharge,
-    	r.room_month as roomMonth,
-    	p.pay_no as payNo,
-    	p.pay_id as payId,
-    	p.pay_name as payName,
-    	p.pay_num as payNum,
-    	p.pay_price as payPrice,
-    	p.pay_date as payDate,
-    	p.pay_way as payWay,
-    	p.pay_status as payStatus,
-    	p.cancel_date as cancelDate,
-    	a.adjust_no as adjustNo,
-    	a.adjust_status as adjustStatus
-	from house
-	left join room r using(house_no)
-	left join pay p on(r.room_no=p.pay_goods)
-	left join adjust a on(a.pay_no=p.pay_no)
-	where member_no=#{memberNo} and p.pay_category=2)H)HH
-	where rnum between #{start} and #{end}
+	select LL.* from
+(select rownum as rnum,L.* from
+(select
+    h.house_title as houseTitle,
+    p.pay_id as payId,
+    p.pay_price as payPrice,
+    p.pay_date as payDate,
+    p.pay_status as payStatus,
+    p.pay_name as payName,
+    m.move_start as moveStart,
+    m.move_end as moveEnd,
+    m.move_phone as movePhone,
+    r.room_title as roomTitle,
+    r.room_status as roomStatus,
+    r.room_charge as roomCharge,
+    r.room_month as roomMonth,
+    r.room_personnel as roomPersonnel,
+    ad.adjust_no as adjustNo
+    from pay p
+    left join move m on(p.pay_goods=m.move_no)
+    left join room r on(m.room_no = r.room_no)
+    left join house h on(h.house_no = r.house_no)
+    left join adjust ad on(ad.pay_no = p.pay_no)
+    where pay_category=2 and h.member_no= #{memberNo})L)LL
+    where rnum between #{start} and #{end}
 	</select>
 	<!-- 정산 토탈 카운트 -->
 	<select id="payCount" parameterType="_int" resultType="_int">
@@ -464,6 +460,13 @@
 	<!-- 하우스 리스트 만료일확인내역 -->
 	<update id="updateChkDeadLine">
 		update house set house_selling=2 
-		where 0>to_date(houseowner_deadline)- to_date(to_char(sysdate,'yyyy-mm-dd'))
+		where 0>to_date(houseowner_deadline)-sysdate and house_selling=1
+	</update>
+	<!-- 룸 만료일 지나면 해당 룸  바꾸고 하우스 상태가 판매완료이고 과 하우스 소개일이 끝나지 않은 날짜인 하우스 상태 다시 판매중으로 바꾸기  -->
+	<update id="updateChkRoomMoveEndDate">
+		update room set room_status=1 where room_no in (select room_no from move where 0>to_date(move_end)- to_date(to_char(sysdate,'yyyy-mm-dd')))
+	</update>
+	<update id="updateChkHouseSelling">
+		update house set house_selling = 1 where house_no in (select house_no from house h where  house_room >(select count(*) from room r where room_status=2 and r.house_no=h.house_no) and  (to_date(h.houseowner_deadline)- to_date(to_char(sysdate,'yyyy-mm-dd')))>=0 and house_allow=2 and house_selling=2
 	</update>
 </mapper>

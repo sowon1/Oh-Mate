@@ -3,11 +3,11 @@
 <mapper namespace="chat">
 	<select id="selectMateTalkList" parameterType="_int" resultType="chat">
 		select             
-            c.chat_no,
+            c.chat_no as chatNo,
             c.sender,
-         c.receiver,
-            (select message_content from (select chat_no, message_content from chat join chat_message using (chat_no) order by 1 desc)cm where cm.chat_no = c.chat_no and rownum = 1) as chatContent,
-            (select message_date from (select chat_no, message_date from chat join chat_message using (chat_no) order by 1 desc)cm where cm.chat_no = c.chat_no and rownum = 1) as chatDate,
+         	c.receiver,
+            (select message_content from (select chat_no, message_content from chat join chat_message using (chat_no) order by message_date desc)cm where cm.chat_no = c.chat_no and rownum = 1) as chatContent,
+            (select message_date from (select chat_no, message_date from chat join chat_message using (chat_no) order by message_date desc)cm where cm.chat_no = c.chat_no and rownum = 1) as chatDate,
             (select count(*) from chat_message where sender=c.sender and message_status='n') as readCount,
             (select member_name from member where member_no=c.sender) as senderName,
             (select member_name from member where member_no=c.receiver) as receiverName,
@@ -28,6 +28,7 @@
                 end
             filepath
         from chat c 
-        where c.sender=#{receiver} or c.receiver=#{receiver}	
+        where c.sender=#{receiver} or c.receiver=#{receiver} order by chatdate desc
 	</select>
+	
 </mapper>

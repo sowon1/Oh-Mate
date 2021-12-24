@@ -19,4 +19,5 @@ public class ChatDao {
 		List list = sqlSession.selectList("chat.selectMateTalkList",receiver);
 		return (ArrayList<Chat>)list;
 	}
+	
 }

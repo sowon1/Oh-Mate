@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatmsg">
+  <!-- 채팅 메세지 조회 -->
+	<select id="selectChatOneMsg" parameterType="_int" resultType="chatmsg">
+		select 
+			c.message_no as messageNo,
+			c.chat_no as chatNo,
+			c.sender,
+			c.message_content as messageContent,
+			c.message_date as messageDate,
+			c.message_status as messageStatus,
+			(select member_name from member where member_no=c.sender) as senderName,
+			(select member_filepath from member where member_no = c.sender) as filepath
+		from CHAT_MESSAGE c
+		where chat_no=#{chatNo} order by message_date
+	</select>
+	<!-- 채팅번호 조회 -->
+	<select id="selectChatOneNo" parameterType="map" resultType="_int">
+		select 
+			chat_no as chatNo
+		from chat
+		where 
+		(sender=#{no} and receiver=#{msg}) or (sender=#{msg} and receiver=#{no})
+	</select>
+	<!-- 채팅 상태 업데이트 -->
+	<update id="updateChatStatus" parameterType="map">
+		UPDATE 
+			chat_message 
+		set message_status='y' 
+		where chat_no=#{chatNo} and sender=#{no}
+	</update>
+</mapper>

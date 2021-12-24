@@ -118,4 +118,15 @@ public class RoomDao {
 		int moveNo = session.selectOne("room.selectGetMove");
 		return moveNo;
 	}
+
+	public int totalMoveInCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("room.totalMoveInCount", memberNo);
+	}
+
+	public ArrayList<Move> selectMoveInList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<Move> list = session.selectList("room.selectMoveInList", map);
+		return (ArrayList<Move>)list;
+	}
 }
