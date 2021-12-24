@@ -215,5 +215,17 @@ public class HelperDao {
 		return session.update("helper.cancelPayUpdate",helpNo);
 	}
 
+	//헬프요청 리스트
+	public ArrayList<HelpList> selectHelpRequestList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<HelpList> list = session.selectList("helper.selectHelpRequestList", map);
+		return (ArrayList<HelpList>)list;
+	}
+
+	public int helpRequestCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("helper.helpRequestCount", memberNo);
+	}
+
 	
 }

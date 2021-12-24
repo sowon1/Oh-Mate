@@ -17,4 +17,6 @@ public class HelpList {
 	private String helpRequestDate;			//신청일시 [YYYY-MM-DD]
 	private String helpFinishDate;			//처리일시 [YYYY-MM-DD]
 	private String helpComplite;			//헬프완료내역
+	private String helperFilepath;			//프로필사진
+	private String helperName;				//헬퍼이름
 }
