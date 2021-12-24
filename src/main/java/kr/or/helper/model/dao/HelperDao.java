@@ -209,5 +209,11 @@ public class HelperDao {
 		return session.update("helper.updatePayAutoCancel");
 	}
 
+
+	public int cancelPayUpdate(int helpNo) {
+		// TODO Auto-generated method stub
+		return session.update("helper.cancelPayUpdate",helpNo);
+	}
+
 	
 }

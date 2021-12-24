@@ -46,10 +46,10 @@
 						<td>${list[0].helperEndTime }</td>
 					</tr>
 					<tr>
-						<th>선호분야</th>
-						<td colspan="3">
+						<th style="width: 200px">선호분야</th>
+						<td colspan="3" >
 							<div class="help_helper_pro_cate"
-								value="${list[0].helperCategory}">
+								value="${list[0].helperCategory}" >
 								<em class="help_helper_pro_cate">배달·장보기</em> <em
 									class="help_helper_pro_cate">청소·집안일</em> <em
 									class="help_helper_pro_cate">설치·조립·운반</em> <em
@@ -316,14 +316,14 @@
 						if(nowNum>=startNum){
 							alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!")
 							console.log("승락"+idx);
-							location.href="/updateCancelHelpStatus.do?helpStatus=5&helpNo="+helpNo;
+							location.href="/updateCancelHelpStatus.do?helpStatus=6&helpNo="+helpNo;
 						}else if(nowNum<startNum){
 							var comTime= startNum-nowNum;
 							if(comTime>100){
 								location.href="/updateHelpStatus.do?helpStatus=2&helpNo="+helpNo;
 							}else{
 								alert("한시간 이전까지만 헬프요청 승락이 가능합니다.")
-								location.href="/updateCancelHelpStatus.do?helpStatus=5&helpNo="+helpNo;
+								location.href="/updateCancelHelpStatus.do?helpStatus=6&helpNo="+helpNo;
 							}
 						}
 						

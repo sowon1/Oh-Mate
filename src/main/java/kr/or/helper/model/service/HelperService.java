@@ -341,7 +341,7 @@ public class HelperService {
 		int result = dao.updateHelperStatus(map);
 		return result;
 	}
-
+	@Transactional
 	public int updateCancelHelpStatus(int helpStatus, int helpNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("helpStatus", helpStatus);
@@ -350,8 +350,12 @@ public class HelperService {
 		if(result>0) {
 			int result2=dao.updatePayCancelDate(helpNo);
 			if(result2>0) {
-				
-				return result2;
+				if(helpStatus==4||helpStatus==5 || helpStatus==6) {
+					int result3= dao.cancelPayUpdate(helpNo);
+					return result3;
+				}else {					
+					return result2;
+				}
 			}else {
 				return 0;
 			}
@@ -395,8 +399,10 @@ public class HelperService {
 	@Transactional
 	public int ChkHelpComeDelay() {
 		int result= dao.chkHelpEndTime();
+		System.out.println("스케줄드 헬프만료처리내역"+result+"건");
 		if(result>0) {
 			int result2=dao.updatePayAutoCancel();
+			System.out.println("스케줄드 결제취소변경"+result2+"건");
 			if(result2>0) {
 				return result2;
 			}else {
