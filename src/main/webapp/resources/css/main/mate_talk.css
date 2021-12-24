@@ -171,6 +171,9 @@
 .mate_talk_view_top img, .mate_talk_list_top img{
     vertical-align: middle;
 }
+.report_icon{
+	cursor: pointer;
+}
 /* 서브메뉴
 .mate_talk_sub_menu{
     float: left;
