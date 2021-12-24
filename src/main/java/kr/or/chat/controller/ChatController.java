@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import kr.or.chat.model.service.ChatService;
 import kr.or.chat.model.vo.Chat;
+import kr.or.chatmsg.model.vo.ChatMsg;
 
 @Controller
 public class ChatController {
@@ -21,8 +22,9 @@ public class ChatController {
 	//채팅 리스트 조회
 	@ResponseBody
 	@RequestMapping(value="/matetalkList.do", produces = "application/json;charset=utf-8")
-	public String matetalkList(int receiver, Model model) {
+	public String matetalkList(int receiver) {
 		ArrayList<Chat> data = service.selectMateTalkList(receiver);
 		return new Gson().toJson(data);
 	}
+	
 }

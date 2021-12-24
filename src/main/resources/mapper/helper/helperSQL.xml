@@ -127,7 +127,7 @@
 				and age=#{age}
 			</if>
             <if test="keyword != null and !''.equals(keyword)">
-            	and helper_no in (select address_number from address where address_category=2 and (address_name||address_road||address_legal || helper_intro || helperName) like '%' ||  #{keyword} || '%')  
+            	and helper_no in (select address_number from address where address_category=2 and (address_name||address_road||address_legal || helper_intro || helper_name) like '%' ||  #{keyword} || '%')  
 			</if>
 			<if test="!'00:00'.equals(helperStartTime) and helperStartTime != null and !''.equals(helperStartTime)">
 				and helper_start_time=#{helperStartTime}
@@ -377,10 +377,10 @@
 	</select>
 
 	<update id="chkHelpEndTime">
-		update helplist set help_status=5 where help_no in (SELECT help_no FROM helplist where help_status in (1,2) and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100);
+		update helplist set help_status=5 where help_no in (SELECT help_no FROM helplist where help_status in (1,2) and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100)
 	</update>
 	<update id="updatePayAutoCancel">
-		update pay set pay_status = '결제취소', cancel_date=to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_category=1 and pay_goods in (SELECT help_no FROM helplist where help_status in (1,2) and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100);
+		update pay set pay_status = '결제취소', cancel_date=to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_category=1 and pay_goods in (SELECT help_no FROM helplist where help_status =5 and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100)
 	</update> 
 	<!-- 결제 -->
 	<insert id="insertHelpPayment" parameterType="map">
@@ -402,5 +402,9 @@
 	<!-- 결제 업데이트 -->
 	<update id="updateHelpPay" parameterType="map">
 		update pay set pay_goods=#{helpNo} where pay_goods=9999 and pay_category=1
+	</update>
+	<!-- 결제취소부분 업데이트-->
+	<update id="cancelPayUpdate" parameterType="_int">
+		update pay set pay_status ='결제취소',cancel_date=to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_goods=#{helpNo} and pay_category=1
 	</update>
 </mapper>

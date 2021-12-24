@@ -180,6 +180,7 @@
 		      <c:if test="${sessionScope.m.memberLevel eq 4 }">
 			    <li><a href="javascript:void(0)" class="requestChk">헬퍼 프로필 수정</a></li>
 			    <li><a href="/helperReqList.do?reqPage=1">헬퍼요청내역 확인</a></li>
+			    <li><a href="/helperReqListAdjust.do?reqPage=1">헬퍼 정산 내역</a></li>
 		      </c:if>   	
 		      <li><a href="/logout.do">로그아웃</a></li>
 		    </ul>
@@ -210,6 +211,53 @@
 		</nav>
 	</c:when>
 </c:choose>
+ <!-- --------------------------------------신고 팝업------------------------------------------------------ -->
+<div class="report_popup_modal">
+   	<div class="re_pop_modal">
+    		<div class="re_modal_top">
+      		<span class="re_modal_text">신고</span>
+          	<span class="re_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+       </div>
+       <div class="re_modal_content">
+       		<form action="/helperReport.do" method="post" class="reform">
+       			<table class="help_table">
+           			<tr class="table-active_mate_help">
+           				<th>신고 닉네임</th>
+           				<td>
+           					<input type="text" class="input_03" value="${h.helperName}"readonly="readonly">
+           					<input type="hidden" class="input_03" value="${h.memberNo}" name="hmemberNo" readonly="readonly">
+           					<input type="hidden" class="input_03" value="${h.helperNo}" name="helperNo" readonly="readonly">
+           				</td>
+           			</tr>
+           			<tr class="table-active_mate_help">
+           				<th>신고자</th>
+           				<td>
+           					<input type="text" class="input_03" value="${sessionScope.m.memberName}" readonly="readonly">
+           					<input type="hidden" class="input_03" value="${sessionScope.m.memberNo}" name="memberNo" readonly="readonly">
+           				</td>
+           			</tr>
+           			<tr class="table-active_mate_help">
+           				<th>신고분류</th>
+           				<td>
+           					<input type="text" class="input_03" value="채팅" readonly="readonly">
+           				</td>
+           			</tr>
+           			<tr class="table-active_mate_help">
+           				<th>신고사유</th>
+           				<td>
+           					<textarea name="reportContent" class="textarea_pro"></textarea>
+           				</td>
+           			</tr>
+          			</table>
+          			<div class="form_btn">
+           			<a class="btn_100" type="submit" onclick="return checkReVal();">신고하기</a>
+           		</div>
+       		</form>
+       </div>
+   	</div>
+   </div>
+<!-- --------------------------------------신고 팝업끝------------------------------------------------------ -->
+ 
 <!-- 메이트톡 리스트 -->
 <div class="mate_talk_open">
 	<!-- 리스트일때는 채팅방 숨겨놨다가, 클릭했을때 폼 띄워주고 아작스로 조회해서 소켓으로 연결해주던디..
@@ -244,49 +292,17 @@
 <div class="mate_talk_view_open">
 	<div class="mate_talk_view">
 		<div class="mate_talk_view_top">
-			<a onclick="close_chat_msg();">
-				<img src="/resources/img/icon/back.png">
-			</a>
-			<span class="mate_talk_name">박꼬맹</span>
-			<a href="" class="report_icon">
-				<img src="/resources/img/icon/report.png">
-			</a>
+			
 		</div>
 		<div class="mate_talk_messageArea" id="messages">
-			<p class="mate_talk_notice">박꼬맹님이 채팅방에 입장했습니다.</p>
-			<div class="mate_talk_left">
-				<img src="/resources/img/icon/profile.png">
-				<div class="mate_talk_left_line">
-					<span class="mate_talk_msg_name">박꼬맹</span>
-					<div class="mate_talk_view_left_one">
-						<span class="mate_talk_left_msg">
-							안녕? 이건 메세지란다 잘 보이니? 여러줄을 써볼게 잘 가나 보자꾸낭
-						</span>
-						<div class="mate_talk_msg_side">
-							<span class="mate_talk_left_date">
-								안읽음<br>
-								오전 8:59
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="mate_talk_right">
-				<span class="mate_talk_right_date">
-					안읽음<br>
-					오전 9:00
-				</span>
-				<span class="mate_talk_right_msg">
-					이건 나의 답장이란다 보이니?? 내 마음이 보이니~~~~~~~~~~~~~~~~~~~~~~~~~
-				</span>
-			</div>
+			
 		</div>
 		<div class="mate_talk_sendBox">
 			<input type="text" id="sendMsg" class="mate_talk_sendMsg">
 			<button id="sendBtn" onclick="sendMsg();" class="mate_talk_btn">전송</button>
 		</div>
 	</div>
-</div>
+</div>   
 <!-- 메이트톡 닫기 -->
 <div class="main_btn">
 	<c:choose>
@@ -316,12 +332,39 @@
 	         </div>
        </c:otherwise>
     </c:choose>
+   
     <!-- <a href="#" class="chat_icon"><img src="/resources/img/icon/chatbot_on.png"></a> -->
     <a href="#" class="top"><img src="/resources/img/icon/top.png"></a>
 </div>
 
 <script>
-	
+	//채팅 신고하기
+	$("#chatReport").click(function(){
+		reportopen();
+	});
+	$(".re_modal_close").click(function(){
+		reportclose();
+	});
+	function reportopen(){
+		$(".report_popup_modal").css("display","flex");
+	    $("body").css("overflow", "hidden");
+	    $(".tour_back_dark").show();			
+	}
+	function reportclose(){
+		$(".report_popup_modal").css("display","none");
+	    $("body").css("overflow", "auto");
+	    $(".tour_back_dark").hide();			
+	}
+	//신고 유효성 
+	function checkReVal(){
+		if($("textarea").val() == ""){					
+			 $(".title_name").text("사유를");
+			 $($("textarea[name='helpContent']")).focus();
+			countmsgopen(autoClose());
+		}else{
+			 $(".reform").submit();
+		}
+	}
 
 	//matetalk - list
 	$(function(){
@@ -384,16 +427,64 @@
 	//ajax먼저 하고 성공시 아래꺼 넣기
 	$(document).on("click",".chat_msg_open",function(){
 		var chatNo = $(this).attr('idx');
+		var receiver = '${sessionScope.m.memberNo}';
+		var name = $(this).find(".mate_talk_msg_name").html();
+		$(".mate_talk_messageArea").empty();
+		$(".mate_talk_view_top").empty();
 		$.ajax({
 			url : "/chatOpenMsg.do",
 			data : {chatNo:chatNo},
 			type : "POST",
 			success : function(data){
-				initChat();
+				var html = "";
+				var top = "";
+				console.log(data);
+				top += '<a onclick="close_chat_msg();">';
+				top += '<img src="/resources/img/icon/back.png"></a>';							
+				top += '<span class="mate_talk_name">'+name+'</span>';				
+				top += '<a id="chatReport" class="report_icon">';
+				top += '<img src="/resources/img/icon/report.png">';
+				top += '</a>';
+				$(".mate_talk_view_top").append(top);
+				for(var i = 0; i < data.length; i++){
+					if(data[i].sender != receiver){
+						html += '<div class="mate_talk_left">';
+						html += '<img src="/resources/upload/member/'+data[i].filepath+'.png">';
+						html += '<div class="mate_talk_left_line">';
+						html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
+						html += '<div class="mate_talk_view_left_one">';
+						html += '<span class="mate_talk_left_msg">'+data[i].messageContent+'</span>';
+						html += '<div class="mate_talk_msg_side">';
+						html += '<span class="mate_talk_left_date">'
+						if(data[i].messageStatus == "n"){
+							html += '안읽음<br>';
+						}
+						html += moment(data[i].messageDate).format('LT')+'</span></div></div></div></div>';
+					}else{
+						if(data[i].sender == receiver){							
+							html += '<div class="mate_talk_right">';
+							html += '<span class="mate_talk_right_date">';
+							if(data[i].messageStatus == "n"){
+								html += '안읽음<br>';
+							}
+							html += moment(data[i].messageDate).format('LT');
+							html += '</span>';
+							html += '<span class="mate_talk_right_msg">'+data[i].messageContent+'</span>';
+							html += '</div></div>';
+						}else{
+							
+						}
+					}
+				} //for문 종료
+				$(".mate_talk_messageArea").append(html);
+				
+				
+				
 			}
 		})
 		
 	})
+	
 	function initChat(param){
 		receiver = param;
 		//웹소켓 연걸 시도
@@ -563,6 +654,7 @@
 			}
 		});
 	});
+	
 	
    <!-- 챗봇 -->
      (function() {
