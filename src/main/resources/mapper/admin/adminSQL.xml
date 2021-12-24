@@ -662,4 +662,7 @@
 				</choose>
 			</if>
 	</select>
+	<insert id="insertAdjust" parameterType="_int">
+		insert into adjust values(adjust_seq.nextval, #{payNo})
+	</insert>
 </mapper>
