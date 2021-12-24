@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+
 import kr.or.board.model.service.BoardService;
 import kr.or.board.model.vo.Board;
+import kr.or.board.model.vo.BoardData;
 import kr.or.board.model.vo.BoardMemberData;
 import kr.or.board.model.vo.MateComment;
 import kr.or.member.model.vo.Member;
@@ -91,13 +94,14 @@ public class BoardController {
 		return "common/msg";
 	}
 	
-	//게시판 + 회원프로필사진
+	//게시판 + 회원프로필사진 + 총 게시물 수(더보기)
 	@RequestMapping(value="/communityFrm.do")
 	public String coummunityFrm(Model model) {
-		ArrayList<Board> list = service.selectBoard();
-		model.addAttribute("list",list);
-		//System.out.println(list.size());
-		//System.out.println(list);
+		BoardData bd = service.selectBoard();
+		model.addAttribute("list",bd.getB());
+		model.addAttribute("totalCount",bd.getTotalCount());
+		//System.out.println(bd.getB());
+		//System.out.println(bd.getTotalCount());
 		return "board/communityFrm";
 	} 
 	
@@ -276,9 +280,9 @@ public class BoardController {
 		map.put("commentContent", commentContent);
 		int result = service.updateComment(map);
 		if(result>0) {
-			model.addAttribute("msg","댓글수정완료");
+			model.addAttribute("msg","댓글 수정 완료~!");
 		}else {
-			model.addAttribute("msg","댓글수정실패");
+			model.addAttribute("msg","댓글 수정 실패");
 		}
 		model.addAttribute("loc","/boardView.do?boardNo="+boardNo);
 		return "common/msg";
@@ -289,9 +293,9 @@ public class BoardController {
 	public String deleteComment(int commentNo, int boardNo, Model model) {
 		int result = service.deleteComment(commentNo);
 		if(result>0) {
-			model.addAttribute("msg","댓글삭제");
+			model.addAttribute("msg","댓글 삭제 완료~!");
 		}else {
-			model.addAttribute("msg","댓글삭제실패");
+			model.addAttribute("msg","댓글 삭제 실패");
 		}
 		model.addAttribute("loc","/boardView.do?boardNo="+boardNo);
 		return "common/msg";
@@ -301,6 +305,22 @@ public class BoardController {
 	@RequestMapping(value="/mateSearch.do")
 	public String mateSearch(String keyword, Model model) {
 		ArrayList<Board> list = service.mateSearch(keyword);
+		model.addAttribute("list",list);
+		return "board/communityFrm";
+	}
+	
+	//더보기
+	@ResponseBody
+	@RequestMapping(value="/communityMore.do", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+	public String communityMore(int start) {
+		ArrayList<Board> list = service.communityMore(start);
+		//System.out.println("controllerList:"+list);
+		return new Gson().toJson(list);
+	}
+	
+	@RequestMapping(value="/searchOption.do")
+	public String searchOption(Model model, Profile p) {
+		ArrayList<Board> list = service.searchOption(p);
 		model.addAttribute("list",list);
 		return "board/communityFrm";
 	}

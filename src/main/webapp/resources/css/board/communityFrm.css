@@ -148,7 +148,8 @@
 	    float: left;
 	    width: calc(100%/4);
 	    box-sizing: border-box; 
-	    padding-left: 20px;
+	    padding-left: 10px;
+	    padding-right: 10px;
 	}
 	.card-img-top{
 	 	height:250px;
@@ -158,4 +159,10 @@
 	}
 	.cardTC{
 		padding-left:60px;
+	}
+	#moreBtn{
+		margin-left: 10px;
+	    margin-right: 10px;
+		width: 1182px;
+		line-height: normal;
 	}

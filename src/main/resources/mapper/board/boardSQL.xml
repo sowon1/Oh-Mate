@@ -79,18 +79,20 @@
 	
 	<!-- 게시글 목록 조회 -->
 	<select id="bdList" resultType="b">
-		select 
-			BOARD_NO as boardNo,
-			BOARD_WRITER as boardWriter,
-			BOARD_TITLE as boardTitle,
-			BOARD_CONTENT as boardContent,
-			READ_COUNT as readCount,
-			REG_DATE as regDate,
-			FILEPATH,
-			PROFILE_OPTION as profileOption,
-			STATUS,
-			(select member_filepath from member where member_id=board_writer)as fileImg
-		from board order by regDate desc
+		select * from(
+	    	select  ROWNUM as rnum,
+	            BOARD_NO as boardNo,
+				BOARD_WRITER as boardWriter,
+				BOARD_TITLE as boardTitle,
+				BOARD_CONTENT as boardContent,
+				READ_COUNT as readCount,
+				REG_DATE as regDate,
+				FILEPATH,
+				PROFILE_OPTION as profileOption,
+				STATUS,
+				(select member_filepath from member where member_id=board_writer)as fileImg
+			from board order by BOARDNO desc)
+        where rnum between 1 and 8
 	</select>
 	
 	<!-- 게시글 목록 -->
@@ -213,7 +215,7 @@
 		select count(*)as count from board where board_writer=#{memberId}
 	</select>
 
-		<!-- 마이페이지_커뮤니티 게시글/댓글 -->
+	<!-- 마이페이지_커뮤니티 게시글/댓글 -->
 	<select id="commentConfirm" parameterType="map" resultType="mc">
 	    select 
 			comment_no as commentNo, 
@@ -245,6 +247,43 @@
 			STATUS,
 			(select member_filepath from member where member_id=board_writer)as fileImg
         from board where (board_title like '%' ||  #{keyword} || '%' or board_content like '%' ||  #{keyword} || '%') order by regDate desc
+	</select>
+
+	<!-- 더보기 -->
+	<select id="communityMore" parameterType="map" resultType="b">
+		 select * from(
+	    	select  ROWNUM as rnum,
+	            BOARD_NO as boardNo,
+				BOARD_WRITER as boardWriter,
+				BOARD_TITLE as boardTitle,
+				BOARD_CONTENT as boardContent,
+				READ_COUNT as readCount,
+				REG_DATE as regDate,
+				FILEPATH,
+				PROFILE_OPTION as profileOption,
+				STATUS,
+				(select member_filepath from member where member_id=board_writer)as fileImg
+			from board order by BOARDNO desc)
+        where rnum between #{start} and #{end}
+	</select>
+	
+	<!-- 총 게시물수(더보기) -->
+	<select id="BoardtotalCount" resultType="int">
+		select count(*) from board
+	</select>
+	
+	<select id="searchOption" parameterType="p" resultType="b">
+		select BOARD_NO as boardNo,
+			BOARD_WRITER as boardWriter,
+			BOARD_TITLE as boardTitle,
+			BOARD_CONTENT as boardContent,
+			READ_COUNT as readCount,
+			REG_DATE as regDate,
+			FILEPATH,
+			PROFILE_OPTION as profileOption,
+			STATUS,
+			(select member_filepath from member where member_id=board_writer)as fileImg
+        from board where profile_option in (select p_gender||p_age||p_local||p_smoke||p_pet||p_cleaning||p_pattern from profile)
 	</select>
 </mapper>
 
