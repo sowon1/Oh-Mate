@@ -434,4 +434,34 @@
 	<select id="selectAllhelperCount" parameterType="_int" resultType="_int">
 		select count(*) from helplist where helper_no=#{helperNo}
 	</select>
+	<select id="selectHelpRequestList" parameterType="map" resultType="hl">
+		select * from
+		    (select
+                rownum as rnum,
+                hh.*from
+                    (select
+                        hl.help_no as helpNo,
+                        hl.member_no as memberNo,
+                        hl.helper_no as helperNo,
+                        hl.help_title as helpTitle,
+                        hl.help_content as helpContent,
+                        hl.help_category as helpCategory,
+                        hl.help_charge as helpCharge,
+                        hl.help_status as helpStatus,
+                        hl.help_start_time as helpStartTime,
+                        hl.help_end_time as helpEndTime,
+                        hl.help_request_date as helpRequestDate,
+                        hl.help_finish_date as helpFinishDate,
+                        hl.help_complite as helpComplite,
+                        h.helper_filepath as helperFilepath,
+                        h.helper_name as helperName
+                    from helplist hl
+                    join helper h on hl.helper_no = h.helper_no
+                    where hl.member_no=#{memberNo}
+                    order by 1 desc)hh)
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="helpRequestCount" parameterType="_int" resultType="_int">
+		select count(*) from helplist where member_no=#{memberNo}
+	</select>
 </mapper>

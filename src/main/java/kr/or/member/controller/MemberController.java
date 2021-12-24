@@ -467,8 +467,19 @@ public class MemberController {
 	
 	//헬프 요청내역
 	@RequestMapping(value = "/helpList.do")
-	public String helpList() {
-		//작성중
+	public String helpList(int reqPage, Model model, HttpSession session) {
+		if(session != null) {
+			Member m = (Member)session.getAttribute("m");
+			int memberNo = 0;
+			if(m != null)
+			{
+				memberNo = m.getMemberNo();
+			}	
+			HashMap<String, Object> data = helperService.selectHelpRequestList(memberNo,reqPage);
+			model.addAttribute("list",data.get("list"));
+			model.addAttribute("pageNavi",data.get("pageNavi"));
+		}
+		
 		return "member/helpList";
 	}
 
