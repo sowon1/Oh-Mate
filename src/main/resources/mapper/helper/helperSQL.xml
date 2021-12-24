@@ -127,7 +127,7 @@
 				and age=#{age}
 			</if>
             <if test="keyword != null and !''.equals(keyword)">
-            	and helper_no in (select address_number from address where address_category=2 and (address_name||address_road||address_legal || helper_intro || helperName) like '%' ||  #{keyword} || '%')  
+            	and helper_no in (select address_number from address where address_category=2 and (address_name||address_road||address_legal || helper_intro || helper_name) like '%' ||  #{keyword} || '%')  
 			</if>
 			<if test="!'00:00'.equals(helperStartTime) and helperStartTime != null and !''.equals(helperStartTime)">
 				and helper_start_time=#{helperStartTime}

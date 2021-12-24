@@ -389,24 +389,26 @@
 			data : {chatNo:chatNo},
 			type : "POST",
 			success : function(data){
-				initChat();
+
+				function initChat(param){
+					receiver = param;
+					//웹소켓 연걸 시도
+					ws = new WebSocket("ws://192.168.75.104/chat.do");
+					//웹소켓 연결이 성공하면 실행할 함수
+					ws.onopen = startChat;
+					//서버에서 화면으로 데이터를 전송하면 처리할 함수
+					ws.onmessage = receiveMsg;
+					//웹소켓 연결이 종료되면 실핼할 함수 지정
+					ws.onclose = endChat;
+					$(".mate_talk_open").hide();
+					$(".mate_talk_view_open").css("right","40px");
+				}
+				
 			}
 		})
 		
 	})
-	function initChat(param){
-		receiver = param;
-		//웹소켓 연걸 시도
-		ws = new WebSocket("ws://192.168.75.104/chat.do");
-		//웹소켓 연결이 성공하면 실행할 함수
-		ws.onopen = startChat;
-		//서버에서 화면으로 데이터를 전송하면 처리할 함수
-		ws.onmessage = receiveMsg;
-		//웹소켓 연결이 종료되면 실핼할 함수 지정
-		ws.onclose = endChat;
-		$(".mate_talk_open").hide();
-		$(".mate_talk_view_open").css("right","40px");
-	}
+	
 	function startChat() {
 		var data = {type:"enter", msg:receiver};
 		ws.send(JSON.stringify(data));
