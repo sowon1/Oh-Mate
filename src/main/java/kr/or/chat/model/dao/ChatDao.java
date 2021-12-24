@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.chat.model.vo.Chat;
-import kr.or.chatmsg.model.vo.ChatMsg;
 
 @Repository
 public class ChatDao {
@@ -20,9 +19,5 @@ public class ChatDao {
 		List list = sqlSession.selectList("chat.selectMateTalkList",receiver);
 		return (ArrayList<Chat>)list;
 	}
-	//채팅 메세지 조회
-	public ArrayList<ChatMsg> selectChatOneMsg(int chatNo) {
-		List list = sqlSession.selectList("chat.selectChatOneMsg",chatNo);
-		return (ArrayList<ChatMsg>)list;
-	}
+	
 }

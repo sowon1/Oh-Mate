@@ -18,9 +18,5 @@ public class ChatService {
 	public ArrayList<Chat> selectMateTalkList(int receiver) {
 		return dao.selectMateTalkList(receiver);
 	}
-	//채팅 메세지 조회
-	public ArrayList<ChatMsg> selectChatOneMsg(int chatNo) {
-		ArrayList<ChatMsg> list = dao.selectChatOneMsg(chatNo);
-		return list;
-	}
+	
 }

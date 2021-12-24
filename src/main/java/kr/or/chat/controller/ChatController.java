@@ -27,11 +27,4 @@ public class ChatController {
 		return new Gson().toJson(data);
 	}
 	
-	//채팅 메세지 조회
-	@ResponseBody
-	@RequestMapping(value="/chatOpenMsg.do", produces = "application/json;charset=utf-8")
-	public String chatOpenMsg(int chatNo) {
-		ArrayList<ChatMsg> msg = service.selectChatOneMsg(chatNo);
-	}
-
 }
