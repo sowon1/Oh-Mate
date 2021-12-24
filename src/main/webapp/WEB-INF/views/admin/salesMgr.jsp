@@ -34,9 +34,11 @@
                 		<tr>
                 			<th>결제 일자</th>
                 			<td colspan="4">
+                			<input type="hidden" id="startDate" value="">
 								<input class="input_03 datefilter" type="text" readonly name="startDate" placeholder="검색 시작일">
 								<img src="/resources/img/icon/admin_calendar.png">
 								~
+								<input type="hidden" id="endDate" value="">
 								<input class="input_03 datefilter" type="text" readonly name="endDate" placeholder="검색 종료일">
 								<img src="/resources/img/icon/admin_calendar.png">
                         	</td>
