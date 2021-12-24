@@ -14,11 +14,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import kr.or.chatmsg.model.dao.ChatMsgDao;
+import kr.or.chatmsg.model.vo.ChatMsg;
 
-@Service
+
 public class ChatMsgService extends TextWebSocketHandler{
-	
-	//접속한 회원 세션을 저장하는 리스트
+		@Autowired
+		private ChatMsgDao dao;
+		
+		//접속한 회원 세션을 저장하는 리스트
 		private ArrayList<WebSocketSession> sessionList;
 		//접속한 세션의 로그인 아이디를 저장하기 위한 맵
 		private HashMap<WebSocketSession, String> memberList;
@@ -84,7 +87,11 @@ public class ChatMsgService extends TextWebSocketHandler{
 			memberList.remove(session);
 		}
 	
-	
+		//채팅 메세지 조회
+		public ArrayList<ChatMsg> selectChatOneMsg(int chatNo) {
+			ArrayList<ChatMsg> list = dao.selectChatOneMsg(chatNo);
+			return list;
+		}
 	
 	
 	

@@ -634,4 +634,8 @@ public class AdminService {
 		data.put("start", start);
 		return data;
 	}
+	@Transactional
+	public int insertAdjust(int payNo) {
+		return dao.insertAdjust(payNo);
+	}
 }

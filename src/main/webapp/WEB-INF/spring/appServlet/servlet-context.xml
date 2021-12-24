@@ -96,6 +96,8 @@
 	<context:component-scan base-package="kr.or.notice"/>
 	<context:component-scan base-package="kr.or.room"/>
 	<context:component-scan base-package="kr.or.chat"/>
+	<context:component-scan base-package="kr.or.chatmsg"/>
+	
 	
 	
 </beans:beans>

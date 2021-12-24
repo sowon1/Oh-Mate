@@ -271,4 +271,14 @@ public class AdminController {
 	public String dashboard(Model model) {
 		return "admin/dashboard";
 	}
+	@ResponseBody
+	@RequestMapping(value="/insertAdjust.do")
+	public String insertAdjust(int payNo) {
+		int result = service.insertAdjust(payNo);
+		if(result>0) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
 }

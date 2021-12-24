@@ -30,9 +30,5 @@
         from chat c 
         where c.sender=#{receiver} or c.receiver=#{receiver} order by chatdate desc
 	</select>
-	<!-- 채팅 메세지 조회 -->
-	<select id="selectChatOneMsg" parameterType="_int" resultType="chat">
-		select
-		from
-	</select>
+	
 </mapper>

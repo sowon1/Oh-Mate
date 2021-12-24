@@ -778,16 +778,7 @@
 		$(".re_modal_close").click(function(){
 			reportclose();
 		});
-		function reportopen(){
-			$(".report_popup_modal").css("display","flex");
-		    $("body").css("overflow", "hidden");
-		    $(".tour_back_dark").show();			
-		}
-		function reportclose(){
-			$(".report_popup_modal").css("display","none");
-		    $("body").css("overflow", "auto");
-		    $(".tour_back_dark").hide();			
-		}
+		
 		//신고 유효성 
 		function checkReVal(){
 			if($("textarea").val() == ""){					
