@@ -176,4 +176,8 @@ public class AdminDao {
 	public int totalSearchSalesCnt(HashMap<String, Object> map) {
 		return session.selectOne("admin.totalSearchSales", map);
 	}
+
+	public int insertAdjust(int payNo) {
+		return session.insert("admin.insertAdjust", payNo);
+	}
 }

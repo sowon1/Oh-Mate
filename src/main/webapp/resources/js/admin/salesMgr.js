@@ -52,3 +52,20 @@ $(".resetSearch").click(function(){
 	$("[name=type]>option:first").prop("selected",true);
 	$("[name=keyword]").val("");
 });
+$(".container_mate>div>table button").click(function(){
+	var settle = $(this).parent().prev().html();
+	if(confirm("정산 금액 : "+settle.trim()+"\n정산 처리하시겠습니까?")){
+		$.ajax({
+			url: "/insertAdjust.do",
+			data: {payNo:$(this).prev().val()},
+			success:function(data){
+				if(data == '1'){
+					alert("처리되었습니다.");
+				}else{
+					alert("처리 실패");
+				}
+				location.reload();
+			}
+		});
+	}
+});
