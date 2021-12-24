@@ -244,7 +244,7 @@
 <div class="mate_talk_view_open">
 	<div class="mate_talk_view">
 		<div class="mate_talk_view_top">
-			<a href="javascript:history.back();">
+			<a onclick="close_chat_msg();">
 				<img src="/resources/img/icon/back.png">
 			</a>
 			<span class="mate_talk_name">박꼬맹</span>
@@ -344,7 +344,7 @@
 						html += '</div>';
 					}
 					for(var i = 0; i < data.length; i++){
-						html += '<a onclick="initChat("'+receiver+'")">';
+						html += '<a onclick="initChat('+receiver+')" idx="'+data[i].chatNo+'"class="chat_msg_open">';
 						html += '<li><div class="talk_profile">';
 						if(data[i].filepath == null){
 							html += '<img src="/resources/img/icon/profile.png">';
@@ -381,6 +381,19 @@
 	var receiver;
 	var messageStatus = "n";
 	var messageDate = moment().format('LT');
+	//ajax먼저 하고 성공시 아래꺼 넣기
+	$(document).on("click",".chat_msg_open",function(){
+		var chatNo = $(this).attr('idx');
+		$.ajax({
+			url : "/chatOpenMsg.do",
+			data : {chatNo:chatNo},
+			type : "POST",
+			success : function(data){
+				initChat();
+			}
+		})
+		
+	})
 	function initChat(param){
 		receiver = param;
 		//웹소켓 연걸 시도
@@ -424,7 +437,12 @@
 			}
 		});
 	});
-
+	
+	//채팅방 뒤로가기
+	function close_chat_msg(){
+		$(".mate_talk_view_open").css("right","-500px");
+		$(".mate_talk_open").show();
+	}
 	
 	//비 로그인 시 메신저 버튼누를경우 
 	$("#mate_talk_login").click(function(){
@@ -460,8 +478,12 @@
 	});
 	//채팅 아이콘 이미지변경, 나타나는 함수
 	function matetalkbtn(obj){
-		$(".mate_talk_open").slideToggle('slow');
 		var img = $(".main_btn a").first().children("img");
+		if($(".mate_talk_view_open").css("right") == "40px"){
+			$(".mate_talk_view_open").css("right","-500px");
+		}else if($(".mate_talk_view_open").css("right") == "-500px"){			
+			$(".mate_talk_open").slideToggle('slow');
+		}
 		img.attr("src",function(index,attr){
 			if(attr.match('chat_on')){
 				return attr.replace("chat_on","chat_close");

@@ -18,8 +18,6 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 	<!-- 달력 -->
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<div class="helper_view_back">
@@ -323,7 +321,7 @@
                         				<th>심부름비</th>
                         				<td>
                         					<input type="text" name="helpCharge" class="input_03">
-                        					<span class="help_text_notice">*헬퍼에게 지급될 심부름비는 고객님께서 정해주세요.<br>*일정 시간동안 헬퍼가 요청을 받지않으면 자동으로 결제가 취소됩니다.</span>
+                        					<span class="help_text_notice">*헬퍼에게 지급될 심부름비는 고객님께서 정해주세요.<br>*일정 시간 동안 헬퍼가 요청을 받지 않으면 자동으로 결제가 취소됩니다.</span>
                         				</td>
                         			</tr>
                         			<input type="hidden" name="helperNo">
