@@ -13,7 +13,8 @@ $("[name=status]").click(function(){
 	}
 });
 $(function(){
-	$(".datefilter").val('');
+	$("[name=startDate]").val($("#startDate").val());
+	$("[name=endDate]").val($("#endDate").val());
 });
 $('.datefilter').daterangepicker({
     singleDatePicker: true,
@@ -21,7 +22,7 @@ $('.datefilter').daterangepicker({
         "format": "YYYY-MM-DD", 
         "applyLabel": "확인", 
         "cancelLabel": "취소", 
-        "daysOfWeek": ["토", "일", "월", "화", "수", "목", "금"],
+        "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
         "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
     }
 });
