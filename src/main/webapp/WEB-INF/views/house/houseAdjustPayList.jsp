@@ -35,22 +35,10 @@
 			<td>${p.roomMonth }</td>
 			<td>${p.payId }</td>
 			<td>${p.payName }</td>
-			<td>${p.payWay }</td>
-			<td>${p.payDate }</td>
+			<td>${p.moveStart }</td>
+			<td>${p.moveEnd }</td>
+			<td>${p.movePhone }</td>
 			<td>${p.payStatus }</td>
-			<td>
-			<c:choose>
-				<c:when test="${empty p.adjustStatus }">
-				정산이력없음
-				</c:when>
-				<c:when test="${p.adjustStatus eq 1 }">
-				미정산
-				</c:when>
-				<c:when test="${p.adjustStatus eq 2 }">
-				정산완료
-				</c:when>
-			</c:choose>
-			</td>
 		</tr>
 			</c:forEach>	
 	</table>

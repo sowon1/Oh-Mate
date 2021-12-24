@@ -415,7 +415,8 @@ public class HelperController {
 			ArrayList<Photo> list = new ArrayList<Photo>();
 			if(photoPath[0].isEmpty()) {
 				model.addAttribute("msg", "파일이없습니다.!!");
-				return "redirect:/helperReqList.do?reqPage=1";
+				model.addAttribute("loc", "/helperReqList.do");
+				return "common/msg";
 			}else {
 				int result = service.updateCompilte(helpNo,helpComplite);
 				if(result>0) {
@@ -489,7 +490,7 @@ public class HelperController {
 			if(result>0) {
 				System.out.println(result+"처리완료");
 			}else {
-				System.out.println("처리실패");
+				System.out.println("처리내역이없습니다.");
 			}
 		}
 
