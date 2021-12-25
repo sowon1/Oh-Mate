@@ -117,8 +117,8 @@
 		clear:both;
 	}
 	.help_btn{
-		margin-top: 50px;
-		margin-right: 50px;
+		margin-top: 25px;
+		margin-right: 15px;
 	}
 	.btn{
 		margin-top: 5px;		
@@ -153,7 +153,8 @@
 									${h.helpTitle}						
 								</span>
 								<span class="help_status">
-									${h.helperName} · 
+									<a href="/helperView.do?helperNo=${h.helperNo}">${h.helperName}</a>
+									 · 
 									<c:choose>
 					        			<c:when test="${h.helpStatus eq 1}">			        				
 							        		요청중
@@ -186,11 +187,44 @@
 								<div class="request_time">
 									<span class="help_time_title">마감시간</span>
 									<span class="help_time_code">${h.helpEndTime}</span>
-								</div>							
+								</div>
+								<c:choose>
+									<c:when test="${not empty h.helpFinishDate }">
+										<div class="request_time">
+											<span class="help_date_title">완료일자</span>
+											<span class="help_time_code">${h.helpFinishDate}</span>
+										</div>		
+									</c:when>
+								</c:choose>			
 							</div>
 							<div class="help_btn">
-								<div><button class="btn btn_w" style="width:300px;">상세보기</button></div>
-								<div><button class="btn btn_out">리뷰작성</button><button class="btn btn_pk_out">신고</button></div>		
+								<div>
+									<form action="/reviewWriteFrm.do" method="post" class="review_btn">
+										<input type="hidden" name="memberNo" value="${h.memberNo }">
+										<input type="hidden" name="helperNo" value="${h.helperNo }">
+										<input type="hidden" name="helpNo" value="${h.helpNo }">
+										<button type="submit" class="btn">상세내용</button>													
+									</form>		
+									<c:choose>
+										<c:when test="${h.helpStatus ge 3 and h.reviewCheck eq 0 }">
+											<form action="/reviewWriteFrm.do" method="post" class="review_btn">
+												<input type="hidden" name="memberNo" value="${h.memberNo }">
+												<input type="hidden" name="helperNo" value="${h.helperNo }">
+												<input type="hidden" name="helpNo" value="${h.helpNo }">
+												<button type="submit" class="btn btn_out">리뷰작성</button>													
+											</form>										
+										</c:when>
+										<c:when test="${h.helpStatus ge 3 and h.reviewCheck eq 1 }">
+											<form action="/reviewView.do" method="post" class="review_btn">
+												<input type="hidden" name="memberNo" value="${h.memberNo }">
+												<input type="hidden" name="helperNo" value="${h.helperNo }">
+												<input type="hidden" name="helpNo" value="${h.helpNo }">
+												<button type="submit" class="btn btn_out">리뷰확인</button>													
+											</form>																				
+										</c:when>
+									</c:choose>
+									<button class="btn btn_pk_out">신고</button>
+								</div>		
 							</div>
 						</div>						
 					</li>

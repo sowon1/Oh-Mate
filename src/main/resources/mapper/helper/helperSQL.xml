@@ -454,7 +454,8 @@
                         hl.help_finish_date as helpFinishDate,
                         hl.help_complite as helpComplite,
                         h.helper_filepath as helperFilepath,
-                        h.helper_name as helperName
+                        h.helper_name as helperName,
+                        (select count(*) from help_review where help_no =hl.help_no) as reviewCheck
                     from helplist hl
                     join helper h on hl.helper_no = h.helper_no
                     where hl.member_no=#{memberNo}
