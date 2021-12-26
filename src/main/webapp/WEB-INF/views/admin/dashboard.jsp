@@ -18,7 +18,7 @@
 					<p>하우스 등록</p>
 				</div>
 				<div>
-					<a href="#">${d.house } 건</a>
+					<a href="/adminHouseSearch.do?reqPage=1&type=houseTitle&keyword=&addrName=지역구 선택&status=1"><span>${d.house }</span> 건</a>
 				</div>
 			</div>
 			<div class="alarm">
@@ -27,7 +27,7 @@
 					<p>헬퍼 신청</p>
 				</div>
 				<div>
-					<a href="#">${d.helper } 건</a>
+					<a href="/adminHelperSearch.do?reqPage=1&type=helperName&keyword=&addrName=지역구 선택&status=1"><span>${d.helper }</span> 건</a>
 				</div>
 			</div>
 			<div class="alarm">
@@ -36,7 +36,7 @@
 					<p>신고</p>
 				</div>
 				<div>
-					<a href="#">${d.report } 건</a>
+					<a href="/reportSearch.do?reqPage=1&type=reporterId&keyword=&status=1"><span>${d.report }</span> 건</a>
 				</div>
 			</div>
 		</div>
