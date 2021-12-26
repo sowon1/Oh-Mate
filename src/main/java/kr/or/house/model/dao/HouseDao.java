@@ -238,4 +238,25 @@ public class HouseDao {
 		return session.update("house.updateChkHouseSelling");
 	}
 
+	public int deletemove(int houseNo) {
+		// TODO Auto-generated method stub
+		return session.delete("house.deleteMove", houseNo);
+	}
+
+	public int deletetour(int houseNo) {
+		// TODO Auto-generated method stub
+		return session.delete("house.deleteTour",houseNo);
+	}
+
+	public ArrayList<Move> findMove(int houseNo) {
+		// TODO Auto-generated method stub
+		List<Move> list = session.selectList("house.findMove",houseNo);
+		return (ArrayList<Move>)list;
+	}
+
+	public ArrayList<Tour> findTour(int houseNo) {
+		List<Tour> list = session.selectList("house.findTour",houseNo);
+		return (ArrayList<Tour>)list;
+	}
+
 }

@@ -160,9 +160,9 @@
 								<div class="summary">
 									<p class="summary-name">${h.houseTitle }
 									<c:choose>
-										<c:when test="${h.houseAllow eq 1}">
+										<c:when test="${h.houseAllow eq 1 || h.houseAllow eq 4}">
 											<span class="allow-waiting" style="color: orange; border: 1px solid orange; ">승인대기</span>
-											
+
 										</c:when>
 										<c:when test="${h.houseAllow eq 2 }">
 											<span class="allow-agree" style="color: green; border: 1px solid green;">승인</span>

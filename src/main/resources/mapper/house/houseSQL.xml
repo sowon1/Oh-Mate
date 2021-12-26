@@ -332,13 +332,19 @@
 			room_month as roomMonth
 		from room where room_no=#{roomNo} and house_no=#{houseNo}
 	</select>
-	<!-- 하우스 삭제 1단계 -->
-	<delete id="deleteHouse" parameterType="map">
-		delete from house where house_no=#{houseNo} and member_no=#{memberNo}
+	<delete id="deleteMove" parameterType="_int">
+	delete from move where room_no in(select room_no from room where house_no=#{houseNo})
 	</delete>
-	<!-- 하우스 삭제 2단계 해당 방전체삭제 -->
+	<delete id="deleteTour" parameterType="_int">
+	delete from tour where room_no in(select room_no from room where house_no=#{houseNo})
+	</delete>
+	<!-- 하우스 삭제 1단계 해당 방전체삭제 -->
 	<delete id="deleteAllRoom" parameterType="map">
 			delete from room where house_no = #{houseNo}
+	</delete>
+	<!-- 하우스 삭제 2단계 -->
+	<delete id="deleteHouse" parameterType="map">
+		delete from house where house_no=#{houseNo} and member_no=#{memberNo}
 	</delete>
 	<!-- 하우스 삭제 3단계 계좌삭제 -->
 	<delete id="deleteIncome" parameterType="map">
@@ -469,4 +475,11 @@
 	<update id="updateChkHouseSelling">
 		update house set house_selling = 1 where house_no in (select house_no from house h where  house_room >(select count(*) from room r where room_status=2 and r.house_no=h.house_no) and  (to_date(h.houseowner_deadline)- to_date(to_char(sysdate,'yyyy-mm-dd')))>=0 and house_allow=2 and house_selling=2
 	</update>
+	<!-- 하우스 오너리스트 삭제중 확인할 것  -->
+	<select id="findMove" parameterType="_int" resultType="move">
+		select*from move  where room_no in(select room_no from room where house_no=#{houseNo})
+	</select>
+	<select id="findTour" parameterType="_int" resultType="t">
+		select*from tour where room_no in(select room_no from room where house_no=#{houseNo})
+	</select>
 </mapper>

@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.common.Address;
 import kr.or.common.Income;
+import kr.or.common.Move;
 import kr.or.common.Photo;
 import kr.or.common.Tour;
 import kr.or.house.model.dao.HouseDao;
+import kr.or.house.model.vo.FindMoveTour;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
 import kr.or.house.model.vo.houseAdjustPageData;
@@ -279,31 +281,42 @@ public class HouseService {
 	}
 
 	// 하우스 삭제
+	@Transactional
 	public int deleteHouse(int memberNo, int houseNo) {
 		// 하우스 삭제
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		map.put("houseNo", houseNo);
-		int result = dao.deleteHouse(map);
-		if (result > 0) {
-			int result2 = dao.deleteAllroom(map);
-			if (result2 > 0) {
-				int result3 = dao.deleteIncome(map);
-				if (result3 > 0) {
-					int result4 = dao.deleteAddress(map);
-					if (result4 > 0) {
-						int result5 = dao.deleteAllPhoto(map);
-						return result;
+		int delmove =dao.deletemove(houseNo);
+		if(delmove>0) {
+			int deltour = dao.deletetour(houseNo);
+			if(deltour>0) {
+				int result = dao.deleteAllroom(map);
+				if (result > 0) {
+					int result2 = dao.deleteHouse(map);
+					if (result2 > 0) {
+						int result3 = dao.deleteIncome(map);
+						if (result3 > 0) {
+							int result4 = dao.deleteAddress(map);
+							if (result4 > 0) {
+								int result5 = dao.deleteAllPhoto(map);
+								return result;
+							} else {
+								return 0;
+							}
+						} else {
+							return 0;
+						}
 					} else {
 						return 0;
 					}
 				} else {
 					return 0;
 				}
-			} else {
+			}else {
 				return 0;
 			}
-		} else {
+		}else {
 			return 0;
 		}
 	}
@@ -395,6 +408,16 @@ public class HouseService {
 		}else {
 			return 0;
 		}
+	}
+
+	public FindMoveTour findMoveTour(int houseNo) {
+		ArrayList<Move> moveList= dao.findMove(houseNo);
+		ArrayList<Tour> tourList= dao.findTour(houseNo);
+		
+		FindMoveTour f= new FindMoveTour();
+		f.setMoveList(moveList);
+		f.setTourList(tourList);
+		return f;
 	}
 
 }

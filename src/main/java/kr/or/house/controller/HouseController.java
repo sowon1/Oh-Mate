@@ -30,6 +30,7 @@ import kr.or.common.Income;
 import kr.or.common.Photo;
 import kr.or.common.Tour;
 import kr.or.house.model.service.HouseService;
+import kr.or.house.model.vo.FindMoveTour;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
 import kr.or.house.model.vo.houseAdjustPageData;
@@ -383,14 +384,21 @@ public class HouseController {
 	// 하우스 삭제-jisung
 	@RequestMapping(value = "/houseDelete.do")
 	public String houseDelete(int memberNo, int houseNo, Model model) {
-		int result = service.deleteHouse(memberNo, houseNo);
+		FindMoveTour f= service.findMoveTour(houseNo);
 		int reqPage = 1;
-		if (result > 0) {
-			model.addAttribute("msg", "하우스 삭제 성공");
-			model.addAttribute("loc", "/houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage);
-			return "common/msg";
-		} else {
-			model.addAttribute("msg", "하우스 삭제 실패");
+		if(f.getMoveList().isEmpty() && f.getTourList().isEmpty()) {
+			int result = service.deleteHouse(memberNo, houseNo);
+			if (result > 0) {
+				model.addAttribute("msg", "하우스 삭제 성공");
+				model.addAttribute("loc", "/houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage);
+				return "common/msg";
+			} else {
+				model.addAttribute("msg", "하우스 삭제 성공");
+				model.addAttribute("loc", "/houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage);
+				return "common/msg";
+			}			
+		}else {
+			model.addAttribute("msg", "이미 입주한 내역이 있거나 투어신청 내역이 있습니다.");
 			model.addAttribute("loc", "/houseOwnerList.do?memberNo="+memberNo+"&reqPage="+reqPage);
 			return "common/msg";
 		}
