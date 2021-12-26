@@ -131,13 +131,13 @@
                         		</c:otherwise>
                         	</c:choose>
                         </div>           
-                        <div class="chat_helper">
+                        <div class="chat_helper" idx="${h.memberName}">
                         	<c:choose>
                         		<c:when test="${empty sessionScope.m}">
                         			<a onclick="msgpopupopen();"><img src="/resources/img/icon/chat_icon.png"></a>
                         		</c:when>
                         		<c:otherwise>
-                        			<a id="helperChat" idx="${h.memberNo}"><img src="/resources/img/icon/chat_icon.png"></a>
+                        			<a onclick="helperchat();" idx="${h.memberNo}" id="helperChat"><img src="/resources/img/icon/chat_icon.png"></a>
                         		</c:otherwise>
                         	</c:choose>
                         </div>
@@ -348,7 +348,7 @@
 	                		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
 	                 </div>
 	                 <div class="msg_modal_content">
-	                 	<h3 class="modal_msg_timetitle"><em id="title_name" class="title_name"></em> 입력해주세요.</h3>
+	                 	<h3 class="modal_msg_timetitle"><em id="title_name" class="title_name"></em></h3>
 	                 	<h2 class="modal_msg_timetext">해당 창은 <em id="countdown">3</em>초 후 자동으로 닫힙니다.</h2>
 	                 </div>
 	         	</div> 
@@ -496,75 +496,74 @@
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
 		//채팅
-		
-		$(document).on("click","#helperChat",function(){
-			var helpNo = $(this).attr('idx');
-			var name = $(".helper_pro_name").html();
-			no = $(this).attr('idx');
-			console.log(helpNo);
-			console.log(receiver);
-			//채팅 목록 있는지 부터 조회
-			$.ajax({
-				url : "/chatSelect.do",
-				data : {helpNo:helpNo, receiver : receiver},
-				type : "POST",
-				success : function(data){
-					var list = data.list;
-					var chatno2 = data.chatNo;
-					var html = "";
-					var top = "";
-					function helptalk(){
-						$(".mate_talk_view_open").css("right","40px");
-						$(".chat_icon2").children("img").attr("src","/resources/img/icon/chat_close.png");
-					}
-					top += '<a onclick="close_chat_msg();">';
-					top += '<img src="/resources/img/icon/back.png"></a>';							
-					top += '<span class="mate_talk_name">'+name+'</span>';				
-					top += '<a id="chatReport" value="'+chatNo+'" class="report_icon">';
-					top += '<img src="/resources/img/icon/report.png">';
-					top += '</a>';
-					$(".mate_talk_view_top").append(top);
-					console.log(list);
-					console.log(data);
-					if(list == null || list == "undefined" || list == ""){
-						chatNo = chatno2;
-					}else{
-						for(var i = 0; i < list.length; i++){
-							if(list[i].sender != receiver){
-								html += '<div class="mate_talk_left">';
-								html += '<img src="/resources/upload/member/'+list[i].filepath+'.png">';
-								html += '<div class="mate_talk_left_line">';
-								html += '<span class="mate_talk_msg_name">'+list[i].senderName+'</span>';
-								html += '<div class="mate_talk_view_left_one">';
-								html += '<span class="mate_talk_left_msg">'+list[i].messageContent+'</span>';
-								html += '<div class="mate_talk_msg_side">';
-								html += '<span class="mate_talk_left_date">'						
-								html += moment(list[i].messageDate).format('LT')+'</span></div></div></div></div>';
-							}else{
-								if(list[i].sender == receiver){							
-									html += '<div class="mate_talk_right">';
-									html += '<span class="mate_talk_right_date">';
-									if(list[i].messageStatus == "n"){
-										html += '<span>안읽음</span><br>';
-									}
-									html += moment(list[i].messageDate).format('LT');
-									html += '</span>';
-									html += '<span class="mate_talk_right_msg">'+list[i].messageContent+'</span>';
-									html += '</div></div>';
+		function helperchat(){
+			var helpNo = $("#helperChat").attr('idx');
+			var name = $(".chat_helper").attr('idx');
+			no = $("#helperChat").attr('idx');
+			$(".mate_talk_messageArea").empty();
+			$(".mate_talk_view_top").empty();
+			var chatNo;
+			if(helpNo == receiver){
+				$(".modal_msg_timetitle").empty();
+				$(".modal_msg_timetitle").html("<em id='title_name' class='title_name'>자신에게 대화를 신청할 수 없습니다.</em>");
+				countmsgopen(autoClose());
+			}else{				
+				//채팅 목록 있는지 부터 조회
+				$.ajax({
+					url : "/chatSelect.do",
+					data : {helpNo:helpNo, receiver : receiver},
+					type : "POST",
+					success : function(data){
+						var list = data.list;
+						chatNo = data.chatNo;
+						var html = "";
+						var top = "";
+						helptalk();
+						top += '<a onclick="close_chat_helper();">';
+						top += '<img src="/resources/img/icon/back.png"></a>';							
+						top += '<span class="mate_talk_name">'+name+'</span>';				
+						top += '<a id="chatReport" value="'+chatNo+'" class="report_icon">';
+						top += '<img src="/resources/img/icon/report.png">';
+						top += '</a>';
+						$(".mate_talk_view_top").append(top);
+						if(list == null || list == "undefined" || list == ""){
+							chatNo = chatno2;
+						}else{
+							for(var i = 0; i < list.length; i++){
+								if(list[i].sender != receiver){
+									html += '<div class="mate_talk_left">';
+									html += '<img src="/resources/upload/member/'+list[i].filepath+'.png">';
+									html += '<div class="mate_talk_left_line">';
+									html += '<span class="mate_talk_msg_name">'+list[i].senderName+'</span>';
+									html += '<div class="mate_talk_view_left_one">';
+									html += '<span class="mate_talk_left_msg">'+list[i].messageContent+'</span>';
+									html += '<div class="mate_talk_msg_side">';
+									html += '<span class="mate_talk_left_date">'						
+									html += moment(list[i].messageDate).format('LT')+'</span></div></div></div></div>';
 								}else{
-									
+									if(list[i].sender == receiver){							
+										html += '<div class="mate_talk_right">';
+										html += '<span class="mate_talk_right_date">';
+										if(list[i].messageStatus == "n"){
+											html += '<span>안읽음</span><br>';
+										}
+										html += moment(list[i].messageDate).format('LT');
+										html += '</span>';
+										html += '<span class="mate_talk_right_msg">'+list[i].messageContent+'</span>';
+										html += '</div></div>';
+									}else{
+										
+									}
 								}
-							}
-						} //for문 종료
-					}	//else종료
-					$(".mate_talk_messageArea").append(html);
-					initChat(receiver, no, chatNo);
-					console.log("ajax조회후 receiver : "+receiver);
-					console.log("ajax조회후 no : "+no);
-					console.log("ajax조회후 chatNo : "+chatNo);
-				}
-			})
-		})
+							} //for문 종료
+						}	//else종료
+						$(".mate_talk_messageArea").append(html);
+						initChat(receiver, no, chatNo);
+					} //success종료
+				})//ajax 종료	
+			}
+		}
+		
 		//login
 		$(".help_login").click(function(){
 			msgpopupopen();
@@ -739,7 +738,7 @@
                var chargeValue = $(this).val();
                if(!(chargeReg.test(chargeValue))){
             	   $(this).focus();
-                   $(".title_name").text("숫자만");
+                   $(".title_name").text("숫자만 입력해주세요.");
                    countmsgopen(autoClose());
                     resultArr[3] = false;
                }else{
@@ -751,28 +750,28 @@
 		function checkVal(){
 			if(!(resultArr[0] && resultArr[1] && resultArr[2] && resultArr[3])){
 				if($("input[name='addressCode']").val() == ""){					
-					 $(".title_name").text("주소를");
+					 $(".title_name").text("주소를 입력해주세요.");
 					 $("input[name='addressDetail']").focus();
 					countmsgopen(autoClose());
 				}else if($("input[name='helpTitle']").val() == ""){
-					 $(".title_name").text("제목을");					
+					 $(".title_name").text("제목을 입력해주세요.");					
 					 $("input[name='helpTitle']").focus();
 					countmsgopen(autoClose());
 				}else if($("textarea[name='helpContent']").val() == ""){
-					 $(".title_name").text("도움내용을");					
+					 $(".title_name").text("도움내용을 입력해주세요.");					
 					 $("textarea[name='helpContent']").focus();
 					countmsgopen(autoClose());				
 				}else if($("input[name='helpCharge']").val() == ""){
-					 $(".title_name").text("심부름비를");					
+					 $(".title_name").text("심부름비를 입력해주세요.");					
 					 $("input[name='helpCharge']").focus();
 					countmsgopen(autoClose());									
 				}
 			}else{
 				if($("input[name='helpStartTime']").val() == ""){
-					 $(".title_name").text("도움받을 시간을");
+					 $(".title_name").text("도움받을 시간을 입력해주세요.");
 					countmsgopen(autoClose());					
 				}else if($("input:radio[name='helpCategory']:checked").val() == null){
-					 $(".title_name").text("도움 유형을");
+					 $(".title_name").text("도움 유형을 입력해주세요.");
 						countmsgopen(autoClose());
 						
 				}else{
@@ -859,7 +858,7 @@
 		//신고 유효성 
 		function checkReVal(){
 			if($("textarea").val() == ""){					
-				 $(".title_name").text("사유를");
+				 $(".title_name").text("사유를 입력해주세요.");
 				 $($("textarea[name='helpContent']")).focus();
 				countmsgopen(autoClose());
 			}else{

@@ -219,6 +219,7 @@
 }
 .list_line_02{
     margin: 8px 0px 12px 0px;
+    height: 40px;
 }
 .list_line_03{
 	display:flex;

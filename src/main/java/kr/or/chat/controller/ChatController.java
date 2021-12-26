@@ -37,7 +37,7 @@ public class ChatController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("chatNo", chatNo);
 		map.put("list", data);
-		return new Gson().toJson(map);		
+		return new Gson().toJson(map);
 	}
 	
 }
