@@ -212,28 +212,28 @@
 	</c:when>
 </c:choose>
  <!-- --------------------------------------신고 팝업------------------------------------------------------ -->
-<div class="report_popup_modal">
-   	<div class="re_pop_modal">
-    		<div class="re_modal_top">
-      		<span class="re_modal_text">신고</span>
-          	<span class="re_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+<div class="chatre_popup_modal">
+   	<div class="chre_pop_modal">
+    		<div class="chre_modal_top">
+      		<span class="chre_modal_text">신고</span>
+          	<span class="chre_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
        </div>
        <div class="re_modal_content">
        		<form action="/chatReport.do" method="post" class="reform">
        			<table class="help_table">
            			<tr class="table-active_mate_help">
-           				<th>신고 닉네임</th>
+           				<th>신고 대상</th>
            				<td>
-           					<input type="text" class="input_03" value=""readonly="readonly">
-           					<input type="hidden" class="input_03" value="" name="hmemberNo" readonly="readonly">
-           					<input type="hidden" class="input_03" value="" name="helperNo" readonly="readonly">
+           					<input type="text" class="input_03 chat_report" name="atackerName" readonly="readonly">
+           					<input type="hidden" class="input_03" name="atacker" readonly="readonly">
+           					<input type="hidden" class="input_03" name="reportNum" readonly="readonly">
            				</td>
            			</tr>
            			<tr class="table-active_mate_help">
            				<th>신고자</th>
            				<td>
            					<input type="text" class="input_03" value="${sessionScope.m.memberName}" readonly="readonly">
-           					<input type="hidden" class="input_03" value="${sessionScope.m.memberNo}" name="memberNo" readonly="readonly">
+           					<input type="hidden" class="input_03" value="${sessionScope.m.memberNo}" name="reporter" readonly="readonly">
            				</td>
            			</tr>
            			<tr class="table-active_mate_help">
@@ -255,6 +255,17 @@
        		</form>
        </div>
    	</div>
+   </div>
+   <div class="form_popup_modal">		       			
+       <div class="popup_modal">
+          <div class="msg_modal_top">
+          		<span class="msg_modal_text"><em class="logo_point">Oh-Mate</em></span>
+           </div>
+           <div class="msg_modal_content">
+           	<h3 class="modal_msg_timetitle"><em id="title_name" class="title_name"></em></h3>
+           	<h2 class="modal_msg_timetext">해당 창은 <em id="countdown">3</em>초 후 자동으로 닫힙니다.</h2>
+           </div>
+   	</div> 
    </div>
 <!-- --------------------------------------신고 팝업끝------------------------------------------------------ -->
  
@@ -338,31 +349,56 @@
 </div>
 
 <script>
+	//자동닫기
+	function autoClose(){
+		   setTimeout('closed()',3000);
+	}
+	function closed(){
+		   countmsgclose();
+	}
+	//팝업
+	function countmsgopen(){
+		$(".form_popup_modal").css("display","flex");
+	    $("body").css("overflow", "hidden");
+	    $(".back_dark").show();
+	    
+	}
+	function countmsgclose(){
+		$(".form_popup_modal").css("display","none");
+		$("body").css("overflow", "auto");
+		$(".back_dark").hide();
+	}
 	//채팅 신고하기
-	$("#chatReport").click(function(){
-		reportopen();
+	function chatreportfrm(){
+		var name = $(".mate_talk_view_top").find(".mate_talk_name").html();
+		$(".chat_report").val(name);
+		chatreportopen();
+	}
+	$(".chre_modal_close").click(function(){
+		chatreportclose();
 	});
-	$(".re_modal_close").click(function(){
-		reportclose();
-	});
-	function reportopen(){
-		$(".report_popup_modal").css("display","flex");
+	function chatreportopen(){
+		$(".chatre_popup_modal").css("display","flex");
 	    $("body").css("overflow", "hidden");
 	    $(".tour_back_dark").show();			
 	}
-	function reportclose(){
-		$(".report_popup_modal").css("display","none");
+	function chatreportclose(){
+		$(".chatre_popup_modal").css("display","none");
 	    $("body").css("overflow", "auto");
 	    $(".tour_back_dark").hide();			
 	}
 	//신고 유효성 
-	function checkReVal(){
-		if($("textarea").val() == ""){					
-			 $(".title_name").text("사유를");
-			 $($("textarea[name='helpContent']")).focus();
+	function checkCReVal(){
+		if($("textarea[name='reportContent']").val() == ""){					
+			 $(".title_name").text("사유를 입력해주세요.");
+			 $($("textarea[name='reportContent']")).focus();
 			countmsgopen(autoClose());
 		}else{
-			 $(".reform").submit();
+			var no = $(".mate_talk_msg_name").next().next().val();
+			$("input[name='atacker']").val(no);
+			var chatNo = $(".chat_msg_open").attr('idx');
+			$("input[name='reportNum']").val(chatNo);
+			$(".reform").submit();
 		}
 	}
 
@@ -399,14 +435,14 @@
 				top += '<a onclick="close_chat_helper();">';
 				top += '<img src="/resources/img/icon/back.png"></a>';							
 				top += '<span class="mate_talk_name">'+name+'</span>';				
-				top += '<a id="chatReport" value="'+chatNo+'" class="report_icon">';
+				top += '<a id="chatReport" value="'+chatNo+'" class="report_icon" onclick="chatreportfrm(name);">';
 				top += '<img src="/resources/img/icon/report.png">';
 				top += '</a>';
 				$(".mate_talk_view_top").append(top);
 				for(var i = 0; i < data.length; i++){
 					if(data[i].sender != receiver){
 						html += '<div class="mate_talk_left">';
-						html += '<img src="/resources/upload/member/'+data[i].filepath+'.png">';
+						html += '<img src="/resources/upload/member/'+data[i].filepath+'">';
 						html += '<div class="mate_talk_left_line">';
 						html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
 						html += '<div class="mate_talk_view_left_one">';

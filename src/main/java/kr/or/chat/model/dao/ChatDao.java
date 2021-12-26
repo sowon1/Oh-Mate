@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.or.chat.model.vo.Chat;
+import kr.or.common.Report;
 
 @Repository
 public class ChatDao {
@@ -27,6 +28,10 @@ public class ChatDao {
 	}
 	public int insertChat(HashMap<String, Object> map) {
 		return sqlSession.insert("chat.insertChat",map);
+	}
+	//채팅 - 신고
+	public int insertChatReport(Report report) {
+		return sqlSession.insert("chat.insertChatReport",report);
 	}
 	
 }

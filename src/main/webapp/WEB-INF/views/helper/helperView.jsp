@@ -154,9 +154,9 @@
 		                   		<form action="/helperReport.do" method="post" class="reform">
 		                   			<table class="help_table">
 	                        			<tr class="table-active_mate_help">
-	                        				<th>신고 닉네임</th>
-	                        				<td>
-	                        					<input type="text" class="input_03" value="${h.helperName}"readonly="readonly">
+	                        				<th>신고 대상</th>
+	                        				<td> 
+	                        					<input type="text" class="input_03" value="${fn:substring(h.helperName,0,fn:length(h.helperName)-3)}**"readonly="readonly">
 	                        					<input type="hidden" class="input_03" value="${h.memberNo}" name="hmemberNo" readonly="readonly">
 	                        					<input type="hidden" class="input_03" value="${h.helperNo}" name="helperNo" readonly="readonly">
 	                        				</td>
@@ -177,7 +177,7 @@
 	                        			<tr class="table-active_mate_help">
 	                        				<th>신고사유</th>
 	                        				<td>
-	                        					<textarea name="reportContent" class="textarea_pro"></textarea>
+	                        					<textarea name="reportContent" class="textarea_pro report_textarea"></textarea>
 	                        				</td>
 	                        			</tr>
                         			</table>
@@ -388,37 +388,19 @@
 				</div>
 			</div>
 			<div class="helper_view_review">
+				<h3 class="helper_review_title">리뷰 <em class="point">${h.reviewCount}</em>건</h3>
 				<div class="helper_review_photo">
-					<ul>
-						<li>
-							<img src="/resources/img/icon/admin_house.png">
-						</li>
-						<li>
-							<img src="/resources/img/icon/admin_house.png">
-						</li>
-						<li>
-							<img src="/resources/img/icon/admin_house.png">
-						</li>
-						<li>
-							<img src="/resources/img/icon/admin_house.png">
-						</li>
-						<li>
-							<img src="/resources/img/icon/admin_house.png">
-						</li>
-						<li>
-							<img src="/resources/img/icon/admin_house.png">
-						</li>
-						<li>
-							<img src="/resources/img/icon/admin_house.png">
-						</li>
-						<li>
-							<img src="/resources/img/icon/admin_house.png">
-						</li>
-					</ul>
+					
 				</div>
 				<div class="helper_review_list">
+					<c:if test="${empty review}">
+						<div class="none_review">
+							<img src="/resources/img/icon/search_img.png">
+							<h3>${h.helperName}님에 대한 등록된 리뷰가 없습니다.</h3>
+						</div>
+					</c:if>
 					<ul>
-						<c:forEach items="${review}" var="r">						
+						<c:forEach items="${review}" var="r">			
 							<li>
 								<div class="review_text">
 									<img src="/resources/img/icon/profile.png" class="review_pro_img">
@@ -495,6 +477,16 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
+		function reportopen(){
+			$(".report_popup_modal").css("display","flex");
+		    $("body").css("overflow", "hidden");
+		    $(".tour_back_dark").show();			
+		}
+		function reportclose(){
+			$(".report_popup_modal").css("display","none");
+		    $("body").css("overflow", "auto");
+		    $(".tour_back_dark").hide();			
+		}
 		//채팅
 		function helperchat(){
 			var helpNo = $("#helperChat").attr('idx');
@@ -527,12 +519,12 @@
 						top += '</a>';
 						$(".mate_talk_view_top").append(top);
 						if(list == null || list == "undefined" || list == ""){
-							chatNo = chatno2;
+							
 						}else{
 							for(var i = 0; i < list.length; i++){
 								if(list[i].sender != receiver){
 									html += '<div class="mate_talk_left">';
-									html += '<img src="/resources/upload/member/'+list[i].filepath+'.png">';
+									html += '<img src="/resources/upload/member/'+list[i].filepath+'">';
 									html += '<div class="mate_talk_left_line">';
 									html += '<span class="mate_talk_msg_name">'+list[i].senderName+'</span>';
 									html += '<div class="mate_talk_view_left_one">';
@@ -828,25 +820,7 @@
 				}
 			}
        }
-		//자동닫기
-       function autoClose(){
-    	   setTimeout('closed()',3000);
-       }
-       function closed(){
-    	   countmsgclose();
-       }
-       //팝업
-       function countmsgopen(){
-			$(".form_popup_modal").css("display","flex");
-		    $("body").css("overflow", "hidden");
-		    $(".back_dark").show();
-		    
-		}
-		function countmsgclose(){
-			$(".form_popup_modal").css("display","none");
-			$("body").css("overflow", "auto");
-			$(".back_dark").hide();
-		}
+		
 		//신고 팝업
 		$("#helperReport").click(function(){
 			reportopen();
@@ -857,9 +831,9 @@
 		
 		//신고 유효성 
 		function checkReVal(){
-			if($("textarea").val() == ""){					
+			if($(".report_textarea").val() == ""){					
 				 $(".title_name").text("사유를 입력해주세요.");
-				 $($("textarea[name='helpContent']")).focus();
+				 $("textarea[name='reportContent']").focus();
 				countmsgopen(autoClose());
 			}else{
 				 $(".reform").submit();

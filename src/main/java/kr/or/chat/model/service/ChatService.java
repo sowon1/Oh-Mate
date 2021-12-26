@@ -10,6 +10,7 @@ import kr.or.chat.model.dao.ChatDao;
 import kr.or.chat.model.vo.Chat;
 import kr.or.chatmsg.model.dao.ChatMsgDao;
 import kr.or.chatmsg.model.vo.ChatMsg;
+import kr.or.common.Report;
 
 @Service
 public class ChatService {
@@ -37,9 +38,14 @@ public class ChatService {
 		}		
 		return chatNo;
 	}
+	//뒤로가기 시 
 	public ArrayList<ChatMsg> selectChat(int chatNo) {
 		ArrayList<ChatMsg> list = chdao.selectChatOneMsg(chatNo);
 		return list;
+	}
+	//채팅 신고
+	public int insertChatReport(Report report) {
+		return dao.insertChatReport(report);
 	}
 	
 }
