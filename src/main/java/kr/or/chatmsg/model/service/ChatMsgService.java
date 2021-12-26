@@ -96,9 +96,6 @@ public class ChatMsgService extends TextWebSocketHandler{
 				int c = dao.insertChatMsg(sendMap);
 				//msg 메세지 , receiver 접속해서 보낸사람, no 받는사람 - header에서 보낸거는
 				//서비스에선 - 
-				System.out.println("내가 sender : "+sender);
-				System.out.println("내가 receiver : "+receiver);
-				System.out.println("내가 msg : "+msg);
 				//되돌려줄때 프로필 정보 조회
 				if(c > 0) {
 					int chatmsgNo = dao.selectChatOneMsgNo(sendMap);
@@ -107,9 +104,13 @@ public class ChatMsgService extends TextWebSocketHandler{
 				ChatMsg cm = dao.selectChatOneMsgReturn(sendMap);
 				String sendMsg = "<div class='mate_talk_left'><img src='/resources/upload/member/"+cm.getFilepath()+".png'><div class='mate_talk_left_line'><span class='mate_talk_msg_name'>"+cm.getSenderName()+"</span><div class='mate_talk_view_left_one'><span class='mate_talk_left_msg'>"+cm.getMessageContent()+"</span><div class='mate_talk_msg_side'><span class='mate_talk_left_date'>"+cm.getMessageDate()+"</span></div></div></div></div>";
 				//되돌려줄때 
-				WebSocketSession s = memberList.get(sender);
+				// no 추출 - 상대방 no
+				String no = element.getAsJsonObject().get("no").getAsString();
+				WebSocketSession s = memberList.get(no);
+				System.out.println(sendMsg);
 				if(s != null) {
-					TextMessage tm = new TextMessage(new Gson().toJson(sendMsg));
+					TextMessage tm = new TextMessage(sendMsg);
+					System.out.println(tm);
 					s.sendMessage(tm);
 				}
 			}

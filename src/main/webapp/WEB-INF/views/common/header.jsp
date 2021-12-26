@@ -367,61 +367,12 @@
 	}
 
 	//matetalk - list
+	var receiver = "${sessionScope.m.memberNo}"; 
+	var receiverName = "${sessionScope.m.memberName}"; 
 	$(function(){
-		var receiver = "${sessionScope.m.memberNo}"; 
-		var receiverName = "${sessionScope.m.memberName}"; 
 		$("#mate_talk").click(function(){
 			$(".mate_talk_list").empty();
-			$.ajax({
-				type : "post",
-				url : "matetalkList.do",
-				data : {receiver:receiver},
-				success : function(data){
-					console.log(data);
-					var html = "";
-					if(data == 0){
-						html += '<div class="none_chat">';
-						html += '<img src="/resources/img/icon/none_chat_icon.png">';
-						html += '<span class="none_chat_text">';
-						html += '개설된 채팅방이 없습니다.<br>Oh-Mate 회원들과 함께 채팅을 즐겨보세요.<span>';
-						html += '</div>';
-					}
-					for(var i = 0; i < data.length; i++){
-						html += '<a  idx="'+data[i].chatNo+'"class="chat_msg_open">';
-						html += '<li><div class="talk_profile">';
-						if(data[i].filepath == null){
-							html += '<img src="/resources/img/icon/profile.png">';
-						}else{
-							html += '<img src="/resources/upload/member/'+data[i].filepath+'" class="chat_list_pro">';
-						}
-						html += '</div>';
-						html += '<div class="talk_list_text">';
-						html += '<div class="talk_list_02">';
-						if(data[i].senderName == receiverName){
-							html += '<span class="mate_talk_msg_name">'+data[i].receiverName+'</span>';
-						}else{						
-							html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
-						}
-						html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
-						if(receiver == data[i].sender){
-							html += '<input type="hidden" value="'+data[i].receiver+'">';							
-						}else{
-							
-							html += '<input type="hidden" value="'+data[i].sender+'">';
-						}
-						html += '</div>';
-						html += '<div class="talk_list_time">';
-						html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('hour').fromNow()+'</span>';
-						if(data[i].readCount == 0 || data[i].messageDirection == "보낸메세지"){
-							
-						}else{							
-							html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
-						}
-						html += '</div></div></li></a>';					
-					}
-					$(".mate_talk_list").append(html);
-				}
-			});
+			close_chat_helper();
 		});
 	})
 	var receiver = '${sessionScope.m.memberNo}';
@@ -445,7 +396,7 @@
 			success : function(data){
 				var html = "";
 				var top = "";
-				top += '<a onclick="close_chat_msg();">';
+				top += '<a onclick="close_chat_helper();">';
 				top += '<img src="/resources/img/icon/back.png"></a>';							
 				top += '<span class="mate_talk_name">'+name+'</span>';				
 				top += '<a id="chatReport" value="'+chatNo+'" class="report_icon">';
@@ -485,13 +436,71 @@
 		})
 		
 	})
-	
+	//채팅방 뒤로가기
+	function close_chat_helper(){
+		$(".mate_talk_view_open").css("right","-500px");
+		$(".mate_talk_list").empty();
+		$(".mate_talk_open").show();
+		$.ajax({
+			type : "post",
+			url : "/matetalkList.do",
+			data : {receiver:receiver},
+			success : function(data){
+				var html = "";
+				if(data == 0){
+					html += '<div class="none_chat">';
+					html += '<img src="/resources/img/icon/none_chat_icon.png">';
+					html += '<span class="none_chat_text">';
+					html += '개설된 채팅방이 없습니다.<br>Oh-Mate 회원들과 함께 채팅을 즐겨보세요.<span>';
+					html += '</div>';
+				}
+				for(var i = 0; i < data.length; i++){
+					html += '<a  idx="'+data[i].chatNo+'"class="chat_msg_open">';
+					html += '<li><div class="talk_profile">';
+					if(data[i].filepath == null){
+						html += '<img src="/resources/img/icon/profile.png">';
+					}else{
+						html += '<img src="/resources/upload/member/'+data[i].filepath+'" class="chat_list_pro">';
+					}
+					html += '</div>';
+					html += '<div class="talk_list_text">';
+					html += '<div class="talk_list_02">';
+					if(data[i].senderName == receiverName){
+						html += '<span class="mate_talk_msg_name">'+data[i].receiverName+'</span>';
+					}else{						
+						html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
+					}
+					html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
+					if(receiver == data[i].sender){
+						html += '<input type="hidden" value="'+data[i].receiver+'">';							
+					}else{
+						
+						html += '<input type="hidden" value="'+data[i].sender+'">';
+					}
+					html += '</div>';
+					html += '<div class="talk_list_time">';
+					html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('MMMM Do, h:mm').fromNow()+'</span>';
+					if(data[i].readCount == 0 || data[i].messageDirection == "보낸메세지"){
+						
+					}else{							
+						html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
+					}
+					html += '</div></div></li></a>';					
+				}
+				$(".mate_talk_list").append(html);
+			}
+		}) //ajax 닫기
+	}
+	function helptalk(){
+		$(".mate_talk_view_open").css("right","40px");
+		$(".chat_icon2").find("img").attr("src","/resources/img/icon/chat_close.png");
+	}
 	function initChat(param1,param2,param3){
 		receiver = param1;
 		no = param2;
 		chatNo = param3;
 		//웹소켓 연걸 시도
-		ws = new WebSocket("ws://192.168.35.222/chat.do");
+		ws = new WebSocket("ws://192.168.75.104/chat.do");
 		//웹소켓 연결이 성공하면 실행할 함수
 		ws.onopen = startChat;
 		//서버에서 화면으로 데이터를 전송하면 처리할 함수
@@ -517,11 +526,13 @@
 		}
 		//insert 후 출력부분
 		appendChat(param.data);		
+		console.log("param 데이터 잘 받아왔니? : "+param.data);
 	}
 	function endChat() {
 		
 	}
 	function appendChat(msg) {
+		console.log("msg 데이터 잘 받아왔니? : "+msg);
 		$(".mate_talk_messageArea").append(msg);
 		$(".mate_talk_messageArea").scrollTop($(".mate_talk_messageArea")[0].scrollHeight);
 	}
@@ -543,11 +554,6 @@
 		});
 	});
 	
-	//채팅방 뒤로가기
-	function close_chat_msg(){
-		$(".mate_talk_view_open").css("right","-500px");
-		$(".mate_talk_open").show();
-	}
 	
 	//비 로그인 시 메신저 버튼누를경우 
 	$("#mate_talk_login").click(function(){
