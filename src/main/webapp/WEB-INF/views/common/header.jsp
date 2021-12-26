@@ -412,7 +412,7 @@
 						html += '</div>';
 						html += '<div class="talk_list_time">';
 						html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('hour').fromNow()+'</span>';
-						if(data[i].receiverName == receiverName){
+						if(data[i].readCount == 0 || data[i].messageDirection == "보낸메세지"){
 							
 						}else{							
 							html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
@@ -430,10 +430,10 @@
 	var ws;
 	var messageStatus = "안읽음";
 	var messageDate = moment().format('LT');
+	var chatNo;
 	//ajax먼저 하고 성공시 아래꺼 넣기
 	$(document).on("click",".chat_msg_open",function(){
-		var chatNo = $(this).attr('idx');
-		
+		var chatNo = $(this).attr('idx');		
 		var name = $(this).find(".mate_talk_msg_name").html();
 		var no = $(this).find(".mate_talk_msg_name").next().next().val();		
 		$(".mate_talk_messageArea").empty();
@@ -445,7 +445,6 @@
 			success : function(data){
 				var html = "";
 				var top = "";
-				console.log(data);
 				top += '<a onclick="close_chat_msg();">';
 				top += '<img src="/resources/img/icon/back.png"></a>';							
 				top += '<span class="mate_talk_name">'+name+'</span>';				
@@ -481,19 +480,18 @@
 					}
 				} //for문 종료
 				$(".mate_talk_messageArea").append(html);
-				initChat(receiver, no);
+				initChat(receiver, no, chatNo);
 			}
 		})
 		
 	})
 	
-	function initChat(param1,param2){
+	function initChat(param1,param2,param3){
 		receiver = param1;
 		no = param2;
-		console.log("r : " +receiver);
-		console.log("no :"+no);
+		chatNo = param3;
 		//웹소켓 연걸 시도
-		ws = new WebSocket("ws://192.168.10.21/chat.do");
+		ws = new WebSocket("ws://192.168.35.222/chat.do");
 		//웹소켓 연결이 성공하면 실행할 함수
 		ws.onopen = startChat;
 		//서버에서 화면으로 데이터를 전송하면 처리할 함수
@@ -518,9 +516,7 @@
 			}
 		}
 		//insert 후 출력부분
-		
-		
-		
+		appendChat(param.data);		
 	}
 	function endChat() {
 		
@@ -532,7 +528,8 @@
 	function sendMsg() {
 		var msg = $("#sendMsg").val();
 		if(msg != '') {
-			var data = {type:"chat", msg:msg, sender:receiver, receiver : no};
+			//msg 메세지 , receiver 접속해서 보낸사람, no 받는사람
+			var data = {type:"chat", msg:msg, sender:receiver, receiver : no, chatNo : chatNo};
 			ws.send(JSON.stringify(data));
 			appendChat("<div class='mate_talk_right'><span class='mate_talk_right_date'>"+messageStatus+"<br>"+messageDate+"</span><span class='mate_talk_right_msg'>"+msg+"</div>");
 			$("#sendMsg").val("");

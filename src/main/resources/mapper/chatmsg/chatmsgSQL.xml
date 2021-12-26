@@ -30,4 +30,36 @@
 		set message_status='y' 
 		where chat_no=#{chatNo} and sender=#{no}
 	</update>
+	<!-- 메세지 보낸거 저장 -->
+	<insert id="insertChatMsg" parameterType="map">
+		insert into 
+			chat_message values(
+				MESSAGE_SEQ.NEXTVAL,
+				#{chatNo},
+				#{sender},
+				#{msg},
+				to_char(sysdate,'YYYY-MM-DD HH:MI'),
+				'n'
+			)
+	</insert>
+	<!-- 지금 등록한 메세지 번호 -->
+	<select id="selectChatMsgNo" parameterType="map" resultType="_int">
+		select 
+			max(message_no) 
+		from chat_message
+	</select>
+	<!-- 전달할거 조회 -->
+	<select id="selectChatMsgOneReturn" parameterType="map" resultType="chatmsg">
+		select 
+            c.message_no as messageNo,
+			c.chat_no as chatNo,
+			c.sender,
+			c.message_content as messageContent,
+			c.message_date as messageDate,
+			c.message_status as messageStatus,
+			(select member_name from member where member_no=c.sender) as senderName,
+			(select member_filepath from member where member_no = c.sender) as filepath
+        from chat_message c
+        where message_no=#{messageNo}
+	</select>
 </mapper>

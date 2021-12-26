@@ -29,4 +29,16 @@ public class ChatMsgDao {
 	public int updateChatStatus(HashMap<String, Object> map) {
 		return sqlSession.update("chatmsg.updateChatStatus",map);
 	}
+	//채팅메세지 DB 저장
+	public int insertChatMsg(HashMap<String, Object> sendMap) {
+		return sqlSession.insert("chatmsg.insertChatMsg",sendMap);
+	}
+	//지금 등록한 채팅 메세지 조회
+	public int selectChatOneMsgNo(HashMap<String, Object> sendMap) {
+		return sqlSession.selectOne("chatmsg.selectChatMsgNo",sendMap);
+	}
+	//전달할 메세지 프로필 조회
+	public ChatMsg selectChatOneMsgReturn(HashMap<String, Object> sendMap) {
+		return sqlSession.selectOne("chatmsg.selectChatMsgOneReturn",sendMap);
+	}
 }

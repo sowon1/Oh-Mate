@@ -6,8 +6,8 @@
             c.chat_no as chatNo,
             c.sender,
          	c.receiver,
-            (select message_content from (select chat_no, message_content from chat join chat_message using (chat_no) order by message_date desc)cm where cm.chat_no = c.chat_no and rownum = 1) as chatContent,
-            (select message_date from (select chat_no, message_date from chat join chat_message using (chat_no) order by message_date desc)cm where cm.chat_no = c.chat_no and rownum = 1) as chatDate,
+            (select message_content from (select chat_no, message_content from chat join chat_message using (chat_no) order by message_no desc)cm where cm.chat_no = c.chat_no and rownum = 1) as chatContent,
+            (select message_date from (select chat_no, message_date from chat join chat_message using (chat_no) order by message_no desc)cm where cm.chat_no = c.chat_no and rownum = 1) as chatDate,
             (select count(*) from chat_message where sender=c.sender and message_status='n') as readCount,
             (select member_name from member where member_no=c.sender) as senderName,
             (select member_name from member where member_no=c.receiver) as receiverName,
@@ -30,5 +30,20 @@
         from chat c 
         where c.sender=#{receiver} or c.receiver=#{receiver} order by chatdate desc
 	</select>
-	
+	<!-- 채팅방 있는지 조회 -->
+	<select id="chatSelect" parameterType="map" resultType="_int">
+		select
+			NVL(max(chat_no),0) as chatNo
+		from chat
+		where 
+		(sender=#{receiver} and receiver=#{helpNo}) or (sender=#{helpNo} and receiver=#{receiver})
+	</select>
+	<!-- 채팅방 등록 -->
+	<insert id="insertChat" parameterType="map">
+		insert into chat values(
+			chat_SEQ.NEXTVAL,
+			#{receiver},
+			#{helpNo}
+		)
+	</insert>
 </mapper>

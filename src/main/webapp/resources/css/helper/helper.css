@@ -762,6 +762,9 @@ from { opacity: 0; -webkit-transform: scale(.8); }
     right: 3px;
     top: 3px;
 }
+.chat_helper a{
+	cursor: pointer;
+}
 .like_helper_view img, .report_helper img, .chat_helper img {
 	width: 30px;
 }
