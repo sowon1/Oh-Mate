@@ -67,7 +67,7 @@
 				<div class="pofile_cont">
 					<h5>나와 비슷한 성향의 메이트를 구해보세요</h5>
 					<br>
-					<form action="/insertProfile.do" method="post">	
+					<form>	
 					<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo}">
 				    <input type="hidden" name="pWriter" value="${sessionScope.m.memberId}">
 					
@@ -117,7 +117,8 @@
 		           		</div>
 	           		</div><br><br>
 	           		<div class="submitbtn">
-	           			<input type="submit" class="btn btn-primary" id="communitySearch" value="조건검색">
+	           			<span class="btn btn-primary" id="searchReset">초기화</span>
+	           			<span class="btn btn-primary" id="communitySearch">적용하기</span>
 					</div>
 					</form>
 				</div>
@@ -131,6 +132,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
+			<div id="cardList9">
 				<c:forEach items="${list }" var="b" varStatus="i">
 				 	<div class="cardImg" onclick="location.href='/boardView.do?boardNo=${b.boardNo}'">
 					  <div class="col mb-4">
@@ -162,9 +164,130 @@
 					  </div>
 					</div>
 				</c:forEach>
+				</div>
 			</c:otherwise>
 		</c:choose>
-		</div>
+			<div class="photoWrapper"></div> 
+			<button class="btn btnsty" id="moreBtn" value="9" >더보기</button>		
+	</div>
+	
+<script>
+	//더보기
+	$("#moreBtn").click(function(){
+		var start = $(this).val();
+		var end = Number(start) + 8;
+		var list = "";
+		alert(end);
+		$.ajax({
+			url : "/communityMore.do",
+			type : "post",
+			data : {start:start},
+			success : function(data){ 
+				list = "<div id='cardList"+end+"'>"
+				for(var i=0; i<data.length; i++){
+					list += "<div class='cardImg' 'location.href='/boardView.do?boardNo="+data[i].boardNo+"''>";
+					list += "<div class='col mb-4'>";
+					list += "<div class='card'>";
+					list += "<img src='/resources/upload/board/"+data[i].filePath+"' class='card-img-top'>";
+					list += "<div class='card-body'>";
+					list += "<h5 class='card-title'>"+data[i].boardTitle+"</h5>";
+					list += "<div class='profile'>";
+					if(data[i].fileImg ==  null || data[i].fileImg == ""){
+						list +=	"<div class='prof'>";
+						list +=	"<img src='resources/img/icon/profile.png' class='memberImg'>";
+						list +=	"</div>";
+					}else{
+						list +=	"<div class='prof'>";
+						list += "<img src='resources/upload/member/"+data[i].fileImg+"' class='memberImg'>";
+						list +=	"</div>";
+					}
+					list += "</div>";
+					list += "<div class='cardTC'>";
+					list += "<p class='card-text'>"+data[i].boardWriter+"</p>"
+					list += "<p class='card-content'>"+data[i].regDate+"</p>&nbsp;";
+					list += "<p class='card-content'>조회 "+data[i].readCount+"</p>";
+					list += "</div></div></div></div></div>";
+				}
+				$("#"+("cardList"+start)).after(list);
+				list += "</div>";
+				var morevalue = $("#moreBtn").val();
+				if(data.length == 8){
+					$("#moreBtn").attr('value',Number(morevalue) + 8);
+					return;
+				}else{
+					$("#moreBtn").prop("disabled",true);
+					return;
+				}
+				alert(morevalue);
+			}
+		});
+		
+		/* $(function(){
+			$("#moreBtn").click();   
+		}); */
+	});
+
+	//조건검색
+	$("#communitySearch").click(function(){
+		var localVal = $("select[name=pLocal]").val();
+		var genderVal = $("input[name=pGender]:checked").val();
+		var ageVal = $("input[name=pAge]:checked").val();
+		var smokeVal = $("input[name=pSmoke]:checked").val();
+		var petVal = $("input[name=pPet]:checked").val();
+		var cleanVal = $("input[name=pCleaning]:checked").val();
+		var patternVal = $("input[name=pPattern]:checked").val();
+		
+		if(genderVal == "여성전용"){
+			pGender="1"
+		}else if(genderVal == "남성전용"){
+			pGender="2"
+		}else if(genderVal == "남녀공용"){
+			pGender="3"
+		}
+			
+		if(ageVal == "20대"){
+			pAge="1"
+		}else if(ageVal == "30대"){
+			pAge="2" 
+		}else if(ageVal == "40대이상"){
+			pAge="3"
+		}
+		
+		if(smokeVal == "흡연"){
+			pSmoke=="1"
+		}else if(smokeVal == "비흡연"){
+			pSmoke=="2"
+		}
+		
+		if(petVal == "좋아요"){
+			pPet="1"
+		}else if(petVal == "싫어요"){
+			pPet="2"
+		}
+		
+		if(cleanVal == "좋아해요"){
+			pCleaning="1"
+		}else if(cleanVal == "싫어해요"){
+			pCleaning="2"
+		}
+		
+		if(patternVal == "밤"){
+			pPattern="1"
+		}else if(patternVal == "낮"){
+			pPattern="2"
+		}	
+		
+		var profileOption = genderVal+""+ageVal+""+localVal+""+smokeVal+""+petVal+""+cleanVal+""+patternVal+"";
+		alert(profileOption);
+
+		//location.href="/searchOption.do?profileOption="+profileOption;
+	});
+	
+	//초기화
+	$("#searchReset").click(function(){
+		$(".select").find("input").prop('checked',false);
+	});
+</script>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

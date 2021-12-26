@@ -2,6 +2,7 @@ package kr.or.board.model.vo;
 
 import java.util.ArrayList;
 
+import kr.or.member.model.vo.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardList {
-	private Board b;
-	private ArrayList<Board> list;
+public class BoardData {
+	private ArrayList<Board> b;
+	private int totalCount;
 }

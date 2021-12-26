@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.board.model.dao.BoardDao;
 import kr.or.board.model.vo.Board;
+import kr.or.board.model.vo.BoardData;
 import kr.or.board.model.vo.BoardMemberData;
 import kr.or.board.model.vo.MateComment;
 import kr.or.member.model.vo.Member;
@@ -52,10 +53,12 @@ public class BoardService {
 		return dao.selectMember(memberId);
 	}
 		
-	//게시글 목록 조회
-	public ArrayList<Board> selectBoard() {
+	//게시글 목록 조회 + 총 게시물 수
+	public BoardData selectBoard() {
 		ArrayList<Board> list = dao.selectBoard();
-		return list;
+		int total = dao.BoardtotalCount();
+		BoardData bd = new BoardData(list, total);
+		return bd;
 	}
 
 	//게시글작성
@@ -226,6 +229,26 @@ public class BoardService {
 		ArrayList<Board> list = dao.mateSearch(keyword);
 		return list;
 	}
+
+	//더보기
+	public ArrayList<Board> communityMore(int start) {
+		int length = 8;
+		int end = start+length-1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end", end);
+		System.out.println("service:"+map);
+		
+		ArrayList<Board> list = dao.communityMore(map);
+		//System.out.println("servicelist:"+list);
+		return list;
+	}
+
+	public ArrayList<Board> searchOption(Profile p) {
+		return dao.searchOption(p);
+	}
+
 	
 	
 

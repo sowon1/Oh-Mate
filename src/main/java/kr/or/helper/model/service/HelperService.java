@@ -18,6 +18,8 @@ import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
+import kr.or.helper.model.vo.ReqHelperAdjust;
+import kr.or.helper.model.vo.ReqHelperAdjustPageData;
 import kr.or.helper.model.vo.ReqHelperList;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
@@ -419,6 +421,115 @@ public class HelperService {
 		map.put("memberNo", memberNo);
 		map.put("helpNo", helpNo);
 		return dao.insertHelpPayment(map);
+	}
+
+	public ReqHelperAdjustPageData selectAdjustList(int memberNo, int reqPage) {
+		int helperNo = dao.selectHelperNo(memberNo);
+		int numPerPage = 5;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage + 1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("helperNo", helperNo);
+		ArrayList<ReqHelperAdjust> list = dao.selectHelperAdjustList(map);
+		int totalCount = dao.selectAllhelperCount(helperNo);
+		int totalPage = 0;
+		if (totalCount % numPerPage == 0) {
+			totalPage = totalCount / numPerPage;
+		} else {
+			totalPage = totalCount / numPerPage + 1;
+		}
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
+		String pageNavi = "<ul class='pagination pagination'>";
+		if (pageNo != 1) {
+			pageNavi += "<li class = 'page-item-mate-mate'>";
+			pageNavi += "<a href='/helperReqListAdjust.do?reqPage="+ (pageNo - 1) + "'>";
+			pageNavi += "&lt;</a></li>";
+		}
+		for (int i = 0; i < pageNaviSize; i++) {
+			if (pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'>";
+				pageNavi += "<a href='/helperReqListAdjust.do?reqPage="+ pageNo+ "'>";
+				pageNavi += pageNo + "</a></li>";
+			} else {
+				pageNavi += "<li class='page-item-mate-mate'>";
+				pageNavi += "<a href='/helperReqListAdjust.do?reqPage=" + pageNo+ "'>";
+				pageNavi += pageNo + "</a></li>";
+			}
+			pageNo++;
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		if (pageNo <= totalPage) {
+			pageNavi += "<li class='page-item'>";
+			pageNavi += "<a href='/helperReqListAdjust.do?reqPage=" + pageNo + "'>";
+			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
+		}
+		pageNavi += "</ul>";
+		ReqHelperAdjustPageData rhapd= new ReqHelperAdjustPageData();
+		rhapd.setList(list);
+		rhapd.setStart(start);
+		rhapd.setTotalCount(totalCount);
+		rhapd.setPageNavi(pageNavi);
+		return rhapd;
+	}
+	public HashMap<String, Object> selectHelpRequestList(int memberNo, int reqPage) {
+		// TODO Auto-generated method stub
+		int numPerPage=5;
+		int end = reqPage*numPerPage;
+		int start = end-numPerPage+1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo",memberNo);
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<HelpList> list = dao.selectHelpRequestList(map);
+		int totalCount = dao.helpRequestCount(memberNo);
+		int totalPage = 0;
+		
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage;
+		}else {
+			totalPage = totalCount/numPerPage + 1;
+		}
+		
+		int pageNaviSize=5;
+		int pageNo=1;
+		if(reqPage>4) {
+			pageNo=reqPage-2;
+			if(totalPage - reqPage < (pageNaviSize-1)) {
+				pageNo = totalPage-(pageNaviSize-1);
+			}
+		}
+		
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/helpList.do?reqPage="+(reqPage-1)+"'>&lt;</a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/helpList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+			}else {
+				pageNavi += "<li class='page-item-mate-mate'><a href='/helpList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/helpList.do?reqPage="+(reqPage+1)+"'>&gt;</a><li>";
+		}
+		pageNavi += "</ul>";
+		
+		map.put("pageNavi", pageNavi);
+		map.put("list",	list);
+		
+		return map;
 	}
 
 }

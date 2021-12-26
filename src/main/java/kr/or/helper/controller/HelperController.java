@@ -35,6 +35,8 @@ import kr.or.common.Report;
 import kr.or.helper.model.service.HelperService;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
+import kr.or.helper.model.vo.ReqHelperAdjust;
+import kr.or.helper.model.vo.ReqHelperAdjustPageData;
 import kr.or.member.model.vo.Member;
 
 @Controller
@@ -483,12 +485,12 @@ public class HelperController {
 				}
 			}
 		}
-		@Scheduled(cron = "0 0/15 * * * ?"  )
+		@Scheduled(cron = "1 0/15 * * * ?"  )
 		public void ChkHelpComDelay() {
 			System.out.println("15분마다 실행!");
 			int result = service.ChkHelpComeDelay();
 			if(result>0) {
-				System.out.println(result+"처리완료");
+				System.out.println(result+"건 처리완료");
 			}else {
 				System.out.println("처리내역이없습니다.");
 			}
@@ -502,5 +504,29 @@ public class HelperController {
 			int result = service.insertHelpPayment(p,memberNo,helpNo);
 			return new Gson().toJson(result);
 		}		
-
+		//헬퍼 정산내역
+		@RequestMapping(value = "/helperReqListAdjust.do")
+		public String helperReqListAdjust(int reqPage,HttpSession session,Model model) {
+			if(session!= null) {
+				Member m = (Member)session.getAttribute("m");
+				int memberNo=0;
+				if(m !=null) {
+					memberNo=m.getMemberNo();
+					ReqHelperAdjustPageData h= service.selectAdjustList(memberNo,reqPage);
+					model.addAttribute("list", h.getList());
+					model.addAttribute("start", h.getStart());
+					model.addAttribute("totalCount", h.getTotalCount());
+					model.addAttribute("pageNavi", h.getPageNavi());
+					return"helper/reqHelpAdjustList";
+				}else {
+					model.addAttribute("msg", "접근하는 사용자 정보가 없습니다.");
+					return  "redirect:/main.do";
+				}
+				
+			}else {
+				model.addAttribute("msg", "로그인 정보가 없습니다.");
+				model.addAttribute("loc", "/main.do");
+				return "common/msg";
+			}
+		}
 }

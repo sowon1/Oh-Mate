@@ -1,6 +1,7 @@
 package kr.or.chat.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,18 @@ public class ChatController {
 	public String matetalkList(int receiver) {
 		ArrayList<Chat> data = service.selectMateTalkList(receiver);
 		return new Gson().toJson(data);
+	}
+
+	//헬프 상세보기 채팅 버튼 눌렀을때 채팅 목록 있는지 조회
+	@ResponseBody
+	@RequestMapping(value="/chatSelect.do", produces = "application/json;charset=utf-8")
+	public String chatSelect(int receiver, int helpNo) {
+		int chatNo = service.chatSelect(receiver,helpNo);
+		ArrayList<ChatMsg> data = service.selectChat(chatNo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("chatNo", chatNo);
+		map.put("list", data);
+		return new Gson().toJson(map);		
 	}
 	
 }

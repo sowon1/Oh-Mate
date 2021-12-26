@@ -143,6 +143,24 @@ public class BoardDao {
 		return (ArrayList<Board>)list;
 	}
 
+	//더보기
+	public ArrayList<Board> communityMore(HashMap<String, Object> map) {
+		List<Board> list = sqlSession.selectList("board.communityMore",map);
+		return (ArrayList<Board>)list;
+	}
+
+	//총 게시물수(더보기)
+	public int BoardtotalCount() {
+		return sqlSession.selectOne("board.BoardtotalCount");
+		
+	}
+
+	public ArrayList<Board> searchOption(Profile p) {
+		List<Board> list = sqlSession.selectList("board.searchOption",p);
+		return (ArrayList<Board>)list;
+	}
+
+
 	
 }
 

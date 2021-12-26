@@ -380,7 +380,7 @@
 		update helplist set help_status=5 where help_no in (SELECT help_no FROM helplist where help_status in (1,2) and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100)
 	</update>
 	<update id="updatePayAutoCancel">
-		update pay set pay_status = '결제취소', cancel_date=to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_category=1 and pay_goods in (SELECT help_no FROM helplist where help_status =5 and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100)
+		update pay set pay_status = '결제취소', cancel_date=to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_category=1 and pay_goods in (SELECT help_no FROM helplist where help_status =5 and to_char(sysdate,'yyyymmddhh24mi')-concat(to_char(sysdate,'yyyymmdd'),REGEXP_REPLACE(help_end_time, '[^0-9]+'))>100) and pay_status='결제완료'
 	</update> 
 	<!-- 결제 -->
 	<insert id="insertHelpPayment" parameterType="map">
@@ -407,4 +407,64 @@
 	<update id="cancelPayUpdate" parameterType="_int">
 		update pay set pay_status ='결제취소',cancel_date=to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where pay_goods=#{helpNo} and pay_category=1
 	</update>
+	<select id="selectHelperAdjustList" parameterType="map" resultType="rhal">
+		select LL.* from
+		(select ROWNUM as rnum,L.* from
+		(select
+    		h.helper_name as helperName,
+    		h.helper_filepath as helperFilePath,
+    		h.helper_ride as helperRide,
+    		h.helper_start_time as helperStartTime,
+    		h.helper_end_time as helperEndTime,
+    		h.helper_category as helperCategory,
+    		h.helper_credit as helperCredit,
+    		hl.help_title as helpTitle,
+    		p.pay_id as payId,
+    		p.pay_name as payName,
+    		p.pay_date as payDate,
+    		p.pay_price as payPrice,
+    		p.pay_status as payStatus,
+    		p.cancel_date as cancelDate
+		from helper h
+		left join helplist hl on(h.helper_no=hl.helper_no)
+		left join pay p on (hl.help_no =p.pay_goods)
+		where h.helper_no=#{helperNo} and p.pay_category=1 order by p.pay_no desc)L)LL
+ 		where rnum between #{start} and #{end}
+	</select>
+	<select id="selectAllhelperCount" parameterType="_int" resultType="_int">
+		select count(*) from helplist 
+		join pay p on(help_no=pay_goods)
+		where helper_no=#{helperNo} and pay_category=1
+	</select>
+	<select id="selectHelpRequestList" parameterType="map" resultType="hl">
+		select * from
+		    (select
+                rownum as rnum,
+                hh.*from
+                    (select
+                        hl.help_no as helpNo,
+                        hl.member_no as memberNo,
+                        hl.helper_no as helperNo,
+                        hl.help_title as helpTitle,
+                        hl.help_content as helpContent,
+                        hl.help_category as helpCategory,
+                        hl.help_charge as helpCharge,
+                        hl.help_status as helpStatus,
+                        hl.help_start_time as helpStartTime,
+                        hl.help_end_time as helpEndTime,
+                        hl.help_request_date as helpRequestDate,
+                        hl.help_finish_date as helpFinishDate,
+                        hl.help_complite as helpComplite,
+                        h.helper_filepath as helperFilepath,
+                        h.helper_name as helperName,
+                        (select count(*) from help_review where help_no =hl.help_no) as reviewCheck
+                    from helplist hl
+                    join helper h on hl.helper_no = h.helper_no
+                    where hl.member_no=#{memberNo}
+                    order by 1 desc)hh)
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="helpRequestCount" parameterType="_int" resultType="_int">
+		select count(*) from helplist where member_no=#{memberNo}
+	</select>
 </mapper>

@@ -19,7 +19,7 @@ body>*{
 	width:100%;
 }
 /* 상단 네비 고정을 위해 padding 값 추가 */
-body>div:nth-of-type(7){
+body>div:nth-of-type(9){
 	margin-top:58px;
 }
 h1, h2, h3, h4, h5 {

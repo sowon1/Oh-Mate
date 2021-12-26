@@ -132,7 +132,14 @@
                         	</c:choose>
                         </div>           
                         <div class="chat_helper">
-                        	<img src="/resources/img/icon/chat_icon.png">
+                        	<c:choose>
+                        		<c:when test="${empty sessionScope.m}">
+                        			<a onclick="msgpopupopen();"><img src="/resources/img/icon/chat_icon.png"></a>
+                        		</c:when>
+                        		<c:otherwise>
+                        			<a id="helperChat" idx="${h.memberNo}"><img src="/resources/img/icon/chat_icon.png"></a>
+                        		</c:otherwise>
+                        	</c:choose>
                         </div>
 					</div>
 				</div>
@@ -488,6 +495,76 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
+		//채팅
+		
+		$(document).on("click","#helperChat",function(){
+			var helpNo = $(this).attr('idx');
+			var name = $(".helper_pro_name").html();
+			no = $(this).attr('idx');
+			console.log(helpNo);
+			console.log(receiver);
+			//채팅 목록 있는지 부터 조회
+			$.ajax({
+				url : "/chatSelect.do",
+				data : {helpNo:helpNo, receiver : receiver},
+				type : "POST",
+				success : function(data){
+					var list = data.list;
+					var chatno2 = data.chatNo;
+					var html = "";
+					var top = "";
+					function helptalk(){
+						$(".mate_talk_view_open").css("right","40px");
+						$(".chat_icon2").children("img").attr("src","/resources/img/icon/chat_close.png");
+					}
+					top += '<a onclick="close_chat_msg();">';
+					top += '<img src="/resources/img/icon/back.png"></a>';							
+					top += '<span class="mate_talk_name">'+name+'</span>';				
+					top += '<a id="chatReport" value="'+chatNo+'" class="report_icon">';
+					top += '<img src="/resources/img/icon/report.png">';
+					top += '</a>';
+					$(".mate_talk_view_top").append(top);
+					console.log(list);
+					console.log(data);
+					if(list == null || list == "undefined" || list == ""){
+						chatNo = chatno2;
+					}else{
+						for(var i = 0; i < list.length; i++){
+							if(list[i].sender != receiver){
+								html += '<div class="mate_talk_left">';
+								html += '<img src="/resources/upload/member/'+list[i].filepath+'.png">';
+								html += '<div class="mate_talk_left_line">';
+								html += '<span class="mate_talk_msg_name">'+list[i].senderName+'</span>';
+								html += '<div class="mate_talk_view_left_one">';
+								html += '<span class="mate_talk_left_msg">'+list[i].messageContent+'</span>';
+								html += '<div class="mate_talk_msg_side">';
+								html += '<span class="mate_talk_left_date">'						
+								html += moment(list[i].messageDate).format('LT')+'</span></div></div></div></div>';
+							}else{
+								if(list[i].sender == receiver){							
+									html += '<div class="mate_talk_right">';
+									html += '<span class="mate_talk_right_date">';
+									if(list[i].messageStatus == "n"){
+										html += '<span>안읽음</span><br>';
+									}
+									html += moment(list[i].messageDate).format('LT');
+									html += '</span>';
+									html += '<span class="mate_talk_right_msg">'+list[i].messageContent+'</span>';
+									html += '</div></div>';
+								}else{
+									
+								}
+							}
+						} //for문 종료
+					}	//else종료
+					$(".mate_talk_messageArea").append(html);
+					initChat(receiver, no, chatNo);
+					console.log("ajax조회후 receiver : "+receiver);
+					console.log("ajax조회후 no : "+no);
+					console.log("ajax조회후 chatNo : "+chatNo);
+				}
+			})
+		})
 		//login
 		$(".help_login").click(function(){
 			msgpopupopen();
@@ -505,7 +582,7 @@
 		            $("#roadAddr").val(data.roadAddress); //도로
 		            $("#addressName").val(data.sigungu); //도로
 		            $("#addressRoad").val(data.roadname); //도로
-		            $("#addressLegal").val(data.bname2); //도로
+		            $("#addressLegal").val(data.bname2); //도로2
 		            $("#detailAddr").focus(); // 선택후 상세주소 포커스
 		        },
 			 theme:{

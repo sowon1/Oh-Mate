@@ -10,7 +10,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container_mate">
-		<h1 class="point_title">헬프요청 리스트</h1>
+		<h1 class="point_title" style="padding-top: 15px;">헬프요청 리스트</h1>
 		<div style="border-bottom: 1px solid #111111">
 			<div style="margin-top: 30px;">
 				<table class="table">
@@ -139,18 +139,22 @@
 													</tr>
 													<tr>
 														<th>주소</th>
-														<td>${h.addressName }${h.addressRoad }
-															${h.addressLegal }</td>
+														<td>${h.addressName } ${h.addressRoad } ${h.addressLegal }</td>
+														<th>헬프 상태</th>
 														<td>
 														<c:choose>
-														<c:when test="${helpStatus eq 1}">헬프 요청중</c:when>
-														<c:when test="${helpStatus eq 2 }">헬프 진행중</c:when>
-														<c:when test="${helpStatus eq 3 }">헬프 처리완료</c:when>
-														<c:when test="${helpStatus eq 4 }">헬프취소</c:when>
-														<c:when test="${helpStatus eq 5 }">만료됨</c:when>
-														<c:when test="${helpStatus eq 6 }">헬프거절</c:when>
+														<c:when test="${h.helpStatus eq 1}">헬프 요청중</c:when>
+														<c:when test="${h.helpStatus eq 2 }">헬프 진행중</c:when>
+														<c:when test="${h.helpStatus eq 3 }">헬프 처리완료</c:when>
+														<c:when test="${h.helpStatus eq 4 }">헬프취소</c:when>
+														<c:when test="${h.helpStatus eq 5 }">만료됨</c:when>
+														<c:when test="${h.helpStatus eq 6 }">헬프거절</c:when>
 														</c:choose>
 														</td>
+													</tr>
+													<tr>
+													<th>심부름비</th>
+													<td colspan="3">${h.helpCharge }원 <span style="color: gray;">(※수수료 미포함)</span></td>
 													</tr>
 													<tr>
 														<th>헬프내용</th>

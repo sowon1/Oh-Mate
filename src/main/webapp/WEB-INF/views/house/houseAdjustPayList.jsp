@@ -9,9 +9,9 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<div class="container_mate">
+<div class="container_mate" style="padding-top: 80px;">
 	<div style="margin-bottom: 30px;">
-	<h1 class="point_title">정산내역</h1>
+	<h1 class="point_title">하우스 정산내역</h1>
 	<table class="table">
 		<tr>
 			<th>No</th>
@@ -21,9 +21,9 @@
 			<th>첫달월세</th>
 			<th>결제자ID</th>
 			<th>결제자이름</th>
-			<th>결제방법</th>
-			<th>결제일자</th>
-			<th>결제 상태</th>
+			<th>퇴거일</th>
+			<th>결제날짜</th>
+			<th>연락처</th>
 			<th>정산상태</th>
 		</tr>		
 			<c:forEach items="${list }" var="p" varStatus="i">
@@ -31,12 +31,12 @@
 			<td>${start+i.index }</td>
 			<td>${p.houseTitle }</td>
 			<td>${p.roomTitle }</td>
-			<td>${p.roomCharge }</td>
-			<td>${p.roomMonth }</td>
+			<td>${p.roomCharge }원</td>
+			<td>${p.roomMonth }원</td>
 			<td>${p.payId }</td>
 			<td>${p.payName }</td>
-			<td>${p.moveStart }</td>
 			<td>${p.moveEnd }</td>
+			<td>${p.payDate }</td>
 			<td>${p.movePhone }</td>
 			<td>${p.payStatus }</td>
 		</tr>

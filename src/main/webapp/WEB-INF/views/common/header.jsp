@@ -219,14 +219,14 @@
           	<span class="re_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
        </div>
        <div class="re_modal_content">
-       		<form action="/helperReport.do" method="post" class="reform">
+       		<form action="/chatReport.do" method="post" class="reform">
        			<table class="help_table">
            			<tr class="table-active_mate_help">
            				<th>신고 닉네임</th>
            				<td>
-           					<input type="text" class="input_03" value="${h.helperName}"readonly="readonly">
-           					<input type="hidden" class="input_03" value="${h.memberNo}" name="hmemberNo" readonly="readonly">
-           					<input type="hidden" class="input_03" value="${h.helperNo}" name="helperNo" readonly="readonly">
+           					<input type="text" class="input_03" value=""readonly="readonly">
+           					<input type="hidden" class="input_03" value="" name="hmemberNo" readonly="readonly">
+           					<input type="hidden" class="input_03" value="" name="helperNo" readonly="readonly">
            				</td>
            			</tr>
            			<tr class="table-active_mate_help">
@@ -250,7 +250,7 @@
            			</tr>
           			</table>
           			<div class="form_btn">
-           			<a class="btn_100" type="submit" onclick="return checkReVal();">신고하기</a>
+           			<a class="btn_100" type="submit" onclick="return checkCReVal();">신고하기</a>
            		</div>
        		</form>
        </div>
@@ -387,7 +387,7 @@
 						html += '</div>';
 					}
 					for(var i = 0; i < data.length; i++){
-						html += '<a onclick="initChat('+receiver+')" idx="'+data[i].chatNo+'"class="chat_msg_open">';
+						html += '<a  idx="'+data[i].chatNo+'"class="chat_msg_open">';
 						html += '<li><div class="talk_profile">';
 						if(data[i].filepath == null){
 							html += '<img src="/resources/img/icon/profile.png">';
@@ -403,10 +403,16 @@
 							html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
 						}
 						html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
+						if(receiver == data[i].sender){
+							html += '<input type="hidden" value="'+data[i].receiver+'">';							
+						}else{
+							
+							html += '<input type="hidden" value="'+data[i].sender+'">';
+						}
 						html += '</div>';
 						html += '<div class="talk_list_time">';
 						html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('hour').fromNow()+'</span>';
-						if(data[i].receiverName == receiverName){
+						if(data[i].readCount == 0 || data[i].messageDirection == "보낸메세지"){
 							
 						}else{							
 							html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
@@ -418,17 +424,18 @@
 			});
 		});
 	})
-	
+	var receiver = '${sessionScope.m.memberNo}';
+	var no;
 	//matetalk - talk start
 	var ws;
-	var receiver;
-	var messageStatus = "n";
+	var messageStatus = "안읽음";
 	var messageDate = moment().format('LT');
+	var chatNo;
 	//ajax먼저 하고 성공시 아래꺼 넣기
 	$(document).on("click",".chat_msg_open",function(){
-		var chatNo = $(this).attr('idx');
-		var receiver = '${sessionScope.m.memberNo}';
+		var chatNo = $(this).attr('idx');		
 		var name = $(this).find(".mate_talk_msg_name").html();
+		var no = $(this).find(".mate_talk_msg_name").next().next().val();		
 		$(".mate_talk_messageArea").empty();
 		$(".mate_talk_view_top").empty();
 		$.ajax({
@@ -438,11 +445,10 @@
 			success : function(data){
 				var html = "";
 				var top = "";
-				console.log(data);
 				top += '<a onclick="close_chat_msg();">';
 				top += '<img src="/resources/img/icon/back.png"></a>';							
 				top += '<span class="mate_talk_name">'+name+'</span>';				
-				top += '<a id="chatReport" class="report_icon">';
+				top += '<a id="chatReport" value="'+chatNo+'" class="report_icon">';
 				top += '<img src="/resources/img/icon/report.png">';
 				top += '</a>';
 				$(".mate_talk_view_top").append(top);
@@ -455,17 +461,14 @@
 						html += '<div class="mate_talk_view_left_one">';
 						html += '<span class="mate_talk_left_msg">'+data[i].messageContent+'</span>';
 						html += '<div class="mate_talk_msg_side">';
-						html += '<span class="mate_talk_left_date">'
-						if(data[i].messageStatus == "n"){
-							html += '안읽음<br>';
-						}
+						html += '<span class="mate_talk_left_date">'						
 						html += moment(data[i].messageDate).format('LT')+'</span></div></div></div></div>';
 					}else{
 						if(data[i].sender == receiver){							
 							html += '<div class="mate_talk_right">';
 							html += '<span class="mate_talk_right_date">';
 							if(data[i].messageStatus == "n"){
-								html += '안읽음<br>';
+								html += '<span>안읽음</span><br>';
 							}
 							html += moment(data[i].messageDate).format('LT');
 							html += '</span>';
@@ -477,18 +480,18 @@
 					}
 				} //for문 종료
 				$(".mate_talk_messageArea").append(html);
-				
-				
-				
+				initChat(receiver, no, chatNo);
 			}
 		})
 		
 	})
 	
-	function initChat(param){
-		receiver = param;
+	function initChat(param1,param2,param3){
+		receiver = param1;
+		no = param2;
+		chatNo = param3;
 		//웹소켓 연걸 시도
-		ws = new WebSocket("ws://192.168.75.104/chat.do");
+		ws = new WebSocket("ws://192.168.35.222/chat.do");
 		//웹소켓 연결이 성공하면 실행할 함수
 		ws.onopen = startChat;
 		//서버에서 화면으로 데이터를 전송하면 처리할 함수
@@ -499,11 +502,21 @@
 		$(".mate_talk_view_open").css("right","40px");
 	}
 	function startChat() {
-		var data = {type:"enter", msg:receiver};
+		var data = {type:"enter", msg:receiver, no : no};
+		console.log(data);
 		ws.send(JSON.stringify(data));
 	}
 	function receiveMsg(param) {
-		appendChat(param.data);
+		console.log(param.data);
+		console.log($("#chatReport").attr("value"));
+		if(param.data == $("#chatReport").attr("value")){
+			var arr = $(".mate_talk_right_date");
+			for(var i=0;i<arr.length;i++){
+				arr.eq(i).children().first().empty();
+			}
+		}
+		//insert 후 출력부분
+		appendChat(param.data);		
 	}
 	function endChat() {
 		
@@ -515,9 +528,10 @@
 	function sendMsg() {
 		var msg = $("#sendMsg").val();
 		if(msg != '') {
-			var data = {type:"chat", msg:msg};
+			//msg 메세지 , receiver 접속해서 보낸사람, no 받는사람
+			var data = {type:"chat", msg:msg, sender:receiver, receiver : no, chatNo : chatNo};
 			ws.send(JSON.stringify(data));
-			appendChat("<div class='mate_talk_right'><span class='mate_talk_right_date'>"+messageStatus+"<br>"+messageDate+"</span><span class='mate_talk_right_msg'>"+mag+"</div>");
+			appendChat("<div class='mate_talk_right'><span class='mate_talk_right_date'>"+messageStatus+"<br>"+messageDate+"</span><span class='mate_talk_right_msg'>"+msg+"</div>");
 			$("#sendMsg").val("");
 		}
 	}

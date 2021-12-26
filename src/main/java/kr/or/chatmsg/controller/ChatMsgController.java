@@ -24,4 +24,5 @@ public class ChatMsgController {
 		ArrayList<ChatMsg> data = service.selectChatOneMsg(chatNo);
 		return new Gson().toJson(data);
 	}
+	
 }
