@@ -1415,7 +1415,7 @@ input[name="funderCategory"]:checked+label:after{
 }
 
 /* 신고 팝업 */
-.report_popup_modal{
+.chatre_popup_modal{
     /* 현재 화면 중앙에 모달 뜰수있게 */
     position: fixed;
     top: 50%;
@@ -1427,7 +1427,7 @@ input[name="funderCategory"]:checked+label:after{
     align-items: center;
     z-index: 9993;
 }
-.re_pop_modal{
+.chre_pop_modal{
     width: 50vw;
     min-width: 400px;
     max-width: 400px;
@@ -1442,7 +1442,7 @@ input[name="funderCategory"]:checked+label:after{
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
-.re_modal_top{
+.chre_modal_top{
     display: block;
     align-items: center;
     width: 100%;
@@ -1454,15 +1454,15 @@ input[name="funderCategory"]:checked+label:after{
     text-align: center;
     line-height: 60px;
 }
-.re_modal_text{
+.chre_modal_text{
 	font-size: 24px;
     color: #fff;
 }
 
-.re_modal_top img{
+.chre_modal_top img{
 	width:25px;
 }
-.re_modal_top span:last-child{
+.chre_modal_top span:last-child{
 	float:right;	
 }
 .re_modal_content{
@@ -1471,4 +1471,88 @@ input[name="funderCategory"]:checked+label:after{
     width: 100%;
     overflow: hidden;
     height: auto;
+}
+.help_table{
+	width: 100%;
+    box-sizing: border-box;
+    padding: 30px 30px 0px 30px;
+    border-collapse: inherit;
+}
+/* 테이블 */
+.help_table{
+	width: 100%;
+    box-sizing: border-box;
+    padding: 30px 30px 0px 30px;
+    border-collapse: inherit;
+}
+.table-active_mate_help{
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.table-active_mate_help th{
+    padding: 0px 10px;
+    text-align: left;
+    border-left: 2px solid #956bfc;
+    height: 12px;
+    line-height: 12px;
+    font-family: "ns_300";
+    width: 200px;
+}
+.table-active_mate_help td{
+    width:100%;
+}
+
+.form_btn{
+	clear:both;
+	float:left;
+	width:100%;
+	display: block;
+}
+.form_btn a{
+	border:none;
+	outline: none;
+	background: #956bfc;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	height: 55px;
+	font-size: 18px;
+	line-height: 55px;
+	text-align: center;
+	transition-duration: 0.5s;
+	display: block;
+}
+.form_btn a:hover{
+	background: #8c62f2;
+}
+.modal_msg_timetitle{
+	font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top:15px;
+    font-family: "ns_300";
+}
+.modal_msg_timetext{
+	font-size: 20px;
+    text-align: center;
+    font-family: "ns_300";
+}
+#countdown, #title_name{
+	font-size:22px;
+	font-family:"ns_700";
+	color:#956bfc;
+}
+.form_popup_modal{
+    /* 현재 화면 중앙에 모달 뜰수있게 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10005;
 }

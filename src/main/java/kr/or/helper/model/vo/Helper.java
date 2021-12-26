@@ -36,4 +36,5 @@ public class Helper {
 	private String accountInfo;
 	private String helpStatus3;				//헬프 신청 완료 카운트
 	private String helpStatus4;				//헬프 신청 취소 카운트
+	private String reviewCount;				//리뷰 카운트 
 }

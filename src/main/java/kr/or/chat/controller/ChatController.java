@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import kr.or.chat.model.service.ChatService;
 import kr.or.chat.model.vo.Chat;
 import kr.or.chatmsg.model.vo.ChatMsg;
+import kr.or.common.Report;
 
 @Controller
 public class ChatController {
@@ -38,6 +39,19 @@ public class ChatController {
 		map.put("chatNo", chatNo);
 		map.put("list", data);
 		return new Gson().toJson(map);
+	}
+	//채팅 신고
+	@RequestMapping(value="/chatReport.do")
+	public String chatReport(Model model, Report report) {
+		int result = service.insertChatReport(report);
+		if(result > 0) {
+			model.addAttribute("loc","/");
+			model.addAttribute("msg","신고가 접수되었습니다.");
+		}else {
+			model.addAttribute("loc","/");
+			model.addAttribute("msg","신고가 실패되었습니다.");
+		}
+		return "common/msg";
 	}
 	
 }

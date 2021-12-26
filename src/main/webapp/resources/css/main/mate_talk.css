@@ -256,8 +256,13 @@
     clear:both;
 }
 .mate_talk_left img{
-    width:60px;
     float: left;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    object-fit: cover;
 }
 .mate_talk_left_line{
     margin-left: 20px;
