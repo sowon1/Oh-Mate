@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.or.admin.model.vo.Dashboard;
 import kr.or.admin.model.vo.Sales;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Address;
@@ -179,5 +180,9 @@ public class AdminDao {
 
 	public int insertAdjust(int payNo) {
 		return session.insert("admin.insertAdjust", payNo);
+	}
+
+	public Dashboard selectCnt() {
+		return session.selectOne("admin.selectCnt");
 	}
 }

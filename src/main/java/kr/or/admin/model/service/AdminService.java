@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.admin.model.dao.AdminDao;
+import kr.or.admin.model.vo.Dashboard;
 import kr.or.admin.model.vo.Sales;
 import kr.or.admin.model.vo.Search;
 import kr.or.admin.model.vo.UpdateMember;
@@ -637,5 +638,9 @@ public class AdminService {
 	@Transactional
 	public int insertAdjust(int payNo) {
 		return dao.insertAdjust(payNo);
+	}
+
+	public Dashboard selectCnt() {
+		return dao.selectCnt();
 	}
 }

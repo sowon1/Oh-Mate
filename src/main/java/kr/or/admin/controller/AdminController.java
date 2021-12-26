@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import kr.or.admin.model.service.AdminService;
+import kr.or.admin.model.vo.Dashboard;
 import kr.or.admin.model.vo.Search;
 import kr.or.admin.model.vo.UpdateMember;
 import kr.or.common.Report;
@@ -267,10 +268,6 @@ public class AdminController {
 		model.addAttribute("s", s);
 		return "admin/salesSearch";
 	}
-	@RequestMapping(value="/dashboard.do")
-	public String dashboard(Model model) {
-		return "admin/dashboard";
-	}
 	@ResponseBody
 	@RequestMapping(value="/insertAdjust.do")
 	public String insertAdjust(int payNo) {
@@ -280,5 +277,11 @@ public class AdminController {
 		}else {
 			return "0";
 		}
+	}
+	@RequestMapping(value="/dashboard.do")
+	public String dashboard(Model model) {
+		Dashboard d = service.selectCnt();
+		model.addAttribute("d", d);
+		return "admin/dashboard";
 	}
 }

@@ -18,7 +18,7 @@
 					<p>하우스 등록</p>
 				</div>
 				<div>
-					<a href="#">0건</a>
+					<a href="#">${d.house } 건</a>
 				</div>
 			</div>
 			<div class="alarm">
@@ -27,7 +27,7 @@
 					<p>헬퍼 신청</p>
 				</div>
 				<div>
-					<a href="#">0건</a>
+					<a href="#">${d.helper } 건</a>
 				</div>
 			</div>
 			<div class="alarm">
@@ -36,7 +36,7 @@
 					<p>신고</p>
 				</div>
 				<div>
-					<a href="#">0건</a>
+					<a href="#">${d.report } 건</a>
 				</div>
 			</div>
 		</div>
