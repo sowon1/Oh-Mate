@@ -39,7 +39,7 @@ public class ChatService {
 	}
 	public ArrayList<ChatMsg> selectChat(int chatNo) {
 		ArrayList<ChatMsg> list = chdao.selectChatOneMsg(chatNo);
-		return null;
+		return list;
 	}
 	
 }
