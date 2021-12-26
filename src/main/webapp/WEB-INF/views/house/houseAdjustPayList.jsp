@@ -9,7 +9,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<div class="container_mate">
+<div class="container_mate" style="padding-top: 80px;">
 	<div style="margin-bottom: 30px;">
 	<h1 class="point_title">하우스 정산내역</h1>
 	<table class="table">

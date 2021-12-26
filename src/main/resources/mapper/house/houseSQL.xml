@@ -240,10 +240,10 @@
 	</select>
 	<!-- 하우스리스트 추가시 조건문적용 -->
 	<update id="houseRoomSelling1" parameterType="_int">
-		update house set house_selling = 1 where house_no =#{houseNo}
+		update house set house_selling = 1 where house_no =#{houseNo} and to_date(HOUSEOWNER_DEADLINE)-sysdate>0
 	</update>
 	<update id="houseRoomSelling2" parameterType="_int">
-		update house set house_selling = 2 where house_no =#{houseNo}
+		update house set house_selling = 2 where house_no =#{houseNo} and house_allow =2
 	</update>
 
 	

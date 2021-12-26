@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 .main {
-	padding-top: 30px;
+	padding-top: 70px;
 	margin: 0 auto;
 	width: 1200px;
 }
@@ -137,9 +137,9 @@ margin-left: 500px;
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<div class="main">
-		<div class="container-mate">
-			<h4 class="form-title point_title">내 하우스 리스트</h4>
+	<div class="main" >
+		<div class="container-mate" >
+			<h1 class="form-title point_title">내 하우스 리스트</h1>
 			<div class="house-status">
 				<ul>
 					<li><span class="img-space"></span> <span class="name-space">하우스:</span>
