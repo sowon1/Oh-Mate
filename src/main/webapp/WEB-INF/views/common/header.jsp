@@ -283,9 +283,12 @@
 	 -->
 	<div class="mate_talk">
 		<div class="mate_talk_list_top">
+			<!-- 
 			<a href="" class="msg_edit">
 				<img src="/resources/img/icon/edit.png">
 			</a>
+			 -->
+			<span style="width:30px;"></span>
 			<span class="mate_talk_name">${sessionScope.m.memberName}님 메세지</span>
 			<span class="msg_close_btn">
 				<img src="/resources/img/icon/close_wh.png">
