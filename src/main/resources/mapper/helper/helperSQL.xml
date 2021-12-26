@@ -428,11 +428,13 @@
 		from helper h
 		left join helplist hl on(h.helper_no=hl.helper_no)
 		left join pay p on (hl.help_no =p.pay_goods)
-		where h.helper_no=#{helperNo} and p.pay_category=1)L)LL
+		where h.helper_no=#{helperNo} and p.pay_category=1 order by p.pay_no desc)L)LL
  		where rnum between #{start} and #{end}
 	</select>
 	<select id="selectAllhelperCount" parameterType="_int" resultType="_int">
-		select count(*) from helplist where helper_no=#{helperNo}
+		select count(*) from helplist 
+		join pay p on(help_no=pay_goods)
+		where helper_no=#{helperNo} and pay_category=1
 	</select>
 	<select id="selectHelpRequestList" parameterType="map" resultType="hl">
 		select * from

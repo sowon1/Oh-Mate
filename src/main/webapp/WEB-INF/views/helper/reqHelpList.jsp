@@ -10,7 +10,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container_mate">
-		<h1 class="point_title">헬프요청 리스트</h1>
+		<h1 class="point_title" style="padding-top: 15px;">헬프요청 리스트</h1>
 		<div style="border-bottom: 1px solid #111111">
 			<div style="margin-top: 30px;">
 				<table class="table">
