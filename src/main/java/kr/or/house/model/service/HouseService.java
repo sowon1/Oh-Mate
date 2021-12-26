@@ -175,7 +175,7 @@ public class HouseService {
 		}
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		String pageNavi = "<ul class='pagination pagination'>";
+		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if (pageNo != 1) {
 			pageNavi += "<li class = 'page-item-mate-mate'>";
 			pageNavi += "<a href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage="
@@ -344,20 +344,20 @@ public class HouseService {
 		}
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		String pageNavi = "<ul class='pagination pagination'>";
+		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if (pageNo != 1) {
 			pageNavi += "<li class = 'page-item-mate-mate'>";
-			pageNavi += "<a href='/houseAdjustPay.do?reqPage="+ (pageNo - 1) + "'>";
+			pageNavi += "<a href='/houseAdjustPayTS.do?reqPage="+ (pageNo - 1) + "'>";
 			pageNavi += "&lt;</a></li>";
 		}
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo == reqPage) {
 				pageNavi += "<li class='page-item-mate-mate active'>";
-				pageNavi += "<a href='/houseAdjustPay.do?reqPage="+ pageNo+ "'>";
+				pageNavi += "<a href='/houseAdjustPayTS.do?reqPage="+ pageNo+ "'>";
 				pageNavi += pageNo + "</a></li>";
 			} else {
 				pageNavi += "<li class='page-item-mate-mate'>";
-				pageNavi += "<a href='/houseAdjustPay.do?reqPage=" + pageNo+ "'>";
+				pageNavi += "<a href='/houseAdjustPayTS.do?reqPage=" + pageNo+ "'>";
 				pageNavi += pageNo + "</a></li>";
 			}
 			pageNo++;
@@ -367,7 +367,7 @@ public class HouseService {
 		}
 		if (pageNo <= totalPage) {
 			pageNavi += "<li class='page-item'>";
-			pageNavi += "<a href='/houseAdjustPay.do?reqPage=" + pageNo + "'>";
+			pageNavi += "<a href='/houseAdjustPayTS.do?reqPage=" + pageNo + "'>";
 			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
 		}
 		pageNavi += "</ul>";

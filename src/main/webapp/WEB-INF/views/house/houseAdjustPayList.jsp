@@ -43,9 +43,9 @@
 			</c:forEach>	
 	</table>
 	</div>
-	<div style="width: 350px; margin: 0 auto; text-align: center;">${pageNavi }</div>
+	<div id="paveNavi" style="width: 400px; margin: 0 auto; text-align: center;">${pageNavi }</div>
 	<div style="margin: 10px; padding-top:30px; text-align: center;">
-	<a href="/main.do" class="btn btn_b_line btn_rx" style="width: 80%; line-height: 30px;	">메인으로 돌아가기</a>
+	<a href="/main.do" class="btn btn_b_line btn_rx" style="width: 80%; line-height: 30px;">메인으로 돌아가기</a>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
