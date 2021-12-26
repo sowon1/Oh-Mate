@@ -249,7 +249,7 @@ public class HelperService {
 		}
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		String pageNavi = "<ul class='pagination pagination'>";
+		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if (pageNo != 1) {
 			pageNavi += "<li class = 'page-item-mate-mate'>";
 			pageNavi += "<a href='/helperReqList.do?reqPage="+ (pageNo - 1) + "'>";
@@ -442,7 +442,7 @@ public class HelperService {
 		}
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		String pageNavi = "<ul class='pagination pagination'>";
+		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if (pageNo != 1) {
 			pageNavi += "<li class = 'page-item-mate-mate'>";
 			pageNavi += "<a href='/helperReqListAdjust.do?reqPage="+ (pageNo - 1) + "'>";

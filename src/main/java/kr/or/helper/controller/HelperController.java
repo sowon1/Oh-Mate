@@ -423,7 +423,7 @@ public class HelperController {
 				int result = service.updateCompilte(helpNo,helpComplite);
 				if(result>0) {
 					// 파일이 있는경우
-					String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
+					String photoPathfile = request.getSession().getServletContext().getRealPath("/resources/upload/helper/");
 					for (MultipartFile file : photoPath) {
 						// 사용자가 올린 파일명
 						String filename = file.getOriginalFilename();

@@ -16,7 +16,7 @@
 				<table class="table">
 					<tr>
 						<th colspan="2" rowspan="2"><img
-							src="/resources/upload/house/${list[0].helperFilepath }"
+							src="/resources/upload/helper/${list[0].helperFilepath }"
 							style="width: 150px; height: 150px;"></th>
 						<th style="width: 120px;">닉네임</th>
 						<td>${list[0].helperName }</td>
@@ -93,7 +93,7 @@
 					</c:forEach>
 				</table>
 			</div>
-			<div style="width: 300px; margin: 0 auto;">${pageNavi }</div>
+			<div id="pageNavi" style="width: 400px; margin: 0 auto; text-align: center;">${pageNavi }</div>
 		</div>
 	</div>
 	<script>
