@@ -24,6 +24,7 @@ import kr.or.helper.model.vo.ReqHelperList;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
+import kr.or.notice.model.vo.FileVO;
 
 @Service
 public class HelperService {
@@ -528,6 +529,21 @@ public class HelperService {
 		map.put("list",	list);
 		
 		return map;
+	}
+
+	@Transactional
+	public int insertHelpReview(HelpReview re) {
+		// TODO Auto-generated method stub
+		int result1 = dao.insertHelpReview(re);
+		int result = 0;
+		if(result1>0) {
+				result += dao.insertHelpPhoto(re);
+			
+		}else {
+			return -1;
+		}
+		
+		return result;
 	}
 
 }
