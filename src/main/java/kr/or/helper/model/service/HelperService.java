@@ -401,10 +401,8 @@ public class HelperService {
 	@Transactional
 	public int ChkHelpComeDelay() {
 		int result= dao.chkHelpEndTime();
-		System.out.println("스케줄드 헬프만료처리내역"+result+"건");
 		if(result>0) {
 			int result2=dao.updatePayAutoCancel();
-			System.out.println("스케줄드 결제취소변경"+result2+"건");
 			if(result2>0) {
 				return result2;
 			}else {
