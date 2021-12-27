@@ -497,38 +497,42 @@
 					html += '</div>';
 				}
 				for(var i = 0; i < data.length; i++){
-					html += '<a  idx="'+data[i].chatNo+'"class="chat_msg_open">';
-					html += '<li><div class="talk_profile">';
-					if(data[i].filepath == null){
-						html += '<img src="/resources/img/icon/profile.png">';
-					}else{
-						html += '<img src="/resources/upload/member/'+data[i].filepath+'" class="chat_list_pro">';
-					}
-					html += '</div>';
-					html += '<div class="talk_list_text">';
-					html += '<div class="talk_list_02">';
-					if(data[i].senderName == receiverName){
-						html += '<span class="mate_talk_msg_name">'+data[i].receiverName+'</span>';
+					if(data[i].chatContent == "undefined" || data[i].chatContent == null){
+						
 					}else{						
-						html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
+						html += '<a  idx="'+data[i].chatNo+'"class="chat_msg_open">';
+						html += '<li><div class="talk_profile">';
+						if(data[i].filepath == null){
+							html += '<img src="/resources/img/icon/profile.png">';
+						}else{
+							html += '<img src="/resources/upload/member/'+data[i].filepath+'" class="chat_list_pro">';
+						}
+						html += '</div>';
+						html += '<div class="talk_list_text">';
+						html += '<div class="talk_list_02">';
+						if(data[i].senderName == receiverName){
+							html += '<span class="mate_talk_msg_name">'+data[i].receiverName+'</span>';
+						}else{						
+							html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
+						}
+						html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
+						if(receiver == data[i].sender){
+							html += '<input type="hidden" value="'+data[i].receiver+'">';							
+						}else{
+							
+							html += '<input type="hidden" value="'+data[i].sender+'">';
+						}
+						html += '</div>';
+						html += '<div class="talk_list_time">';
+						html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('MMMM Do, h:mm').fromNow()+'</span>';
+						if(data[i].readCount == 0 || data[i].messageDirection == "보낸메세지"){
+							
+						}else{							
+							html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
+						}
+						html += '</div></div></li></a>';					
 					}
-					html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
-					if(receiver == data[i].sender){
-						html += '<input type="hidden" value="'+data[i].receiver+'">';							
-					}else{
-						
-						html += '<input type="hidden" value="'+data[i].sender+'">';
-					}
-					html += '</div>';
-					html += '<div class="talk_list_time">';
-					html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('MMMM Do, h:mm').fromNow()+'</span>';
-					if(data[i].readCount == 0 || data[i].messageDirection == "보낸메세지"){
-						
-					}else{							
-						html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
-					}
-					html += '</div></div></li></a>';					
-				}
+				}//for문 종료
 				$(".mate_talk_list").append(html);
 			}
 		}) //ajax 닫기
