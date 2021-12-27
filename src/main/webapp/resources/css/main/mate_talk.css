@@ -171,7 +171,7 @@
 .mate_talk_view_top img, .mate_talk_list_top img{
     vertical-align: middle;
 }
-.report_icon{
+.mate_talk_view_top a{
 	cursor: pointer;
 }
 /* 서브메뉴

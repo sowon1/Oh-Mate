@@ -511,7 +511,7 @@
 						var html = "";
 						var top = "";
 						helptalk();
-						top += '<a onclick="close_chat_helper();">';
+						top += '<a onclick="chatBack();">';
 						top += '<img src="/resources/img/icon/back.png"></a>';							
 						top += '<span class="mate_talk_name">'+name+'</span>';				
 						top += '<a id="chatReport" value="'+chatNo+'" class="report_icon">';

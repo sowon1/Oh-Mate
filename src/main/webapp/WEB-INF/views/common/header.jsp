@@ -432,7 +432,7 @@
 			success : function(data){
 				var html = "";
 				var top = "";
-				top += '<a onclick="close_chat_helper();">';
+				top += '<a onclick="chatBack();">';
 				top += '<img src="/resources/img/icon/back.png"></a>';							
 				top += '<span class="mate_talk_name">'+name+'</span>';				
 				top += '<a id="chatReport" value="'+chatNo+'" class="report_icon" onclick="chatreportfrm(name);">';
@@ -467,16 +467,21 @@
 					}
 				} //for문 종료
 				$(".mate_talk_messageArea").append(html);
+				$(".mate_talk_messageArea").scrollTop($(".mate_talk_messageArea")[0].scrollHeight);
 				initChat(receiver, no, chatNo);
 			}
 		})
 		
-	})
+	});
+	function chatBack(){
+		ws.close();
+		close_chat_helper();
+	}
 	//채팅방 뒤로가기
 	function close_chat_helper(){
 		$(".mate_talk_view_open").css("right","-500px");
 		$(".mate_talk_list").empty();
-		$(".mate_talk_open").show();
+		$(".mate_talk_open").show();		
 		$.ajax({
 			type : "post",
 			url : "/matetalkList.do",
@@ -536,39 +541,46 @@
 		no = param2;
 		chatNo = param3;
 		//웹소켓 연걸 시도
-		ws = new WebSocket("ws://192.168.75.104/chat.do");
+		ws = new WebSocket("ws://192.168.10.21/chat.do");
 		//웹소켓 연결이 성공하면 실행할 함수
 		ws.onopen = startChat;
 		//서버에서 화면으로 데이터를 전송하면 처리할 함수
 		ws.onmessage = receiveMsg;
 		//웹소켓 연결이 종료되면 실핼할 함수 지정
 		ws.onclose = endChat;
+		//ws.close(); 소켓 종료
 		$(".mate_talk_open").hide();
 		$(".mate_talk_view_open").css("right","40px");
 	}
 	function startChat() {
 		var data = {type:"enter", msg:receiver, no : no};
-		console.log(data);
 		ws.send(JSON.stringify(data));
 	}
-	function receiveMsg(param) {
-		console.log(param.data);
-		console.log($("#chatReport").attr("value"));
-		if(param.data == $("#chatReport").attr("value")){
-			var arr = $(".mate_talk_right_date");
-			for(var i=0;i<arr.length;i++){
-				arr.eq(i).children().first().empty();
+	function receiveMsg(param) {	
+		var obj = JSON.parse(param.data);
+		if(obj.type == "1"){
+			if(obj.chatNo == $("#chatReport").attr("value")){
+				var arr = $(".mate_talk_right_date");
+				for(var i=0;i<arr.length;i++){
+					arr.eq(i).children().first().empty();
+				}
+			}
+		}else if(obj.type == "2"){
+			appendChat(obj.msg);
+		}else if(obj.type == "3"){
+			if(obj.flag == "1"){
+				$(".mate_talk_right_date").find("span").html("");
+			}else{
+				$(".mate_talk_right_date").find("span").html("안읽음");			
 			}
 		}
-		//insert 후 출력부분
-		appendChat(param.data);		
-		console.log("param 데이터 잘 받아왔니? : "+param.data);
-	}
-	function endChat() {
 		
 	}
+	function endChat() {
+		console.log("gggg");
+	}
 	function appendChat(msg) {
-		console.log("msg 데이터 잘 받아왔니? : "+msg);
+		console.log(msg);
 		$(".mate_talk_messageArea").append(msg);
 		$(".mate_talk_messageArea").scrollTop($(".mate_talk_messageArea")[0].scrollHeight);
 	}
@@ -578,7 +590,7 @@
 			//msg 메세지 , receiver 접속해서 보낸사람, no 받는사람
 			var data = {type:"chat", msg:msg, sender:receiver, receiver : no, chatNo : chatNo};
 			ws.send(JSON.stringify(data));
-			appendChat("<div class='mate_talk_right'><span class='mate_talk_right_date'>"+messageStatus+"<br>"+messageDate+"</span><span class='mate_talk_right_msg'>"+msg+"</div>");
+			appendChat("<div class='mate_talk_right'><span class='mate_talk_right_date'>"+"<span>"+messageStatus+"</span>"+"<br>"+messageDate+"</span><span class='mate_talk_right_msg'>"+msg+"</div>");
 			$("#sendMsg").val("");
 		}
 	}
