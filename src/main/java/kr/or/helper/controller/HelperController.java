@@ -487,7 +487,6 @@ public class HelperController {
 		}
 		@Scheduled(cron = "30 0/15 * * * ?"  )
 		public void ChkHelpComDelay() {
-			System.out.println("15분마다 실행!");
 			int result = service.ChkHelpComeDelay();
 		}
 
