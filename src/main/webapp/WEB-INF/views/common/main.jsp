@@ -192,7 +192,6 @@
 			        	<div class="helper_list_text_info">
 			        		<span class="helper_list_text_code">활동시간 ${hp.helperStartTime}</span>
 			        		<span class="helper_list_text_code">
-			        			이동수단 
 			        			<c:choose>
 			        				<c:when test="${hp.helperRide == 1}">
 			        					자동차

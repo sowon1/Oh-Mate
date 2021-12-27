@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 수정</title>
+<title>Oh-Mate!</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -18,9 +18,9 @@
 <!-- include noticeWriteFrm css -->
 <link rel="stylesheet" href="/resources/css/notice/noticeWriteFrm.css">
 	<div class="container_mate">
-		<h1>공지사항 수정</h1>
+		<h1 class="point_title">공지사항 수정</h1>
 		<br>
-		<hr>
+		<br>
 		<form action="/updateNotice.do" method="post" enctype="multipart/form-data">
 			<table class="table">
 				<tr>

@@ -155,11 +155,15 @@ public class BoardDao {
 		return (ArrayList<Board>)list;
 	}
 
-	//메이트신고
+	//메이트 게시글 신고
 	public int mateReport(HashMap<String, Object> map) {
-		return sqlSession.insert("helper.mateReport",map);
+		return sqlSession.insert("board.mateReport",map);
 	}
 
+	//메이트 댓글 신고
+	public int commentReport(HashMap<String, Object> map) {
+		return sqlSession.insert("board.commentReport",map);
+	}
 
 	
 }

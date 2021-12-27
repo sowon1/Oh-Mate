@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>Oh-Mate!</title>
 <link rel="stylesheet" href="/resources/css/member/joinFrm.css">
 </head>
 <body>

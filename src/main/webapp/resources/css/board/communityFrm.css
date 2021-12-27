@@ -64,8 +64,9 @@
 	}
 	.lg_box{
 		border : 1px solid #d4d4d4;
-		padding: 15px;
+		padding: 30px;
 		background : #f9f9f9;
+		margin-top:30px;
 	}
 	.searchfs{
 		font-size:12px;
@@ -82,7 +83,7 @@
 	}
 	.m_box {
 	    background: #f1f5fb;
-	    padding: 10px 15px;
+	    padding: 15px;
 	    margin-right: 10px;
 	    border: 1px solid #eee;
 	}

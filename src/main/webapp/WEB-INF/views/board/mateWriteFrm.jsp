@@ -5,15 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Oh-Mate!</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 		<div class="container_mate">
-		<h1>오늘부터 메이트</h1>
-		<br><hr><br>
+		<h1 class="point_title">오늘부터 메이트</h1>
+		<br><br>
 		<form action="/boardWrite.do" method="post" enctype="multipart/form-data">
 		<table class="table table-hover">
   			<thead>

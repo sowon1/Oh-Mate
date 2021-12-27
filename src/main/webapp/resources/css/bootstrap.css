@@ -1960,12 +1960,12 @@ progress {
   --bs-table-accent-bg: var(--bs-table-active-bg);
   color: var(--bs-table-active-color);
 }
-
+/*
 .table-hover > tbody > tr:hover > * {
   --bs-table-accent-bg: var(--bs-table-hover-bg);
   color: var(--bs-table-hover-color);
 }
-
+*/
 .table-primary {
   --bs-table-bg: #ded6ea;
   --bs-table-striped-bg: #d3cbde;
@@ -4886,6 +4886,7 @@ fieldset:disabled .btn {
 .card-img-top,
 .card-img-bottom {
   width: 100%;
+  object-fit: cover;
 }
 
 .card-group > .card {

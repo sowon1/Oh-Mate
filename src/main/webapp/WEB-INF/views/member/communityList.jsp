@@ -5,15 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지_게시판/댓글</title>
+<title>Oh-Mate!</title>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
    	<link rel="stylesheet" href="/resources/css/member/communityConfirm.css">
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 		<div class="container_mate">
-			<h1>MyPage_커뮤니티/댓글</h1><br>
-			<hr><br>
+			<h1 class="point_title">MyPage_커뮤니티/댓글</h1><br>
+			<br><br>
 			<h4><span class="communityTab">커뮤니티</span> / <span class="communityTab">댓글</span></h4>
 			<!-- 게시판 -->
 			<div class=communityTbl>

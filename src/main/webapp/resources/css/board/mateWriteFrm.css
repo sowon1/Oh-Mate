@@ -158,7 +158,11 @@ textarea.txtarea{
 button.recancel{
 	display:none; 
 	margin-bottom:5px;
+	margin-right: 22px;
 }
 .report{
 	width:25px;
+}
+.mateReport{
+	cursor: pointer;
 }

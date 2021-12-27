@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>커뮤니티 상세보기</title>
+<title>Oh-Mate!</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="/resources/js/board/boardView.js"></script>
 <link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
@@ -14,9 +14,8 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<div class="container_mate">
-		<h1>오늘부터 메이트</h1>
+		<h1 class="point_title">오늘부터 메이트</h1>
 		<br>
-		<hr>
 		<br>
 		<form action="boardUpdateFrm.do?boardNo=${b.boardNo }" method="post" enctype="multipart/form-data">
 		<table class="table table-hover">
@@ -42,7 +41,7 @@
 				<td colspan="2">${b.regDate }</td>
 			</tr>
 			<tr>
-				<td colspan="8" id="profileOption" value="${ProfileOption }" style="padding-left:76px;">	
+				<td colspan="8" id="profileOption" value="${ProfileOption}" style="padding-left:76px;">	
 				</td>
 			</tr>
 			<tr>
@@ -174,7 +173,7 @@
 								</c:if>
 									<a href="javascript:void(0)" class="reshow"><img src="/resources/img/icon/chat_icon.png" class="report"></a>&ensp;
 									<c:if test="${m.memberId ne c.commentWriter }">
-										<a class="mateReport"><img src="/resources/img/icon/report.png" class="report"></a>
+										<a class="commentReport"><img src="/resources/img/icon/report.png" class="report"></a>
 									</c:if>
 							</c:if>
 						</p>
@@ -243,8 +242,8 @@
 										<a href="javascript:void(0)" onclick="modifyComment(this,'${bc.commentNo }','${b.boardNo }');">수정</a>
 										<a href="javascript:void(0)" onclick="deleteComment(this,'${bc.commentNo }','${b.boardNo }');" style="margin-right: 15px;">삭제</a>
 									</c:if>	
-									<c:if test="${m.memberId ne bc.commentWriter }">
-										<a class="mateReport"><img src="/resources/img/icon/report.png" class="report"></a>
+									<c:if test="${m.memberId != null && m.memberId ne bc.commentWriter }">
+										<a class="commentReport"><img src="/resources/img/icon/report.png" class="report"></a>
 									</c:if>								
 								</p>
 							</li>
@@ -255,7 +254,7 @@
 		</div>	
 	</div>	
 	
-		<!-- --------------------------------------신고 팝업------------------------------------------------------ -->
+		<!---------------------------------------------------게시글 신고 팝업-------------------------------------------------------->
 				<div class="report_popup_modal">
                  	<div class="re_pop_modal">
 	                 		<div class="re_modal_top">
@@ -266,9 +265,9 @@
 		                   		<form action="/mateReport.do" method="post" class="reform">
 		                   			<table class="help_table">
 	                        			<tr class="table-active_mate_help">
-	                        				<th>신고 닉네임</th>
-	                        				<td>
-	                        					<input type="text" class="input_03" value="${b.boardWriter}"readonly="readonly">
+	                        				<th>신고 대상</th>
+	                        				<td> 
+	                        					<input type="text" class="input_03" value="${b.boardWriter}" name="memberName" readonly="readonly">
 	                        					<input type="hidden" class="input_03" value="${b.boardNo}" name="boardNo" readonly="readonly">
 	                        				</td>
 	                        			</tr>
@@ -288,7 +287,7 @@
 	                        			<tr class="table-active_mate_help">
 	                        				<th>신고사유</th>
 	                        				<td>
-	                        					<textarea name="reportContent" class="textarea_pro"></textarea>
+	                        					<textarea name="reportContent" class="textarea_pro report_textarea"></textarea>
 	                        				</td>
 	                        			</tr>
                         			</table>
@@ -300,10 +299,183 @@
                  	</div>
                  </div>
                  
+       <!---------------------------------------------------댓글 신고 팝업-------------------------------------------------------->
+				<div class="report_popup_modal">
+                 	<div class="re_pop_modal">
+	                 		<div class="re_modal_top">
+		                  		<span class="re_modal_text">신고</span>
+		                      	<span class="re_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+		                   </div>
+		                   <div class="re_modal_content">
+		                   		<form action="/commentReport.do" method="post" class="reform">
+		                   			<table class="help_table">
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고 대상</th>
+	                        				<td> 
+	                        					<input type="text" class="input_03" value="${b.boardWriter}" name="memberName" readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${b.boardNo}" name="boardNo" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고자</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="${sessionScope.m.memberId}" readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${sessionScope.m.memberNo}" name="memberNo" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고분류</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="메이트" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고사유</th>
+	                        				<td>
+	                        					<textarea name="reportContent" class="textarea_pro report_text"></textarea>
+	                        				</td>
+	                        			</tr>
+                        			</table>
+                        			<div class="form_btn">
+	                        			<a class="btn_100" type="submit" onclick="return checkVal();">신고하기</a>
+	                        		</div>
+		                   		</form>
+		                   </div>
+                 	</div>
+                 </div>
                 
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 <script>
-	//신고
+$(function(){
+	//답글 창 열기
+	$(".reshow").click(function(){
+		var idx = $(".reshow").index(this);
+		$(".txtarea").eq(idx).show();
+		$(".txtarea").css('width','1100px');
+		$(".commentbt").eq(idx).hide();
+		$(".subbtnSty").eq(idx).show();
+		$(".recancel").eq(idx).show();
+		$(".secretCom").eq(idx).show();
+				
+	});
+	
+	//답글 창 닫기
+	$(".recancel").click(function(){
+		var idx = $(".recancel").index(this);
+		$(".txtarea").eq(idx).hide();
+		$(".commentbt").eq(idx).show();
+		$(".subbtnSty").eq(idx).hide();
+		$(".recancel").eq(idx).hide();
+		$(".secretCom").eq(idx).hide();
+	});
+	
+	 //댓글필수입력
+	$("#secretBtn").click(function(){
+		var idx = $("#secretBtn").index(this);
+		var secret = $("#commentcont").eq(idx).val();
+		if(secret == ""){
+			alert('댓글을 입력해주세요');
+			return false;
+		}else{
+			return true;
+		}
+	});
+	
+	//답글 필수입력
+	$(".subbtnSty").click(function(){
+		var idx = $(".subbtnSty").index(this);
+		var submitBtn = $(".txtarea").eq(idx).val();
+		if(submitBtn == ""){
+			alert('답글을 입력해주세요');
+			return false;
+		}else{
+			return true;
+		}
+	});
+	
+	
+	//게시판_프로필정보 업로드
+	var td = $("#profileOption");
+	var pro = td.attr("value");
+	var local = [
+      '강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구',
+      '마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'
+	];	
+	
+	//console.log(pro); 2262222
+	if(pro.charAt(0) == '1'){
+		td.append("<span class='tag'>#여성전용</span>&emsp;");
+	}else if(pro.charAt(0) == '2'){
+		td.append("<span class='tag'>#남성전용</span>&emsp;");
+	}else if(pro.charAt(0) == '3'){
+		td.append("<span class='tag'>#남녀공용</span>&emsp;");
+	}
+	
+	if(pro.charAt(1) == '1'){
+		td.append("<span class='tag'>#20대</span>&emsp;");
+	}else if(pro.charAt(1) == '2'){
+		td.append("<span class='tag'>#30대</span>&emsp;");
+	}else if(pro.charAt(1) == '3'){
+		td.append("<span class='tag'>#40대이상</span>&emsp;");
+	}
+	//길이가 7일때는 로컬코드 한자리로 처리, 8일때는 로컬코드2자리로처리해서 나머지가 1씩증가
+	if(pro.length == 7){
+		var pLocal = pro.charAt(2);  
+		td.append("<span class='tag'>"+'#'+local[pLocal-1]+"</span>&emsp;");
+
+		if(pro.charAt(3) == '1'){
+			td.append("<span class='tag'>#흡연</span>&emsp;");
+		}else if(pro.charAt(3) == '2'){
+			td.append("<span class='tag'>#비흡연</span>&emsp;");
+		}
+		
+		if(pro.charAt(4) == '1'){
+			td.append("<span class='tag'>#반려동물 좋아해요</span>&emsp;");
+		}else if(pro.charAt(4) == '2'){
+			td.append("<span class='tag'>#반려동물 싫어해요</span>&emsp;");
+		}
+		
+		if(pro.charAt(5) == '1'){
+			td.append("<span class='tag'>#청소하는걸 좋아해요</span>&emsp;");
+		}else if(pro.charAt(5) == '2'){
+			td.append("<span class='tag'>#청소하는걸 싫어해요</span>&emsp;");
+		}
+		
+		if(pro.charAt(6) == '1'){
+			td.append("<span class='tag'>#생활패턴 : 밤</span>&emsp;");
+		}else if(pro.charAt(6) == '2'){
+			td.append("<span class='tag'>#생활패턴 : 낮</span>&emsp;");
+		}
+	}else if(pro.length == 8){
+		var pLocal = pro.slice(2,4);    // 22182222 -> 18(2,3번째)
+		td.append("<span class='tag'>"+'#'+local[pLocal-1]+"</span>&emsp;");
+		
+		if(pro.charAt(4) == '1'){
+			td.append("<span class='tag'>#흡연</span>&emsp;");
+		}else if(pro.charAt(4) == '2'){
+			td.append("<span class='tag'>#비흡연</span>&emsp;");
+		}
+		
+		if(pro.charAt(5) == '1'){
+			td.append("<span class='tag'>#반려동물 좋아해요</span>&emsp;");
+		}else if(pro.charAt(5) == '2'){
+			td.append("<span class='tag'>#반려동물 싫어해요</span>&emsp;");
+		}
+		
+		if(pro.charAt(6) == '1'){
+			td.append("<span class='tag'>#청소하는걸 좋아해요</span>&emsp;");
+		}else if(pro.charAt(6) == '2'){
+			td.append("<span class='tag'>#청소하는걸 싫어해요</span>&emsp;");
+		}
+		
+		if(pro.charAt(7) == '1'){
+			td.append("<span class='tag'>#생활패턴 : 밤</span>&emsp;");
+		}else if(pro.charAt(7) == '2'){
+			td.append("<span class='tag'>#생활패턴 : 낮</span>&emsp;");
+		}
+	}
+});
+	//게시물 신고
 	$(".mateReport").click(function(){
 		reportopen();
 	});
@@ -312,19 +484,73 @@
 		reportclose();
 	});
 	
-	//신고 유효성 
+	function reportopen(){
+		$(".report_popup_modal").css("display","flex");
+	    $("body").css("overflow", "hidden");
+	    $(".tour_back_dark").show();			
+	}
+	
+	function reportclose(){
+		$(".report_popup_modal").css("display","none");
+	    $("body").css("overflow", "auto");
+	    $(".tour_back_dark").hide();			
+	}
+	
 	function checkReVal(){
-		$(".reform").submit();
+		if($(".report_textarea").val() == ""){	
+			alert('사유를 입력해주세요.');
+		}else{
+			 $(".reform").submit();
+		}
 	}
 	
-	//자동닫기
-	function autoClose(){
-	   setTimeout('closed()',3000);
+	//댓글신고
+	$(".commentReport").click(function(){
+		reportopen();
+	});
+	
+	function checkVal(){
+		if($(".report_text").val() == ""){	
+			alert('사유를 입력해주세요.');
+		}else{
+			 $(".reform").submit();
+		}
 	}
 	
-	function closed(){
-	   countmsgclose();
+	function modifyComment(obj,commentNo,boardNo){
+		$(obj).parent().prev().show();
+		$(obj).parent().prev().prev().hide();
+		$(obj).html('수정완료');
+		$(obj).attr("onclick","modifyComplete(this,'"+commentNo+"','"+boardNo+"');");
+		$(obj).next().html('취소');
+		$(obj).next().attr("onclick","modifyCancel(this,'"+commentNo+"','"+boardNo+"');");
+		$(obj).next().next().hide();
 	}
+	
+	function modifyCancel(obj,commentNo,boardNo){
+		$(obj).parent().prev().hide();
+		$(obj).parent().prev().prev().show();
+		$(obj).prev().html("수정");
+		$(obj).prev().attr("onclick","modifyComment(this,'"+commentNo+"','"+boardNo+"');");
+		$(obj).html("삭제");
+		$(obj).attr("onclick","deleteComment(this,'"+commentNo+"','"+boardNo+"');");
+		$(obj).next().show();
+	}
+	
+	function modifyComplete(obj,commentNo,boardNo){
+		var form = $("<form action='/updateComment.do' method='post'></form>");
+		form.append($("<input type='text' name='commentNo' value='"+commentNo+"'>"));
+		form.append($("<input type='text' name='boardNo' value='"+boardNo+"'>"));
+		form.append($(obj).parent().prev());
+		$("body").append(form);
+		form.submit();		
+	}
+	
+	function deleteComment(obj,commentNo,boardNo){
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			location.href="/deleteComment.do?commentNo="+commentNo+"&boardNo="+boardNo;
+		}
+	}		
 </script>
 </body>
 </html>

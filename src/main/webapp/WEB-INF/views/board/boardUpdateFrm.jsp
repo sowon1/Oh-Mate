@@ -5,15 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Oh-Mate!</title>
 <link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
 		<div class="container_mate">
-		<h1>오늘부터 메이트_글수정</h1>
-		<br><hr><br>
+		<h1 class="point_title">오늘부터 메이트_글수정</h1>
+		<br><br>
 		<form action="/boardUpdate.do?boardNo=${b.boardNo }" method="post" enctype="multipart/form-data">
 		<table class="table table-hover">
 			<tr class="table-primary">

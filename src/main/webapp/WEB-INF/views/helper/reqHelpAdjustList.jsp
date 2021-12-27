@@ -12,6 +12,7 @@
 	margin-top: 30px;
 }
 </style>
+<title>Oh-Mate!</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />

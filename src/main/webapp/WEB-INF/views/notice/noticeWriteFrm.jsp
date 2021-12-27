@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 작성</title>
+<title>Oh-Mate!</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
