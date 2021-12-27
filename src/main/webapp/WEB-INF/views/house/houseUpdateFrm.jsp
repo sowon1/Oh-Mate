@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Oh-Mate!</title>e>
+<title>Oh-Mate!</title>
 <style>
 .content {
 	width: 600px;

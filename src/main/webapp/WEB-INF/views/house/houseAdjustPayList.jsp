@@ -9,9 +9,9 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<div class="container_mate" style="padding-top: 80px;">
-	<div style="margin-bottom: 30px;">
-	<h1 class="point_title">하우스 정산내역</h1>
+<div class="container_mate">
+	<div>
+	<h1 class="point_title" style="margin-bottom: 30px;">하우스 정산내역</h1>
 	<table class="table">
 		<tr>
 			<th>No</th>
@@ -43,7 +43,7 @@
 			</c:forEach>	
 	</table>
 	</div>
-	<div id="paveNavi" style="width: 400px; margin: 0 auto; text-align: center;">${pageNavi }</div>
+	<div id="pageNavi">${pageNavi }</div>
 	<div style="margin: 10px; padding-top:30px; text-align: center;">
 	<a href="/main.do" class="btn btn_b_line btn_rx" style="width: 80%; line-height: 30px;">메인으로 돌아가기</a>
 	</div>

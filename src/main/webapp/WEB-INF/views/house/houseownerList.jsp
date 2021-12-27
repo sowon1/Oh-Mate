@@ -134,8 +134,8 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<div class="container-mate"  style="width: 1200px; margin: 0 auto;">
-			<h1 class="form-title point_title" style="padding-top: 100px;">내 하우스 리스트</h1>
+		<div class="container_mate">
+			<h1 class="form-title point_title">내 하우스 리스트</h1>
 			<div class="house-status">
 				<ul>
 					<li><span class="img-space"></span> <span class="name-space">하우스:</span>
@@ -204,7 +204,7 @@
 					</c:forEach>
 				</ul>
 			</div>
-			<div class="pageNavi"  style="width: 400px; margin: 0 auto;">${pageNavi }</div>
+			<div id="pageNavi">${pageNavi }</div>
 		</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>

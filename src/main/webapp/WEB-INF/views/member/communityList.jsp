@@ -12,8 +12,8 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 		<div class="container_mate">
-			<h1>MyPage_커뮤니티/댓글</h1><br>
-			<hr><br>
+			<h1 class="point_title">MyPage_커뮤니티/댓글</h1><br>
+			<br><br>
 			<h4><span class="communityTab">커뮤니티</span> / <span class="communityTab">댓글</span></h4>
 			<!-- 게시판 -->
 			<div class=communityTbl>

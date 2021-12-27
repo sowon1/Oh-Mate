@@ -14,9 +14,8 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<div class="container_mate">
-		<h1>오늘부터 메이트</h1>
+		<h1 class="point_title">오늘부터 메이트</h1>
 		<br>
-		<hr>
 		<br>
 		<form action="boardUpdateFrm.do?boardNo=${b.boardNo }" method="post" enctype="multipart/form-data">
 		<table class="table table-hover">
