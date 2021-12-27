@@ -89,11 +89,8 @@
 	<div class="modal" id="modal1">
 		<div class="modal-dialog" role="document" style="margin-top:100px;">
 			<div class="modal-content">
-				<div class="modal-header">
-			        <div class="brand_logo">
-			            <a href="/">Oh-Mate!</a>
-			        </div>
-					<h5 class="modal-title" style="padding-right:160px;">로그인</h5>
+				<div class="modal-header login_header">
+					<h5 class="modal-title login_title">Login</h5>
 					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true"></span>
 					</button>

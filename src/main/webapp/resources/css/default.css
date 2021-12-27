@@ -1556,3 +1556,18 @@ input[name="funderCategory"]:checked+label:after{
     align-items: center;
     z-index: 10005;
 }
+
+/* 로그인 창 */
+.form-group label {
+	margin-bottom:8px;
+}
+
+.form-group label:before {
+       content: '';
+    display: inline-block;
+    width: 2px;
+    height: 13px;
+    margin: -5px 8px 0 0;
+    vertical-align: middle;
+    background: #956bfc;
+}
