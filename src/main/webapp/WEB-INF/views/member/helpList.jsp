@@ -123,6 +123,18 @@
 	.btn{
 		margin-top: 5px;		
 	}
+	.form_popup_modal{
+	    /* 현재 화면 중앙에 모달 뜰수있게 */
+	    position: fixed;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+	    display: none;
+	    justify-content: center;
+	    align-items: center;
+	    z-index: 10005;
+	}
 </style>
 </head>
 <body>
@@ -135,7 +147,7 @@
 		<div class="select_tab">
 			<ul>
 				<li class="sel"><a href="/helpList.do?reqPage=1">헬프 신청 내역</a></li>
-				<li class="notSel"><a href="helpReview.do">헬프리뷰</a></li>
+				<li class="notSel"><a href="helpReview.do?reqPage=1">헬프리뷰</a></li>
 				<li class="notSel"><a href="bookmarkHelper.do">찜한 헬퍼</a></li>
 			</ul>
 		</div>
@@ -144,7 +156,7 @@
 		<br>
 		<div>
 			<ul>
-				<c:forEach items="${list }" var="h">
+				<c:forEach items="${list }" var="h" varStatus="i">
 					<li>
 						<div class="help_request">
 							<img src="/resources/upload/helper/${h.helperFilepath}" class="helper_img">
@@ -206,24 +218,27 @@
 										<button type="submit" class="btn">상세내용</button>													
 									</form>		
 									<c:choose>
-										<c:when test="${h.helpStatus ge 3 and h.reviewCheck eq 0 }">
-											<form action="/reviewWriteFrm.do" method="post" class="review_btn">
+										<c:when test="${h.helpStatus eq 3 and h.reviewCheck eq 0 }">
+											<form action="/helpReviewWriteFrm.do" method="post" class="review_btn">
 												<input type="hidden" name="memberNo" value="${h.memberNo }">
 												<input type="hidden" name="helperNo" value="${h.helperNo }">
 												<input type="hidden" name="helpNo" value="${h.helpNo }">
+												<input type="hidden" name="helperName" value="${h.helperName }">
+												<input type="hidden" name="helpTitle" value="${h.helpTitle }">
+												<input type="hidden" name="helpFinishDate" value="${h.helpFinishDate}">
+												<input type="hidden" name="helpRequestDate" value="${h.helpRequestDate}">										
 												<button type="submit" class="btn btn_out">리뷰작성</button>													
 											</form>										
 										</c:when>
-										<c:when test="${h.helpStatus ge 3 and h.reviewCheck eq 1 }">
-											<form action="/reviewView.do" method="post" class="review_btn">
-												<input type="hidden" name="memberNo" value="${h.memberNo }">
-												<input type="hidden" name="helperNo" value="${h.helperNo }">
+									</c:choose>
+									<c:choose>
+										<c:when test="${h.helpStatus eq 1}">
+											<form action="cancelHelp.do">
 												<input type="hidden" name="helpNo" value="${h.helpNo }">
-												<button type="submit" class="btn btn_out">리뷰확인</button>													
-											</form>																				
+												<button class="btn btn_pk">헬프취소</button>																						
+											</form>																							
 										</c:when>
 									</c:choose>
-									<button class="btn btn_pk_out">신고</button>
 								</div>		
 							</div>
 						</div>						

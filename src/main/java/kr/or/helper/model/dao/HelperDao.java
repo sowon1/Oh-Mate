@@ -237,5 +237,14 @@ public class HelperDao {
 		return session.selectOne("helper.helpRequestCount", memberNo);
 	}
 
+	public int insertHelpReview(HelpReview re) {
+		// TODO Auto-generated method stub
+		return session.insert("helper.insertHelpReview", re);
+	}
+
+	public int insertHelpPhoto(HelpReview re) {
+		// TODO Auto-generated method stub
+		return session.insert("helper.insertHelpPhoto", re);
+	}
 	
 }
