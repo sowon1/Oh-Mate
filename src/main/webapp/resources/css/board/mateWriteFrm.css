@@ -146,7 +146,6 @@ button.subbtn{
 button.subbtnSty{
 	display:none; 
 	margin-bottom:5px; 
-	margin-right:22px;
 }
 textarea.txtarea{
 	display:none; 
@@ -158,7 +157,11 @@ textarea.txtarea{
 button.recancel{
 	display:none; 
 	margin-bottom:5px;
+	margin-right: 22px;
 }
 .report{
 	width:25px;
+}
+div.form-check{
+	display: flex;
 }

@@ -245,16 +245,23 @@ public class BoardService {
 		return dao.searchOption(profileOption);
 	}
 
-	//메이트신고
-	public int mateReport(int boardNo, int memberNo, String reportContent, String boardWriter) {
+	//메이트 게시글 신고
+	public int mateReport(int boardNo, int memberNo, String reportContent) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("boardNo", boardNo);
 		map.put("memberNo", memberNo);
 		map.put("reportContent", reportContent);
-		map.put("boardWriter", boardWriter);
 		return dao.mateReport(map);
 	}
 
+	//메이트 댓글 신고
+	public int commentReport(int boardNo, int memberNo, String reportContent) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("boardNo", boardNo);
+		map.put("memberNo", memberNo);
+		map.put("reportContent", reportContent);
+		return dao.commentReport(map);
+	}
 	
 	
 

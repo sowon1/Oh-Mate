@@ -283,10 +283,16 @@
 			from board where profile_option=#{profileOption}
 	</select>
 	
-	<!-- 메이트신고 -->
+	<!-- 메이트 게시글 신고 -->
 	<insert id="mateReport" parameterType="map">
-	insert into report
-		values(report_seq.nextval,3,#{boardNo},#{memberNo},#{boardWriter},#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
+	insert into report                  
+		values(report_seq.nextval,3,#{boardNo},#{memberNo},(select member_no from member join board on member_id=board_writer where board_no=#{boardNo}),#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
+	</insert>
+	
+	<!-- 메이트 댓글 신고 -->
+	<insert id="commentReport" parameterType="map">
+		insert into report                  
+		values(report_seq.nextval,4,#{boardNo},#{memberNo},(select member_no from member join board on member_id=board_writer where board_no=#{boardNo}),#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
 	</insert>
 </mapper>
 

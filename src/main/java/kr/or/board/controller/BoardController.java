@@ -325,27 +325,32 @@ public class BoardController {
 		return "board/communityFrm";
 	}
 	
-	//메이트신고
+	//메이트 게시글 신고
 	@RequestMapping(value="/mateReport.do")
-	public String mateReport(Model model, int boardNo, int memberNo, String boardWriter, String reportContent) {
-		int result = service.mateReport(boardNo, memberNo, boardWriter, reportContent);
-		System.out.println(result);
+	public String mateReport(Model model, int boardNo, int memberNo, String reportContent) {
+		int result = service.mateReport(boardNo, memberNo, reportContent);
 		if(result > 0) {
-			model.addAttribute("loc","/helperView.do?memberNo="+boardWriter);
 			model.addAttribute("msg","신고가 접수되었습니다.");
 		}else {
-			model.addAttribute("loc","/helperView.do?memberNo="+boardWriter);
 			model.addAttribute("msg","신고가 실패되었습니다.");
 		}
+		model.addAttribute("loc","/boardView.do?boardNo="+boardNo);
+		return "common/msg";
+	}
+	
+	//메이트 댓글 신고
+	@RequestMapping(value="/commentReport.do")
+	public String commentReport(Model model, int boardNo, int memberNo, String reportContent) {
+		int result = service.commentReport(boardNo, memberNo, reportContent);
+		if(result > 0) {
+			model.addAttribute("msg","신고가 접수되었습니다.");
+		}else {
+			model.addAttribute("msg","신고가 실패되었습니다.");
+		}
+		model.addAttribute("loc","/boardView.do?boardNo="+boardNo);
 		return "common/msg";
 	}
 }
-
-
-
-
-
-
 
 
 
