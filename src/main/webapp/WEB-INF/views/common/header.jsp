@@ -161,6 +161,7 @@
 		        <p class="name">${sessionScope.m.memberName}</p>
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
+		    <input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
 		    <ul>
 		      <li><a href="/myPage.do?memberId=${sessionScope.m.memberId }">나의 정보</a></li>
 		      <li><a href="/bookmarkHouseList.do">하우스 찜목록</a></li>
@@ -170,7 +171,6 @@
 		      <li><a href="/helpList.do?reqPage=1">헬프 내역</a></li>
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
 		      	<li>
-		      	<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
 		      	<a href="javascript:void(0);" class="requestChk">헬퍼 신청하기</a></li>
 		      	</c:if>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
@@ -706,6 +706,7 @@
    
 	$(".requestChk").click(function() {
 		var memberNo = $("#memberNo").val();
+		console.log(memberNo);
 		$.ajax({
 			url : "/listCheck.do",
 			data: {memberNo:memberNo},
@@ -714,11 +715,11 @@
 					location.href = "/helperRequestFrm.do";	
 				}else if(data == 1){
 					if(confirm("헬퍼 등록을 이미 하셨거나 요청중입니다. 수정하시겠습니까?" )){
-					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}&helperStatus=1";
+					location.href ="/helperRequestUpdateFrm.do?memberNo="+memberNo+"&helperStatus=1";
 					}
 				}else if(data ==3){
 					if(confirm("헬퍼등록이 거절되셨거나 재요청중입니다. 다시 수정하시겠습니까? ")){
-					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}&helperStatus=4";
+					location.href ="/helperRequestUpdateFrm.do?memberNo="+memberNo+"&helperStatus=4";
 					}
 				}
 			}
