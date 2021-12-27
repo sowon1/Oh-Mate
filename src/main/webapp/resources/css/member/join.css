@@ -48,14 +48,38 @@
 		line-height: 1.5;
 	}
 	.img_wrapp{
-		width: 300px;
-		margin-top : 50px;
+		margin-top:30px;
+		float:left;
+		margin-bottom:20px;
+		display: flex;
+		align-items: flex-end;
 	}
-	.img_wrapp img{
-		max-width: 100px;
+	#fileItem{
+	float:left;
+	margin-left:20px;
+	}
+	.img_wrapp img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    object-fit: cover;
+    }
+	.select{
+	float:left;
+	clear:both;
 	}
 	.gender, .age{
 		display: inline;
+		float:left;
+		clear:both;
+		margin-top:25px;
+	}
+	.join_title{
+	float:left;
+	clear:both;
+	margin-top:25px;
 	}
 	#joinsubmit{
 		width:100%;	

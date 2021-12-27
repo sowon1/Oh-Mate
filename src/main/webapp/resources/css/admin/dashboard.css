@@ -37,3 +37,13 @@
 .alarm>div>a{
 	font-size: 17px;
 }
+.container_mate a{
+	color:#333;
+}
+.container_mate a:hover, .container_mate a:hover>span{
+	color:#8500ff;
+	text-decoration: underline;
+}
+.container_mate a>span{
+	font-family: "ns_700";
+}

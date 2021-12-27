@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.common.Address;
 import kr.or.common.Income;
+import kr.or.common.Move;
 import kr.or.common.Photo;
 import kr.or.common.Tour;
 import kr.or.house.model.dao.HouseDao;
+import kr.or.house.model.vo.FindMoveTour;
 import kr.or.house.model.vo.House;
 import kr.or.house.model.vo.HouseResult;
 import kr.or.house.model.vo.houseAdjustPageData;
@@ -175,7 +177,7 @@ public class HouseService {
 		}
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		String pageNavi = "<ul class='pagination pagination'>";
+		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if (pageNo != 1) {
 			pageNavi += "<li class = 'page-item-mate-mate'>";
 			pageNavi += "<a href='/houseOwnerList.do?memberNo=" + memberNo + "&reqPage="
@@ -279,33 +281,34 @@ public class HouseService {
 	}
 
 	// 하우스 삭제
+	@Transactional
 	public int deleteHouse(int memberNo, int houseNo) {
 		// 하우스 삭제
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		map.put("houseNo", houseNo);
-		int result = dao.deleteHouse(map);
-		if (result > 0) {
-			int result2 = dao.deleteAllroom(map);
-			if (result2 > 0) {
-				int result3 = dao.deleteIncome(map);
-				if (result3 > 0) {
-					int result4 = dao.deleteAddress(map);
-					if (result4 > 0) {
-						int result5 = dao.deleteAllPhoto(map);
-						return result;
+				int result = dao.deleteAllroom(map);
+				if (result > 0) {
+					int result2 = dao.deleteHouse(map);
+					if (result2 > 0) {
+						int result3 = dao.deleteIncome(map);
+						if (result3 > 0) {
+							int result4 = dao.deleteAddress(map);
+							if (result4 > 0) {
+								int result5 = dao.deleteAllPhoto(map);
+								return result;
+							} else {
+								return 0;
+							}
+						} else {
+							return 0;
+						}
 					} else {
 						return 0;
 					}
 				} else {
 					return 0;
 				}
-			} else {
-				return 0;
-			}
-		} else {
-			return 0;
-		}
 	}
 	//하우스오너 하우스상세보기- 하우스 및 룸
 	public House selectHouseownerOneHouse(int houseNo, int memberNo) {
@@ -344,20 +347,20 @@ public class HouseService {
 		}
 		int pageNaviSize = 5;
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		String pageNavi = "<ul class='pagination pagination'>";
+		String pageNavi = "<ul class='pagination pagination-lg'>";
 		if (pageNo != 1) {
 			pageNavi += "<li class = 'page-item-mate-mate'>";
-			pageNavi += "<a href='/houseAdjustPay.do?reqPage="+ (pageNo - 1) + "'>";
+			pageNavi += "<a href='/houseAdjustPayTS.do?reqPage="+ (pageNo - 1) + "'>";
 			pageNavi += "&lt;</a></li>";
 		}
 		for (int i = 0; i < pageNaviSize; i++) {
 			if (pageNo == reqPage) {
 				pageNavi += "<li class='page-item-mate-mate active'>";
-				pageNavi += "<a href='/houseAdjustPay.do?reqPage="+ pageNo+ "'>";
+				pageNavi += "<a href='/houseAdjustPayTS.do?reqPage="+ pageNo+ "'>";
 				pageNavi += pageNo + "</a></li>";
 			} else {
 				pageNavi += "<li class='page-item-mate-mate'>";
-				pageNavi += "<a href='/houseAdjustPay.do?reqPage=" + pageNo+ "'>";
+				pageNavi += "<a href='/houseAdjustPayTS.do?reqPage=" + pageNo+ "'>";
 				pageNavi += pageNo + "</a></li>";
 			}
 			pageNo++;
@@ -367,7 +370,7 @@ public class HouseService {
 		}
 		if (pageNo <= totalPage) {
 			pageNavi += "<li class='page-item'>";
-			pageNavi += "<a href='/houseAdjustPay.do?reqPage=" + pageNo + "'>";
+			pageNavi += "<a href='/houseAdjustPayTS.do?reqPage=" + pageNo + "'>";
 			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
 		}
 		pageNavi += "</ul>";
@@ -395,6 +398,16 @@ public class HouseService {
 		}else {
 			return 0;
 		}
+	}
+
+	public FindMoveTour findMoveTour(int houseNo) {
+		ArrayList<Move> moveList= dao.findMove(houseNo);
+		ArrayList<Tour> tourList= dao.findTour(houseNo);
+		
+		FindMoveTour f= new FindMoveTour();
+		f.setMoveList(moveList);
+		f.setTourList(tourList);
+		return f;
 	}
 
 }

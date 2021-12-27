@@ -16,4 +16,5 @@ public class HelpReview {
 	private String memberId;				//작성자 아이디
 	private int star5;						//별점5
 	private int star4;						//별점4
+	private int helpNo;						//헬프번호		
 }

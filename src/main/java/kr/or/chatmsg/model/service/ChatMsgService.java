@@ -78,30 +78,40 @@ public class ChatMsgService extends TextWebSocketHandler{
 					s.sendMessage(tm);
 				}
 			} else if(type.equals("chat")) {
-				String sendMsg = "<div class='chat left'><span class='chatId'>"+memberList.get(session)+" : </span>"+msg+"</div>";
 				//insert에 필요한 값 추출
-				//키가 msg인 값 추출 - 메세지
-				String messageContent = element.getAsJsonObject().get("msg").getAsString();
 				//키가 receiver인 값 추출 - 메세지
 				String receiver = element.getAsJsonObject().get("receiver").getAsString();
 				//키가 sender인 값 추출 - 메세지
 				String sender = element.getAsJsonObject().get("sender").getAsString();
+				//키가 chatNo인 값 추출 - 메세지
+				String chatNo = element.getAsJsonObject().get("chatNo").getAsString();
 				//chat_message 테이블에 insert
 				//상대방화면에 보여줄 메세지(접속한 경우에만)
 				//화면으로 채팅전송(접속한경우)
 				HashMap<String, Object> sendMap = new HashMap<String, Object>();
 				sendMap.put("sender", sender);
 				sendMap.put("receiver", receiver);
-				sendMap.put("messageContent", messageContent);
-				int chatNo2 = dao.selectChatNo(sendMap);
-				
+				sendMap.put("chatNo", chatNo);
+				sendMap.put("msg", msg);
+				int c = dao.insertChatMsg(sendMap);
+				//msg 메세지 , receiver 접속해서 보낸사람, no 받는사람 - header에서 보낸거는
+				//서비스에선 - 
+				//되돌려줄때 프로필 정보 조회
+				if(c > 0) {
+					int chatmsgNo = dao.selectChatOneMsgNo(sendMap);
+					sendMap.put("messageNo", chatmsgNo);
+				}
+				ChatMsg cm = dao.selectChatOneMsgReturn(sendMap);
+				String sendMsg = "<div class='mate_talk_left'><img src='/resources/upload/member/"+cm.getFilepath()+".png'><div class='mate_talk_left_line'><span class='mate_talk_msg_name'>"+cm.getSenderName()+"</span><div class='mate_talk_view_left_one'><span class='mate_talk_left_msg'>"+cm.getMessageContent()+"</span><div class='mate_talk_msg_side'><span class='mate_talk_left_date'>"+cm.getMessageDate()+"</span></div></div></div></div>";
 				//되돌려줄때 
-				
-				for(WebSocketSession s : sessionList) {
-					if(!s.equals(session)) {
-						TextMessage tm = new TextMessage(new Gson().toJson(sendMap));
-						s.sendMessage(tm);
-					}
+				// no 추출 - 상대방 no
+				String no = element.getAsJsonObject().get("no").getAsString();
+				WebSocketSession s = memberList.get(no);
+				System.out.println(sendMsg);
+				if(s != null) {
+					TextMessage tm = new TextMessage(sendMsg);
+					System.out.println(tm);
+					s.sendMessage(tm);
 				}
 			}
 		}

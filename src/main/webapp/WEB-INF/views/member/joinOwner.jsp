@@ -32,10 +32,10 @@
 		            <input type="radio" name="memberLevel" value="2" checked>하우스오너
 				</div><br>
 					<h6>프로필 사진</h6>
-                   	<input type="file" name="uploadFile" id="fileItem">      
 		            	<span class="img_wrapp" >
-		             		<img id="img1"/>
-		             	</span><br><br>  
+		             		<img id="img1"  src="/resources/img/icon/profile.png"/>
+		                   	<input type="file" name="uploadFile" id="fileItem">      
+		             	</span>
                   	<h6 class="gender"><em>*</em>&ensp;성별 선택</h6>&emsp;
                   	<div class="select">
 		                <input type="radio" id="select1" name="gender" value="1"><label for="select1" style="width:130px;">남자</label>
@@ -47,12 +47,12 @@
 	                <input type="radio" id="select4" name="age" value="2"><label for="select4" style="width:130px;">30대</label>
 	                <input type="radio" id="select5" name="age" value="3"><label for="select5" style="width:130px;">40대이상</label>
 	           	</div><br>
-				<h6><em>*</em>&ensp;아이디</h6> <!-- 아이디 입력(대소문자 5~11글자) -->
+				<h6 class="join_title"><em>*</em>&ensp;아이디</h6> <!-- 아이디 입력(대소문자 5~11글자) -->
 				<div class="in-line">
 					<input type="text" name="memberId" id="memberId" class="form-control" placeholder="아이디 입력(대소문자 조합 5~11글자)" maxlength="11">
 					<button type="button" name="memberIdChk" id="memberIdChk" class="btn btn-primary inputBtn1">중복 확인</button><br>
-				</div><span class="result1"></span><br><br>
-				<h6><em>*</em>&ensp;이메일주소</h6> <!-- 이메일형식 / 인증번호 -->
+				</div><span class="result1"></span>
+				<h6 class="join_title"><em>*</em>&ensp;이메일주소</h6> <!-- 이메일형식 / 인증번호 -->
 				<div class="in-line">
 					<input type="text" name="email" id="email" class="form-control" placeholder="이메일주소 입력" maxlength="33">
 					<button type="button" name="emailChks" id="emailbutton" class="btn btn-primary inputBtn2" disabled="disabled">인증번호 전송</button><br>

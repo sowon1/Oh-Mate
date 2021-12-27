@@ -5701,7 +5701,7 @@ fieldset:disabled .btn {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1055;
+  z-index: 5055;
   display: none;
   width: 100%;
   height: 100%;
@@ -5780,7 +5780,7 @@ fieldset:disabled .btn {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1050;
+  z-index: 5050;
   width: 100vw;
   height: 100vh;
   background-color: #000;
@@ -5806,15 +5806,26 @@ fieldset:disabled .btn {
   padding: 1rem 1rem;
   border-bottom: 1px solid #ededed;
 }
-
+.login_header{
+	padding:10px 20px;
+}
+/*
 .modal-header .btn-close {
   padding: 0.5rem 0.5rem;
   margin: -0.5rem -0.5rem -0.5rem auto;
 }
-
+*/
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5;
+}
+.login_title{
+	font-family: "logo";
+    text-align: center;
+    margin: 0 auto;
+    color: #956CFC;
+    padding-left: 25px;
+    font-size:34px;
 }
 
 .modal-body {

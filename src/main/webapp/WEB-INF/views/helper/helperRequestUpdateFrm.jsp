@@ -26,6 +26,12 @@
 	color: #847E78;
 	margin: 5px;
 }
+#alertId{
+	font-size: 18px;
+	text-align: center;
+	color: #956bfc;
+	font-weight: bold;
+}
 	</style>
 </head>
 <body>
@@ -276,6 +282,7 @@
 				</table>
 				<div class="next_btn">
 					<button class="btn btn_100" type="submit" style="line-height: 15px" id="subbtn"onclick="return chkForm();">작성하기</button>
+					<span id="alertId" ></span>
 				</div>
 			</div>
 		</form>
@@ -505,10 +512,12 @@
 							$("#idChk").html("사용가능한 닉네임 입니다.");
 							$("#idChk").css("color","blue");
 							$("#subbtn").css("display","block");
+							$("#alertId").html("");
 						}else{
 							$("#idChk").html("이미 사용중인 닉네임입니다.");
 							$("#idChk").css("color","red");
 							$("#subbtn").css("display","none");
+							$("#alertId").html("닉네임이 중복입니다!! 사용가능한 닉네임으로 변경해주세요!");
 						}
 					}
 				});
