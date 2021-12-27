@@ -42,7 +42,8 @@ public class ChatController {
 	}
 	//채팅 신고
 	@RequestMapping(value="/chatReport.do")
-	public String chatReport(Model model, Report report) {
+	public String chatReport(Model model, Report report, String reportContent) {
+		report.setReportContent(reportContent);
 		int result = service.insertChatReport(report);
 		if(result > 0) {
 			model.addAttribute("loc","/");

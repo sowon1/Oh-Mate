@@ -37,16 +37,16 @@ public class ChatMsgService extends TextWebSocketHandler{
 		//클라이언트가 최초로 웹소켓 서버에 접속했을 때 수행되는 메소드
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-			System.out.println("Oh-Mate 채팅 접속!");
+			//System.out.println("Oh-Mate 채팅 접속!");
 			//클라이언트가 새로 접속하면 웹소켓 세션을 리스트에 추가
 			sessionList.add(session);
-			System.out.println("접속 회원 수 : "+sessionList.size());
+			//System.out.println("접속 회원 수 : "+sessionList.size());
 		}
 		//클라이언트가 서버에 메세지를 전송했을 때 수행되는 메소드
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			//jsp에서 ws.send()로 보낸 데이터
-			System.out.println(message.getPayload());
+			//System.out.println(message.getPayload());
 			//문자열을 Json으로 처리하기 위한 객체생성
 			JsonParser parser = new JsonParser();
 			//parser를 이용해서 String -> Json으로 변환
@@ -120,7 +120,7 @@ public class ChatMsgService extends TextWebSocketHandler{
 				resultMap.put("msg", sendMsg);
 				if(s != null) {
 					TextMessage tm = new TextMessage(new Gson().toJson(resultMap));
-					System.out.println(tm);
+					//System.out.println(tm);
 					s.sendMessage(tm);
 					resultMap1.put("type", "3");
 					resultMap1.put("flag", "1");
@@ -136,7 +136,7 @@ public class ChatMsgService extends TextWebSocketHandler{
 		//클라이언트가 연결을 끊을 때 수행되는 메소드
 		@Override
 		public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception{
-			System.out.println("gggg");
+			//System.out.println("gggg");
 			sessionList.remove(session);
 			memberList.remove(session);
 		}

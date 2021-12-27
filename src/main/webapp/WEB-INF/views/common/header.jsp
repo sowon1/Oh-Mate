@@ -60,12 +60,12 @@
 		           	<c:choose>
            				<%-- 관리자인 경우 대시보드 포인트 메뉴로 표시 --%>
            				<c:when test="${sessionScope.m.memberLevel eq 0 }">
-           					<li>
+           					<!-- <li>
 				                <a href="/dashboard.do" class="nav_point"><span>관리자 대시보드</span></a>
-				            </li>          		
+				            </li>   -->        		
            					<li>
 				                 <!-- 마이페이지 버튼  -->
-				                <a id="nav_mypage_wrapper">
+				                <a id="nav_mypage_wrapper" class="nav_point">
 				                    <span id="nav_mypage">관리 메뉴</span>
 				                </a>    
 				            </li>          		
@@ -74,7 +74,7 @@
            				<c:otherwise>
 				            <li>
 				                 <!-- 마이페이지 버튼  -->
-				                <a id="nav_mypage_wrapper">
+				                <a id="nav_mypage_wrapper" class="nav_point">
 				                    <span id="nav_mypage">마이페이지</span>
 				                </a>    
 				            </li>          		
@@ -394,6 +394,7 @@
 			 $($("textarea[name='reportContent']")).focus();
 			countmsgopen(autoClose());
 		}else{
+			var reportContent = $("textarea[name='reportContent']").val();
 			var no = $(".mate_talk_msg_name").next().next().val();
 			$("input[name='atacker']").val(no);
 			var chatNo = $(".chat_msg_open").attr('idx');
@@ -577,10 +578,8 @@
 		
 	}
 	function endChat() {
-		console.log("gggg");
 	}
 	function appendChat(msg) {
-		console.log(msg);
 		$(".mate_talk_messageArea").append(msg);
 		$(".mate_talk_messageArea").scrollTop($(".mate_talk_messageArea")[0].scrollHeight);
 	}
@@ -706,8 +705,7 @@
 		$.ajax({
 			url : "/listCheck.do",
 			data: {memberNo:memberNo},
-			success:function(data){
-				console.log(data);
+			success:function(data){		
 				if(data ==0){
 					location.href = "/helperRequestFrm.do";	
 				}else if(data == 1){

@@ -793,9 +793,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .help_btn{
 	width:230px;
 }
-.help_btn a{
-	padding:0;
-}
+
 
 /* 도움 요청 */
 .help_helper_info{	
