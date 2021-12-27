@@ -266,25 +266,28 @@
 			from board order by BOARDNO desc)
         where rnum between #{start} and #{end}
 	</select>
-	
-	<!-- 총 게시물수(더보기) -->
-	<select id="BoardtotalCount" resultType="int">
-		select count(*) from board
+
+	<!-- 조건검색 -->
+	<select id="searchOption" resultType="b">
+	    	select
+	            BOARD_NO as boardNo,
+				BOARD_WRITER as boardWriter,
+				BOARD_TITLE as boardTitle,
+				BOARD_CONTENT as boardContent,
+				READ_COUNT as readCount,
+				REG_DATE as regDate,
+				FILEPATH,
+				PROFILE_OPTION as profileOption,
+				STATUS,
+				(select member_filepath from member where member_id=board_writer)as fileImg
+			from board where profile_option=#{profileOption}
 	</select>
 	
-	<select id="searchOption" parameterType="p" resultType="b">
-		select BOARD_NO as boardNo,
-			BOARD_WRITER as boardWriter,
-			BOARD_TITLE as boardTitle,
-			BOARD_CONTENT as boardContent,
-			READ_COUNT as readCount,
-			REG_DATE as regDate,
-			FILEPATH,
-			PROFILE_OPTION as profileOption,
-			STATUS,
-			(select member_filepath from member where member_id=board_writer)as fileImg
-        from board where profile_option in (select p_gender||p_age||p_local||p_smoke||p_pet||p_cleaning||p_pattern from profile)
-	</select>
+	<!-- 메이트신고 -->
+	<insert id="mateReport" parameterType="map">
+	insert into report
+		values(report_seq.nextval,3,#{boardNo},#{memberNo},#{boardWriter},#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
+	</insert>
 </mapper>
 
 
