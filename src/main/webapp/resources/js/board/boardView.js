@@ -128,6 +128,9 @@
 				td.append("<span class='tag'>#생활패턴 : 낮</span>&emsp;");
 			}
 		}
+		
+		
+	
 	});
 	
 	function modifyComment(obj,commentNo,boardNo){

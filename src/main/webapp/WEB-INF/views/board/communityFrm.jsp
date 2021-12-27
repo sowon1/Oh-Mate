@@ -79,46 +79,50 @@
 				    			<option value="0" id="sel" selected disabled>지역구 선택</option>
 				    		</select>
 				    	</div><br>
-				    	<div>
+				    	<div style="float:left; margin-right:15px;">
 						<h6>선호 성별</h6>
 	                 	<div class="select">
 			                <input type="radio" id="pGender1" name="pGender" value="1"><label for="pGender1" style="width:130px;">여성전용</label>
 			                <input type="radio" id="pGender2" name="pGender" value="2"><label for="pGender2" style="width:130px;">남성전용</label>
 			                <input type="radio" id="pGender3" name="pGender" value="3"><label for="pGender3" style="width:130px;">남녀공용</label>
 		           		</div>
-		           		</div><br>
-		           		<div>
+		           		</div>
+		           		<div style="float:left; margin-right:15px;">
 						<h6>선호 나이</h6>
 	                 	<div class="select">
 			                <input type="radio" id="pAge1" name="pAge" value="1"><label for="pAge1" style="width:130px;">20대</label>
 			                <input type="radio" id="pAge2" name="pAge" value="2"><label for="pAge2" style="width:130px;">30대</label>
 			                <input type="radio" id="pAge3" name="pAge" value="3"><label for="pAge3" style="width:130px;">40대이상</label>
 		           		</div>
-		           		</div><br><br>
+		           		</div>
+		           		<div style="float:left;">
 		           		<h6>흡연 여부</h6>
 	                 	<div class="select">
 			                <input type="radio" id="pSmoke1" name="pSmoke" value="1"><label for="pSmoke1" style="width:130px;">흡연</label>
 			                <input type="radio" id="pSmoke2" name="pSmoke" value="2"><label for="pSmoke2" style="width:130px;">비흡연</label>
-		           		</div><br>
+		           		</div></div>
+		           		<div style="float:left;"><br>
 		           		<h6>반려동물</h6>
-	                 	<div class="select">
+	                 	<div class="select" style="margin-right: 156px;">
 			                <input type="radio" id="pPet1" name="pPet" value="1"><label for="pPet1" style="width:130px;">좋아요</label>
 			                <input type="radio" id="pPet2" name="pPet" value="2"><label for="pPet2" style="width:130px;">싫어요</label>
-		           		</div><br>
+		           		</div></div>
+		           		<div style="float:left; margin-right: 160px;"><br>
 		           		<h6>청소하는걸</h6>
 	                 	<div class="select">
 			                <input type="radio" id="pCleaning1" name="pCleaning" value="1"><label for="pCleaning1" style="width:130px;">좋아해요</label>
 			                <input type="radio" id="pCleaning2" name="pCleaning" value="2"><label for="pCleaning2" style="width:130px;">싫어해요</label>
-		           		</div><br>
+		           		</div></div>
+		           		<div style="float:left;"><br>
 		           		<h6>생활패턴</h6>
 	                 	<div class="select">
 			                <input type="radio" id="pPattern1" name="pPattern" value="1"><label for="pPattern1" style="width:130px;">밤</label>
 			                <input type="radio" id="pPattern2" name="pPattern" value="2"><label for="pPattern2" style="width:130px;">낮</label>
 		           		</div>
-	           		</div><br><br>
-	           		<div class="submitbtn">
-	           			<span class="btn btn-primary" id="searchReset">초기화</span>
-	           			<span class="btn btn-primary" id="communitySearch">적용하기</span>
+	           		</div></div>
+	           		<div class="submitbtn" style="text-align: center;">
+	           			<span class="btn btn-primary" id="searchReset" style="margin-top: 30px; padding:0px;">초기화</span>
+	           			<span class="btn btn-primary" id="communitySearch" style="margin-top: 30px; padding:0px;">적용하기</span>
 					</div>
 					</form>
 				</div>
@@ -134,7 +138,7 @@
 			<c:otherwise>
 			<div id="cardList9">
 				<c:forEach items="${list }" var="b" varStatus="i">
-				 	<div class="cardImg" onclick="location.href='/boardView.do?boardNo=${b.boardNo}'">
+				 	<div class="cardImg" onclick="location.href='/boardView.do?boardNo=${b.boardNo}';">
 					  <div class="col mb-4">
 					    <div class="card">
 					      <img src="/resources/upload/board/${b.filePath }" class="card-img-top">
@@ -165,19 +169,66 @@
 					</div>
 				</c:forEach>
 				</div>
-			</c:otherwise>
-		</c:choose>
-			<div class="photoWrapper"></div> 
-			<button class="btn btnsty" id="moreBtn" value="9" >더보기</button>		
+					<c:if test="${profileOption == null && keyword == null}">
+					<button class="btn btnsty" id="moreBtn" value="9" >더보기</button>
+					</c:if>
+		</c:otherwise>
+		</c:choose>			
 	</div>
 	
 <script>
+$(function(){
+	//조건검색 슬라이드
+	$(".form-check").click(function(){
+		$(".slideOpen").slideToggle();
+	});
+	
+	//선호지역
+	var PLocal = ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구',
+		'동작구', '마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'];
+	for(var i=0; i<PLocal.length; i++){
+		var option = $("<option>");
+		option.attr("value",i+1);
+		option.html(PLocal[i]);
+		$("#pLocal2").append(option);
+	}
+	
+	//필수선택
+	$("#communitySearch").click(function(){
+		if($("select[name=pLocal]").val() == undefined){
+			alert('선호 지역을 선택해주세요.');
+			return communityFrm;
+		}else if(!$("[name=pGender]").is(":checked")){
+			alert('선호 성별을 선택해주세요.');
+			return communityFrm;
+		}else if(!$("[name=pAge]").is(":checked")){
+			alert('선호 나이를 선택해주세요.');
+			return communityFrm;
+		}else if(!$("[name=pSmoke]").is(":checked")){
+			alert('흡연 여부를 선택해주세요.');
+			return communityFrm;
+		}else if(!$("[name=pPet]").is(":checked")){
+			alert('반려동물 여부를 선택해주세요.');
+			return communityFrm;
+		}else if(!$("[name=pCleaning]").is(":checked")){
+			alert('청소 여부를 선택해주세요.');
+			return communityFrm;
+		}else if(!$("[name=pPattern]").is(":checked")){
+			alert('생활패턴을 선택해주세요.');
+			return communityFrm;
+		}
+	});
+	
+	function boardView(boardNo){
+	    location.herf='/boardView.do?boardNo='+boardNo;
+	}
+
 	//더보기
 	$("#moreBtn").click(function(){
 		var start = $(this).val();
 		var end = Number(start) + 8;
 		var list = "";
-		alert(end);
+		//alert(end);
 		$.ajax({
 			url : "/communityMore.do",
 			type : "post",
@@ -185,7 +236,7 @@
 			success : function(data){ 
 				list = "<div id='cardList"+end+"'>"
 				for(var i=0; i<data.length; i++){
-					list += "<div class='cardImg' 'location.href='/boardView.do?boardNo="+data[i].boardNo+"''>";
+					list += "<div class='cardImg' onclick='boardView("+data[i].boardNo+")'>";
 					list += "<div class='col mb-4'>";
 					list += "<div class='card'>";
 					list += "<img src='/resources/upload/board/"+data[i].filePath+"' class='card-img-top'>";
@@ -221,10 +272,6 @@
 				alert(morevalue);
 			}
 		});
-		
-		/* $(function(){
-			$("#moreBtn").click();   
-		}); */
 	});
 
 	//조건검색
@@ -278,15 +325,16 @@
 		}	
 		
 		var profileOption = genderVal+""+ageVal+""+localVal+""+smokeVal+""+petVal+""+cleanVal+""+patternVal+"";
-		alert(profileOption);
-
-		//location.href="/searchOption.do?profileOption="+profileOption;
+		location.href="/searchOption.do?profileOption="+profileOption;
+		//alert(profileOption);
 	});
 	
 	//초기화
 	$("#searchReset").click(function(){
 		$(".select").find("input").prop('checked',false);
 	});
+});
+
 </script>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>

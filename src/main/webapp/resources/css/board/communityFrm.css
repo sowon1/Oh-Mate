@@ -13,6 +13,9 @@
 		z-index: 1;
 		text-align:left;
 		display: none;
+		border: 1px solid #8C8C8C; 
+		margin-bottom:20px; 
+		padding-left:20px;
 	}
 	.Mate_logo a{
 		font-size:40px;

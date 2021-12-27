@@ -149,15 +149,15 @@ public class BoardDao {
 		return (ArrayList<Board>)list;
 	}
 
-	//총 게시물수(더보기)
-	public int BoardtotalCount() {
-		return sqlSession.selectOne("board.BoardtotalCount");
-		
+	//조건검색
+	public ArrayList<Board> searchOption(String profileOption) {
+		List<Board> list = sqlSession.selectList("board.searchOption",profileOption);
+		return (ArrayList<Board>)list;
 	}
 
-	public ArrayList<Board> searchOption(Profile p) {
-		List<Board> list = sqlSession.selectList("board.searchOption",p);
-		return (ArrayList<Board>)list;
+	//메이트신고
+	public int mateReport(HashMap<String, Object> map) {
+		return sqlSession.insert("helper.mateReport",map);
 	}
 
 

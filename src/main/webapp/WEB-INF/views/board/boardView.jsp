@@ -9,6 +9,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="/resources/js/board/boardView.js"></script>
 <link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
+<link rel="stylesheet" href="/resources/css/helper/helper.css">
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
@@ -26,8 +27,11 @@
 				<th>조회수</th>   
 				<td>${b.readCount }</td>
 				<td>
-					<a href="/reportFrm" class="bell">
-					<i class="far fa-bell"></i> 신고하기</a>
+					<div class="mate_report"> <!-- 신고 -->
+                   		<c:if test="${sessionScope.m ne null && m.memberId ne b.boardWriter}">
+                   			<a class="mateReport"><img src="/resources/img/icon/report.png" class="report"></a>
+                   		</c:if>
+                    </div> 
 				</td>
 			</tr>
 			<tr>
@@ -168,10 +172,9 @@
 									<a href="javascript:void(0)" class="boardviews" onclick="modifyComment(this,'${c.commentNo }','${b.boardNo }');">수정</a>
 									<a href="javascript:void(0)" class="boardviews" onclick="deleteComment(this,'${c.commentNo }','${b.boardNo }');">삭제</a>
 								</c:if>
-									<a href="javascript:void(0)" class="reshow">답글달기</a>&ensp;
+									<a href="javascript:void(0)" class="reshow"><img src="/resources/img/icon/chat_icon.png" class="report"></a>&ensp;
 									<c:if test="${m.memberId ne c.commentWriter }">
-										<i class="far fa-bell"></i>
-										<a href="javascript:void(0)" id="report" style="margin:0px;">신고하기</a>&ensp;
+										<a class="mateReport"><img src="/resources/img/icon/report.png" class="report"></a>
 									</c:if>
 							</c:if>
 						</p>
@@ -241,8 +244,7 @@
 										<a href="javascript:void(0)" onclick="deleteComment(this,'${bc.commentNo }','${b.boardNo }');" style="margin-right: 15px;">삭제</a>
 									</c:if>	
 									<c:if test="${m.memberId ne bc.commentWriter }">
-										<i class="far fa-bell"></i>
-										<a href="javascript:void(0)" id="report" style="margin:0px;">신고하기</a>&ensp;
+										<a class="mateReport"><img src="/resources/img/icon/report.png" class="report"></a>
 									</c:if>								
 								</p>
 							</li>
@@ -252,6 +254,77 @@
 			</c:forEach>
 		</div>	
 	</div>	
+	
+		<!-- --------------------------------------신고 팝업------------------------------------------------------ -->
+				<div class="report_popup_modal">
+                 	<div class="re_pop_modal">
+	                 		<div class="re_modal_top">
+		                  		<span class="re_modal_text">신고</span>
+		                      	<span class="re_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+		                   </div>
+		                   <div class="re_modal_content">
+		                   		<form action="/mateReport.do" method="post" class="reform">
+		                   			<table class="help_table">
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고 닉네임</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="${b.boardWriter}"readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${b.boardNo}" name="boardNo" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고자</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="${sessionScope.m.memberId}" readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${sessionScope.m.memberNo}" name="memberNo" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고분류</th>
+	                        				<td>
+	                        					<input type="text" class="input_03" value="메이트" readonly="readonly">
+	                        				</td>
+	                        			</tr>
+	                        			<tr class="table-active_mate_help">
+	                        				<th>신고사유</th>
+	                        				<td>
+	                        					<textarea name="reportContent" class="textarea_pro"></textarea>
+	                        				</td>
+	                        			</tr>
+                        			</table>
+                        			<div class="form_btn">
+	                        			<a class="btn_100" type="submit" onclick="return checkReVal();">신고하기</a>
+	                        		</div>
+		                   		</form>
+		                   </div>
+                 	</div>
+                 </div>
+                 
+                
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
+<script>
+	//신고
+	$(".mateReport").click(function(){
+		reportopen();
+	});
+	
+	$(".re_modal_close").click(function(){
+		reportclose();
+	});
+	
+	//신고 유효성 
+	function checkReVal(){
+		$(".reform").submit();
+	}
+	
+	//자동닫기
+	function autoClose(){
+	   setTimeout('closed()',3000);
+	}
+	
+	function closed(){
+	   countmsgclose();
+	}
+</script>
 </body>
 </html>
