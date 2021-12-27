@@ -178,7 +178,7 @@
 										<c:when test="${h.houseAllow eq 3 }">
 											<span class="allow-refuse" style="color: red; border: 1px solid red;">승인 거절</span>
 											<c:if test="${not empty h.refuseReason }">
-												<span style="color: red; border: 1px solid red; margin: 0"><i class="fas fa-exclamation" style="color: red;"></i></span>
+												<span style="color: red; border: 1px solid red; margin: 0"><i class="fas fa-exclamation" style="color: red;"></i>${h.refuseReason }</span>
 											</c:if>
 										</c:when>
 									</c:choose>

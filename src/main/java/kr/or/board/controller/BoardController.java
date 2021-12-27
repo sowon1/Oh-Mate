@@ -23,7 +23,6 @@ import com.google.gson.Gson;
 
 import kr.or.board.model.service.BoardService;
 import kr.or.board.model.vo.Board;
-import kr.or.board.model.vo.BoardData;
 import kr.or.board.model.vo.BoardMemberData;
 import kr.or.board.model.vo.MateComment;
 import kr.or.member.model.vo.Member;
@@ -94,14 +93,12 @@ public class BoardController {
 		return "common/msg";
 	}
 	
-	//게시판 + 회원프로필사진 + 총 게시물 수(더보기)
+	//게시판 + 회원프로필사진
 	@RequestMapping(value="/communityFrm.do")
 	public String coummunityFrm(Model model) {
-		BoardData bd = service.selectBoard();
-		model.addAttribute("list",bd.getB());
-		model.addAttribute("totalCount",bd.getTotalCount());
-		//System.out.println(bd.getB());
-		//System.out.println(bd.getTotalCount());
+		ArrayList<Board> list = service.selectBoard();
+		model.addAttribute("list",list);
+		//System.out.println(list);
 		return "board/communityFrm";
 	} 
 	
@@ -306,6 +303,7 @@ public class BoardController {
 	public String mateSearch(String keyword, Model model) {
 		ArrayList<Board> list = service.mateSearch(keyword);
 		model.addAttribute("list",list);
+		model.addAttribute("keyword",keyword);
 		return "board/communityFrm";
 	}
 	
@@ -318,13 +316,29 @@ public class BoardController {
 		return new Gson().toJson(list);
 	}
 	
+	//조건검색
 	@RequestMapping(value="/searchOption.do")
-	public String searchOption(Model model, Profile p) {
-		ArrayList<Board> list = service.searchOption(p);
+	public String searchOption(Model model, String profileOption) {  
+		ArrayList<Board> list = service.searchOption(profileOption);
 		model.addAttribute("list",list);
+		model.addAttribute("profileOption",profileOption);
 		return "board/communityFrm";
 	}
 	
+	//메이트신고
+	@RequestMapping(value="/mateReport.do")
+	public String mateReport(Model model, int boardNo, int memberNo, String boardWriter, String reportContent) {
+		int result = service.mateReport(boardNo, memberNo, boardWriter, reportContent);
+		System.out.println(result);
+		if(result > 0) {
+			model.addAttribute("loc","/helperView.do?memberNo="+boardWriter);
+			model.addAttribute("msg","신고가 접수되었습니다.");
+		}else {
+			model.addAttribute("loc","/helperView.do?memberNo="+boardWriter);
+			model.addAttribute("msg","신고가 실패되었습니다.");
+		}
+		return "common/msg";
+	}
 }
 
 

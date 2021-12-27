@@ -94,7 +94,7 @@ public class HelperController {
 				byte[] bytes = file.getBytes();
 				bos.write(bytes);
 				bos.close();
-				jsonObject.addProperty("url", "/resources/upload/houseImg/"+filepath);
+				jsonObject.addProperty("url", "/resources/upload/helperImg/"+filepath);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.board.model.dao.BoardDao;
 import kr.or.board.model.vo.Board;
-import kr.or.board.model.vo.BoardData;
 import kr.or.board.model.vo.BoardMemberData;
 import kr.or.board.model.vo.MateComment;
 import kr.or.member.model.vo.Member;
@@ -53,12 +52,10 @@ public class BoardService {
 		return dao.selectMember(memberId);
 	}
 		
-	//게시글 목록 조회 + 총 게시물 수
-	public BoardData selectBoard() {
+	//게시글 목록 조회  
+	public ArrayList<Board> selectBoard() {
 		ArrayList<Board> list = dao.selectBoard();
-		int total = dao.BoardtotalCount();
-		BoardData bd = new BoardData(list, total);
-		return bd;
+		return list;
 	}
 
 	//게시글작성
@@ -238,15 +235,24 @@ public class BoardService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start",start);
 		map.put("end", end);
-		System.out.println("service:"+map);
-		
 		ArrayList<Board> list = dao.communityMore(map);
-		//System.out.println("servicelist:"+list);
+		//System.out.println("service:"+map);
 		return list;
 	}
 
-	public ArrayList<Board> searchOption(Profile p) {
-		return dao.searchOption(p);
+	//조건검색
+	public ArrayList<Board> searchOption(String profileOption) {
+		return dao.searchOption(profileOption);
+	}
+
+	//메이트신고
+	public int mateReport(int boardNo, int memberNo, String reportContent, String boardWriter) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("boardNo", boardNo);
+		map.put("memberNo", memberNo);
+		map.put("reportContent", reportContent);
+		map.put("boardWriter", boardWriter);
+		return dao.mateReport(map);
 	}
 
 	

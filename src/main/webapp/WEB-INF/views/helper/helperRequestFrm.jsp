@@ -152,7 +152,7 @@
 								</ul>
 								<input type="text" name="searchTag" id="tag"
 									onfocus="this.placeholder=''"
-									onblur="this.placeholder='등록후 엔터'" read> <input
+									onblur="this.placeholder='등록후 엔터'"> <input
 									type="hidden" name="tagadd">
 							</div>
 							<div class="postcode">

@@ -158,7 +158,7 @@
 													</tr>
 													<tr>
 														<th>헬프내용</th>
-														<td colspan="3">${h.helpContent }</td>
+														<td colspan="3">${h.helpContentBr }</td>
 													</tr>
 												</table>
 											</div>

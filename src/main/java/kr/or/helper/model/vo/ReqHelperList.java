@@ -35,4 +35,10 @@ public class ReqHelperList {
 	private String memberName;
 	private String phone;
 	private String email;
+	
+	public String gethelpContentBr() {
+		return helpContent.replaceAll("\r\n", "<br>");
+	}
+
+	
 }
