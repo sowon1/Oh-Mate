@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>커뮤니티 상세보기</title>
+<title>Oh-Mate!</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="/resources/js/board/boardView.js"></script>
 <link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
@@ -42,7 +42,7 @@
 				<td colspan="2">${b.regDate }</td>
 			</tr>
 			<tr>
-				<td colspan="8" id="profileOption" value="${ProfileOption }" style="padding-left:76px;">	
+				<td colspan="8" id="profileOption" value="${ProfileOption}" style="padding-left:76px;">	
 				</td>
 			</tr>
 			<tr>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>커뮤니티</title>
+<title>Oh-Mate!</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="/resources/css/board/communityFrm.css">
 <script type="text/javascript" src="/resources/js/board/communityFrm.js"></script>
@@ -13,8 +13,8 @@
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 	<div class="container_mate">
-		<fieldset><br><br>
-			<legend class="Matitle">오늘부터 메이트</legend>
+		<fieldset>
+			<h1 class="point_title">오늘부터 메이트</h1>
 			<h6>나와 성향이 비슷한 메이트를 구해보세요</h6>
 				<div class="lg_box">
 					<ul>

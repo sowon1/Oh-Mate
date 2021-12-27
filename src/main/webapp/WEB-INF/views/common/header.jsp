@@ -60,12 +60,12 @@
 		           	<c:choose>
            				<%-- 관리자인 경우 대시보드 포인트 메뉴로 표시 --%>
            				<c:when test="${sessionScope.m.memberLevel eq 0 }">
-           					<li>
+           					<!-- <li>
 				                <a href="/dashboard.do" class="nav_point"><span>관리자 대시보드</span></a>
-				            </li>          		
+				            </li>   -->        		
            					<li>
 				                 <!-- 마이페이지 버튼  -->
-				                <a id="nav_mypage_wrapper">
+				                <a id="nav_mypage_wrapper" class="nav_point">
 				                    <span id="nav_mypage">관리 메뉴</span>
 				                </a>    
 				            </li>          		
@@ -74,7 +74,7 @@
            				<c:otherwise>
 				            <li>
 				                 <!-- 마이페이지 버튼  -->
-				                <a id="nav_mypage_wrapper">
+				                <a id="nav_mypage_wrapper" class="nav_point">
 				                    <span id="nav_mypage">마이페이지</span>
 				                </a>    
 				            </li>          		
@@ -161,6 +161,7 @@
 		        <p class="name">${sessionScope.m.memberName}</p>
 		        <p class="id">${sessionScope.m.memberId}</p>
 		    </header>
+		    <input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
 		    <ul>
 		      <li><a href="/myPage.do?memberId=${sessionScope.m.memberId }">나의 정보</a></li>
 		      <li><a href="/bookmarkHouseList.do">하우스 찜목록</a></li>
@@ -170,7 +171,6 @@
 		      <li><a href="/helpList.do?reqPage=1">헬프 내역</a></li>
 		      	<c:if test="${sessionScope.m.memberLevel eq 1 || sessionScope.m.memberLevel eq 5}">
 		      	<li>
-		      	<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
 		      	<a href="javascript:void(0);" class="requestChk">헬퍼 신청하기</a></li>
 		      	</c:if>
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
@@ -394,6 +394,7 @@
 			 $($("textarea[name='reportContent']")).focus();
 			countmsgopen(autoClose());
 		}else{
+			var reportContent = $("textarea[name='reportContent']").val();
 			var no = $(".mate_talk_msg_name").next().next().val();
 			$("input[name='atacker']").val(no);
 			var chatNo = $(".chat_msg_open").attr('idx');
@@ -432,7 +433,7 @@
 			success : function(data){
 				var html = "";
 				var top = "";
-				top += '<a onclick="close_chat_helper();">';
+				top += '<a onclick="chatBack();">';
 				top += '<img src="/resources/img/icon/back.png"></a>';							
 				top += '<span class="mate_talk_name">'+name+'</span>';				
 				top += '<a id="chatReport" value="'+chatNo+'" class="report_icon" onclick="chatreportfrm(name);">';
@@ -467,16 +468,21 @@
 					}
 				} //for문 종료
 				$(".mate_talk_messageArea").append(html);
+				$(".mate_talk_messageArea").scrollTop($(".mate_talk_messageArea")[0].scrollHeight);
 				initChat(receiver, no, chatNo);
 			}
 		})
 		
-	})
+	});
+	function chatBack(){
+		ws.close();
+		close_chat_helper();
+	}
 	//채팅방 뒤로가기
 	function close_chat_helper(){
 		$(".mate_talk_view_open").css("right","-500px");
 		$(".mate_talk_list").empty();
-		$(".mate_talk_open").show();
+		$(".mate_talk_open").show();		
 		$.ajax({
 			type : "post",
 			url : "/matetalkList.do",
@@ -491,38 +497,42 @@
 					html += '</div>';
 				}
 				for(var i = 0; i < data.length; i++){
-					html += '<a  idx="'+data[i].chatNo+'"class="chat_msg_open">';
-					html += '<li><div class="talk_profile">';
-					if(data[i].filepath == null){
-						html += '<img src="/resources/img/icon/profile.png">';
-					}else{
-						html += '<img src="/resources/upload/member/'+data[i].filepath+'" class="chat_list_pro">';
-					}
-					html += '</div>';
-					html += '<div class="talk_list_text">';
-					html += '<div class="talk_list_02">';
-					if(data[i].senderName == receiverName){
-						html += '<span class="mate_talk_msg_name">'+data[i].receiverName+'</span>';
+					if(data[i].chatContent == "undefined" || data[i].chatContent == null){
+						
 					}else{						
-						html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
+						html += '<a  idx="'+data[i].chatNo+'"class="chat_msg_open">';
+						html += '<li><div class="talk_profile">';
+						if(data[i].filepath == null){
+							html += '<img src="/resources/img/icon/profile.png">';
+						}else{
+							html += '<img src="/resources/upload/member/'+data[i].filepath+'" class="chat_list_pro">';
+						}
+						html += '</div>';
+						html += '<div class="talk_list_text">';
+						html += '<div class="talk_list_02">';
+						if(data[i].senderName == receiverName){
+							html += '<span class="mate_talk_msg_name">'+data[i].receiverName+'</span>';
+						}else{						
+							html += '<span class="mate_talk_msg_name">'+data[i].senderName+'</span>';
+						}
+						html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
+						if(receiver == data[i].sender){
+							html += '<input type="hidden" value="'+data[i].receiver+'">';							
+						}else{
+							
+							html += '<input type="hidden" value="'+data[i].sender+'">';
+						}
+						html += '</div>';
+						html += '<div class="talk_list_time">';
+						html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('MMMM Do, h:mm').fromNow()+'</span>';
+						if(data[i].readCount == 0 || data[i].messageDirection == "보낸메세지"){
+							
+						}else{							
+							html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
+						}
+						html += '</div></div></li></a>';					
 					}
-					html += '<span class="mate_talk_list_view">'+data[i].chatContent+'</span>';
-					if(receiver == data[i].sender){
-						html += '<input type="hidden" value="'+data[i].receiver+'">';							
-					}else{
-						
-						html += '<input type="hidden" value="'+data[i].sender+'">';
-					}
-					html += '</div>';
-					html += '<div class="talk_list_time">';
-					html += '<span class="mate_talk_time">'+moment(data[i].chatDate).startOf('MMMM Do, h:mm').fromNow()+'</span>';
-					if(data[i].readCount == 0 || data[i].messageDirection == "보낸메세지"){
-						
-					}else{							
-						html += '<span class="mate_talk_read_count">'+data[i].readCount+'</span>';
-					}
-					html += '</div></div></li></a>';					
-				}
+				}//for문 종료
 				$(".mate_talk_list").append(html);
 			}
 		}) //ajax 닫기
@@ -536,39 +546,44 @@
 		no = param2;
 		chatNo = param3;
 		//웹소켓 연걸 시도
-		ws = new WebSocket("ws://192.168.75.104/chat.do");
+		ws = new WebSocket("ws://192.168.10.21/chat.do");
 		//웹소켓 연결이 성공하면 실행할 함수
 		ws.onopen = startChat;
 		//서버에서 화면으로 데이터를 전송하면 처리할 함수
 		ws.onmessage = receiveMsg;
 		//웹소켓 연결이 종료되면 실핼할 함수 지정
 		ws.onclose = endChat;
+		//ws.close(); 소켓 종료
 		$(".mate_talk_open").hide();
 		$(".mate_talk_view_open").css("right","40px");
 	}
 	function startChat() {
 		var data = {type:"enter", msg:receiver, no : no};
-		console.log(data);
 		ws.send(JSON.stringify(data));
 	}
-	function receiveMsg(param) {
-		console.log(param.data);
-		console.log($("#chatReport").attr("value"));
-		if(param.data == $("#chatReport").attr("value")){
-			var arr = $(".mate_talk_right_date");
-			for(var i=0;i<arr.length;i++){
-				arr.eq(i).children().first().empty();
+	function receiveMsg(param) {	
+		var obj = JSON.parse(param.data);
+		if(obj.type == "1"){
+			if(obj.chatNo == $("#chatReport").attr("value")){
+				var arr = $(".mate_talk_right_date");
+				for(var i=0;i<arr.length;i++){
+					arr.eq(i).children().first().empty();
+				}
+			}
+		}else if(obj.type == "2"){
+			appendChat(obj.msg);
+		}else if(obj.type == "3"){
+			if(obj.flag == "1"){
+				$(".mate_talk_right_date").find("span").html("");
+			}else{
+				$(".mate_talk_right_date").find("span").html("안읽음");			
 			}
 		}
-		//insert 후 출력부분
-		appendChat(param.data);		
-		console.log("param 데이터 잘 받아왔니? : "+param.data);
-	}
-	function endChat() {
 		
 	}
+	function endChat() {
+	}
 	function appendChat(msg) {
-		console.log("msg 데이터 잘 받아왔니? : "+msg);
 		$(".mate_talk_messageArea").append(msg);
 		$(".mate_talk_messageArea").scrollTop($(".mate_talk_messageArea")[0].scrollHeight);
 	}
@@ -578,7 +593,7 @@
 			//msg 메세지 , receiver 접속해서 보낸사람, no 받는사람
 			var data = {type:"chat", msg:msg, sender:receiver, receiver : no, chatNo : chatNo};
 			ws.send(JSON.stringify(data));
-			appendChat("<div class='mate_talk_right'><span class='mate_talk_right_date'>"+messageStatus+"<br>"+messageDate+"</span><span class='mate_talk_right_msg'>"+msg+"</div>");
+			appendChat("<div class='mate_talk_right'><span class='mate_talk_right_date'>"+"<span>"+messageStatus+"</span>"+"<br>"+messageDate+"</span><span class='mate_talk_right_msg'>"+msg+"</div>");
 			$("#sendMsg").val("");
 		}
 	}
@@ -691,20 +706,20 @@
    
 	$(".requestChk").click(function() {
 		var memberNo = $("#memberNo").val();
+		console.log(memberNo);
 		$.ajax({
 			url : "/listCheck.do",
 			data: {memberNo:memberNo},
-			success:function(data){
-				console.log(data);
+			success:function(data){		
 				if(data ==0){
 					location.href = "/helperRequestFrm.do";	
 				}else if(data == 1){
 					if(confirm("헬퍼 등록을 이미 하셨거나 요청중입니다. 수정하시겠습니까?" )){
-					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}&helperStatus=1";
+					location.href ="/helperRequestUpdateFrm.do?memberNo="+memberNo+"&helperStatus=1";
 					}
 				}else if(data ==3){
 					if(confirm("헬퍼등록이 거절되셨거나 재요청중입니다. 다시 수정하시겠습니까? ")){
-					location.href ="/helperRequestUpdateFrm.do?memberNo=${sessionScope.m.memberNo}&helperStatus=4";
+					location.href ="/helperRequestUpdateFrm.do?memberNo="+memberNo+"&helperStatus=4";
 					}
 				}
 			}

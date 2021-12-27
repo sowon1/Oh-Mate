@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Oh-Mate!</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -47,7 +47,7 @@
 					</tr>
 					<tr>
 						<th style="width: 200px">선호분야</th>
-						<td colspan="3" >
+						<td colspan="5" >
 							<div class="help_helper_pro_cate"
 								value="${list[0].helperCategory}" >
 								<em class="help_helper_pro_cate">배달·장보기</em> <em
@@ -63,7 +63,7 @@
 					</tr>
 					<tr>
 						<th>자격증 소개</th>
-						<td colspan="3">${list[0].helperCredit }</td>
+						<td colspan="5">${list[0].helperCredit }</td>
 					</tr>
 				</table>
 			</div>

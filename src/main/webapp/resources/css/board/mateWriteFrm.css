@@ -146,6 +146,7 @@ button.subbtn{
 button.subbtnSty{
 	display:none; 
 	margin-bottom:5px; 
+	margin-right:22px;
 }
 textarea.txtarea{
 	display:none; 
@@ -162,6 +163,6 @@ button.recancel{
 .report{
 	width:25px;
 }
-div.form-check{
-	display: flex;
+.mateReport{
+	cursor: pointer;
 }

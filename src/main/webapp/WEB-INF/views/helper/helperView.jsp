@@ -511,10 +511,10 @@
 						var html = "";
 						var top = "";
 						helptalk();
-						top += '<a onclick="close_chat_helper();">';
+						top += '<a onclick="chatBack();">';
 						top += '<img src="/resources/img/icon/back.png"></a>';							
 						top += '<span class="mate_talk_name">'+name+'</span>';				
-						top += '<a id="chatReport" value="'+chatNo+'" class="report_icon">';
+						top += '<a id="chatReport" value="'+chatNo+'" class="report_icon" onclick="chatreportfrm(name);">';
 						top += '<img src="/resources/img/icon/report.png">';
 						top += '</a>';
 						$(".mate_talk_view_top").append(top);
@@ -555,7 +555,6 @@
 				})//ajax 종료	
 			}
 		}
-		
 		//login
 		$(".help_login").click(function(){
 			msgpopupopen();

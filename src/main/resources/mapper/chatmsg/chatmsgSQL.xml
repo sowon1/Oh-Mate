@@ -39,7 +39,7 @@
 				#{sender},
 				#{msg},
 				to_char(sysdate,'YYYY-MM-DD HH24:MI'),
-				'n'
+				#{readCount}
 			)
 	</insert>
 	<!-- 지금 등록한 메세지 번호 -->

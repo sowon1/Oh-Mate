@@ -485,15 +485,10 @@ public class HelperController {
 				}
 			}
 		}
-		@Scheduled(cron = "1 0/15 * * * ?"  )
+		@Scheduled(cron = "30 0/15 * * * ?"  )
 		public void ChkHelpComDelay() {
 			System.out.println("15분마다 실행!");
 			int result = service.ChkHelpComeDelay();
-			if(result>0) {
-				System.out.println(result+"건 처리완료");
-			}else {
-				System.out.println("처리내역이없습니다.");
-			}
 		}
 
 		

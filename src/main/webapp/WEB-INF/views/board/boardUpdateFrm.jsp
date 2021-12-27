@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Oh-Mate!</title>
 <link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
 </head>
 <body>

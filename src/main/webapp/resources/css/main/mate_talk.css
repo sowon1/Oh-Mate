@@ -171,7 +171,7 @@
 .mate_talk_view_top img, .mate_talk_list_top img{
     vertical-align: middle;
 }
-.report_icon{
+.mate_talk_view_top a{
 	cursor: pointer;
 }
 /* 서브메뉴
@@ -281,7 +281,7 @@
     padding: 8px 16px;
     border-radius: 10px;
     font-size: 13px;
-    width: 222px;
+    width: 224px;
     position: relative;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
     word-break: break-all;
