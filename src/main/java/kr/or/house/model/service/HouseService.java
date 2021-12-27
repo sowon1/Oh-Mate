@@ -287,10 +287,6 @@ public class HouseService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		map.put("houseNo", houseNo);
-		int delmove =dao.deletemove(houseNo);
-		if(delmove>0) {
-			int deltour = dao.deletetour(houseNo);
-			if(deltour>0) {
 				int result = dao.deleteAllroom(map);
 				if (result > 0) {
 					int result2 = dao.deleteHouse(map);
@@ -313,12 +309,6 @@ public class HouseService {
 				} else {
 					return 0;
 				}
-			}else {
-				return 0;
-			}
-		}else {
-			return 0;
-		}
 	}
 	//하우스오너 하우스상세보기- 하우스 및 룸
 	public House selectHouseownerOneHouse(int houseNo, int memberNo) {
