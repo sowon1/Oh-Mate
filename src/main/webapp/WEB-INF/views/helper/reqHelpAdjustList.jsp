@@ -6,13 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.line-fr{
+	border-bottom: 1px solid #111111;
+	margin-top: 30px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container_mate">
-		<h1 class="point_title" style="padding-top: 15px;">헬프 요청 정산 이력</h1>
-		<div style="border-bottom: 1px solid #111111">
-			<div style="margin-top: 30px;">
+		<h1 class="point_title" style="margin-bottom: 50px;">헬프 요청 정산 이력</h1>
+		<hr>
+		<div class="line-fr">
+			<div>
 				<table class="table">
 					<tr>
 						<th colspan="2" rowspan="2"><img
