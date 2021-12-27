@@ -12,7 +12,7 @@
             (select member_name from member where member_no=c.sender) as senderName,
             (select member_name from member where member_no=c.receiver) as receiverName,
             case 
-                when (select sender from (select chat_no, chat_message.sender from chat join chat_message using (chat_no) order by 1 desc)cm where cm.chat_no = c.chat_no and rownum = 1)=#{receiver}
+                when (select sender from (select chat_no, chat_message.sender from chat join chat_message using (chat_no) order by MESSAGE_NO desc)cm where cm.chat_no = c.chat_no and rownum = 1)=#{receiver}
                 then
                    '보낸메세지'
                 else

@@ -394,7 +394,7 @@ ul{
 	width: 150px;
 	height: 45px;
 	font-size: 18px;
-	/* line-height: 45px; */
+	line-height: 45px;
 	border-radius: 5px;
 	text-align: center;
 	transition-duration: 0.5s;
