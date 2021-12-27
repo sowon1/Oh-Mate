@@ -162,3 +162,6 @@ button.recancel{
 .report{
 	width:25px;
 }
+.mateReport{
+	cursor: pointer;
+}

@@ -8,11 +8,11 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="/resources/css/member/myPage.css">
 <script type="text/javascript" src="/resources/js/member/myPage.js"></script>
-<title>마이페이지</title>
+<title>Oh-Mate!</title>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
-		<div class="container"><br><br>
+		<div class="container_mate">
 			<h2>${sessionScope.m.memberName}님, 반갑습니다.</h2>
 			<p class="myPageinfo">고객님께서 가입하신 <strong>(주)오나의메이트</strong> 회원 정보입니다.</p><hr><br>
 			<form action="/myPageUpdate.do" method="post" enctype="multipart/form-data">

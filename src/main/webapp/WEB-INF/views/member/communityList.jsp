@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지_게시판/댓글</title>
+<title>Oh-Mate!</title>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
    	<link rel="stylesheet" href="/resources/css/member/communityConfirm.css">
 </head>

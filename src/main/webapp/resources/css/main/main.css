@@ -460,6 +460,9 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	margin-top:15px;
 	float:left;
 	clear:both;
+	width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .helper_Category_title{
     margin-right: 5px;

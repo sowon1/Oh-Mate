@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>헬프</title>
+<title>Oh-Mate!</title>
 <style>
 		.select_tab>ul{
 	    overflow: hidden;

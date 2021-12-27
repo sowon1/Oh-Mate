@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/resources/css/member/bookmarkHouseList.css">
 <head>
 <meta charset="UTF-8">
-<title>하우스 찜</title>
+<title>Oh-Mate!</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
