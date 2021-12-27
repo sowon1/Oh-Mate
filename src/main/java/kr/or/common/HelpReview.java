@@ -17,5 +17,6 @@ public class HelpReview {
 	private int star5;						//별점5
 	private int star4;						//별점4
 	private int helpNo;						//헬프번호	
-	private String photoPath;				//사진
+	private String photoPath;				//리뷰사진
+	private String helperName;				//헬퍼이름
 }

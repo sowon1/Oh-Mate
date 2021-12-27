@@ -1,9 +1,12 @@
-package kr.or.common;
+package kr.or.helper.model.vo;
 
+import java.util.ArrayList;
+
+import kr.or.common.Photo;
 import lombok.Data;
 
 @Data
-public class HelpList {
+public class HelpDetailData {
 	private int helpNo;						//헬프신청번호
 	private int memberNo;					//회원번호
 	private int helperNo;					//헬퍼번호
@@ -17,7 +20,6 @@ public class HelpList {
 	private String helpRequestDate;			//신청일시 [YYYY-MM-DD]
 	private String helpFinishDate;			//처리일시 [YYYY-MM-DD]
 	private String helpComplite;			//헬프완료내역
-	private String helperFilepath;			//헬퍼프로필사진
+	private ArrayList<Photo> photoList;		//헬프결과 사진
 	private String helperName;				//헬퍼이름
-	private int reviewCheck;				//리뷰작성여부
 }

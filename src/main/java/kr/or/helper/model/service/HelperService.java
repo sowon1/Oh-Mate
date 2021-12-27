@@ -16,6 +16,7 @@ import kr.or.common.Pay;
 import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
+import kr.or.helper.model.vo.HelpDetailData;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
 import kr.or.helper.model.vo.ReqHelperAdjust;
@@ -544,6 +545,73 @@ public class HelperService {
 		}
 		
 		return result;
+	}
+
+	public HashMap<String, Object> selectHelpReviewList(int reqPage, int memberNo) {
+		// TODO Auto-generated method stub
+		
+		int numPerPage=5;
+		int end = reqPage*numPerPage;
+		int start = end-numPerPage+1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo",memberNo);
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<HelpReview> list = dao.selectHelpReviewList(map);
+		int totalCount = dao.helpReviewListCount(memberNo);
+		int totalPage = 0;
+		
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage;
+		}else {
+			totalPage = totalCount/numPerPage + 1;
+		}
+		
+		int pageNaviSize=5;
+		int pageNo=1;
+		if(reqPage>4) {
+			pageNo=reqPage-2;
+			if(totalPage - reqPage < (pageNaviSize-1)) {
+				pageNo = totalPage-(pageNaviSize-1);
+			}
+		}
+		
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/helpReviewList.do?reqPage="+(reqPage-1)+"'>&lt;</a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/helpReviewList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+			}else {
+				pageNavi += "<li class='page-item-mate-mate'><a href='/helpReviewList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/helpReviewList.do?reqPage="+(reqPage+1)+"'>&gt;</a><li>";
+		}
+		pageNavi += "</ul>";
+		
+		map.put("pageNavi", pageNavi);
+		map.put("list",	list);
+		
+		return map;
+	}
+
+	public int deleteReview(int reviewNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteReview(reviewNo);
+	}
+
+	public HelpDetailData selectHelpDetail(HelpList hl) {
+		// TODO Auto-generated method stub
+		return dao.selectHelpDetail(hl);
 	}
 
 }

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Oh-Mate!</title>
 <style>
-		.select_tab>ul{
+	.select_tab>ul{
 	    overflow: hidden;
 	    padding: 0;
 	    margin: 0;
@@ -117,23 +117,11 @@
 		clear:both;
 	}
 	.help_btn{
-		margin-top: 25px;
+		align-self: center;
 		margin-right: 15px;
 	}
 	.btn{
 		margin-top: 5px;		
-	}
-	.form_popup_modal{
-	    /* 현재 화면 중앙에 모달 뜰수있게 */
-	    position: fixed;
-	    top: 50%;
-	    left: 50%;
-	    transform: translate(-50%, -50%);
-	    /* 실제로 modal은 처음에 안보여야하니 none으로 */
-	    display: none;
-	    justify-content: center;
-	    align-items: center;
-	    z-index: 10005;
 	}
 </style>
 </head>
@@ -147,7 +135,7 @@
 		<div class="select_tab">
 			<ul>
 				<li class="sel"><a href="/helpList.do?reqPage=1">헬프 신청 내역</a></li>
-				<li class="notSel"><a href="helpReview.do?reqPage=1">헬프리뷰</a></li>
+				<li class="notSel"><a href="helpReviewList.do?reqPage=1">헬프리뷰</a></li>
 				<li class="notSel"><a href="bookmarkHelper.do">찜한 헬퍼</a></li>
 			</ul>
 		</div>
@@ -211,7 +199,7 @@
 							</div>
 							<div class="help_btn">
 								<div>
-									<form action="/reviewWriteFrm.do" method="post" class="review_btn">
+									<form action="/helpDetail.do" method="post" class="review_btn">
 										<input type="hidden" name="memberNo" value="${h.memberNo }">
 										<input type="hidden" name="helperNo" value="${h.helperNo }">
 										<input type="hidden" name="helpNo" value="${h.helpNo }">

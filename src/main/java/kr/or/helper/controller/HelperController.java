@@ -34,6 +34,7 @@ import kr.or.common.Pay;
 import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.service.HelperService;
+import kr.or.helper.model.vo.HelpDetailData;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
 import kr.or.helper.model.vo.ReqHelperAdjust;
@@ -590,7 +591,43 @@ public class HelperController {
 				model.addAttribute("msg", "등록성공");
 			}
 			
-			model.addAttribute("loc", "/helpReview.do?reqPage=1");
+			model.addAttribute("loc", "/helpReviewList.do?reqPage=1");
 			return "common/msg";
+		}
+		
+		@RequestMapping(value = "helpReviewList.do")
+		public String helpReviewList(int reqPage, Model model, HttpSession session) {
+			int memberNo = 0;
+			if (session != null) {
+				Member m = (Member) session.getAttribute("m");
+
+				if (m != null) {
+					memberNo = m.getMemberNo();
+				}
+			}
+			
+			HashMap<String, Object> data = service.selectHelpReviewList(reqPage, memberNo);
+			model.addAttribute("pageNavi", data.get("pageNavi"));
+			model.addAttribute("list", data.get("list"));
+			return "/member/helpReviewList";
+		}
+		
+		@RequestMapping(value = "/deleteReview.do")
+		public String deleteReview(int reviewNo, Model model) {
+			int result = service.deleteReview(reviewNo);
+			if(result == 1) {
+				model.addAttribute("msg", "삭제성공");
+			}else {
+				model.addAttribute("msg", "삭제실패");
+			}
+			model.addAttribute("loc", "/helpReviewList.do?reqPage=1");
+			return "common/msg";
+		}
+		
+		@RequestMapping(value = "/helpDetail.do")
+		public String helpDetail(HelpList hl, Model model) {
+			HelpDetailData hdd = service.selectHelpDetail(hl);
+			model.addAttribute("hdd", hdd);
+			return "/helper/helpDetail";
 		}
 }

@@ -14,6 +14,7 @@ import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import kr.or.common.Photo;
 import kr.or.common.Report;
+import kr.or.helper.model.vo.HelpDetailData;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelperAdjust;
 import kr.or.helper.model.vo.ReqHelperList;
@@ -245,6 +246,27 @@ public class HelperDao {
 	public int insertHelpPhoto(HelpReview re) {
 		// TODO Auto-generated method stub
 		return session.insert("helper.insertHelpPhoto", re);
+	}
+
+	public ArrayList<HelpReview> selectHelpReviewList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		List<HelpReview> list = session.selectList("helper.selectHelpReviewList", map);
+		return (ArrayList<HelpReview>)list;
+	}
+
+	public int helpReviewListCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("helper.helpReviewListCount", memberNo);
+	}
+
+	public int deleteReview(int reviewNo) {
+		// TODO Auto-generated method stub
+		return session.delete("helper.deleteReview", reviewNo);
+	}
+
+	public HelpDetailData selectHelpDetail(HelpList hl) {
+		// TODO Auto-generated method stub
+		return session.selectOne("helper.selectHelpDetail", hl);
 	}
 	
 }
