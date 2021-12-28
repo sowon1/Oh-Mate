@@ -138,7 +138,7 @@
 			<c:otherwise>
 			<div id="cardList9">
 				<c:forEach items="${list }" var="b" varStatus="i">
-				 	<div class="cardImg" onclick="location.href='/boardView.do?boardNo=${b.boardNo}';">
+				 	<div class="cardImg" onclick="boardView(${b.boardNo})">
 					  <div class="col mb-4">
 					    <div class="card">
 					      <img src="/resources/upload/board/${b.filePath }" class="card-img-top">
@@ -177,6 +177,12 @@
 	</div>
 	
 <script>
+
+function boardView(boardNo){
+	console.log(boardNo);
+	location.href='/boardView.do?boardNo='+boardNo;    
+}
+
 $(function(){
 	//조건검색 슬라이드
 	$(".form-check").click(function(){
@@ -218,10 +224,6 @@ $(function(){
 			return communityFrm;
 		}
 	});
-	
-	function boardView(boardNo){
-	    location.herf='/boardView.do?boardNo='+boardNo;
-	}
 
 	//더보기
 	$("#moreBtn").click(function(){
@@ -333,6 +335,7 @@ $(function(){
 	$("#searchReset").click(function(){
 		$(".select").find("input").prop('checked',false);
 	});
+
 });
 
 </script>

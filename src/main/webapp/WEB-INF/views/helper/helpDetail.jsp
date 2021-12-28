@@ -77,7 +77,7 @@
 	}
 	.report_helper{
 		position: absolute;
-	    right: 380px;
+	    right: 450px;
 	    top: 120px;
 	}
 	.report_helper a{
@@ -97,6 +97,28 @@
 			        <span class="profileText">
 			            <p>헬퍼</p>
 			            <p>${hdd.helperName }</p>
+			        </span>
+			        <span class="profileText">
+			            <p>상태</p>
+			            <p>
+			            	<c:choose>
+			            		<c:when test="${helpStatus eq 1 }">
+			            			요청중
+			            		</c:when>
+			            		<c:when test="${helpStatus eq 2 }">
+			            			처리중
+			            		</c:when>
+			            		<c:when test="${helpStatus eq 3 }">
+			            			처리완료
+			            		</c:when>
+			            		<c:when test="${helpStatus eq 4 }">
+			            			취소
+			            		</c:when>
+			            		<c:otherwise>
+			            			확인중
+			            		</c:otherwise>
+			            	</c:choose>
+			            </p>
 			        </span>
 			        <span class="profileText">
 			            <p>요청일</p>
@@ -135,7 +157,7 @@
 						<td class="img_viewer">
 							<c:choose>
 								<c:when test="${not empty hdd.photoList }">
-									<c:forEach items="${hdd.potoList }" var="p">
+									<c:forEach items="${hdd.photoList }" var="p">
 										<img id="img_view" src="/resources/upload/helper/${p.photoPath }">
 									</c:forEach>
 								</c:when>
@@ -154,7 +176,7 @@
 			<div class="helper_pro_btn">
 	            <div class="report_helper">	            	
 	            	<a id="helperReport"><img src="/resources/img/icon/report.png"></a>	            		
-	            </div>                               
+	            </div>	                                               
 			</div>
 			<div class="report_popup_modal">
                  	<div class="re_pop_modal">
@@ -204,6 +226,16 @@
 	</div>	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
+		function reportopen(){
+			$(".report_popup_modal").css("display","flex");
+		    $("body").css("overflow", "hidden");
+		    $(".tour_back_dark").show();			
+		}
+		function reportclose(){
+			$(".report_popup_modal").css("display","none");
+		    $("body").css("overflow", "auto");
+		    $(".tour_back_dark").hide();			
+		}
 	//신고 팝업
 		$("#helperReport").click(function(){
 			reportopen();

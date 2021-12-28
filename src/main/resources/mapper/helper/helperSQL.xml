@@ -237,8 +237,10 @@
 			asterion,
 			review_date as reviewDate,
 			(select member_id from member where member_no=r.member_no) as memberId,
-			(select count(*) from help_review where asterion=5) as star5,
-            (select count(*) from help_review where asterion=4) as star4,
+			(select member_filepath from member where member_no=r.member_no) as memfilepath,
+			(select count(*) from help_review where asterion between 3 and 5) as star5,
+            (select count(*) from help_review where asterion between 1 and 2) as star4,
+            (select photo_path from photo where photo_num=r.review_no and rownum = 1) as photoPath,
 			(select count(*) from bookmark where BOOKMARK_CATEGORY=3 and bookmark_num=review_no) as likeCount,
 			decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=3 and BOOKMARK_NUM=review_no),'1','좋아요','좋아요취소') as likedCheck
 		from help_review r where helper_no =#{helperNo}

@@ -15,5 +15,5 @@ public class BoardMemberData {
 	private Board b;
 	private ArrayList<Member> fileImg;		 
 	private ArrayList<MateComment> list;
-	private String profileOption;
+	private String profileOption; 
 }
