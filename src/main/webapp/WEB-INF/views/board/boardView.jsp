@@ -141,7 +141,7 @@
 					<li>
 						<c:if test="${c.commentSecret eq 2 }"> <!-- 비밀 -->
 							<c:choose>
-								<c:when test="${m.memberId eq b.boardWriter || m.memberId eq c.commentWriter || memberLevel eq 0}">&emsp;
+								<c:when test="${m.memberId eq b.boardWriter || m.memberId eq c.commentWriter || m.memberLevel eq 0}">&emsp;
 								<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">&nbsp;비밀글 입니다.
 									<p class="pstyle">${c.commentContentBr}</p>
 								</c:when>
@@ -212,7 +212,7 @@
 							<li class="commentct">
 							<c:if test="${bc.commentSecret eq 2 }"> <!-- 비밀 -->
 								<c:choose>
-									<c:when test="${m.memberId eq b.boardWriter || m.memberId eq c.commentWriter || memberLevel eq 0}">&emsp;
+									<c:when test="${m.memberId eq b.boardWriter || m.memberId eq c.commentWriter || m.memberLevel eq 0}">&emsp;
 									<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">&nbsp;비밀글 입니다.
 										<p style="margin-top:5px;">${bc.commentContentBr }</p>
 									</c:when>
