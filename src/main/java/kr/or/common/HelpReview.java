@@ -16,5 +16,8 @@ public class HelpReview {
 	private String memberId;				//작성자 아이디
 	private int star5;						//별점5
 	private int star4;						//별점4
-	private int helpNo;						//헬프번호		
+	private int helpNo;						//헬프번호	
+	private String photoPath;				//리뷰사진
+	private String helperName;				//헬퍼이름
+	private String memfilepath;				//리뷰자 프로필 이미지
 }

@@ -10,9 +10,8 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container_mate">
-		<h1>공지사항</h1>
+		<h1 class="point_title">공지사항</h1>
 		<br>
-		<hr>
 		<br>
 		<div class=notice-view>
 			<table class="table">

@@ -16,6 +16,7 @@ import kr.or.common.Pay;
 import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
+import kr.or.helper.model.vo.HelpDetailData;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
 import kr.or.helper.model.vo.ReqHelperAdjust;
@@ -24,6 +25,7 @@ import kr.or.helper.model.vo.ReqHelperList;
 import kr.or.house.model.dao.HouseDao;
 import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
+import kr.or.notice.model.vo.FileVO;
 
 @Service
 public class HelperService {
@@ -528,6 +530,92 @@ public class HelperService {
 		map.put("list",	list);
 		
 		return map;
+	}
+
+	@Transactional
+	public int insertHelpReview(HelpReview re) {
+		// TODO Auto-generated method stub
+		int result1 = dao.insertHelpReview(re);
+		System.out.println(re.getPhotoPath());
+		int result = 0;
+		if(result1>0) {
+			if(re.getPhotoPath()==null) {
+				result = 1;								
+			}else {
+				result = dao.insertHelpPhoto(re);
+			}
+		}else {
+			return -1;
+		}
+		return result;
+	}
+
+	public HashMap<String, Object> selectHelpReviewList(int reqPage, int memberNo) {
+		// TODO Auto-generated method stub
+		
+		int numPerPage=5;
+		int end = reqPage*numPerPage;
+		int start = end-numPerPage+1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo",memberNo);
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<HelpReview> list = dao.selectHelpReviewList(map);
+		int totalCount = dao.helpReviewListCount(memberNo);
+		int totalPage = 0;
+		
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage;
+		}else {
+			totalPage = totalCount/numPerPage + 1;
+		}
+		
+		int pageNaviSize=5;
+		int pageNo=1;
+		if(reqPage>4) {
+			pageNo=reqPage-2;
+			if(totalPage - reqPage < (pageNaviSize-1)) {
+				pageNo = totalPage-(pageNaviSize-1);
+			}
+		}
+		
+		String pageNavi = "<ul class='pagination pagination-lg'>";
+		if(pageNo != 1) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/helpReviewList.do?reqPage="+(reqPage-1)+"'>&lt;</a></li>";
+		}
+		for(int i=0;i<pageNaviSize;i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li class='page-item-mate-mate active'><a href='/helpReviewList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+			}else {
+				pageNavi += "<li class='page-item-mate-mate'><a href='/helpReviewList.do?reqPage="+pageNo+"'>"+pageNo+"</a></li>";
+			}
+			pageNo++;
+			if(pageNo > totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li class='page-item-mate-mate'><a href='/helpReviewList.do?reqPage="+(reqPage+1)+"'>&gt;</a><li>";
+		}
+		pageNavi += "</ul>";
+		
+		map.put("pageNavi", pageNavi);
+		map.put("list",	list);
+		
+		return map;
+	}
+
+	@Transactional
+	public int deleteReview(int reviewNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteReview(reviewNo);
+	}
+
+	public HelpDetailData selectHelpDetail(HelpList hl) {
+		// TODO Auto-generated method stub
+		return dao.selectHelpDetail(hl);
 	}
 
 }

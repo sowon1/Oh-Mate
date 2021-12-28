@@ -197,8 +197,8 @@
 		<div class="select_tab">
 			<ul>
 				<li class="notSel"><a href="/helpList.do?reqPage=1">헬프 신청 내역</a></li>
-				<li class="notSel"><a href="helpReview.do">헬프리뷰</a></li>
-				<li class="sel"><a href="bookmarkHelper.do">찜한 헬퍼</a></li>
+				<li class="notSel"><a href="/helpReviewList.do?reqPage=1">헬프리뷰</a></li>
+				<li class="sel"><a href="/bookmarkHelper.do">찜한 헬퍼</a></li>
 			</ul>
 		</div>
 		<br>

@@ -13,7 +13,6 @@
 	<div class="container_mate">
 		<h1 class="point_title">공지사항</h1>
 		<br>
-		<hr>
 		<br>
 		<div class="notice-list">
 			<table class="table">

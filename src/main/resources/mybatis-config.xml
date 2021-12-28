@@ -34,5 +34,6 @@
 		<typeAlias type="kr.or.chatmsg.model.vo.ChatMsg" alias="chatmsg"/>
 		<typeAlias type="kr.or.helper.model.vo.ReqHelperAdjust" alias="rhal"/>
 		<typeAlias type="kr.or.common.HelpList" alias="hl"/>
+		<typeAlias type="kr.or.helper.model.vo.HelpDetailData" alias="hdd"/>
 	</typeAliases>
 </configuration>

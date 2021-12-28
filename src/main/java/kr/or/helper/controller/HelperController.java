@@ -28,11 +28,13 @@ import com.google.gson.JsonObject;
 
 import kr.or.common.Address;
 import kr.or.common.HelpList;
+import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import kr.or.common.Pay;
 import kr.or.common.Photo;
 import kr.or.common.Report;
 import kr.or.helper.model.service.HelperService;
+import kr.or.helper.model.vo.HelpDetailData;
 import kr.or.helper.model.vo.Helper;
 import kr.or.helper.model.vo.ReqHelpListPageData;
 import kr.or.helper.model.vo.ReqHelperAdjust;
@@ -487,7 +489,6 @@ public class HelperController {
 		}
 		@Scheduled(cron = "30 0/15 * * * ?"  )
 		public void ChkHelpComDelay() {
-			System.out.println("15분마다 실행!");
 			int result = service.ChkHelpComeDelay();
 		}
 
@@ -523,5 +524,109 @@ public class HelperController {
 				model.addAttribute("loc", "/main.do");
 				return "common/msg";
 			}
+		}
+		
+		//리뷰 작성페이지 이동
+		@RequestMapping(value = "/helpReviewWriteFrm.do")
+		public String helpReviewWriteFrm(Model model, HelpList h) {
+			model.addAttribute("memberNo", h.getMemberNo());
+			model.addAttribute("helperNo", h.getHelperNo());
+			model.addAttribute("helpNo", h.getHelpNo());	
+			model.addAttribute("helperName", h.getHelperName());
+			model.addAttribute("helpTitle", h.getHelpTitle());
+			model.addAttribute("helpFinishDate", h.getHelpFinishDate());		
+			model.addAttribute("helpRequestDate", h.getHelpRequestDate());
+			
+			return "/helper/helpReviewWriteFrm";
+		}
+		
+		//리뷰작성
+		@RequestMapping(value = "/helpReviewWrite.do")
+		public String helpReviewWrite(HelpReview re, MultipartFile[] reviewImg, HttpServletRequest request, Model model) {
+			String filepath = null;
+			if(reviewImg[0].isEmpty()) {
+				
+			}else {
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/helpReview/");
+				for(MultipartFile file : reviewImg) {
+					String filename = file.getOriginalFilename();
+					String onlyFilename = filename.substring(0,filename.indexOf("."));
+					String extention = filename.substring(filename.indexOf("."));
+					int count=0;
+					while(true) {
+						if(count == 0) {
+							filepath = onlyFilename+extention;
+						}else {
+							filepath = onlyFilename+"_"+count+extention;
+						}
+						File checkFile = new File(savePath+filepath);
+						if(!checkFile.exists()) {
+							break;
+						}
+						count++;
+					}
+
+					try {
+						FileOutputStream fos = new FileOutputStream(new File(savePath+filepath));
+						BufferedOutputStream bos = new BufferedOutputStream(fos);
+						byte[] bytes = file.getBytes();
+						bos.write(bytes);
+						bos.close();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			re.setPhotoPath(filepath);
+			int result = service.insertHelpReview(re);
+			
+			if(result == -1) {
+				model.addAttribute("msg", "등록실패");
+			}else {
+				model.addAttribute("msg", "등록성공");
+			}
+			
+			model.addAttribute("loc", "/helpReviewList.do?reqPage=1");
+			return "common/msg";
+		}
+		
+		@RequestMapping(value = "helpReviewList.do")
+		public String helpReviewList(int reqPage, Model model, HttpSession session) {
+			int memberNo = 0;
+			if (session != null) {
+				Member m = (Member) session.getAttribute("m");
+
+				if (m != null) {
+					memberNo = m.getMemberNo();
+				}
+			}
+			
+			HashMap<String, Object> data = service.selectHelpReviewList(reqPage, memberNo);
+			model.addAttribute("pageNavi", data.get("pageNavi"));
+			model.addAttribute("list", data.get("list"));
+			return "/member/helpReviewList";
+		}
+		
+		@RequestMapping(value = "/deleteReview.do")
+		public String deleteReview(int reviewNo, Model model) {
+			int result = service.deleteReview(reviewNo);
+			if(result == 1) {
+				model.addAttribute("msg", "삭제성공");
+			}else {
+				model.addAttribute("msg", "삭제실패");
+			}
+			model.addAttribute("loc", "/helpReviewList.do?reqPage=1");
+			return "common/msg";
+		}
+		
+		@RequestMapping(value = "/helpDetail.do")
+		public String helpDetail(HelpList hl, Model model) {
+			HelpDetailData hdd = service.selectHelpDetail(hl);			
+			model.addAttribute("hdd", hdd);
+			return "/helper/helpDetail";
 		}
 }

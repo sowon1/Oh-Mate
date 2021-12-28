@@ -237,8 +237,10 @@
 			asterion,
 			review_date as reviewDate,
 			(select member_id from member where member_no=r.member_no) as memberId,
-			(select count(*) from help_review where asterion=5) as star5,
-            (select count(*) from help_review where asterion=4) as star4,
+			(select member_filepath from member where member_no=r.member_no) as memfilepath,
+			(select count(*) from help_review where asterion between 3 and 5) as star5,
+            (select count(*) from help_review where asterion between 1 and 2) as star4,
+            (select photo_path from photo where photo_num=r.review_no and rownum = 1) as photoPath,
 			(select count(*) from bookmark where BOOKMARK_CATEGORY=3 and bookmark_num=review_no) as likeCount,
 			decode((select count(*) from bookmark where bookmarker=#{memberNo} and BOOKMARK_CATEGORY=3 and BOOKMARK_NUM=review_no),'1','좋아요','좋아요취소') as likedCheck
 		from help_review r where helper_no =#{helperNo}
@@ -373,7 +375,7 @@
 				h.helper_refuse as helperRefuse,
             	(select age from member where member_no=h.member_no) as age,
             	(select gender from member where member_no=h.member_no) as gender         
-        	from (select * from helper where HELPER_STATUS=1 order by 1 desc)h
+        	from helper h
         	join  bookmark b on(bookmark_num=helper_no)
         	where b.bookmark_category=1 and b.bookmarker=#{memberNo}) 
 	</select>
@@ -468,5 +470,77 @@
 	</select>
 	<select id="helpRequestCount" parameterType="_int" resultType="_int">
 		select count(*) from helplist where member_no=#{memberNo}
+	</select>
+	<insert id="insertHelpReview">
+		insert into help_review values(review_seq.nextval,#{memberNo},#{helperNo},#{reviewTitle},#{reviewContent},#{asterion},to_char(sysdate,'yyyy-mm-dd'),#{helpNo})
+		<selectKey resultType="_int" order="AFTER" keyProperty="reviewNo">
+			select max(review_no) from help_review
+		</selectKey>
+	</insert>
+	<insert id="insertHelpPhoto" parameterType="re">
+		insert into photo values(photo_seq.nextval,3,#{photoPath},#{reviewNo})
+	</insert>
+	<select id="selectHelpReviewList" parameterType="map" resultType="re">
+		select * from
+		    (select
+		        rownum as rnum,
+		        re.* from
+		            (select
+		                r.review_no as reviewNo,
+		                r.member_no as memberNo,
+		                r.helper_no as helperNo,
+		                r.review_title as reviewTitle,
+		                r.review_content as reviewContent,
+		                r.asterion,
+		                r.review_date as reviewDate,
+		                r.help_no as helpNo,
+		                h.helper_name as helperName,
+		                (select photo_path as photoPath from photo where photo_category = 3 and photo_num = r.review_no)
+		            from help_review r
+		            join helper h on (r.helper_no = h.helper_no)
+		            where r.member_no = #{memberNo}
+		            order by 1 desc)re)
+		where rnum between #{start} and #{end}
+	</select>
+	<select id="helpReviewListCount" parameterType="_int" resultType="_int">
+		select count(*) from help_review where member_no=#{memberNo}
+	</select>
+	<delete id="deleteReview" parameterType="_int">
+		delete from help_review where review_no = #{reviewNo}
+	</delete>
+	<select id="selectHelpDetail" parameterType="hl" resultMap="helpDetaildata">
+		select hl.*,h.helper_name from helplist hl join helper h on(hl.helper_no = h.helper_no) where help_no=#{helpNo}
+	</select>
+	<resultMap type="hdd" id="helpDetaildata">
+		<result column="help_no" property="helpNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="helper_no" property="helperNo"/>
+		<result column="help_title" property="helpTitle"/>
+		<result column="help_content" property="helpContent"/>
+		<result column="help_category" property="helpCategory"/>
+		<result column="help_charge" property="helpCharge"/>
+		<result column="help_status" property="helpStatus"/>
+		<result column="help_start_time" property="helpStartTime"/>
+		<result column="help_end_time" property="helpEndTime"/>
+		<result column="help_request_date" property="helpRequestDate"/>
+		<result column="help_finish_date" property="helpFinishDate"/>
+		<result column="help_complite" property="helpComplite"/>
+		<result column="helper_name" property="helperName"/>
+		<collection property="photoList"
+					column="help_no"
+					javaType="java.util.ArrayList"
+					ofType="f"
+					select="selectFileList"
+		/>
+	</resultMap>
+	<select id="selectFileList" parameterType="_int" resultType="f">
+		select
+			photo_no as photoNo,
+			photo_category as photoCategory, 
+			photo_path as photoPath, 
+			photo_num as photoNum 
+		from photo 
+		where photo_category=2 and photo_num = #{helpNo} 
+		order by 1
 	</select>
 </mapper>
