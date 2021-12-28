@@ -333,13 +333,7 @@
 							alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!")
 							location.href="/updateCancelHelpStatus.do?helpStatus=6&helpNo="+helpNo;
 						}else if(nowNum<startNum){
-							var comTime= startNum-nowNum;
-							if(comTime>100){
 								location.href="/updateHelpStatus.do?helpStatus=2&helpNo="+helpNo;
-							}else{
-								alert("한시간 이전까지만 헬프요청 승락이 가능합니다.")
-								location.href="/updateCancelHelpStatus.do?helpStatus=6&helpNo="+helpNo;
-							}
 						}
 						
 					});
