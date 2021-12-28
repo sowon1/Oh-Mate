@@ -153,16 +153,7 @@ public class HouseService {
 			}
 			ArrayList<Income> incomeArray = dao.selectIncome(houseNo);
 			ArrayList<Address> addressArray = dao.selectAddress(houseNo);
-			
 			int roomCount = dao.selectCount(houseNo);
-			if (list.get(i).getHouseAllow() == 2) {
-				// 하우스 승인시==>하우스 판매중으로 변경
-				int houseRoomCh1 = dao.updateRoomSelling1(list.get(i).getHouseNo());
-				if (list.get(i).getHouseRoom() == list.get(i).getRoomCount()) {
-					// 하우스 승인되있을 시 방이 다차면
-					int houseRoomCh2 = dao.updateRoomSelling2(houseNo);
-				}
-			}
 			list.get(i).setPhotoList(photoArray);
 			list.get(i).setHouseRoomView(roomArray);
 			list.get(i).setHouseIncome(incomeArray);

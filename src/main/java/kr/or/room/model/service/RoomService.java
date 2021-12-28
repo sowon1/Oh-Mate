@@ -69,13 +69,14 @@ public class RoomService {
 			int houseNo= r.getHouseNo();
 			//하우스 정보조회
 			h=dao.selectOneHouse(houseNo);
+			System.out.println("하우스조회:"+h.getHouseRoom());
 			int houseRoom = h.getHouseRoom();
 			int houseSelling=h.getHouseSelling();
 			//입주정보
 			int moveNo = dao.selectOneMove();
 			map.put("moveNo", moveNo);
 			int roomCount = dao.selectCountRoom(houseNo);
-			if(houseRoom==roomCount && houseSelling==2) {
+			if(houseRoom==roomCount && houseSelling==1) {
 				int updateHouseSelling = dao.updatehouseSelling(houseNo);
 				if(updateHouseSelling > 0) {
 					map.put("p", p);

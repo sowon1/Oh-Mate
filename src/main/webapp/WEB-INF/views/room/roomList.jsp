@@ -121,7 +121,7 @@
 </head>
 <body>
 	<div
-		style="margin: 0; padding-top: 200px; background-color: #f8f8fa; height: 100%;">
+		style="margin: 0; padding:100px; background-color: #f8f8fa;">
 		<div class="content">
 			<div class="houseForm">
 				<h4 class="form-title point_title">방 리스트</h4>

@@ -207,7 +207,7 @@
 						<input type="hidden" name=incomeNo value="${h.houseIncome[0].incomeNo }">
 						<p class="ac-title">계좌번호</p>
 						<input type="text" id="number" name="incomeAccount"
-							class="input_03" placeholder="하이달(-)과 같이 기제해주세요"
+							class="input_03" placeholder="하이픈(-)과 같이 기제해주세요"
 							value="${h.houseIncome[0].incomeAccount }">
 						<p class="ac-title">예금주</p>
 						<input type="text" id="name" name="incomeName" class="input_03"

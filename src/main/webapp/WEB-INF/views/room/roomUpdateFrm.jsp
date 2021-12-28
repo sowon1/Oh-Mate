@@ -109,7 +109,7 @@
 				<div class="content-place">
 					<p class="ac-title">방 평수</p>
 					<input type="text" class="input_03" id="roomSize" name="roomSize"
-						placeholder="ex)30평  etc" value="${r.roomSize }">
+						placeholder="ex)숫자만 적어주세요" value="${r.roomSize }">
 				</div>
 				<div class="content-place">
 					<p class="ac-title">연락처</p>
