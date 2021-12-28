@@ -254,7 +254,7 @@
 	            $("#tag").on("keyup", function (e) {
 	                var self = $(this);
 	                // input 에 focus 되있을 때 쉼표 및 엔터 입력시 구동
-	                if (e.key === "Enter" || e.keyCode === 188) {
+	                if (e.key === "Enter") {
 	                var tagValue = self.val(); // 값 가져오기
 	                tagValue = tagValue.replace(",", "");
 	                if (tagValue !== "") {
@@ -279,6 +279,9 @@
 	                    }
 	                }
 	                e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
+	                }else{
+	                	alert("오직 엔터만 가능합니다. 다른키는 입력이 불가합니다");
+	                	$("#tag").val("");
 	                }
 	            });
 	            // 삭제 버튼 - 비동기적 생성이므로 document 최초 생성시가 아닌 검색을 통해 이벤트를 구현
@@ -287,7 +290,8 @@
 	                .attr("idx");
 	                tag[index] = "";
 	                $(this).parent().remove();
-	                $(".addresswrap").remove();
+	                $(".addresswrap").eq(index).remove();
+	                count--;
 	            });
 	        });
 			//체크박스 1개만 선택하도록
@@ -296,52 +300,6 @@
 			    .forEach(el => el.checked = false);			
 			    target.checked = true;
 			}
-           //스킬
-			 $(function () {
-			    var skill = {};
-			    var skillcounter = 0;
-			    // 태그 추가
-			    function addskill(value) {
-			    skill[skillcounter] = value; // 태그 Object 안에 추가
-			    skillcounter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 
-			    }
-			    $("#skill_add").on("keyup", function (e) {
-			        var skillself = $(this);
-			        // input 에 focus 되있을 때 쉼표 및 엔터 입력시 구동
-			        if (e.key === "Enter" || e.keyCode === 188) {
-			        var skillValue = skillself.val(); // 값 가져오기
-			        skillValue = skillValue.replace(",", "");
-			        if (skillValue !== "") {
-			            // 같은 태그가 있는지 검사. 있다면 해당값이 array 로 return 
-			            var result = Object.values(skill)
-			            .filter(function (word) {
-			                return word === skillValue;
-			            })
-			            // 태그 중복 검사
-			            if (result.length == 0) {
-			            $(".skill_list")
-			                .append("<li class='skill_item'> <h2 class='skill_name'>"+ skillValue +"</h2><select name='skill_lel'><option value='셀렉트박스1'>셀렉트박스1</option><option value='셀렉트박스2'>셀렉트박스2</option></select>"+"<span class='del_skill' idx='" + skillcounter + "'><img src='/resources/img/icon/close.png'></span></li>");
-			            addskill(skillValue);
-			            skillself.val("");
-			            } else {
-			                $("#skill_add").val("이미 추가되어있는 스킬입니다.");
-			            }
-			            $(".profile_skill").css("display","block");
-			        }
-			        e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
-			        }
-			    });
-			    // 삭제 버튼 - 비동기적 생성이므로 document 최초 생성시가 아닌 검색을 통해 이벤트를 구현
-			    $(document).on("click", ".del_skill", function (e) {
-			        var index = $(this)
-			        .attr("idx");
-			        skill[index] = "";
-			        $(this)
-			        .parent()
-			        .remove();
-			        $(".address").eq(index).remove();
-			    });
-			});
 			//컨트롤러 제출할때 값 넘기는거
 			$("#funder_add").submit(function(){
 				//태그 부분
