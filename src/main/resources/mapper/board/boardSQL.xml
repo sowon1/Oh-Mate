@@ -235,7 +235,7 @@
 	
 	<!-- 조건검색 -->
 	<select id="mateSearch" parameterType="String" resultType="b">
-			select 
+		select 
 			BOARD_NO as boardNo,
 			BOARD_WRITER as boardWriter,
 			BOARD_TITLE as boardTitle,
@@ -292,8 +292,9 @@
 	<!-- 메이트 댓글 신고 -->
 	<insert id="commentReport" parameterType="map">
 		insert into report                  
-		values(report_seq.nextval,4,#{boardNo},#{memberNo},(select member_no from member join board on member_id=board_writer where board_no=#{boardNo}),#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
+		values(report_seq.nextval,4,#{commentNo},#{memberNo},(select member_no from member join mate_comment on member_id=comment_writer where comment_no=#{commentNo}),#{reportContent},to_char(sysdate,'yyyy-mm-dd'),1)
 	</insert>
+
 </mapper>
 
 

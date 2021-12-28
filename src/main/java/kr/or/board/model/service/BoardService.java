@@ -246,6 +246,7 @@ public class BoardService {
 	}
 
 	//메이트 게시글 신고
+	@Transactional
 	public int mateReport(int boardNo, int memberNo, String reportContent) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("boardNo", boardNo);
@@ -255,9 +256,10 @@ public class BoardService {
 	}
 
 	//메이트 댓글 신고
-	public int commentReport(int boardNo, int memberNo, String reportContent) {
+	@Transactional
+	public int commentReport(int commentNo, int memberNo, String reportContent) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("boardNo", boardNo);
+		map.put("commentNo", commentNo);
 		map.put("memberNo", memberNo);
 		map.put("reportContent", reportContent);
 		return dao.commentReport(map);

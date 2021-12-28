@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Oh-Mate!</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="/resources/js/board/boardView.js"></script>
 <link rel="stylesheet" href="/resources/css/board/mateWriteFrm.css">
 <link rel="stylesheet" href="/resources/css/helper/helper.css">
 </head>
@@ -89,13 +88,13 @@
 										<c:choose>
 											<c:when test="${m.filepath eq null}">
 											<div class="form-inline mb-2" >
-												<img src="resources/img/icon/profile.png" class="memberImg">
+												<img src="resources/img/icon/profile.png" class="memberprofile">
 												<div style="margin-left:17px;">${m.memberId }</div>
 											</div> 
 											</c:when>
 											<c:otherwise>
 											<div class="form-inline mb-2" >
-												<img src="resources/upload/member/${m.filepath}" class="memberImg">
+												<img src="resources/upload/member/${m.filepath}" class="memberprofile">
 												<div style="margin-left:17px;">${m.memberId }</div>
 											</div> 
 											</c:otherwise>
@@ -134,14 +133,7 @@
 				<ul class="list-group list-group-flush">
 					<li>
 						<div class="form-inline mb-2">
-							<c:choose>
-								<c:when test="${m.memberId ne c.commentWriter}">
-									<img src="resources/img/icon/profile.png" class="memberIm">
-								</c:when>
-								<c:otherwise>
-									<img src="resources/upload/member/${m.filepath}" class="memberIm">
-								</c:otherwise>
-							</c:choose>
+							<img src="resources/img/icon/profile.png" class="memberIm">
 							<p class="cw">${c.commentWriter }</p>
 							<p>${c.regDate }</p> 
 						</div> 
@@ -149,19 +141,19 @@
 					<li>
 						<c:if test="${c.commentSecret eq 2 }"> <!-- 비밀 -->
 							<c:choose>
-								<c:when test="${m.memberId eq c.commentWriter }">&emsp;
+								<c:when test="${m.memberId eq b.boardWriter || m.memberId eq c.commentWriter || memberLevel eq 0}">&emsp;
 								<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">&nbsp;비밀글 입니다.
 									<p class="pstyle">${c.commentContentBr}</p>
 								</c:when>
 								<c:otherwise>
-									<c:if test="${m.memberId eq null || (m.memberId ne c.commentWriter)}">&nbsp;
+									<c:if test="${m.memberId eq null || (m.memberId ne b.boardWriter)}">&nbsp;
 									<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">
 					               	비밀글은 작성자와 관리자만 볼 수 있습니다.
 					               	</c:if>
 								</c:otherwise>
 							</c:choose>
 						</c:if>
-						<c:if test="${c.commentSecret eq 1 }"> <!-- 일반 -->
+						<c:if test="${c.commentSecret eq 1}"> <!-- 일반 -->
 							<p class="pstyle">${c.commentContentBr}</p>
 						</c:if>
 						<textarea name="commentContent" class="form-control" style="display:none;" rows="3" cols="150">${c.commentContent}</textarea>	
@@ -172,9 +164,12 @@
 									<a href="javascript:void(0)" class="boardviews" onclick="deleteComment(this,'${c.commentNo }','${b.boardNo }');">삭제</a>
 								</c:if>
 									<a href="javascript:void(0)" class="reshow"><img src="/resources/img/icon/chat_icon.png" class="report"></a>&ensp;
+									<!--  
 									<c:if test="${m.memberId ne c.commentWriter }">
-										<a class="commentReport"><img src="/resources/img/icon/report.png" class="report"></a>
+										<a class="commentReport" onclick="reportComment(${c.commentNo})">
+										<img src="/resources/img/icon/report.png" class="report"></a>
 									</c:if>
+									-->
 							</c:if>
 						</p>
 						<c:if test="${not empty sessionScope.m }">  <!-- 댓글/답글달기 -->
@@ -210,24 +205,21 @@
 								<i style="padding-left: 50px;"></i>
 								<img src="resources/img/icon/reply.gif">
 								<i style="padding-left:20px;"></i>
-							</li>
-							<li>
-								<img src="resources/img/icon/profile.png" class="memberImg">
+								<img src="resources/img/icon/profile.png" class="memberImg">&emsp;
 								<p class="cwriter">${bc.commentWriter }</p>
 								<p class="rd">${bc.regDate }</p>
 							</li>
 							<li class="commentct">
-							
 							<c:if test="${bc.commentSecret eq 2 }"> <!-- 비밀 -->
 								<c:choose>
-									<c:when test="${m.memberId eq bc.commentWriter }">&emsp;
+									<c:when test="${m.memberId eq b.boardWriter || m.memberId eq c.commentWriter || memberLevel eq 0}">&emsp;
 									<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">&nbsp;비밀글 입니다.
 										<p style="margin-top:5px;">${bc.commentContentBr }</p>
 									</c:when>
 									<c:otherwise>
-										<c:if test="${m.memberId eq null || (m.memberId ne bc.commentWriter)}">&nbsp;
+										<c:if test="${m.memberId eq null || (m.memberId ne b.boardWriter)}">&nbsp;
 										<img src="/resources/img/icon/lock.png" width="15px" alt="비밀글">
-						               	비밀글은 작성자와 관리자만 볼 수 있습니다.
+						               	비밀글은 게시물 작성자와 관리자만 볼 수 있습니다.
 						               	</c:if>
 									</c:otherwise>
 								</c:choose>
@@ -237,15 +229,19 @@
 							</c:if>
 		
 								<textarea name="commentContent" class="form-control" style="display:none; width: 100%; resize:none;">${bc.commentContent }</textarea>
-								<p class="commentsBtn" style="margin:0px;">
+								<p class="commentsBtns" style="margin:0px;">
 									<c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq bc.commentWriter}">
 										<a href="javascript:void(0)" onclick="modifyComment(this,'${bc.commentNo }','${b.boardNo }');">수정</a>
 										<a href="javascript:void(0)" onclick="deleteComment(this,'${bc.commentNo }','${b.boardNo }');" style="margin-right: 15px;">삭제</a>
 									</c:if>	
+								</p><br><br><br>
+								<!--  
+								<p style="float:right;">
 									<c:if test="${m.memberId != null && m.memberId ne bc.commentWriter }">
 										<a class="commentReport"><img src="/resources/img/icon/report.png" class="report"></a>
 									</c:if>								
 								</p>
+								-->
 							</li>
 						</ul>
 					</c:if>
@@ -255,19 +251,19 @@
 	</div>	
 	
 		<!---------------------------------------------------게시글 신고 팝업-------------------------------------------------------->
-				<div class="report_popup_modal">
+				<div class="report_popup_modal1">
                  	<div class="re_pop_modal">
 	                 		<div class="re_modal_top">
 		                  		<span class="re_modal_text">신고</span>
-		                      	<span class="re_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+		                      	<span class="re_modal_close1" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
 		                   </div>
 		                   <div class="re_modal_content">
-		                   		<form action="/mateReport.do" method="post" class="reform">
+		                   		<form action="/mateReport.do" method="post" class="reform1">
 		                   			<table class="help_table">
 	                        			<tr class="table-active_mate_help">
 	                        				<th>신고 대상</th>
 	                        				<td> 
-	                        					<input type="text" class="input_03" value="${b.boardWriter}" name="memberName" readonly="readonly">
+	                        					<input type="text" class="input_03" value="${b.boardWriter}" name="memberId" readonly="readonly">
 	                        					<input type="hidden" class="input_03" value="${b.boardNo}" name="boardNo" readonly="readonly">
 	                        				</td>
 	                        			</tr>
@@ -300,19 +296,20 @@
                  </div>
                  
        <!---------------------------------------------------댓글 신고 팝업-------------------------------------------------------->
-				<div class="report_popup_modal">
+				<div class="report_popup_modal2">
                  	<div class="re_pop_modal">
 	                 		<div class="re_modal_top">
 		                  		<span class="re_modal_text">신고</span>
-		                      	<span class="re_modal_close" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
+		                      	<span class="re_modal_close2" style="cursor: pointer;"><img src="/resources/img/icon/close_wh.png"></span>
 		                   </div>
 		                   <div class="re_modal_content">
-		                   		<form action="/commentReport.do" method="post" class="reform">
+		                   		<form action="/commentReport.do" method="post" class="reform2">
 		                   			<table class="help_table">
 	                        			<tr class="table-active_mate_help">
 	                        				<th>신고 대상</th>
 	                        				<td> 
-	                        					<input type="text" class="input_03" value="${b.boardWriter}" name="memberName" readonly="readonly">
+	                        					<input type="text" class="input_03" value="${commentWriter}" name="memberId" readonly="readonly">
+	                        					<input type="hidden" class="input_03" value="${commentNo}" name="commentNo" readonly="readonly">
 	                        					<input type="hidden" class="input_03" value="${b.boardNo}" name="boardNo" readonly="readonly">
 	                        				</td>
 	                        			</tr>
@@ -343,7 +340,6 @@
 		                   </div>
                  	</div>
                  </div>
-                
 	<c:import url="/WEB-INF/views/common/footer.jsp" />
 <script>
 $(function(){
@@ -480,18 +476,18 @@ $(function(){
 		reportopen();
 	});
 	
-	$(".re_modal_close").click(function(){
+	$(".re_modal_close1").click(function(){
 		reportclose();
 	});
 	
 	function reportopen(){
-		$(".report_popup_modal").css("display","flex");
+		$(".report_popup_modal1").css("display","flex");
 	    $("body").css("overflow", "hidden");
 	    $(".tour_back_dark").show();			
 	}
 	
 	function reportclose(){
-		$(".report_popup_modal").css("display","none");
+		$(".report_popup_modal1").css("display","none");
 	    $("body").css("overflow", "auto");
 	    $(".tour_back_dark").hide();			
 	}
@@ -500,22 +496,45 @@ $(function(){
 		if($(".report_textarea").val() == ""){	
 			alert('사유를 입력해주세요.');
 		}else{
-			 $(".reform").submit();
+			 $(".reform1").submit();
 		}
 	}
 	
-	//댓글신고
+	/*댓글신고
+	
 	$(".commentReport").click(function(){
-		reportopen();
+		reportCommentopen();
 	});
 	
+	$(".re_modal_close2").click(function(){
+		reportCommentclose();
+	});
+	
+	function reportCommentopen(){
+		$(".report_popup_modal2").css("display","flex");
+	    $("body").css("overflow", "hidden");
+	    $(".tour_back_dark").show();			
+	}
+	
+	function reportCommentclose(){
+		$(".report_popup_modal2").css("display","none");
+	    $("body").css("overflow", "auto");
+	    $(".tour_back_dark").hide();			
+	}
+
 	function checkVal(){
 		if($(".report_text").val() == ""){	
 			alert('사유를 입력해주세요.');
 		}else{
-			 $(".reform").submit();
+			 $(".reform2").submit();
 		}
 	}
+	
+	function reportComment(commentNo){
+		console.log(commentNo);
+	}
+	
+	*/
 	
 	function modifyComment(obj,commentNo,boardNo){
 		$(obj).parent().prev().show();
@@ -550,7 +569,7 @@ $(function(){
 		if(confirm("댓글을 삭제하시겠습니까?")){
 			location.href="/deleteComment.do?commentNo="+commentNo+"&boardNo="+boardNo;
 		}
-	}		
+	}	
 </script>
 </body>
 </html>
