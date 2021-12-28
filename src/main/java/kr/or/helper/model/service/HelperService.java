@@ -481,11 +481,13 @@ public class HelperService {
 			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
 		}
 		pageNavi += "</ul>";
+		Helper h = dao.selectOneHelper(memberNo);
 		ReqHelperAdjustPageData rhapd= new ReqHelperAdjustPageData();
 		rhapd.setList(list);
 		rhapd.setStart(start);
 		rhapd.setTotalCount(totalCount);
 		rhapd.setPageNavi(pageNavi);
+		rhapd.setH(h);
 		return rhapd;
 	}
 	public HashMap<String, Object> selectHelpRequestList(int memberNo, int reqPage) {

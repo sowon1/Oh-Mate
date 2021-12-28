@@ -188,14 +188,6 @@
 					var html = "";
 					var list = data.list;
 					totalCount = data.totalPageCount;
-					//console.log(data);
-					//console.log(list);
-					//console.log(totalCount);
-					if(list == 0){
-						html += '<div class="search_none"><img src="/resources/img/icon/search_img.png"></div>';
-						html += '<div class="search_none_text">리스트 결과가 없습니다.</div>';
-	
-					}
 					for(var i=0;i<list.length;i++){								
 						html += '<li><div class="house_list_photo"><div class="like_house">';
 						if(login == ''){
@@ -229,7 +221,13 @@
 					}
 					$(".list_container").append(html);
 					$(".loading").hide();
-					isLoading = false;					
+					isLoading = false;	
+					var children = $(".list_container").children();
+					if(children == null || children.length == 0){
+						html += '<div class="search_none"><img src="/resources/img/icon/search_img.png"></div>';
+						html += '<div class="search_none_text">리스트 결과가 없습니다.</div>';
+						$(".list_container").append(html);
+					}
 				}
 			});
 		}

@@ -202,12 +202,6 @@
 			if(age == ""){
 				age = 0;
 			}
-		//console.log(keyword);
-		//console.log(gender);
-		//console.log(helperStartTime);
-		//console.log(helperEndTime);
-		//console.log(helperCategory);
-		//console.log(age);
 			$.ajax({
 				type : "GET",
 				data : {
@@ -224,14 +218,6 @@
 					var html = "";
 					var list = data.list;
 					totalCount = data.totalPageCount;
-					//console.log(data);
-					//console.log(list);
-					//console.log(totalCount);
-					if(list == 0){
-						html += '<div class="search_none"><img src="/resources/img/icon/search_img.png"></div>';
-						html += '<div class="search_none_text">리스트 결과가 없습니다.</div>';
-	
-					}
 					for(var i=0;i<list.length;i++){
 						html += '<li><div class="helper_list_photo"><div class="like_helper">';
 						if(login == ''){
@@ -300,6 +286,12 @@
 								$(".helper_Category").eq(i).children("span").eq(j).hide();
 							}
 						}
+					}//위에 for문 종료
+					var children = $(".list_container").children();
+					if(children == null || children.length == 0){
+						html += '<div class="search_none"><img src="/resources/img/icon/search_img.png"></div>';
+						html += '<div class="search_none_text">리스트 결과가 없습니다.</div>';
+						$(".list_container").append(html);
 					}
 				}
 			});
