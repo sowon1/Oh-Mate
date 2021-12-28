@@ -1,7 +1,7 @@
 $(function(){
 	$("#uploadFile").change(function(){
 		var fileVal = $(this).val();
-		var fileType = fileVal.substring(fileVal.lastIndexOf(".")+1);
+		var fileType = fileVal.substring(fileVal.lastIndexOf(".")+1).toLowerCase();
 		var fileSize = 10 * 1024 * 1024; //10메가
 		if(fileType == 'jpg' || fileType == 'png' || fileType == 'jpeg' || fileType == 'gif'){
 			var uploadFileSize = this.files[0].size;
