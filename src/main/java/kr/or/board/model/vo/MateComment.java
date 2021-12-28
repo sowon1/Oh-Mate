@@ -15,7 +15,7 @@ public class MateComment {
 	private int commentSecret;     // 1.일반댓글 2.비밀댓글
 
 	public String getcommentContentBr() {
-		return commentContent.replaceAll("\r\n", "<br>");
+		return commentContent.replaceAll("\r\n","<br>");
 	}
 	
 }

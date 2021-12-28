@@ -176,7 +176,7 @@
 		      <%-- 헬퍼일경우 헬퍼메뉴 --%>
 		      <c:if test="${sessionScope.m.memberLevel eq 4 }">
 			    <li><a href="javascript:void(0)" class="requestChk">헬퍼 프로필 수정</a></li>
-			    <li><a href="/helperReqList.do?reqPage=1">헬퍼요청내역 확인</a></li>
+			    <li><a href="/helperReqList.do?reqPage=1">도와줘요 내역 확인</a></li>
 			    <li><a href="/helperReqListAdjust.do?reqPage=1">헬퍼 정산 내역</a></li>
 		      </c:if>   	
 		      <li><a href="/logout.do">로그아웃</a></li>
