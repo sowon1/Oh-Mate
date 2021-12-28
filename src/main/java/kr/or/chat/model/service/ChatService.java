@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.chat.model.dao.ChatDao;
 import kr.or.chat.model.vo.Chat;
@@ -24,6 +25,7 @@ public class ChatService {
 		return dao.selectMateTalkList(receiver);
 	}
 	//헬프 상세보기 채팅 버튼 눌렀을때 채팅 목록 있는지 조회
+	@Transactional
 	public int chatSelect(int receiver, int helpNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("receiver", receiver);
@@ -44,6 +46,7 @@ public class ChatService {
 		return list;
 	}
 	//채팅 신고
+	@Transactional
 	public int insertChatReport(Report report) {
 		return dao.insertChatReport(report);
 	}

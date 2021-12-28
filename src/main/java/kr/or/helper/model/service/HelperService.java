@@ -2,8 +2,6 @@ package kr.or.helper.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +12,6 @@ import kr.or.common.HelpReview;
 import kr.or.common.Income;
 import kr.or.common.Pay;
 import kr.or.common.Photo;
-import kr.or.common.Report;
 import kr.or.helper.model.dao.HelperDao;
 import kr.or.helper.model.vo.HelpDetailData;
 import kr.or.helper.model.vo.Helper;
@@ -23,9 +20,7 @@ import kr.or.helper.model.vo.ReqHelperAdjust;
 import kr.or.helper.model.vo.ReqHelperAdjustPageData;
 import kr.or.helper.model.vo.ReqHelperList;
 import kr.or.house.model.dao.HouseDao;
-import kr.or.house.model.vo.House;
 import kr.or.member.model.vo.Member;
-import kr.or.notice.model.vo.FileVO;
 
 @Service
 public class HelperService {
@@ -35,6 +30,7 @@ public class HelperService {
 	private HouseDao hdao;
 
 	// 사진없을때
+	@Transactional
 	public int helperRequestNoImg(Helper h, Income i2, String[] addressCode, String[] addressName, String[] addressRoad,
 			String[] addressLegal) {
 		int result = dao.heplerRequestNoImg(h);
@@ -64,6 +60,7 @@ public class HelperService {
 	}
 
 	// 사진 있을때 헬퍼 요청등록
+	@Transactional
 	public int insertHouseAndImg(Helper h, Income i2, String[] addressCode, String[] addressName, String[] addressRoad,
 			String[] addressLegal) {
 		int result = dao.insertHouseAndImg(h);
@@ -106,7 +103,9 @@ public class HelperService {
 		h.setIncome(i);
 		return h;
 	}
+	
 	//헬퍼 등록 요청 사진x 수정
+	@Transactional
 	public int helperRequestNoImgUpdate(Helper h, Income i2, String[] addressCode, String[] addressName,
 			String[] addressRoad, String[] addressLegal) {
 		int result = dao.updateHelperReqNoImg(h);
@@ -137,6 +136,7 @@ public class HelperService {
 		}
 	}
 	//이미지 있는 헬퍼 등록 요청 수정
+	@Transactional
 	public int insertHouseAndImgUpdate(Helper h, Income i2, String[] addressCode, String[] addressName,
 			String[] addressRoad, String[] addressLegal) {
 			int result = dao.insertHouseAndImgUpdate(h);
@@ -206,6 +206,7 @@ public class HelperService {
 		return dao.helperLikeCount(helperNo);
 	}
 	//helper like insert
+	@Transactional
 	public int insertHelperLike(int memberNo, int helperNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
@@ -213,6 +214,7 @@ public class HelperService {
 		return dao.insertHelperLike(map);
 	}
 	//helper like delete
+	@Transactional
 	public int deleteHelperLike(int memberNo, int helperNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
@@ -285,7 +287,9 @@ public class HelperService {
 		rhpd.setTotalCount(totalCount);
 		return rhpd;
 	}
+	
 	//도움 요청 
+	@Transactional
 	public int insertHelprequest(HelpList h, int helperNo, int memberNo, Address addr, Pay p) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("helperNo", helperNo);
@@ -302,7 +306,9 @@ public class HelperService {
 
 		return result;
 	}
+	
 	//헬퍼신고
+	@Transactional
 	public int insertHelperReport(int helperNo, int hmemberNo, int memberNo, String reportContent) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("helperNo", helperNo);
@@ -324,6 +330,7 @@ public class HelperService {
 		return dao.reviewLikeCount(reviewNo);
 	}
 	//리뷰 insert
+	@Transactional
 	public int insertReviewLike(int memberNo, int reviewNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
@@ -331,6 +338,7 @@ public class HelperService {
 		return dao.insertReviewLike(map);
 	}
 	//리뷰 delete
+	@Transactional
 	public int deleteReviewLike(int memberNo, int reviewNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
@@ -338,6 +346,7 @@ public class HelperService {
 		return dao.deleteReviewLike(map);
 	}
 
+	@Transactional
 	public int updateHelpStatus(int helpStatus, int helpNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("helpStatus", helpStatus);
@@ -367,7 +376,8 @@ public class HelperService {
 			return 0;
 		}
 	}
-
+	
+	@Transactional
 	public int updateCompilte(int helpNo, String helpComplite) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -385,7 +395,8 @@ public class HelperService {
 			return 0;
 		}
 	}
-
+	
+	@Transactional
 	public int insertPhotoHelpCom(int helpNo, ArrayList<Photo> list) {
 		int result = 0;
 		for (Photo p : list) {
@@ -415,6 +426,7 @@ public class HelperService {
 		}
 	}
 	//결제 - sowon
+	@Transactional
 	public int insertHelpPayment(Pay p, int memberNo, int helpNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("p", p);
@@ -603,7 +615,7 @@ public class HelperService {
 		
 		return map;
 	}
-
+	@Transactional
 	public int deleteReview(int reviewNo) {
 		// TODO Auto-generated method stub
 		return dao.deleteReview(reviewNo);

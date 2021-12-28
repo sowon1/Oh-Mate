@@ -27,6 +27,7 @@ public class HouseService {
 	@Autowired
 	private HouseDao dao;
 
+	@Transactional
 	public HouseResult insertHouse(House h, Address address, Income i) {
 		int result1 = dao.insertHouse(h); // 하우스등록 >> 등록 후 houseNo불러옴 >> address에 address_number에 대입
 		if (result1 > 0) {
@@ -101,7 +102,8 @@ public class HouseService {
 		data.put("startPageNum", start);
 		return data;
 	}
-
+	
+	@Transactional
 	public int insertImgfiles(ArrayList<Photo> list, int houseNo) {
 		int result = 0;
 		for (Photo p : list) {
@@ -218,6 +220,7 @@ public class HouseService {
 	}
 
 	// 투어신청 - sowon
+	@Transactional
 	public int insertTour(Tour t) {
 		return dao.insertTour(t);
 	}
@@ -236,7 +239,8 @@ public class HouseService {
 		h.setHouseIncome(arrayIncome);
 		return h;
 	}
-
+	
+	@Transactional
 	public int deletePhoto(String[] delPhotoPath, int[] delPhotoNo) {
 		int length = delPhotoNo.length;
 		// 포토 삭제부분(for문이용)
@@ -248,7 +252,8 @@ public class HouseService {
 		}
 		return 1;
 	}
-
+	
+	@Transactional
 	public int updateHouse(House h, Income i) {
 		int result = dao.updateHouse(h);
 		if (result > 0) {
@@ -381,10 +386,13 @@ public class HouseService {
 		hrap.setTotalCount(totalCount);
 		return hrap;
 	}
+	
 	//하우스 만료일 관련 스케줄드
+	@Transactional
 	public int updateChkDeadLine() {
 		return dao.updateChkDeadLine();
 	}
+	
 	@Transactional
 	public int updateChkRoomMoveEndDate() {
 		int result=dao.updateChkRoomMoveEndDate();
