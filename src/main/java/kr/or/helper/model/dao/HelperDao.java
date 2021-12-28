@@ -268,5 +268,9 @@ public class HelperDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("helper.selectHelpDetail", hl);
 	}
+
+	public Helper selectOneHelper(int memberNo) {
+		return session.selectOne("helper.selectOneHelperMemberNo", memberNo);
+	}
 	
 }

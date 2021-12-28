@@ -32,6 +32,10 @@
 	color: #956bfc;
 	font-weight: bold;
 }
+.table-active_mate{
+	padding: 15px;
+}
+
 	</style>
 </head>
 <body>
@@ -49,15 +53,17 @@
 	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 
 	<div class="container_mate">
-		<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 등록 요청서</h4>
+		<h1 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 등록 요청서</h1>
+		<br>
+		<br>
 		<form action="/helpRequest.do" method="post"
 			enctype="multipart/form-data" id="funder_add">
 			<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
 			<div class="add_right border_a">
-				<table class="table" style="padding: 15px;">
-					<tr class="table-active_mate center_list">
-						<th>1. 자신이 자신 있는 분야</th>
-						<td>
+				<table class="table" style="padding: 15px; border: none;">
+					<tr class="table-active_mate">
+						<th style="border: none; line-height: 38px;">1. 자신이 자신 있는 분야</th>
+						<td style="border: none;">
 							<div class="check_ent displayflex" style="text-align: left;">
 								<input type="checkbox" class="chk" name="funderCategory"
 									id="fun_00" value="0"><label for="fun_00"
@@ -86,8 +92,8 @@
 						</td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>2.프로필 사진 첨부</th>
-						<td>
+						<th style="border: none; line-height: 50px;">2.프로필 사진 첨부</th>
+						<td style="border: none;">
 							<p class="ac-title">가장 자신있는 프로필 사진을 넣어주세요(필수)</p>
 							<div class="img-viewr">
 								<img id="img-view" src="">
@@ -99,30 +105,30 @@
 						</td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>3.활동닉네임</th>
-						<td><input type="text" name="helperName" class="input_03"
+						<th style="border: none; line-height: 38px;">3.활동닉네임</th>
+						<td style="border: none;"><input type="text" name="helperName" class="input_03"
 							placeholder="닉네임 입력" " style="width: 300px;"></td>
-							<td id="idChk"></td>
+							<td id="idChk" style="border: none;"></td>
 						
 					</tr>
 					<tr class="table-active_mate">
-						<th>4.선호 시작 시간 선택</th>
-						<td><span class="time"> <input type="text" class="timeform"
+						<th style="border: none; line-height: 38px;">4.선호 시작 시간 선택</th>
+						<td style="border: none;"><span class="time"> <input type="text" class="timeform"
 								name="helperStartTime"
 								class="input_date input_04">
 						</span></td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>5.선호 마감 시간 선택</th>
-						<td><span class="time"> <input class="timeform" type="text"
+						<th style="border: none; line-height: 38px;">5.선호 마감 시간 선택</th>
+						<td style="border: none;"><span class="time"> <input class="timeform" type="text"
 								name="helperEndTime"
 								class="input_date input_04">
 						</span></td>
 
 					</tr>
 					<tr class="table-active_mate">
-						<th>6.이동수단</th>
-						<td>
+						<th style="border: none; line-height: 38px;">6.이동수단</th>
+						<td style="border: none;">
 							<input type="radio" name="helperRide" id="ride01"
 							value="1"><label for="ride01" >자동차</label> 
 							<input
@@ -136,12 +142,12 @@
 							id="ride05" value="5" checked="checked"><label for="ride05">없음</label></td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>7.자기소개</th>
-						<td><textarea name="helperIntro" class="summernote"></textarea></td>
+						<th style="border: none; line-height: 38px;">7.자기소개</th>
+						<td style="border: none;"><textarea name="helperIntro" class="summernote"></textarea></td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>8.활동가능한 지역)</th>
-						<td>
+						<th style="border: none; line-height: 38px;">8.활동가능한 지역)</th>
+						<td style="border: none;">
 							<p>※꼭 주소 등록후 엔터 칠것 (최대3개지점만 등록할것)</p>
 							<div class="address">
 
@@ -162,12 +168,12 @@
 						</td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>9.자격증 기재</th>
-						<td><textarea name="helperCredit" class="summernote"></textarea></td>
+						<th style="border: none; line-height: 38px;">9.자격증 기재</th>
+						<td style="border: none;"><textarea name="helperCredit" class="summernote"></textarea></td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>10.계좌 입력</th>
-						<td>
+						<th style="border: none; line-height: 38px;">10.계좌 입력</th>
+						<td style="border: none;">
 							<select id="bank" class="control-group" name="incomeBank">
 							<option value="">선택</option>
 							<option value="신한">신한</option>

@@ -331,6 +331,7 @@ public class HelperController {
 					model.addAttribute("start", h.getStart());
 					model.addAttribute("totalCount", h.getTotalCount());
 					model.addAttribute("pageNavi", h.getPageNavi());
+					model.addAttribute("helper", h.getH());
 					return"helper/reqHelpList";
 				}else {
 					model.addAttribute("msg", "접근하는 사용자 정보가 없습니다.");
