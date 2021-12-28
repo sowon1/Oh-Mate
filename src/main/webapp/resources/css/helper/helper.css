@@ -6,7 +6,7 @@
 }
 .house_list{
 	width:100%;
-	height: 1060px;
+	height: 855px;
 	min-width:1200px;
 }
 .house_left, .house_right{
@@ -216,6 +216,9 @@
     height: auto;
     overflow: hidden;
     padding: 0px 30px;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
 }
 .list_container li{
     width: 285px;
@@ -223,7 +226,6 @@
     overflow: hidden;
     float: left;
     border-radius: 20px;
-    margin-right: 10px;
     margin-bottom:10px;
     box-sizing: border-box;
     padding: 20px;
@@ -565,6 +567,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
     font-family: "ns_700";
     padding: 30px;
     color: #956bfc;
+    margin: 0 auto;
 }
 /* 메세지 팝업 */
 .room_popup_modal{

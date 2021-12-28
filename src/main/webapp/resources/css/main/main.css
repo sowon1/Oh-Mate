@@ -215,6 +215,9 @@
 .house_content p:first-child{
 	display:block;
 }
+.house_content p:first-child img{
+	display: none;
+}
 .house_content>p>span:first-child,.house_content>p>span:nth-child(2) {
 	display:block;
 }
