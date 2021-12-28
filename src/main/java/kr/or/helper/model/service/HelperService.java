@@ -216,7 +216,7 @@ public class HelperService {
 		return dao.insertHelperLike(map);
 	}
 	//helper like delete
-	Transactional
+	@Transactional
 	public int deleteHelperLike(int memberNo, int helperNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
