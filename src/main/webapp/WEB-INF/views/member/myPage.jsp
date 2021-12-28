@@ -14,7 +14,7 @@
 	<c:import url="/WEB-INF/views/common/header.jsp"/>
 		<div class="container_mate">
 			<h2>${sessionScope.m.memberName}님, 반갑습니다.</h2>
-			<p class="myPageinfo">고객님께서 가입하신 <strong>(주)오나의메이트</strong> 회원 정보입니다.</p><hr><br>
+			<p class="myPageinfo">고객님께서 가입하신 <strong>(주)오늘부터메이트</strong> 회원 정보입니다.</p><hr><br>
 			<form action="/myPageUpdate.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
 			<input type="hidden" name="enrollDate" id="enrollDate" value=${sessionScope.m.enrollDate }>
