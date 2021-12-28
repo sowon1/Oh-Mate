@@ -63,10 +63,11 @@
 	    flex-wrap: nowrap;
 	    flex-direction: row;
 	    border: 1px #f1f1f1 solid;
+	    padding: 30px 20px;
 	}
 	.helper_img {
-	    width: 200px;
-	    height: 200px;
+	    width: 180px;
+	    height: 180px;
 	    border-radius: 50%;
 	    overflow: hidden;
 	    margin: 0 auto;
@@ -74,7 +75,6 @@
 	}
 	.help_info{
 		flex-grow: 1;
-		margin-top:20px;
 		margin-left:40px;
 		float:left;
 	}
@@ -89,6 +89,8 @@
 	}
 	.helpContent{
 		font-size:20px;
+		margin-bottom:20px;
+		margin-top:10px;
 	}
 	.request_time{
 		float:left;
@@ -122,6 +124,9 @@
 	}
 	.btn{
 		margin-top: 5px;		
+	}
+	.review_btn button{
+		padding:0;
 	}
 </style>
 </head>

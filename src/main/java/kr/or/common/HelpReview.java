@@ -19,4 +19,5 @@ public class HelpReview {
 	private int helpNo;						//헬프번호	
 	private String photoPath;				//리뷰사진
 	private String helperName;				//헬퍼이름
+	private String memfilepath;				//리뷰자 프로필 이미지
 }

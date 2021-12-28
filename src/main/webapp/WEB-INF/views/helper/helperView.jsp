@@ -403,7 +403,10 @@
 						<c:forEach items="${review}" var="r">			
 							<li>
 								<div class="review_text">
-									<img src="/resources/img/icon/profile.png" class="review_pro_img">
+									<c:if test="${r.memfilepath == null}">									
+										<img src="/resources/img/icon/profile.png" class="review_pro_img">
+									</c:if>
+									<img src="/resources/upload/member/${r.memfilepath}" class="review_pro_img">
 									<div class="review_text_box">
 										<div class="star-ratings review_star">
 											<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
@@ -443,7 +446,7 @@
 											${r.reviewContent}
 										</div>
 									</div>
-									<img src="/resources/img/icon/admin_house.png" class="review_img">
+									<img src="/resources/upload/helpReview/${r.photoPath}" class="review_img">
 									<div class="review_like">
 										<c:choose>
 			                        		<c:when test="${empty sessionScope.m}">
