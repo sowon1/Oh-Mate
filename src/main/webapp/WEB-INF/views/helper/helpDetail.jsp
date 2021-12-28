@@ -101,20 +101,23 @@
 			            <p>상태</p>
 			            <p>
 			            	<c:choose>
-			            		<c:when test="${helpStatus eq 1 }">
+			            		<c:when test="${hdd.helpStatus eq 1 }">
 			            			요청중
 			            		</c:when>
-			            		<c:when test="${helpStatus eq 2 }">
+			            		<c:when test="${hdd.helpStatus eq 2 }">
 			            			처리중
 			            		</c:when>
-			            		<c:when test="${helpStatus eq 3 }">
+			            		<c:when test="${hdd.helpStatus eq 3 }">
 			            			처리완료
 			            		</c:when>
-			            		<c:when test="${helpStatus eq 4 }">
+			            		<c:when test="${hdd.helpStatus eq 4 }">
 			            			취소
 			            		</c:when>
+			            		<c:when test="${hdd.helpStatus eq 5 }">
+			            			만료
+			            		</c:when>
 			            		<c:otherwise>
-			            			확인중
+			            			거절
 			            		</c:otherwise>
 			            	</c:choose>
 			            </p>
