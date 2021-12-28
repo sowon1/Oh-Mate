@@ -10,4 +10,5 @@ public class ReqHelperAdjustPageData {
 	private String pageNavi;
 	private int start;
 	private int totalCount;
+	private Helper h;
 }
