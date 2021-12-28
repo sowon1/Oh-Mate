@@ -626,7 +626,7 @@ public class HelperController {
 		
 		@RequestMapping(value = "/helpDetail.do")
 		public String helpDetail(HelpList hl, Model model) {
-			HelpDetailData hdd = service.selectHelpDetail(hl);
+			HelpDetailData hdd = service.selectHelpDetail(hl);			
 			model.addAttribute("hdd", hdd);
 			return "/helper/helpDetail";
 		}
