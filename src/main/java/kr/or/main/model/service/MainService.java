@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import kr.or.common.Bookmark;
-import kr.or.common.Photo;
+
 import kr.or.helper.model.vo.Helper;
 import kr.or.house.model.vo.House;
 import kr.or.main.model.dao.MainDao;
@@ -36,6 +36,7 @@ public class MainService {
 		return dao.houseLike(map);
 	}
 	//house like insert
+	@Transactional
 	public int insertHouseLike(int memberNo, int houseNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
@@ -43,6 +44,7 @@ public class MainService {
 		return dao.insertHouseLike(map);
 	}
 	//house like delete
+	@Transactional
 	public int deleteHouseLike(int memberNo, int houseNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -44,6 +45,7 @@ public class ChatMsgService extends TextWebSocketHandler{
 		}
 		//클라이언트가 서버에 메세지를 전송했을 때 수행되는 메소드
 		@Override
+		@Transactional
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			//jsp에서 ws.send()로 보낸 데이터
 			//System.out.println(message.getPayload());

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.common.Move;
 import kr.or.common.Pay;
@@ -23,12 +24,14 @@ public class RoomService {
 		ArrayList<Room> list=dao.selectAllRoom(houseNo);
 		return list;
 	}
-
+	
+	@Transactional
 	public int insertRoom(Room r) {
 		int result = dao.insertRoom(r);
 		return result;
 	}
 
+	@Transactional
 	public int deleteRoom(Room r) {
 		int result = dao.deleteRoom(r);
 		return result;
@@ -43,11 +46,14 @@ public class RoomService {
 		return r;
 	}
 
+	@Transactional
 	public int updateRoom(Room r) {
 		int result = dao.updateRoom(r);
 		return result;
 	}
+	
 	//입주신청 - sowon
+	@Transactional
 	public int insertMove(Pay p, Room r, Move m, int memberNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
@@ -274,6 +280,7 @@ public class RoomService {
 		return rtm;
 	}
 
+	@Transactional
 	public int updateTourStatus(int tourNo, int tourStatus) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("tourNo", tourNo);
