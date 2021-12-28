@@ -538,7 +538,7 @@
 						return false;
 					}else{
 						if($("input[name='helperStartTime']").val()>=$("input[name='helperEndTime']").val()){
-							alert("시작날짜와 마감날짜를 다르게 적용해주세요");
+							alert("시작시간과 마감시간을 다르게 적용해주세요");
 							return false;
 						}else{
 							if($("input[name='helperRide']").val()==0){
