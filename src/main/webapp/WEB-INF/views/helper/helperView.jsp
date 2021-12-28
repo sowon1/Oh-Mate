@@ -243,7 +243,18 @@
 						        		</c:choose>
 									</span>
 									<div class="help_helper_grade">
-										<span class="help_helper_star">☆☆☆☆☆</span>
+										<!--  
+										<span class="help_helper_star">
+											<div class="star-ratings review_star">
+												<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
+													<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>													
+												</div>
+												<div class="star-ratings-base space-x-2 text-lg">
+													<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>	
+												</div>
+											</div>
+										</span>
+										-->
 										<span class="help_helper_like">💜 ${h.likeCount} </span>
 									</div>
 									<div class="help_helper_pro_cate" value="${h.helperCategory}">					
