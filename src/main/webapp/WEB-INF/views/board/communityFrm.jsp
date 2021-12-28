@@ -8,7 +8,6 @@
 <title>Oh-Mate!</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="/resources/css/board/communityFrm.css">
-<script type="text/javascript" src="/resources/js/board/communityFrm.js"></script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>

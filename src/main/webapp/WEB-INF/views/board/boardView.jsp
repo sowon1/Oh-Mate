@@ -46,7 +46,7 @@
 			<tr>
 				<th>내용</th>
 				<td colspan="7" id="contentTd">
-					${b.boardContent}
+					${b.boardContentBr}
 				</td>
 			</tr>
 			<tr>
@@ -228,7 +228,7 @@
 								<p>${bc.commentContentBr }</p>
 							</c:if>
 		
-								<textarea name="commentContent" class="form-control" style="display:none; width: 100%; resize:none;">${bc.commentContent }</textarea>
+								<textarea name="commentContent" class="form-control" style="display:none; width: 100%; resize:none;">${bc.commentContentBr }</textarea>
 								<p class="commentsBtns" style="margin:0px;">
 									<c:if test="${not empty sessionScope.m && sessionScope.m.memberId eq bc.commentWriter}">
 										<a href="javascript:void(0)" onclick="modifyComment(this,'${bc.commentNo }','${b.boardNo }');">수정</a>

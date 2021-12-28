@@ -2,6 +2,11 @@
 	p{
 		margin:0px;
 	}
+	.card-title{
+		overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	}
 	.slideOpen{
 		width: 100%;
 		height: auto;
