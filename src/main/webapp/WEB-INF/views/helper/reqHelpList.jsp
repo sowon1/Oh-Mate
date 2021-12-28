@@ -331,7 +331,6 @@
 						var helpNo= $('input[name=helpNoNum]').eq(idx).val();
 						if(nowNum>=startNum){
 							alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!")
-							console.log("승락"+idx);
 							location.href="/updateCancelHelpStatus.do?helpStatus=6&helpNo="+helpNo;
 						}else if(nowNum<startNum){
 							var comTime= startNum-nowNum;
