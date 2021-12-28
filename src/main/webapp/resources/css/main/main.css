@@ -214,6 +214,8 @@
 }
 .house_content p:first-child{
 	display:block;
+	overflow: hidden;
+    text-overflow: ellipsis;
 }
 .house_content p:first-child img{
 	display: none;
