@@ -14,4 +14,8 @@ public class Board {
 	private String profileOption;// 프로필선택
 	private int status;		     // 신고여부 1.신고없음 2.신고있음
 	private String fileImg;		 // 회원파일이미지
+	
+	public String getboardContentBr() {
+		return boardContent.replaceAll("\r\n","<br>");
+	}
 }
