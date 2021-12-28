@@ -464,7 +464,15 @@
 											${r.reviewContent}
 										</div>
 									</div>
-									<img src="/resources/upload/helpReview/${r.photoPath}" class="review_img">
+									<c:choose>
+										<c:when test="${r.photoPath ne null}">
+											<div class="imgList">
+												<div class="imgC">												
+													<img src="/resources/upload/helpReview/${r.photoPath}" class="review_img">
+												</div>
+											</div>
+										</c:when>
+									</c:choose>
 									<div class="review_like">
 										<c:choose>
 			                        		<c:when test="${empty sessionScope.m}">
@@ -486,6 +494,11 @@
 												</a>
 						                	</c:otherwise>
 			                        	</c:choose>
+			                        	<div class="reimgmodal">
+											<div class="reimgmodalBox">
+												<img src="">
+											</div>
+										</div>
 			                        	<div class="review_btn_hover">리뷰가 도움이 되었나요?</div>
 									</div>
 								</div>
@@ -498,6 +511,24 @@
 	</div>
 	<c:import url="/WEB-INF/views/common/footer.jsp"></c:import>
 	<script>
+		//리뷰 이미지 클릭 시 모달
+		$(function(){
+			//이미지 클릭시 해당 이미지 모달
+			$(".imgC").click(function(){
+				$(".reimgmodal").show();
+				// 해당 이미지 가겨오기
+				var imgSrc = $(this).children("img").attr("src");
+				$(".reimgmodalBox img").attr("src", imgSrc);
+				//.modal밖에 클릭시 닫힘
+				$(".reimgmodal").click(function (e) {
+			    if (e.target.className != "reimgmodal") {
+			      return false;
+			    } else {
+			      $(".reimgmodal").hide();
+			    }
+			  });
+			});
+		});
 		function reportopen(){
 			$(".report_popup_modal").css("display","flex");
 		    $("body").css("overflow", "hidden");
