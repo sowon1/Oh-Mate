@@ -581,7 +581,6 @@ public class HelperController {
 					}
 				}
 			}
-			System.out.println(filepath);
 			re.setPhotoPath(filepath);
 			int result = service.insertHelpReview(re);
 			
