@@ -396,7 +396,7 @@
 							<span class="helper_count_box_code">${review[0].star4}</span>
 						</li>
 						<li>
-							<h3 class="helper_count_box_total">총 만족 고객 <em class="point">${review[0].star5 + review[0].star4}</em> 건</h3>
+							<h3 class="helper_count_box_total">총 만족 고객 <em class="point">${review[0].star5 + review[0].star4}</em> 명</h3>
 						</li>
 					</ul>
 				</div>
@@ -417,10 +417,14 @@
 						<c:forEach items="${review}" var="r">			
 							<li>
 								<div class="review_text">
-									<c:if test="${r.memfilepath == null}">									
-										<img src="/resources/img/icon/profile.png" class="review_pro_img">
-									</c:if>
-									<img src="/resources/upload/member/${r.memfilepath}" class="review_pro_img">
+									<c:choose>
+										<c:when test="${r.memfilepath == null}">
+											<img src="/resources/img/icon/profile.png" class="review_pro_img">
+										</c:when>
+										<c:otherwise>
+											<img src="/resources/upload/member/${r.memfilepath}" class="review_pro_img">
+										</c:otherwise>
+									</c:choose>								
 									<div class="review_text_box">
 										<div class="star-ratings review_star">
 											<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
