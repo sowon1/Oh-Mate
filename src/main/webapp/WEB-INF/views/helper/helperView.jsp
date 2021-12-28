@@ -199,8 +199,11 @@
 							<c:when test="${empty sessionScope.m}">
 								<a class="btn btn_100 help_login">도움 요청하기</a>
 							</c:when>
-							<c:otherwise>							
+							<c:when test="${sessionScope.m.memberLevel eq 1 or sessionScope.m.memberLevel eq 4 or sessionScope.m.memberLevel eq 5}">
 								<a class="btn btn_100 help_request" no="${h.helperNo}">도움 요청하기</a>
+							</c:when>
+							<c:otherwise>							
+								<a class="btn btn_100 no_help">도움 요청하기</a>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -561,6 +564,11 @@
 		//login
 		$(".help_login").click(function(){
 			msgpopupopen();
+		})
+		//헬프 요청 권한
+		$(".no_help").click(function(){
+			 $(".title_name").text("도움요청은 헬퍼, 메이트만 가능합니다.");
+			countmsgopen(autoClose());
 		})
 		//우편번호
 		function addrSearch(){

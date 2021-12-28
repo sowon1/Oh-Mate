@@ -229,7 +229,7 @@
 					//console.log(totalCount);
 					if(list == 0){
 						html += '<div class="search_none"><img src="/resources/img/icon/search_img.png"></div>';
-						html += '<div class="search_none_text">검색 결과가 없습니다.</div>';
+						html += '<div class="search_none_text">리스트 결과가 없습니다.</div>';
 	
 					}
 					for(var i=0;i<list.length;i++){
