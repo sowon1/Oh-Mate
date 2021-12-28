@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Oh-Mate!</title>
 <style>
 	.select_tab>ul{
 	    overflow: hidden;
@@ -168,6 +168,9 @@
 	.review_btn{
 		align-self: center;
 		 margin-right:100px;
+	}
+	.review_btn button{
+		padding:0;
 	}
 </style>
 </head>

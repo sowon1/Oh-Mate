@@ -129,7 +129,7 @@
 		    			<img src="/resources/upload/member/${m.filepath}" class="nav_pro">
 		    		</c:when>
 		    		<c:otherwise>		    		
-				        <img src="/resources/img/icon/profile.png">
+				        <img src="/resources/img/icon/profile.png" class="nav_pro">
 		    		</c:otherwise>
 		    	</c:choose>
 		        <p class="name">${sessionScope.m.memberName}</p>
@@ -155,7 +155,7 @@
 		    			<img src="/resources/upload/member/${m.filepath}" class="nav_pro">
 		    		</c:when>
 		    		<c:otherwise>		    		
-				        <img src="/resources/img/icon/profile.png">
+				        <img src="/resources/img/icon/profile.png" class="nav_pro">
 		    		</c:otherwise>
 		    	</c:choose>
 		        <p class="name">${sessionScope.m.memberName}</p>
@@ -193,7 +193,7 @@
 		    			<img src="/resources/upload/member/${m.filepath}" class="nav_pro">
 		    		</c:when>
 		    		<c:otherwise>		    		
-				        <img src="/resources/img/icon/profile.png">
+				        <img src="/resources/img/icon/profile.png" class="nav_pro">
 		    		</c:otherwise>
 		    	</c:choose>
 		       <p class="name">${sessionScope.m.memberName}</p>
@@ -478,6 +478,7 @@
 		ws.close();
 		close_chat_helper();
 	}
+
 	//채팅방 뒤로가기
 	function close_chat_helper(){
 		$(".mate_talk_view_open").css("right","-500px");

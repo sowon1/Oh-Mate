@@ -160,16 +160,14 @@ public class BoardController {
 		return "common/msg";
 	}
 	
-	//게시판 상세보기 이동 / 수정예정
+	//게시판 상세보기 이동 
 	@RequestMapping(value="/boardView.do")
 	public String boardView(int boardNo, Model model) {
 		BoardMemberData bmd = service.selectBoardList(boardNo);
 		model.addAttribute("b",bmd.getB());
-		model.addAttribute("fileImg",bmd.getFileImg());
-		//System.out.println("controller : " + bmd.getFileImg());
+		model.addAttribute("fileImg",bmd.getFileImg()); //
 		model.addAttribute("list",bmd.getList());
 		model.addAttribute("ProfileOption",bmd.getProfileOption());
-		//System.out.println(bmd.getB());
 		return "board/boardView";
 	}
 	
@@ -246,7 +244,7 @@ public class BoardController {
 		return "common/msg";
 	}
 	
-	//댓글
+	//댓글등록
 	@RequestMapping(value="/insertComment.do", method=RequestMethod.POST)
 	public String insertComment(MateComment mc, Model model) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -329,6 +327,7 @@ public class BoardController {
 	@RequestMapping(value="/mateReport.do")
 	public String mateReport(Model model, int boardNo, int memberNo, String reportContent) {
 		int result = service.mateReport(boardNo, memberNo, reportContent);
+		System.out.println(result);
 		if(result > 0) {
 			model.addAttribute("msg","신고가 접수되었습니다.");
 		}else {
@@ -340,8 +339,9 @@ public class BoardController {
 	
 	//메이트 댓글 신고
 	@RequestMapping(value="/commentReport.do")
-	public String commentReport(Model model, int boardNo, int memberNo, String reportContent) {
-		int result = service.commentReport(boardNo, memberNo, reportContent);
+	public String commentReport(Model model, int boardNo, int commentNo, int memberNo, String reportContent) {
+		System.out.println(commentNo);
+		int result = service.commentReport(commentNo, memberNo, reportContent);
 		if(result > 0) {
 			model.addAttribute("msg","신고가 접수되었습니다.");
 		}else {

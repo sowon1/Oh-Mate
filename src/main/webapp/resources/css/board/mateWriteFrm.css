@@ -49,7 +49,7 @@ input[name="boardTitle"]{
 }
 li>.subBtn{
 	padding:0px; 
-	margin-top:7px; 
+	margin-top:12px; 
 	margin-left:5px; 
 	width:50px;
 }
@@ -92,26 +92,33 @@ button.subbtn{
 	height: 50px;
 	width: 50px;
 	border-radius: 50%;
-	margin-left: 30px;
+	margin-left: 35px;
 	margin-top : 25px;
 }
 .memberImg{
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
-	margin-left: 18px;
 	margin-top : 18px;
+	margin-left: 63px;
+}
+.memberprofile{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-top : 18px;
+	margin-left: 20px;
 }
 .form-inline{
 	margin-left: 20px;
 }
 .cw{
-	margin-left: 27px;
+	margin-left: 37px;
 	margin-bottom: 0px;
 }
 .cwriter{
-	margin-left: 18px;
 	margin-bottom: 0px;
+	text-align: center;
 }
 .rd{
 	font-size: 13px;
@@ -125,7 +132,11 @@ button.subbtn{
 .commentsBtn{
 	text-align: end;
 	float:right;
-	padding-top: 30px;
+}
+.commentsBtns{
+	text-align: end;
+	float:right;
+	padding-top: 12px;
 }
 .pstyle{
 	border: 1px solid #E1E1E1;
@@ -146,7 +157,7 @@ button.subbtn{
 button.subbtnSty{
 	display:none; 
 	margin-bottom:5px; 
-	margin-right:22px;
+	line-height: inherit
 }
 textarea.txtarea{
 	display:none; 
@@ -159,10 +170,41 @@ button.recancel{
 	display:none; 
 	margin-bottom:5px;
 	margin-right: 22px;
+	line-height: inherit
 }
 .report{
 	width:25px;
+	margin-right:10px;
+	margin-left:3px;
+	margin-bottom:5px;
+	cursor:pointer;
 }
 .mateReport{
 	cursor: pointer;
+}
+div.form-check{
+	display:flex;
+}
+.form-check-label{
+	margin-top: 7px;
+}
+#secretCheck{
+	margin-top: 12px;
+}
+#secretChecked{
+	margin-top: 12px;
+	margin-right: 7px;
+}
+/* 신고 팝업 */
+.report_popup_modal1, .report_popup_modal2{
+    /* 현재 화면 중앙에 모달 뜰수있게 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 실제로 modal은 처음에 안보여야하니 none으로 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9993;
 }

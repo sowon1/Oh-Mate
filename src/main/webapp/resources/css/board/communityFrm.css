@@ -157,6 +157,10 @@
 	}
 	.card-img-top{
 	 	height:250px;
+	 	cursor:pointer;
+	}
+	.card-body{
+		cursor:pointer;
 	}
 	p.card-content{
 		font-size: 15px;

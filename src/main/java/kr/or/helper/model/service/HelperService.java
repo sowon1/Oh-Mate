@@ -536,14 +536,17 @@ public class HelperService {
 	public int insertHelpReview(HelpReview re) {
 		// TODO Auto-generated method stub
 		int result1 = dao.insertHelpReview(re);
+		System.out.println(re.getPhotoPath());
 		int result = 0;
 		if(result1>0) {
-				result += dao.insertHelpPhoto(re);
-			
+			if(re.getPhotoPath()==null) {
+				result = 1;								
+			}else {
+				result = dao.insertHelpPhoto(re);
+			}
 		}else {
 			return -1;
 		}
-		
 		return result;
 	}
 
@@ -604,6 +607,7 @@ public class HelperService {
 		return map;
 	}
 
+	@Transactional
 	public int deleteReview(int reviewNo) {
 		// TODO Auto-generated method stub
 		return dao.deleteReview(reviewNo);
