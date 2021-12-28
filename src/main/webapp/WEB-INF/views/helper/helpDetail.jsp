@@ -204,6 +204,16 @@
 	</div>	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<script>
+		function reportopen(){
+			$(".report_popup_modal").css("display","flex");
+		    $("body").css("overflow", "hidden");
+		    $(".tour_back_dark").show();			
+		}
+		function reportclose(){
+			$(".report_popup_modal").css("display","none");
+		    $("body").css("overflow", "auto");
+		    $(".tour_back_dark").hide();			
+		}
 	//신고 팝업
 		$("#helperReport").click(function(){
 			reportopen();
