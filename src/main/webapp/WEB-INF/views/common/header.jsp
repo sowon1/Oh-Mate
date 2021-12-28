@@ -547,7 +547,7 @@
 		no = param2;
 		chatNo = param3;
 		//웹소켓 연걸 시도
-		ws = new WebSocket("ws://192.168.75.104/chat.do");
+		ws = new WebSocket("ws://khdsa1.iptime.org:18080/chat.do");
 		//웹소켓 연결이 성공하면 실행할 함수
 		ws.onopen = startChat;
 		//서버에서 화면으로 데이터를 전송하면 처리할 함수
