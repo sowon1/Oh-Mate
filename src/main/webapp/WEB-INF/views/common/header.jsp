@@ -713,6 +713,7 @@
 			data: {memberNo:memberNo},
 			success:function(data){		
 				if(data ==0){
+					alert("데이터가 존재하지 않습니다. ");
 					location.href = "/helperRequestFrm.do";	
 				}else if(data == 1){
 					if(confirm("헬퍼 등록을 이미 하셨거나 요청중입니다. 수정하시겠습니까?" )){
