@@ -164,7 +164,6 @@ public class BoardDao {
 	public int commentReport(HashMap<String, Object> map) {
 		return sqlSession.insert("board.commentReport",map);
 	}
-
 	
 }
 
