@@ -35,14 +35,16 @@ public class AdminController {
 	private AdminService service;
 	
 	@RequestMapping(value="/memberMgr.do")
-	public String memberMgr(int reqPage, Model model,@SessionAttribute Member m) {
-		/*
+	public String memberMgr(int reqPage, Model model, @SessionAttribute(required=false) Member m) {
 		if(m == null) {
-			return "admin/memberMgr";
-		}else if(m.getMemberLevel()!=1) {
-			return "admin/memberMgr";
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
 		}
-		*/
 		HashMap<String, Object> data = service.selectAllMember(reqPage);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
@@ -50,7 +52,16 @@ public class AdminController {
 		return "admin/memberMgr";
 	}
 	@RequestMapping(value="/adminMemberSearch.do")
-	public String memberSearch(int reqPage, Search s, Model model) {
+	public String memberSearch(int reqPage, Search s, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
 		HashMap<String, Object> data = service.memberSearch(reqPage, s);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
@@ -59,13 +70,31 @@ public class AdminController {
 		return "admin/memberSearch";
 	}
 	@RequestMapping(value="/adminMemberView.do")
-	public String memberView(int memberNo, Model model) {
-		Member m = service.selectMemberInfo(memberNo);
-		model.addAttribute("m", m);
+	public String memberView(int memberNo, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		Member member = service.selectMemberInfo(memberNo);
+		model.addAttribute("m", member);
 		return "admin/memberView";
 	}
 	@RequestMapping(value="/adminMemberUpdate.do")
-	public String memberUpdate(MultipartFile file, HttpServletRequest request, UpdateMember um, Model model) {
+	public String memberUpdate(MultipartFile file, HttpServletRequest request, UpdateMember um, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
 		if(file.isEmpty()) {
 			//프로필 이미지 미첨부
 		}else {
@@ -112,7 +141,17 @@ public class AdminController {
 		return "common/msg";
 	}
 	@RequestMapping(value="/adminInsertProfile.do")
-	public String insertProfile(Profile p, int memberNo, Model model) {
+	public String insertProfile(Profile p, int memberNo, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		int result = service.insertProfile(p);
 		if(result>0) {
 			model.addAttribute("msg", "프로필 등록 완료");
@@ -124,12 +163,22 @@ public class AdminController {
 	}
 	@ResponseBody
 	@RequestMapping(value="/adminSelectProfile.do", produces = "application/json;charset=utf-8")
-	public String selectProfile(String memberId) {
+	public String selectProfile(String memberId, Model model) {
 		Profile p = service.selectProfile(memberId);
 		return new Gson().toJson(p);
 	}
 	@RequestMapping(value="/adminUpdateProfile.do")
-	public String updateProfile(Profile p, int memberNo, Model model) {
+	public String updateProfile(Profile p, int memberNo, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		int result = service.updateProfile(p);
 		if(result>0) {
 			model.addAttribute("msg", "프로필 수정 완료");
@@ -140,7 +189,17 @@ public class AdminController {
 		return "common/msg";
 	}
 	@RequestMapping(value="/adminDeleteProfile.do")
-	public String deleteProfile(String pWriter, int memberNo, Model model) {
+	public String deleteProfile(String pWriter, int memberNo, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		int result = service.deleteProfile(pWriter);
 		if(result>0) {
 			model.addAttribute("msg", "프로필 삭제 완료");
@@ -151,7 +210,17 @@ public class AdminController {
 		return "common/msg";
 	}
 	@RequestMapping(value="/reportMgr.do")
-	public String reportMgr(int reqPage, Model model) {
+	public String reportMgr(int reqPage, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		HashMap<String, Object> data = service.selectAllReport(reqPage);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
@@ -159,7 +228,17 @@ public class AdminController {
 		return "admin/reportMgr";
 	}
 	@RequestMapping(value="/reportSearch.do")
-	public String reportSearch(int reqPage, Search s, Model model) {
+	public String reportSearch(int reqPage, Search s, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		HashMap<String, Object> data = service.reportSearch(reqPage, s);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
@@ -184,7 +263,17 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value="/houseMgr.do")
-	public String houseMgr(int reqPage, Model model) {
+	public String houseMgr(int reqPage, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		HashMap<String, Object> data = service.selectAllHouse(reqPage);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
@@ -192,7 +281,17 @@ public class AdminController {
 		return "admin/houseMgr";
 	}
 	@RequestMapping(value="/adminHouseSearch.do")
-	public String houseSearch(int reqPage, Search s, Model model) {
+	public String houseSearch(int reqPage, Search s, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		HashMap<String, Object> data = service.houseSearch(reqPage, s);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
@@ -201,13 +300,33 @@ public class AdminController {
 		return "admin/houseSearch";
 	}
 	@RequestMapping(value="/adminHouseView.do")
-	public String houseView(int houseNo, Model model) {
+	public String houseView(int houseNo, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		House h = service.selectOneHouse(houseNo);
 		model.addAttribute("h", h);
 		return "admin/adminHouseView";
 	}
 	@RequestMapping(value="/adminHouseAllow.do")
-	public String updateHouse(House h, Model model) {
+	public String updateHouse(House h, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		int result = service.updateHouse(h);
 		if(result>0) {
 			model.addAttribute("msg", "처리 완료");
@@ -218,7 +337,17 @@ public class AdminController {
 		return "common/msg";
 	}
 	@RequestMapping(value="/helperMgr.do")
-	public String helpMgr(int reqPage, Model model) {
+	public String helpMgr(int reqPage, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		HashMap<String, Object> data = service.selectAllHelper(reqPage);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
@@ -226,7 +355,17 @@ public class AdminController {
 		return "admin/helperMgr";
 	}
 	@RequestMapping(value="/adminHelperSearch.do")
-	public String helperSearch(int reqPage, Search s, Model model) {
+	public String helperSearch(int reqPage, Search s, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		HashMap<String, Object> data = service.helperSearch(reqPage, s);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
@@ -235,13 +374,33 @@ public class AdminController {
 		return "admin/helperSearch";
 	}
 	@RequestMapping(value="/adminHelperView.do")
-	public String helperView(int helperNo, Model model) {
+	public String helperView(int helperNo, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		Helper hp = service.selectOneHelper(helperNo);
 		model.addAttribute("hp", hp);
 		return "admin/adminHelperView";
 	}
 	@RequestMapping(value="/adminHelperStatus.do")
-	public String updateHelper(Helper hp, Model model) {
+	public String updateHelper(Helper hp, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		int result = service.updateHelper(hp);
 		if(result>0) {
 			model.addAttribute("msg", "처리 완료");
@@ -252,7 +411,17 @@ public class AdminController {
 		return "common/msg";
 	}
 	@RequestMapping(value="/salesMgr.do")
-	public String selectSales(int reqPage, Model model) {
+	public String selectSales(int reqPage, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		HashMap<String, Object> data = service.selectAllSales(reqPage);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
@@ -260,7 +429,17 @@ public class AdminController {
 		return "admin/salesMgr";
 	}
 	@RequestMapping(value="/salesSearch.do")
-	public String salesSearch(int reqPage, Search s, Model model) {
+	public String salesSearch(int reqPage, Search s, Model model, @SessionAttribute(required=false) Member m) {
+		if(m == null) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}else if(m.getMemberLevel() != 0) {
+			model.addAttribute("msg", "관리자 로그인 후 이용 가능합니다.");
+			model.addAttribute("loc", "/");
+			return "common/msg";
+		}
+		
 		HashMap<String, Object> data = service.salesSearch(reqPage, s);
 		model.addAttribute("pageNavi", data.get("pageNavi"));
 		model.addAttribute("list", data.get("list"));
