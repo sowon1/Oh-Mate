@@ -1140,6 +1140,7 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 	width:130px;
 	height: 130px;
 	align-self: center;
+	object-fit: cover;
 }
 .review_like{
 	align-self: center;

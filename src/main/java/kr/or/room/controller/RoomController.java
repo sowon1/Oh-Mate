@@ -98,10 +98,11 @@ public class RoomController {
 
 	// 입주신청 - sowon
 	@RequestMapping(value = "/movePayment.do")
-	public String movePayment(Pay p, Room r, Move m, int memberNo, Model model) {
+	public String movePayment(Pay p, Room r, Move m, int memberNo,Model model) {
 		int result = service.insertMove(p, r, m, memberNo);
 		if (result > 0) {
-			return "/";
+			model.addAttribute("loc","/moveInList.do?reqPage=1");
+			return "common/msg";
 		} else {
 			return "/";
 		}

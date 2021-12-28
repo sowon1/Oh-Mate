@@ -176,6 +176,7 @@
 .house_list_photo>img:last-child{
     height:100%;
     width:100%;
+    object-fit: cover;
 }
 
 .house_list_text{

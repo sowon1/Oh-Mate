@@ -75,16 +75,15 @@
 	    padding: 30px 30px 0px 30px;
 	    border-collapse: inherit;
 	}
-	.report_helper{
-		position: absolute;
-	    right: 450px;
-	    top: 120px;
+	.helper_pro_btn{
+		float: left;
+	    margin-left: 30px;
 	}
 	.report_helper a{
 		cursor: pointer;
 	}
 	.report_helper img{
-		width: 50px;
+		width: 30px;
 	}
 </style>
 </head>
@@ -142,7 +141,14 @@
 				<table class="table">
 					<tr>
 						<th>헬프</th>
-						<th>${hdd.helpTitle }</th>
+						<th>
+						<span style="float:left;">${hdd.helpTitle }</span>
+						<div class="helper_pro_btn">
+				            <div class="report_helper">	            	
+				            	<a id="helperReport"><img src="/resources/img/icon/report.png"></a>	            		
+				            </div>	                                               
+						</div>
+						</th>
 					</tr>
 					<tr>
 						<th>요청</th>
@@ -173,11 +179,7 @@
 					</tr>						
 				</table>
 			</div>
-			<div class="helper_pro_btn">
-	            <div class="report_helper">	            	
-	            	<a id="helperReport"><img src="/resources/img/icon/report.png"></a>	            		
-	            </div>	                                               
-			</div>
+			
 			<div class="report_popup_modal">
                  	<div class="re_pop_modal">
 	                 		<div class="re_modal_top">
