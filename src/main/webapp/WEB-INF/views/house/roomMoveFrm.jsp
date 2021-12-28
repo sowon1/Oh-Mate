@@ -328,15 +328,14 @@
 								payPrice : totalprice,
 								payWay : rsp.pay_method
 							},
-							success : function(data){
-	
+							success : function(data){	
+								$(".title_name").text("계약이 ");
+								$(".title_and_text").text("성사되었습니다.");
+								$(".modal_msg_timetext").html("<em id='countdown'>3</em>초 후 자동으로 마이페이지로 이동됩니다.");
+								countmsgopen(autoClose());
+								location.href="/moveInList.do?reqPage=1";
 							}
 						});
-						$(".title_name").text("계약이 ");
-						$(".title_and_text").text("성사되었습니다.");
-						$(".modal_msg_timetext").html("<em id='countdown'>3</em>초 후 자동으로 마이페이지로 이동됩니다.");
-						countmsgopen(autoClose());
-						location.href="/moveInList.do?reqPage=1";
 					}else{
 						$(".title_name").text("결제가 ");
 						$(".title_and_text").text("취소되었습니다.");
