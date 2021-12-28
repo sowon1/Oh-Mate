@@ -64,7 +64,7 @@
                				<a href="/houseView.do?houseNo=${m.houseNo }">${m.houseTitle }</a>
                			</td>
                			<td class="title">
-               				<a href="/roomMoveFrm.do?roomNo=${m.roomNo }&houseNo=${m.houseNo }">${m.roomTitle }</a>
+               				${m.roomTitle }
                			</td>
                			<td class="pay_date">${m.payDate }</td>
                			<td class="move_date">${m.moveStart }</td>
