@@ -64,7 +64,7 @@
 						<tr>
 						    <th>내용</th>
 						    <td>
-						        <textarea name="reviewContent" class="textarea_pro"></textarea>
+						        <textarea id="reviewContent" name="reviewContent" class="textarea_pro"></textarea>					 
 							</td>
 						</tr>
 						<tr>
@@ -122,6 +122,16 @@
 			$("#img_view").attr("src","");			
 		}
 	}
+   /*  function onTestChange() {
+        var key = window.event.keyCode;
 
+        // If the user has pressed enter
+        if (key === 13) {
+        	var html = $("#reviewText").val().replace(/(?:\r\n|\r|\n)/g, '<br />');
+        	$("#reviewContent").html(html);
+        	console.log($("#reviewContent").val());
+        }
+        
+    } */
 </script>
 </html>
