@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰 작성</title>
+<title>Oh-Mate!</title>
 <style>
 	.img_viewer>img{
 		height: 130px;
@@ -46,7 +46,7 @@
 					<table class="table">
 						<tr>
 							<th>제목</th>
-						    <td><input type="text" name="reviewTitle" class="input_03"></td>
+						    <td><input type="text" name="reviewTitle" id="reviewTitle" class="input_03"></td>
 						</tr>
 						<tr>
 							<th>별점</th>
@@ -64,7 +64,7 @@
 						<tr>
 						    <th>내용</th>
 						    <td>
-						        <textarea id="reviewContent" name="reviewContent" class="textarea_pro"></textarea>					 
+						        <textarea id="reviewContent" name="reviewContent" class="textarea_pro"></textarea>						     			 
 							</td>
 						</tr>
 						<tr>
@@ -122,16 +122,24 @@
 			$("#img_view").attr("src","");			
 		}
 	}
-   /*  function onTestChange() {
-        var key = window.event.keyCode;
-
-        // If the user has pressed enter
-        if (key === 13) {
-        	var html = $("#reviewText").val().replace(/(?:\r\n|\r|\n)/g, '<br />');
-        	$("#reviewContent").html(html);
-        	console.log($("#reviewContent").val());
-        }
-        
-    } */
+   $("#funder_add").submit(function(){
+	   if ($('#reviewTitle').val() == '') {
+           alert('제목을 입력해주세요');
+           return false;
+       }
+	   if ($('#result').val() == ''){
+		   alert('별점을 입력해주세요');
+           return false;
+	   }
+	   if ($('#reviewContent').val() == '') {
+           alert('내용을 입력해주세요');
+           return false;
+       }else{
+		   var html = $("#reviewContent").val().replaceAll(/(?:\r\n|\r|\n)/g, '<br>');
+		   var text = $("#reviewContent").val(html);
+		   console.log(text.val());
+		   return true;
+       }
+   });
 </script>
 </html>

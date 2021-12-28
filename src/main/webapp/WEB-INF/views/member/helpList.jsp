@@ -173,8 +173,11 @@
 					        			<c:when test="${h.helpStatus eq 4}">			        				
 							        		취소 
 					        			</c:when>
+					        			<c:when test="${h.helpStatus eq 5}">			        				
+							        		만료 
+					        			</c:when>
 					        			<c:otherwise>
-							        		???
+							        		거절
 					        			</c:otherwise>
 					        		</c:choose>
 								</span>

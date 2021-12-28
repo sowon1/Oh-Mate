@@ -5,10 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Oh-Mate!</title>
 <style>
 .line-fr{
-	border-bottom: 1px solid #111111;
 	margin-top: 30px;
 }
 .img-fit{
@@ -104,8 +103,8 @@
 					</c:forEach>
 				</table>
 			</div>
-			<div id="pageNavi" style="width: 400px; margin: 0 auto; text-align: center;">${pageNavi }</div>
 		</div>
+		<div id="pageNavi">${pageNavi }</div>
 	</div>
 	<script>
 		//도움 요청 - 상단 프로필
