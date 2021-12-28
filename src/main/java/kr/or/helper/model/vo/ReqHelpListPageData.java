@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class ReqHelpListPageData {
 	private ArrayList<ReqHelperList> list;
+	private Helper h;
 	private String pageNavi;
 	private int start;
 	private int totalCount;
