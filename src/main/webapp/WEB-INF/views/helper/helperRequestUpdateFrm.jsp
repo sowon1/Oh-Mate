@@ -32,6 +32,9 @@
 	color: #956bfc;
 	font-weight: bold;
 }
+.table-active_mate{
+	padding: 15px;
+}
 	</style>
 </head>
 <body>
@@ -51,25 +54,27 @@
 	<div class="container_mate">
 		<c:choose>
 			<c:when test="${h.helperStatus eq 1}">	
-				<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 등록 요청서 수정</h4>
+				<h1 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 등록 요청서 수정</h1>
 			</c:when>
 			<c:when test="${h.helperStatus eq 2 }">
-				<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 프로필 수정</h4>
+				<h1 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 프로필 수정</h1>
 			</c:when>
 			<c:when test="${h.helperStatus eq 3 or helperStatus eq 4}">
-				<h4 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 재등록 요청서</h4>
+				<h1 class="form-title point_title" style="margin-bottom: 15px;">헬퍼 재등록 요청서</h1>
 			</c:when>
 		</c:choose>
+		<br>
+		<br>
 		<form action="/helpRequestUpdate.do" method="post"
 			enctype="multipart/form-data" id="funder_add">
 			<input type="hidden" name="memberNo" value="${h.memberNo }">
 			<input type="hidden" name="helperNo" value="${h.helperNo }">
 			<input type="hidden" name="helperStatus" value="${helperStatus }">
 			<div class="add_right border_a">
-				<table class="table" style="padding: 15px;">
+				<table class="table" style="padding: 15px; border: none;">
 					<tr class="table-active_mate center_list">
-						<th>1. 자신이 자신 있는 분야</th>
-						<td>
+						<th style="border: none; line-height: 38px;">1. 자신이 자신 있는 분야</th>
+						<td style="border: none;">
 							<div class="check_ent displayflex" style="text-align: left;">
 								<input type="checkbox" class="chk" name="funderCategory" id="fun_00" value="0"><label for="fun_00" style="width: 140px">배달·장보기</label> 
 								<input type="checkbox" class="chk" name="funderCategory" id="fun_01" value="0"><label for="fun_01" style="width: 140px">청소·집안일</label> 
@@ -87,8 +92,8 @@
 						</td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>2.프로필 사진 첨부</th>
-						<td>
+						<th style="border: none; line-height: 50px;">2.프로필 사진 첨부</th>
+						<td style="border: none;">
 							<p class="ac-title">가장 자신있는 프로필 사진을 다시 올려주세요!!</p>
 							<div class="img-viewr">
 								<img id="img-view" src="">
@@ -100,32 +105,32 @@
 						</td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>3.활동닉네임</th>
-						<td><input type="text" name="helperName" class="input_03"
+						<th style="border: none; line-height: 38px;">3.활동닉네임</th>
+						<td style="border: none;"><input type="text" name="helperName" class="input_03"
 							placeholder="닉네임을 다시 입력 해주세요"  style="width: 300px;"></td>
-							<td id="idChk"></td>
+							<td id="idChk" style="border: none;"></td>
 						
 					</tr>
 					<tr class="table-active_mate">
-						<th>4.선호 시작 시간 선택</th>
-						<td><span class="time"> <input type="text" class="timeform"
+						<th style="border: none; line-height: 38px;">4.선호 시작 시간 선택</th>
+						<td style="border: none;"><span class="time"> <input type="text" class="timeform"
 								name="helperStartTime"
 								class="input_date input_04" value="${h.helperStartTime }">
 						</span></td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>5.선호 마감 시간 선택</th>
-						<td><span class="time"> <input class="timeform" type="text"
+						<th style="border: none; line-height: 38px;">5.선호 마감 시간 선택</th>
+						<td style="border: none;"><span class="time"> <input class="timeform" type="text"
 								name="helperEndTime"
 								class="input_date input_04" value="${h.helperEndTime }">
 						</span></td>
 
 					</tr>
 					<tr class="table-active_mate">
-						<th>6.이동수단</th>
+						<th style="border: none; line-height: 38px;">6.이동수단</th>
 						<c:choose>
 							<c:when test="${h.helperRide eq  1}">
-								<td>
+								<td style="border: none;">
 									<input type="radio" name="helperRide" id="ride01" value="1" checked="checked"><label for="ride01" >자동차</label> 
 									<input type="radio" name="helperRide" id="ride02" value="2"><label for="ride02">오토바이</label> 
 									<input type="radio" name="helperRide" id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
@@ -134,7 +139,7 @@
 								</td>
 							</c:when>
 							<c:when test="${h.helperRide eq  2}">
-								<td>
+								<td style="border: none;">
 									<input type="radio" name="helperRide" id="ride01" value="1"><label for="ride01" >자동차</label> 
 									<input type="radio" name="helperRide" id="ride02" value="2" checked="checked"><label for="ride02">오토바이</label> 
 									<input type="radio" name="helperRide" id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
@@ -143,7 +148,7 @@
 								</td>
 							</c:when>
 							<c:when test="${h.helperRide eq  3}">
-								<td>
+								<td style="border: none;">
 									<input type="radio" name="helperRide" id="ride01" value="1"><label for="ride01" >자동차</label> 
 									<input type="radio" name="helperRide" id="ride02" value="2"><label for="ride02">오토바이</label> 
 									<input type="radio" name="helperRide" id="ride03" value="3" checked="checked"><label for="ride03">전동퀵보드</label> 
@@ -152,7 +157,7 @@
 								</td>
 							</c:when>
 							<c:when test="${h.helperRide eq  4}">
-								<td>
+								<td style="border: none;">
 									<input type="radio" name="helperRide" id="ride01" value="1"><label for="ride01" >자동차</label> 
 									<input type="radio" name="helperRide" id="ride02" value="2"><label for="ride02">오토바이</label> 
 									<input type="radio" name="helperRide" id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
@@ -161,7 +166,7 @@
 								</td>
 							</c:when>
 							<c:when test="${h.helperRide eq  5}">
-								<td>
+								<td style="border: none;">
 									<input type="radio" name="helperRide" id="ride01" value="1"><label for="ride01" >자동차</label> 
 									<input type="radio" name="helperRide" id="ride02" value="2"><label for="ride02">오토바이</label> 
 									<input type="radio" name="helperRide" id="ride03" value="3"><label for="ride03">전동퀵보드</label> 
@@ -172,12 +177,12 @@
 						</c:choose>
 					</tr>
 					<tr class="table-active_mate">
-						<th>7.자기소개</th>
-						<td><textarea name="helperIntro" class="summernote">${h.helperIntro }</textarea></td>
+						<th style="border: none; line-height: 38px;">7.자기소개</th>
+						<td style="border: none;"><textarea name="helperIntro" class="summernote">${h.helperIntro }</textarea></td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>8.활동가능한 지역()</th>
-						<td>
+						<th style="border: none; line-height: 38px;">8.활동가능한 지역()</th>
+						<td style="border: none;">
 							<p>※꼭 주소 등록후 엔터 칠것 (최대3개지점만 등록할것) ※전에 저장되었던 주소는 사라집니다.</p>
 							<div class="address">
 
@@ -198,12 +203,12 @@
 						</td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>9.자격증 기재</th>
-						<td><textarea name="helperCredit" class="summernote">${h.helperCredit }</textarea></td>
+						<th style="border: none; line-height: 38px;">9.자격증 기재</th>
+						<td style="border: none;"><textarea name="helperCredit" class="summernote">${h.helperCredit }</textarea></td>
 					</tr>
 					<tr class="table-active_mate">
-						<th>10.계좌 입력</th>
-						<td>
+						<th style="border: none; line-height: 38px;">10.계좌 입력</th>
+						<td style="border: none;">
 						<select id="bank" class="control-group" name="incomeBank">
 							<c:choose>
 								<c:when test="${h.income.incomeBank eq '신한' }">

@@ -280,8 +280,10 @@ public class HelperService {
 			pageNavi += "&gt;</a></li>";// ">" 표현 &gt
 		}
 		pageNavi += "</ul>";
+		Helper h = dao.selectOneHelper(memberNo);
 		ReqHelpListPageData rhpd= new ReqHelpListPageData();
 		rhpd.setList(list);
+		rhpd.setH(h);
 		rhpd.setPageNavi(pageNavi);
 		rhpd.setStart(start);
 		rhpd.setTotalCount(totalCount);
@@ -376,7 +378,6 @@ public class HelperService {
 			return 0;
 		}
 	}
-	
 	@Transactional
 	public int updateCompilte(int helpNo, String helpComplite) {
 		// TODO Auto-generated method stub
@@ -395,7 +396,7 @@ public class HelperService {
 			return 0;
 		}
 	}
-	
+
 	@Transactional
 	public int insertPhotoHelpCom(int helpNo, ArrayList<Photo> list) {
 		int result = 0;
@@ -406,7 +407,6 @@ public class HelperService {
 		return result;
 	}
 	//찜한 헬퍼
-
 	public ArrayList<Helper> selectBookmarkHelperList(int memberNo) {
 		// TODO Auto-generated method stub
 		return dao.selectBookmarkHelperList(memberNo);

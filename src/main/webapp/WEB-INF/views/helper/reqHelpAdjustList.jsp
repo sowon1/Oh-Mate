@@ -11,6 +11,9 @@
 	border-bottom: 1px solid #111111;
 	margin-top: 30px;
 }
+.img-fit{
+	object-fit:cover;
+}
 </style>
 <title>Oh-Mate!</title>
 </head>
@@ -23,7 +26,7 @@
 			<div>
 				<table class="table">
 					<tr>
-						<th colspan="2" rowspan="2"><img
+						<th colspan="2" rowspan="2"><img class="img-fit"
 							src="/resources/upload/helper/${list[0].helperFilepath }"
 							style="width: 150px; height: 150px;"></th>
 						<th style="width: 120px;">닉네임</th>

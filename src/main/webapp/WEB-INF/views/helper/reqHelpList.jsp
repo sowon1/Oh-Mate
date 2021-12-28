@@ -11,6 +11,9 @@
 	border-bottom: 1px solid #111111;
 	margin-top: 30px;
 }
+.img-fit{
+	object-fit:cover;
+}
 </style>
 <title>Oh-Mate!</title>
 </head>
@@ -23,41 +26,42 @@
 			<div>
 				<table class="table">
 					<tr>
-						<th colspan="2" rowspan="2"><img
-							src="/resources/upload/helper/${list[0].helperFilepath }"
-							style="width: 150px; height: 150px;"></th>
+						<th colspan="2" rowspan="2">
+						<img class="img-fit"
+							src="/resources/upload/helper/${helper.helperFilepath }"
+							style="width: 150px; height: 150px; " ></th>
 						<th style="width: 120px;">닉네임</th>
-						<td>${list[0].helperName }</td>
+						<td>${helper.helperName }</td>
 						<th>이동수단</th>
 						<td><c:choose>
-								<c:when test="${list[0].helperRide eq 1}">
+								<c:when test="${helper.helperRide eq 1}">
 							자동차
 							</c:when>
-								<c:when test="${list[0].helperRide eq 2 }">
+								<c:when test="${helper.helperRide eq 2 }">
 							오토바이
 							</c:when>
-								<c:when test="${list[0].helperRide eq 3 }">
+								<c:when test="${helper.helperRide eq 3 }">
 							전동퀵보드
 							</c:when>
-								<c:when test="${list[0].helperRide eq 4 }">
+								<c:when test="${helper.helperRide eq 4 }">
 							자전거
 							</c:when>
-								<c:when test="${list[0].helperRide eq 5 }">
+								<c:when test="${helper.helperRide eq 5 }">
 							없음
 							</c:when>
 							</c:choose></td>
 					</tr>
 					<tr>
 						<th>선호시작시간</th>
-						<td>${list[0].helperStartTime }</td>
+						<td>${helper.helperStartTime }</td>
 						<th>선호마감시간</th>
-						<td>${list[0].helperEndTime }</td>
+						<td>${helper.helperEndTime }</td>
 					</tr>
 					<tr>
 						<th style="width: 200px">선호분야</th>
 						<td colspan="5" >
 							<div class="help_helper_pro_cate"
-								value="${list[0].helperCategory}" >
+								value="${helper.helperCategory}" >
 								<em class="help_helper_pro_cate">배달·장보기</em> <em
 									class="help_helper_pro_cate">청소·집안일</em> <em
 									class="help_helper_pro_cate">설치·조립·운반</em> <em
@@ -71,7 +75,7 @@
 					</tr>
 					<tr>
 						<th>자격증 소개</th>
-						<td colspan="5">${list[0].helperCredit }</td>
+						<td colspan="5">${helper.helperCredit }</td>
 					</tr>
 				</table>
 			</div>
