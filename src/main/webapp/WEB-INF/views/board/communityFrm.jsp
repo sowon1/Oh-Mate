@@ -46,13 +46,13 @@
 				<div class="MateSearch">
 					<form style="position:relative;" action="/mateSearch.do" method="post">
 						<div class="form-check" style="padding-left:0px;">
-							<img class="searchsty" src="/resources/img/icon/search1.png">
+							<img class="searchsty" src="/resources/img/icon/filter.png">
 							<p class="searchfs">조건검색</p>
 						</div>
 						<input type="text" class="form-control me-sm-2" name="keyword" placeholder="제목 또는 내용을 검색해주세요" style="width: 350px; margin-top: 5px;"> 
 						<input type="submit" id="Msearch" style="display: none;"></input> 
 							<label for="Msearch"> 
-								<img src="/resources/img/icon/search2.png" class="searchIm">
+								<img src="/resources/img/icon/search_on.png" class="searchIm">
 							</label>
 					</form>
 				</div>
