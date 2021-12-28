@@ -20,7 +20,7 @@
 						<td style="width:320px;">${hp.helperName }</td>
 						<th style="width:130px;">헬퍼 프로필</th>
 						<td colspan="3">
-							<img src="/resources/upload/helper/${hp.helperFilepath }">
+							<img src="/resources/upload/helper/${hp.helperFilepath }" class="pro_img">
 						</td>
 					</tr>
 					<tr>
