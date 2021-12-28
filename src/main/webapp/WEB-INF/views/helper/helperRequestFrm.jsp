@@ -96,12 +96,10 @@
 						<td style="border: none;">
 							<p class="ac-title">가장 자신있는 프로필 사진을 넣어주세요(필수)</p>
 							<div class="img-viewr">
-								<img id="img-view" src="">
-							</div> <label class="btn btn_sm btn_out" for="profile"
-							style="line-height: 18px">사진첨부</label> <input type="file"
-							id="profile" name="upfile"
-							onchange="loadImg(this);" accept=".jpg,.jpeg,.png,.gif"
-							style="display: none;">
+							<img id="img-view" src="">
+							<label class="btn btn_sm btn_out" for="profile" style="line-height: 18px">사진첨부</label> 
+							<input type="file" id="profile" name="upfile" onchange="loadImg(this);" accept=".jpg,.jpeg,.png,.gif" style="display: none;">
+							</div> 
 						</td>
 					</tr>
 					<tr class="table-active_mate">
@@ -186,7 +184,7 @@
 						</select>
 						<p class="ac-title">계좌번호</p>
 						<input type="text" id="number" name="incomeAccount"
-							class="input_03" placeholder="하이달(-)과 같이 기제해주세요">
+							class="input_03" placeholder="하이픈(-)과 같이 기제해주세요">
 						<p class="ac-title">예금주</p>
 						<input type="text" id="name" name="incomeName" class="input_03">
 						</td>

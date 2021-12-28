@@ -97,11 +97,9 @@
 							<p class="ac-title">가장 자신있는 프로필 사진을 다시 올려주세요!!</p>
 							<div class="img-viewr">
 								<img id="img-view" src="">
-							</div> <label class="btn btn_sm btn_out" for="profile"
-							style="line-height: 18px">사진첨부</label> <input type="file"
-							id="profile" name="upfile"
-							onchange="loadImg(this);" accept=".jpg,.jpeg,.png,.gif"
-							style="display: none;">
+							<label class="btn btn_sm btn_out" for="profile" style="line-height: 18px">사진첨부</label> 
+							<input type="file" id="profile" name="upfile" onchange="loadImg(this);" accept=".jpg,.jpeg,.png,.gif" style="display: none;">
+							</div> 
 						</td>
 					</tr>
 					<tr class="table-active_mate">
@@ -279,7 +277,7 @@
 						<p class="ac-title">계좌번호</p>
 						<input type="hidden" name="incomeNo" value="${h.income.incomeNo }">
 						<input type="text" id="number" name="incomeAccount"
-							class="input_03" placeholder="하이달(-)과 같이 기제해주세요" value="${h.income.incomeAccount }">
+							class="input_03" placeholder="하이픈(-)과 같이 기제해주세요" value="${h.income.incomeAccount }">
 						<p class="ac-title">예금주</p>
 						<input type="text" id="name" name="incomeName" class="input_03" value="${h.income.incomeName }">
 						</td>
