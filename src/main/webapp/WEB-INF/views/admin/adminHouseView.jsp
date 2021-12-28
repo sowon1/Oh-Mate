@@ -48,13 +48,11 @@
 									  			<c:when test="${i.index eq 0 }">
 												    <div class="item active">
 												    	<img src="/resources/upload/house/${p.photoPath}">
-												        <div class="carousel-caption"></div>
 												    </div>
 									  			</c:when>
 									  			<c:otherwise>
 												    <div class="item">
 												        <img src="/resources/upload/house/${p.photoPath}">
-												        <div class="carousel-caption"></div>
 												    </div>
 									  			</c:otherwise>								  		
 									  		</c:choose>
