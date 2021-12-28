@@ -174,7 +174,7 @@
 							        		취소 
 					        			</c:when>
 					        			<c:otherwise>
-							        		???
+							        		거절
 					        			</c:otherwise>
 					        		</c:choose>
 								</span>

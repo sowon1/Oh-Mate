@@ -61,6 +61,9 @@
     width: 100%;
     height: auto;
     overflow: hidden;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
 	}
 	.main_helper_list li{
 	    width: 292px;
@@ -68,7 +71,7 @@
 	    overflow: hidden;
 	    float: left;
 	    border-radius: 20px;
-	    margin-right: 10px;
+	    margin-bottom: 10px;
 	    box-sizing: border-box;
 	    padding: 20px;
 	    text-align: center;
