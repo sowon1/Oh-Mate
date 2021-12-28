@@ -152,7 +152,7 @@
 						<li>
 							<div class="house">
 								<a 
-									href="/houseOwnerRoom.do?houseNo=${h.houseNo }">
+									href="/houseOwnerRoom.do?houseNo=${h.houseNo }&memberNo=${h.memberNo}">
 									<div class="house-img">
 										<img src="/resources/upload/house/${h.photoList[0].photoPath }">
 									</div>
