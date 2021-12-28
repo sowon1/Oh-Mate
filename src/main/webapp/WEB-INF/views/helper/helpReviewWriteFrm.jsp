@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰 작성</title>
+<title>Oh-Mate!</title>
 <style>
 	.img_viewer>img{
 		height: 130px;
