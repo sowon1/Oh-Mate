@@ -126,6 +126,9 @@
                         		<c:when test="${empty sessionScope.m}">
                         			<a onclick="msgpopupopen();"><img src="/resources/img/icon/report.png"></a>
                         		</c:when>
+                        		<c:when test="${sessionScope.m.memberNo == h.memberNo}">
+                        			<a class="NoReport"><img src="/resources/img/icon/report.png"></a>
+                        		</c:when>
                         		<c:otherwise>
                         			<a id="helperReport"><img src="/resources/img/icon/report.png"></a>
                         		</c:otherwise>
@@ -529,6 +532,11 @@
 			  });
 			});
 		});
+		//신고 모달 - 자기자신 신고못함
+		$(".NoReport").click(function(){
+			 $(".title_name").text("자기 자신은 신고할 수 없습니다.");
+			countmsgopen(autoClose());
+		})
 		function reportopen(){
 			$(".report_popup_modal").css("display","flex");
 		    $("body").css("overflow", "hidden");
