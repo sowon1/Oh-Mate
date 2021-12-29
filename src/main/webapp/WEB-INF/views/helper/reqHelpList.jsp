@@ -312,93 +312,98 @@
             }
          }
       });
+    //취소
+      $("a[name='cancelBtn']").click(function() {
+    	  var idx = $("a[name='cancelBtn']").index(this);
+         var startTime = $("input[name='StartTime']").eq(idx).val()
+               .replaceAll(":", "");
+         var nowTime = new Date();
+         var now = formatDate(nowTime);
+         var startNum = Number(startTime);
+         var nowNum = Number(now);
+         var helpNo= $('input[name=helpNoNum]').eq(idx).val();
+         var comTime= startNum-nowNum;
+            if(comTime>100){
+               location.href="/updateCancelHelpStatus.do?helpStatus=4&helpNo="+helpNo;
+            }else{
+               alert("한시간 이전까지만 취소가 가능합니다.");
+            }
+      });
+      //오늘시간 구하기
+      $("a[name='allowBtn']").click(function() {
+    	  	   var idx=  $("a[name='allowBtn']").index(this);
+               var startTime = $("input[name='StartTime']").eq(idx).val()
+                     .replaceAll(":", "");
+               console.log("확인1"+(idx));
+               console.log((startTime));
+               var nowTime = new Date();
+               var now = formatDate(nowTime);
+               console.log(now);
+               var startNum = Number(startTime);
+               var nowNum = Number(now);
+               var helpNo= $('input[name=helpNoNum]').eq(idx).val();
+               if(nowNum>=startNum){
+                  alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!");
+               }else if(nowNum<startNum){
+                     location.href="/updateHelpStatus.do?helpStatus=2&helpNo="+helpNo;
+               }
+               
+            });
+      //수락완료
+      $("a[name='complete']").click(function () {
+    	 var idx = $("a[name='complete']").index(this)
+          if($("textarea[name='helpComplite']").eq(idx).val()!="" && $("input[name='photoPath']").eq(idx).val()!=""){
+             $(".comForm").eq(idx).submit();
+          }else{
+             if($("textarea[name='helpComplite']").eq(idx).val()==""){
+                alert("헬프 마감내역을 적지 않았습니다.")
+             }else if($("input[name='photoPath']").eq(idx).val()==""){
+                alert("사진을 한장이라도 올려주셔야합니다.")
+             }
+          }
+       });
+      
+      //헬프 완료 이미지 띄우기
+     $("input[name='photoPath']").click(function() {
+    	 
+    	 var idx =$("input[name='photoPath']").index(this);
+    	 console.log($(".img_wraps>img").length);
+    	 for(var i=0; i<$(".img_wraps>img").length;i++){    		 
+    	 $(".img_wraps").eq(idx).remove();
+    	 }
+    	 alert(idx);
+      var sel_files = [];
+      var qq=$("input[name='photoPath']").eq(idx).val();
+         $("input[name='photoPath']").eq(idx).on("change", handleImgsFilesSelect);
+      function handleImgsFilesSelect(e) {
+         var files = e.target.files;
+         var fileArr = Array.prototype.slice.call(files);
+
+         fileArr
+               .forEach(function(f) {
+                  if (!f.type.match("image.*")) {
+                     alert("확장자는 이미지 확장자만 가능합니다.");
+                     return;
+                  }
+                  sel_files.push(f);
+
+                  var reader = new FileReader();
+                  reader.onload = function(e) {
+                     var img_html = "<span class='img_wraps'><img src=\""+e.target.result+"\" style='width:80px;height:80px;'/></span>";
+                     $(".img_wrap").eq(idx).append(img_html);
+                  }
+                  reader.readAsDataURL(f);
+               });
+      }
+	});
       //모달
       $(".modbtn").click(function() {
       var idx= $(".modbtn").index(this);
-         console.log(idx);
          $(".modal-wrap2").eq(idx).css("display", "flex");
          $('body').css("overflow", "hidden"); //모달시 스크롤 방지
          $(".back_dark").show();
-         //오늘시간 구하기
-         $("a[name='allowBtn']").click(function() {
-                  var startTime = $("input[name='StartTime']").eq(idx).val()
-                        .replaceAll(":", "");
-                  console.log("확인1"+(idx));
-                  console.log((startTime));
-                  var nowTime = new Date();
-                  var now = formatDate(nowTime);
-                  console.log(now);
-                  var startNum = Number(startTime);
-                  var nowNum = Number(now);
-                  var helpNo= $('input[name=helpNoNum]').eq(idx).val();
-                  if(nowNum>=startNum){
-                     alert("이미 지정된 시작시간이 지났습니다. 다른 요청을 선택해주세요!");
-                  }else if(nowNum<startNum){
-                        location.href="/updateHelpStatus.do?helpStatus=2&helpNo="+helpNo;
-                  }
-                  
-               });
-         //취소
-         $("a[name='cancelBtn']").click(function() {
-            var startTime = $("input[name='StartTime']").eq(idx).val()
-                  .replaceAll(":", "");
-            console.log((idx));
-            console.log((startTime));
-            var nowTime = new Date();
-            var now = formatDate(nowTime);
-            console.log(now);
-            var startNum = Number(startTime);
-            var nowNum = Number(now);
-            var helpNo= $('input[name=helpNoNum]').eq(idx).val();
-            if(nowNum<startNum){
-               var comTime= startNum-nowNum;
-               if(comTime>100){
-                  location.href="/updateCancelHelpStatus.do?helpStatus=4&helpNo="+helpNo;
-               }else{
-                  alert("한시간 이전까지만 취소가 가능합니다.");
-               }
-            }
-            
-         });
-         //헬프 완료 이미지 띄우기
-         var sel_files = [];
-         var qq=$("input[name='photoPath']").eq(idx).val();
-         console.log(qq);
-         $(document).ready(function() {
-            $("input[name='photoPath']").eq(idx).on("change", handleImgsFilesSelect);
-         });
-         
-         $("a[name='complete']").click(function () {
-            if($("textarea[name='helpComplite']").eq(idx).val()!="" && $("input[name='photoPath']").eq(idx).val()!=""){
-               $(".comForm").eq(idx).submit();
-            }else{
-               if($("textarea[name='helpComplite']").eq(idx).val()==""){
-                  alert("헬프 마감내역을 적지 않았습니다.")
-               }else if($("input[name='photoPath']").eq(idx).val()==""){
-                  alert("사진을 한장이라도 올려주셔야합니다.")
-               }
-            }
-         });
-         function handleImgsFilesSelect(e) {
-            var files = e.target.files;
-            var fileArr = Array.prototype.slice.call(files);
-
-            fileArr
-                  .forEach(function(f) {
-                     if (!f.type.match("image.*")) {
-                        alert("확장자는 이미지 확장자만 가능합니다.");
-                        return;
-                     }
-                     sel_files.push(f);
-
-                     var reader = new FileReader();
-                     reader.onload = function(e) {
-                        var img_html = "<span><img src=\""+e.target.result+"\" style='width:80px;height:80px;'/></span>";
-                        $(".img_wrap").eq(idx).append(img_html);
-                     }
-                     reader.readAsDataURL(f);
-                  });
-         }
+        
+        
       });
       $(document).mouseup(function(e) {
          //마우스 영역 밖 클릭 시 모달 닫기
