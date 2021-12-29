@@ -363,10 +363,14 @@
           }
        });
       
+      //모달
+      $(".modbtn").click(function() {
+      var idx= $(".modbtn").index(this);
+         $(".modal-wrap2").eq(idx).css("display", "flex");
+         $('body').css("overflow", "hidden"); //모달시 스크롤 방지
+         $(".back_dark").show();
+        
       //헬프 완료 이미지 띄우기
-     $("input[name='photoPath']").click(function() {
-    	 var idx =$("input[name='photoPath']").index(this);
-    	 console.log($(".img_wraps>img").length);
     	 for(var i=0; i<$(".img_wraps>img").length;i++){    		 
     	 $(".img_wraps").remove();
     	 }
@@ -393,14 +397,6 @@
                   reader.readAsDataURL(f);
                });
       }
-	});
-      //모달
-      $(".modbtn").click(function() {
-      var idx= $(".modbtn").index(this);
-         $(".modal-wrap2").eq(idx).css("display", "flex");
-         $('body').css("overflow", "hidden"); //모달시 스크롤 방지
-         $(".back_dark").show();
-        
         
       });
       $(document).mouseup(function(e) {
