@@ -365,13 +365,11 @@
       
       //헬프 완료 이미지 띄우기
      $("input[name='photoPath']").click(function() {
-    	 
     	 var idx =$("input[name='photoPath']").index(this);
     	 console.log($(".img_wraps>img").length);
     	 for(var i=0; i<$(".img_wraps>img").length;i++){    		 
-    	 $(".img_wraps").eq(idx).remove();
+    	 $(".img_wraps").remove();
     	 }
-    	 alert(idx);
       var sel_files = [];
       var qq=$("input[name='photoPath']").eq(idx).val();
          $("input[name='photoPath']").eq(idx).on("change", handleImgsFilesSelect);
