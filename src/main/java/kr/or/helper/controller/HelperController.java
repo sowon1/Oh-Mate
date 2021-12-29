@@ -585,7 +585,6 @@ public class HelperController {
 			}
 			re.setPhotoPath(filepath);
 			int result = service.insertHelpReview(re);
-			
 			if(result == -1) {
 				model.addAttribute("msg", "등록실패");
 			}else {
