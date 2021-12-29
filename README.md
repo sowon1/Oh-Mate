@@ -19,7 +19,7 @@
 <details>
 <summary>프로젝트 자세히보기</summary>
 <div markdown="1">
-	<img src="https://user-images.githubusercontent.com/83288448/147681828-29f2c549-28b2-4e53-921e-7bdb6a3ea5b9.png"><br>
+	<img src="https://user-images.githubusercontent.com/83288448/147682388-439bd815-b854-4d4f-a970-c11f0c957692.png"><br>
 	<img src="https://user-images.githubusercontent.com/83288448/147681836-e76bc5fc-df14-4e2a-a066-6dcc252cd834.png"><br>
 	<img src="https://user-images.githubusercontent.com/83288448/147681887-0a33adb7-2317-4c93-b016-f30c291b34af.png"><br>
 	<img src="https://user-images.githubusercontent.com/83288448/147681899-1cb21bc2-c710-4098-8369-32f3a717f0a0.png"><br>
