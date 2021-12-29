@@ -49,7 +49,7 @@
 	           		</div><br>
 					<h6 class="join_title"><em>*</em>&ensp;아이디</h6> <!-- 아이디 입력(대소문자 5~11글자) -->
 					<div class="in-line">
-						<input type="text" name="memberId" id="memberId" class="form-control" placeholder="아이디 입력(대소문자 조합 5~11글자)" maxlength="11">
+						<input type="text" name="memberId" id="memberId" class="form-control" placeholder="아이디 입력(대문자 또는 소문자  5~11글자)" maxlength="11">
 						<button type="button" name="memberIdChk" id="memberIdChk" class="btn btn-primary inputBtn1">중복 확인</button><br>
 					</div><span class="result1"></span>
 					<h6 class="join_title"><em>*</em>&ensp;이메일주소</h6> <!-- 이메일형식 / 인증번호 -->

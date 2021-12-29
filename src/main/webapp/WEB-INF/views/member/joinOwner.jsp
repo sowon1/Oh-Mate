@@ -47,7 +47,7 @@
 	                <input type="radio" id="select4" name="age" value="2"><label for="select4" style="width:130px;">30대</label>
 	                <input type="radio" id="select5" name="age" value="3"><label for="select5" style="width:130px;">40대이상</label>
 	           	</div><br>
-				<h6 class="join_title"><em>*</em>&ensp;아이디</h6> <!-- 아이디 입력(대소문자 5~11글자) -->
+				<h6 class="join_title"><em>*</em>&ensp;아이디</h6> <!-- 아이디 입력(대문자 또는 소문자 5~11글자) -->
 				<div class="in-line">
 					<input type="text" name="memberId" id="memberId" class="form-control" placeholder="아이디 입력(대소문자 조합 5~11글자)" maxlength="11">
 					<button type="button" name="memberIdChk" id="memberIdChk" class="btn btn-primary inputBtn1">중복 확인</button><br>
