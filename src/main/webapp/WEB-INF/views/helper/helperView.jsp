@@ -25,32 +25,61 @@
 			<div class="helper_view_top">
 				<div class="helper_view_top_pro">
 					<img src="/resources/upload/helper/${h.helperFilepath}" class="helper_view_top_proimg">
-					<div class="helper_pro">					
-						<span class="helper_pro_name">
-							${h.helperName}						
-						</span>
-						<span class="helper_pro_agender">
-							<c:choose>
-			        			<c:when test="${h.age == 1}">			        				
-					        		20대 · 
-			        			</c:when>
-			        			<c:when test="${h.age == 2}">			        				
-					        		30대 · 
-			        			</c:when>
-			        			<c:otherwise>
-					        		40대 · 
-			        			</c:otherwise>
-			        		</c:choose>
-			        		<c:choose>
-			        			<c:when test="${h.gender == 1}">
-					        		남
-			        			</c:when>
-			        			<c:otherwise>
-					        		여
-			        			</c:otherwise>
-			        		</c:choose>
-						</span>
-						<span class="like_count">[💜 <em class="point like_count_point">${h.likeCount}명</em>이 관심 중인 헬퍼]</span>
+					<div class="helper_pro">
+						<div class="helper_pro_one">						
+							<span class="helper_pro_name">
+								${h.helperName}						
+							</span>
+							<span class="helper_pro_agender">
+								<c:choose>
+				        			<c:when test="${h.age == 1}">			        				
+						        		20대 · 
+				        			</c:when>
+				        			<c:when test="${h.age == 2}">			        				
+						        		30대 · 
+				        			</c:when>
+				        			<c:otherwise>
+						        		40대 · 
+				        			</c:otherwise>
+				        		</c:choose>
+				        		<c:choose>
+				        			<c:when test="${h.gender == 1}">
+						        		남
+				        			</c:when>
+				        			<c:otherwise>
+						        		여
+				        			</c:otherwise>
+				        		</c:choose>
+							</span>
+							<div class="star-ratings pro_star">
+								<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
+									<c:choose>
+										<c:when test="${review[0].reviewavg == 5}">
+											<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>													
+										</c:when>
+										<c:when test="${review[0].reviewavg == 4}">
+											<span>★</span><span>★</span><span>★</span><span>★</span>												
+										</c:when>
+										<c:when test="${review[0].reviewavg == 3}">
+											<span>★</span><span>★</span><span>★</span>												
+										</c:when>
+										<c:when test="${review[0].reviewavg == 2}">
+											<span>★</span><span>★</span>													
+										</c:when>
+										<c:when test="${review[0].reviewavg == 1}">
+											<span>★</span>												
+										</c:when>
+										<c:otherwise>
+											<span></span>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="star-ratings-base space-x-2 text-lg">
+									<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>	
+								</div>
+							</div>
+							<span class="like_count">[💜 <em class="point like_count_point">${h.likeCount}명</em>이 관심 중인 헬퍼]</span>
+						</div>					
 						<div class="helper_pro_cate" value="${h.helperCategory}">
 							<span class="heler_pro_cate_title">활동분야</span>
 							<div class="clear">							
@@ -249,18 +278,35 @@
 						        		</c:choose>
 									</span>
 									<div class="help_helper_grade">
-										<!--  
 										<span class="help_helper_star">
 											<div class="star-ratings review_star">
 												<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
-													<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>													
+													<c:choose>
+														<c:when test="${review[0].reviewavg == 5}">
+															<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>													
+														</c:when>
+														<c:when test="${review[0].reviewavg == 4}">
+															<span>★</span><span>★</span><span>★</span><span>★</span>												
+														</c:when>
+														<c:when test="${review[0].reviewavg == 3}">
+															<span>★</span><span>★</span><span>★</span>												
+														</c:when>
+														<c:when test="${review[0].reviewavg == 2}">
+															<span>★</span><span>★</span>													
+														</c:when>
+														<c:when test="${review[0].reviewavg == 1}">
+															<span>★</span>												
+														</c:when>
+														<c:otherwise>
+															<span></span>
+														</c:otherwise>
+													</c:choose>
 												</div>
 												<div class="star-ratings-base space-x-2 text-lg">
 													<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>	
 												</div>
 											</div>
 										</span>
-										-->
 										<span class="help_helper_like">💜 ${h.likeCount} </span>
 									</div>
 									<div class="help_helper_pro_cate" value="${h.helperCategory}">					

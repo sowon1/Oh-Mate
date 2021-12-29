@@ -1318,3 +1318,13 @@ from { opacity: 0; -webkit-transform: scale(.8); }
 .reimgmodalBox img {
 	width: 600px;
 }
+.help_helper_like{
+	margin-left:5px;
+}
+.helper_pro_one{
+	display: flex;
+	align-items: baseline;
+}
+.pro_star{
+	margin: 0px 5px 0px 8px;
+}
