@@ -20,4 +20,5 @@ public class HelpReview {
 	private String photoPath;				//리뷰사진
 	private String helperName;				//헬퍼이름
 	private String memfilepath;				//리뷰자 프로필 이미지
+	private int reviewavg;						//리뷰 평균
 }
