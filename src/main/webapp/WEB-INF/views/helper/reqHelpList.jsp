@@ -237,6 +237,8 @@
                                                    <p>※수정불가 하오니 신중히 올려주세요</p>
                                                    <input type="file" id="input_imgs" name="photoPath" multiple />
                                                 </div>
+                                                <div>※ 사진을 고르신다음 다시파일을 선택할시 사진을 새로 등록하오니 유의해주세요</div>
+                                                <div>(같은 사진을 고르면 미리보기가 나오지 않습니다.)</div>
                                                 <div class="img_wrap"></div>
                                              </td>
                                              </tr>
@@ -362,7 +364,13 @@
              }
           }
        });
-      
+      $()
+      //헬프 완료 이미지 띄우기
+      	$("input[name='photoPath']").click(function () {
+    	 for(var i=0; i<$(".img_wraps>img").length;i++){    		 
+    	 $(".img_wraps").remove();
+    	 }			
+		});
       //모달
       $(".modbtn").click(function() {
       var idx= $(".modbtn").index(this);
@@ -370,10 +378,6 @@
          $('body').css("overflow", "hidden"); //모달시 스크롤 방지
          $(".back_dark").show();
         
-      //헬프 완료 이미지 띄우기
-    	 for(var i=0; i<$(".img_wraps>img").length;i++){    		 
-    	 $(".img_wraps").remove();
-    	 }
       var sel_files = [];
       var qq=$("input[name='photoPath']").eq(idx).val();
          $("input[name='photoPath']").eq(idx).on("change", handleImgsFilesSelect);
