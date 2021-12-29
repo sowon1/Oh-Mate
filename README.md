@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/83288448/143769212-c84a7093-9655-4010-b523-b13b265a364c.png" height="70px" width="250px">
+  ![오메이트](https://user-images.githubusercontent.com/83288448/147678917-8a885e2b-0407-4224-94a8-35bd5e4e24ca.png)
 </p>
 	<h2>프로젝트 : 오렌지마켓_중고거래 웹서비스</h2>
 		> 개발기간 : 2021.10.15 ~ 2021.11.05<br><br>
