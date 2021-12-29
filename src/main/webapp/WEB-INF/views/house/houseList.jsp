@@ -49,15 +49,15 @@
 									</p>
 									<div class="filter_cont">
 										<div>
-											<input type="radio" id="house-filter_gender_division_f" name="houseGender" value="2">
+											<input type="radio" id="house-filter_gender_division_f" name="houseGender" value="여성전용">
 											<label for="house-filter_gender_division_f"><span class="select_icon02"></span>여성전용</label>
 										</div>
 										<div>
-											<input type="radio" id="house-filter_gender_division_m" name="houseGender" value="1">
+											<input type="radio" id="house-filter_gender_division_m" name="houseGender" value="남성전용">
 											<label for="house-filter_gender_division_m"><span class="select_icon04"></span>남성전용</label>
 										</div>
 										<div>
-											<input type="radio" id="house-filter_gender_division_mf" name="houseGender" value="3">
+											<input type="radio" id="house-filter_gender_division_mf" name="houseGender" value="남녀공용">
 											<label for="house-filter_gender_division_mf"><span class="select_icon03"></span>남녀공용</label>
 										</div>
 									</div>

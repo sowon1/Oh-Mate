@@ -126,6 +126,9 @@
                         		<c:when test="${empty sessionScope.m}">
                         			<a onclick="msgpopupopen();"><img src="/resources/img/icon/report.png"></a>
                         		</c:when>
+                        		<c:when test="${sessionScope.m.memberNo == h.memberNo}">
+                        			<a class="NoReport"><img src="/resources/img/icon/report.png"></a>
+                        		</c:when>
                         		<c:otherwise>
                         			<a id="helperReport"><img src="/resources/img/icon/report.png"></a>
                         		</c:otherwise>
@@ -199,6 +202,9 @@
 							<c:when test="${empty sessionScope.m}">
 								<a class="btn btn_100 help_login">도움 요청하기</a>
 							</c:when>
+							<c:when test="${sessionScope.m.memberNo == h.memberNo}">
+                       			<a class="btn btn_100" id="nohelpself">도움 요청하기</a>
+                       		</c:when>
 							<c:when test="${sessionScope.m.memberLevel eq 1 or sessionScope.m.memberLevel eq 4 or sessionScope.m.memberLevel eq 5}">
 								<a class="btn btn_100 help_request" no="${h.helperNo}">도움 요청하기</a>
 							</c:when>
@@ -529,6 +535,17 @@
 			  });
 			});
 		});
+		//신고 모달 - 자기자신 신고못함
+		$(".NoReport").click(function(){
+			 $(".title_name").text("자기 자신은 신고할 수 없습니다.");
+			countmsgopen(autoClose());
+		});
+		//도움 모달 - 자기자신 도움 못함
+		$("#nohelpself").click(function(){
+			 $(".title_name").text("자기 자신에게 도움을 요청 할 수 없습니다.");
+			countmsgopen(autoClose());
+		});
+		
 		function reportopen(){
 			$(".report_popup_modal").css("display","flex");
 		    $("body").css("overflow", "hidden");
