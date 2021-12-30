@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://user-images.githubusercontent.com/83288448/147678917-8a885e2b-0407-4224-94a8-35bd5e4e24ca.png" height="70px" width="250px">
+	<img src="https://user-images.githubusercontent.com/83288448/147678917-8a885e2b-0407-4224-94a8-35bd5e4e24ca.png" height="70px" width="270px">
 </p>
 	<h2>프로젝트 : 오 나의 메이트</h2>
 		> 개발기간 : 2021.11.22 ~ 2021.12.29<br><br>
