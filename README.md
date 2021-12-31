@@ -13,6 +13,14 @@
 		<span>&emsp;정진환 : 입주/투어신청내역, 공지사항, 하우스 찜/핼퍼 즐겨찾기, 헬퍼 후기관리, 헬프 요청내역</span><br>
 		<span>&emsp;홍다영 : 회원 기능(회원가입/이메일 인증/로그인/아이디 비밀번호 찾기), 마이페이지(나의정보, 작성게시물/댓글 확인),
 		게시판(CRUD,검색,상세보기,더보기,댓글/대댓글(비밀기능포함)), 프로필기능(등록/수정/삭제), 챗봇</span><br><br>
+		> 개발환경<br>
+		&emsp;<spam> - 운영체제 : Windows os</span><br>
+		&emsp;<spam> - 개발도구 : Spring, Vscode</span><br>
+		&emsp;<spam> - DBMS : Oracle SQL Developer</span><br>
+		&emsp;<spam> - Server : Apache Tomcat v.8.5</span><br>
+		&emsp;<spam> - Language : JAVA, HTML5, CSS3, JavaScript, JQuery, JSP</span><br>
+		&emsp;<spam> - 디자인 툴 : Bootstrap</span><br>
+		&emsp;<spam> - API : 카카오 우편, 지도, I’mport 결제 API, Google Gmail API, 채널톡 챗봇</span><br><br>
 		> 협업 툴<br>
 		<span>&emsp;slack, 트렐로, 구글docs: 공지,일정공유</span><br>
 		<span>&emsp;oven: 화면설계</span><br>
